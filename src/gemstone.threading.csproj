@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
+    <RootNamespace>gemstone.threading</RootNamespace>
+    <PackageId>gemstone.threading</PackageId>
+    <Authors>Grid Protection Alliance</Authors>
+    <Company>Grid Protection Alliance</Company>
+    <Product>gemstone</Product>
+    <PackageDescription>GPA Gemstone Threading Library</PackageDescription>
+    <Description>GPA Gemstone Threading Library</Description>
+    <Copyright>Copyright © 2019</Copyright>
+    <PackageProjectUrl>https://github.com/gemstone</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/gemstone/gemstone.threading</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>GPA;gemstone;library;threading</PackageTags>
+    <LangVersion>7.3</LangVersion>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>$(SolutionDir)..\build\$(Configuration)</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>$(SolutionDir)..\build\$(Configuration)</OutputPath>
+  </PropertyGroup>
+
+</Project>
