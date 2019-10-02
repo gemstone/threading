@@ -1,5 +1,5 @@
 ﻿//******************************************************************************************************
-//  DynamicCalculator.cs - Gbtc
+//  DelayedSynchronizedOperation.cs - Gbtc
 //
 //  Copyright © 2012, Grid Protection Alliance.  All Rights Reserved.
 //
@@ -33,10 +33,10 @@ namespace gemstone.threading.SynchronizedOperations
     /// <see cref="Delay"/> in milliseconds.
     /// </summary>
     /// <remarks>
-    /// The action performed by the <see cref="DelayedSynchronizedOperation"/> is executed on
-    /// the <see cref="ThreadPool"/> when running the operation asynchronously. When the
-    /// operation is set to pending, the action is executed in an asynchronous loop on the
-    /// thread pool until all pending operations have been completed. Since the action is
+    /// By default, the action performed by the <see cref="DelayedSynchronizedOperation"/>
+    /// is executed on the <see cref="ThreadPool"/> when running the operation asynchronously.
+    /// When the operation is set to pending, the action is executed in an asynchronous loop on
+    /// the thread pool until all pending operations have been completed. Since the action is
     /// executed on the thread pool, it is best if it can be executed quickly, without
     /// blocking the thread or putting it to sleep. If completion of the operation is
     /// critical, such as when saving data to a file, this type of operation should not
@@ -134,7 +134,6 @@ namespace gemstone.threading.SynchronizedOperations
         /// </summary>
         protected override void ExecuteActionAsync() =>
             m_delayedAction.DelayAndExecute(Delay, CancellationToken);
-
 
         #endregion
     }
