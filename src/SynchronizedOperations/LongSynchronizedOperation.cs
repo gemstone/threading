@@ -42,13 +42,6 @@ namespace gemstone.threading.SynchronizedOperations
     /// </remarks>
     public class LongSynchronizedOperation : SynchronizedOperationBase
     {
-        #region [ Members ]
-
-        // Fields
-        private bool m_isBackground;
-
-        #endregion
-
         #region [ Constructors ]
 
         /// <summary>
@@ -63,9 +56,36 @@ namespace gemstone.threading.SynchronizedOperations
         /// <summary>
         /// Creates a new instance of the <see cref="LongSynchronizedOperation"/> class.
         /// </summary>
+        /// <param name="action">The cancellable action to be performed during this operation.</param>
+        /// <remarks>
+        /// Cancellable synchronized operation is useful in cases where actions should be terminated
+        /// during dispose and/or shutdown operations.
+        /// </remarks>
+        public LongSynchronizedOperation(Action<CancellationToken> action)
+            : base(action)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="LongSynchronizedOperation"/> class.
+        /// </summary>
         /// <param name="action">The action to be performed during this operation.</param>
         /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
         public LongSynchronizedOperation(Action action, Action<Exception> exceptionAction)
+            : base(action, exceptionAction)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="LongSynchronizedOperation"/> class.
+        /// </summary>
+        /// <param name="action">The action to be performed during this operation.</param>
+        /// <param name="exceptionAction">The cancellable action to be performed if an exception is thrown from the action.</param>
+        /// <remarks>
+        /// Cancellable synchronized operation is useful in cases where actions should be terminated
+        /// during dispose and/or shutdown operations.
+        /// </remarks>
+        public LongSynchronizedOperation(Action<CancellationToken> action, Action<Exception> exceptionAction)
             : base(action, exceptionAction)
         {
         }
@@ -78,17 +98,7 @@ namespace gemstone.threading.SynchronizedOperations
         /// Gets or sets whether or not the thread
         /// executing the action is a background thread.
         /// </summary>
-        public bool IsBackground
-        {
-            get
-            {
-                return m_isBackground;
-            }
-            set
-            {
-                m_isBackground = value;
-            }
-        }
+        public bool IsBackground { get; set; }
 
         #endregion
 
@@ -99,15 +109,16 @@ namespace gemstone.threading.SynchronizedOperations
         /// </summary>
         protected override void ExecuteActionAsync()
         {
-            Thread actionThread = new Thread(() =>
+            new Thread(() =>
             {
                 while (ExecuteAction())
                 {
                 }
-            });
-
-            actionThread.IsBackground = m_isBackground;
-            actionThread.Start();
+            })
+            {
+                IsBackground = IsBackground
+            }
+            .Start();
         }
 
         #endregion

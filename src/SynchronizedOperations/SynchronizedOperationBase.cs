@@ -45,7 +45,7 @@ namespace gemstone.threading.SynchronizedOperations
         private const int Pending = 2;
 
         // Fields
-        private readonly Action m_action;
+        private readonly Action<CancellationToken> m_action;
         private readonly Action<Exception> m_exceptionAction;
         private int m_state;
 
@@ -65,9 +65,36 @@ namespace gemstone.threading.SynchronizedOperations
         /// <summary>
         /// Creates a new instance of the <see cref="SynchronizedOperationBase"/> class.
         /// </summary>
+        /// <param name="action">The cancellable action to be performed during this operation.</param>
+        /// <remarks>
+        /// Cancellable synchronized operation is useful in cases where actions should be terminated
+        /// during dispose and/or shutdown operations.
+        /// </remarks>
+        protected SynchronizedOperationBase(Action<CancellationToken> action)
+            : this(action, null)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="SynchronizedOperationBase"/> class.
+        /// </summary>
         /// <param name="action">The action to be performed during this operation.</param>
         /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
         protected SynchronizedOperationBase(Action action, Action<Exception> exceptionAction)
+            : this(new Action<CancellationToken>(_ => action()), exceptionAction)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="SynchronizedOperationBase"/> class.
+        /// </summary>
+        /// <param name="action">The cancellable action to be performed during this operation.</param>
+        /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
+        /// <remarks>
+        /// Cancellable synchronized operation is useful in cases where actions should be terminated
+        /// during dispose and/or shutdown operations.
+        /// </remarks>
+        protected SynchronizedOperationBase(Action<CancellationToken> action, Action<Exception> exceptionAction)
         {
             if ((object)action == null)
                 throw new ArgumentNullException(nameof(action));
@@ -84,26 +111,19 @@ namespace gemstone.threading.SynchronizedOperations
         /// Gets a value to indicate whether the synchronized
         /// operation is currently executing its action.
         /// </summary>
-        public bool IsRunning
-        {
-            get
-            {
-                return Interlocked.CompareExchange(ref m_state, NotRunning, NotRunning) != NotRunning;
-            }
-        }
+        public bool IsRunning => Interlocked.CompareExchange(ref m_state, NotRunning, NotRunning) != NotRunning;
 
         /// <summary>
         /// Gets a value to indiate whether the synchronized operation
         /// has an additional operation that is pending execution after
         /// the currently running action has completed.
         /// </summary>
-        public bool IsPending
-        {
-            get
-            {
-                return Interlocked.CompareExchange(ref m_state, NotRunning, NotRunning) == Pending;
-            }
-        }
+        public bool IsPending => Interlocked.CompareExchange(ref m_state, NotRunning, NotRunning) == Pending;
+
+        /// <summary>
+        /// Gets or sets <see cref="Threading.CancellationToken"/> to use for cancelling actions.
+        /// </summary>
+        public CancellationToken CancellationToken { get; set; } = CancellationToken.None;
 
         #endregion
 
@@ -249,7 +269,8 @@ namespace gemstone.threading.SynchronizedOperations
         {
             try
             {
-                m_action();
+                if (!CancellationToken.IsCancellationRequested)
+                    m_action(CancellationToken);
             }
             catch (Exception ex)
             {

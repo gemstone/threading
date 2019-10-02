@@ -57,9 +57,36 @@ namespace gemstone.threading.SynchronizedOperations
         /// <summary>
         /// Creates a new instance of the <see cref="ShortSynchronizedOperation"/> class.
         /// </summary>
+        /// <param name="action">The cancellable action to be performed during this operation.</param>
+        /// <remarks>
+        /// Cancellable synchronized operation is useful in cases where actions should be terminated
+        /// during dispose and/or shutdown operations.
+        /// </remarks>
+        public ShortSynchronizedOperation(Action<CancellationToken> action)
+            : base(action)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="ShortSynchronizedOperation"/> class.
+        /// </summary>
         /// <param name="action">The action to be performed during this operation.</param>
         /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
         public ShortSynchronizedOperation(Action action, Action<Exception> exceptionAction)
+            : base(action, exceptionAction)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="ShortSynchronizedOperation"/> class.
+        /// </summary>
+        /// <param name="action">The action to be performed during this operation.</param>
+        /// <param name="exceptionAction">The cancellable action to be performed if an exception is thrown from the action.</param>
+        /// <remarks>
+        /// Cancellable synchronized operation is useful in cases where actions should be terminated
+        /// during dispose and/or shutdown operations.
+        /// </remarks>
+        public ShortSynchronizedOperation(Action<CancellationToken> action, Action<Exception> exceptionAction)
             : base(action, exceptionAction)
         {
         }
@@ -74,7 +101,7 @@ namespace gemstone.threading.SynchronizedOperations
         /// </summary>
         protected override void ExecuteActionAsync()
         {
-            ThreadPool.QueueUserWorkItem(state =>
+            ThreadPool.QueueUserWorkItem(_ =>
             {
                 if (ExecuteAction())
                     ExecuteActionAsync();

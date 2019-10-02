@@ -55,7 +55,7 @@ namespace gemstone.threading.SynchronizedOperations
         public const int DefaultDelay = 1000;
 
         // Fields
-        private readonly Action m_delayedAction;
+        private readonly Action<CancellationToken> m_delayedAction;
 
         #endregion
 
@@ -74,9 +74,12 @@ namespace gemstone.threading.SynchronizedOperations
         /// Creates a new instance of the <see cref="DelayedSynchronizedOperation"/> class.
         /// </summary>
         /// <param name="action">The cancellable action to be performed during this operation.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public DelayedSynchronizedOperation(Action<CancellationToken> action, CancellationToken cancellationToken)
-            : this(action, null, cancellationToken)
+        /// <remarks>
+        /// Cancellable synchronized operation is useful in cases where actions should be terminated
+        /// during dispose and/or shutdown operations.
+        /// </remarks>
+        public DelayedSynchronizedOperation(Action<CancellationToken> action)
+            : this(action, null)
         {
         }
 
@@ -86,7 +89,7 @@ namespace gemstone.threading.SynchronizedOperations
         /// <param name="action">The action to be performed during this operation.</param>
         /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
         public DelayedSynchronizedOperation(Action action, Action<Exception> exceptionAction)
-            : this(new Action<CancellationToken>(_ => action()), exceptionAction, CancellationToken.None)
+            : this(new Action<CancellationToken>(_ => action()), exceptionAction)
         {
         }
 
@@ -95,13 +98,14 @@ namespace gemstone.threading.SynchronizedOperations
         /// </summary>
         /// <param name="action">The cancellable action to be performed during this operation.</param>
         /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        public DelayedSynchronizedOperation(Action<CancellationToken> action, Action<Exception> exceptionAction, CancellationToken cancellationToken)
-            : base(() => action(cancellationToken), exceptionAction)
+        /// <remarks>
+        /// Cancellable synchronized operation is useful in cases where actions should be terminated
+        /// during dispose and/or shutdown operations.
+        /// </remarks>
+        public DelayedSynchronizedOperation(Action<CancellationToken> action, Action<Exception> exceptionAction)
+            : base(action, exceptionAction)
         {
-            CancellationToken = cancellationToken;
-
-            m_delayedAction = () =>
+            m_delayedAction = _ =>
             {
                 if (ExecuteAction())
                     ExecuteActionAsync();
@@ -120,11 +124,6 @@ namespace gemstone.threading.SynchronizedOperations
         /// Non asynchronous calls will not be delayed.
         /// </remarks>
         public int Delay { get; set; } = DefaultDelay;
-
-        /// <summary>
-        /// Gets <see cref="Threading.CancellationToken"/> used for cancelling delayed operations.
-        /// </summary>
-        public CancellationToken CancellationToken { get; } = CancellationToken.None;
 
         #endregion
 
