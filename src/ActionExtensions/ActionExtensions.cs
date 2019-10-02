@@ -39,9 +39,21 @@ namespace gemstone.threading.ActionExtensions
         /// </summary>
         /// <param name="action">The action to be executed.</param>
         /// <param name="delay">The amount of time to wait before execution, in milliseconds.</param>
-        /// <param name="cancellationTokenSource">The token used to cancel execution.</param>
+        /// <returns>
+        /// A function to call which will cancel the operation.
+        /// Cancel function returns true if <paramref name="action"/> is cancelled in time, false if not.
+        /// </returns>
         public static void DelayAndExecute(this Action action, int delay, CancellationToken cancellationToken) =>
-            Task.Delay(delay, cancellationToken).ContinueWith(task => action());
+            new Action<CancellationToken>(_ => action()).DelayAndExecute(delay, cancellationToken);
+
+        /// <summary>
+        /// Execute a cancellable action on the thread pool after a specified number of milliseconds.
+        /// </summary>
+        /// <param name="action">The action to be executed.</param>
+        /// <param name="delay">The amount of time to wait before execution, in milliseconds.</param>
+        /// <param name="cancellationToken">The token used to cancel execution.</param>
+        public static void DelayAndExecute(this Action<CancellationToken> action, int delay, CancellationToken cancellationToken) =>
+            Task.Delay(delay, cancellationToken).ContinueWith(task => action(cancellationToken));
 
         /// <summary>
         /// Execute an action on the thread pool after a specified number of milliseconds.
@@ -52,7 +64,19 @@ namespace gemstone.threading.ActionExtensions
         /// A function to call which will cancel the operation.
         /// Cancel function returns true if <paramref name="action"/> is cancelled in time, false if not.
         /// </returns>
-        public static Func<bool> DelayAndExecute(this Action action, int delay)
+        public static Func<bool> DelayAndExecute(this Action action, int delay) =>
+            new Action<CancellationToken>(_ => action()).DelayAndExecute(delay);
+
+        /// <summary>
+        /// Execute a cancellable action on the thread pool after a specified number of milliseconds.
+        /// </summary>
+        /// <param name="action">The action to be executed.</param>
+        /// <param name="delay">The amount of time to wait before execution, in milliseconds.</param>
+        /// <returns>
+        /// A function to call which will cancel the operation.
+        /// Cancel function returns true if <paramref name="action"/> is cancelled, false if not.
+        /// </returns>
+        public static Func<bool> DelayAndExecute(this Action<CancellationToken> action, int delay)
         {
             CancellationTokenSource tokenSource = new CancellationTokenSource();
             CancellationToken token = tokenSource.Token;
@@ -65,13 +89,19 @@ namespace gemstone.threading.ActionExtensions
                 return tokenSourceRef != null;
             };
 
-            Action executeAction = () =>
+            Action<CancellationToken> executeAction = _ =>
             {
                 CancellationTokenSource tokenSourceRef = Interlocked.Exchange(ref tokenSource, null);
-                tokenSourceRef?.Dispose();
 
-                if (tokenSourceRef != null)
-                    action();
+                try
+                {
+                    if (!(tokenSourceRef?.IsCancellationRequested ?? true))
+                        action(token);
+                }
+                finally
+                {
+                    tokenSourceRef?.Dispose();
+                }
             };
 
             executeAction.DelayAndExecute(delay, token);
