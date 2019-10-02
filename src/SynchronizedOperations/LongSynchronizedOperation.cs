@@ -23,6 +23,7 @@
 
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace gemstone.threading.SynchronizedOperations
 {
@@ -31,14 +32,20 @@ namespace gemstone.threading.SynchronizedOperations
     /// that cannot run while it is already in progress.
     /// </summary>
     /// <remarks>
+    /// <para>
     /// The action performed by the <see cref="LongSynchronizedOperation"/> is executed on
-    /// its own dedicated thread when running the operation asynchronously. When running on
-    /// its own thread, the action is executed in a tight loop until all pending operations
-    /// have been completed. This type of synchronized operation should be preferred if
-    /// operations may take a long time, block the thread, or put it to sleep. It is also
-    /// recommended to prefer this type of operation if the speed of the operation is not
-    /// critical or if completion of the operation is critical, such as when saving data
+    /// its own dedicated thread when running the operation in the foreground asynchronously.
+    /// When running on its own thread, the action is executed in a tight loop until all
+    /// pending operations have been completed. This type of synchronized operation should
+    /// be preferred if operations may take a long time, block the thread, or put it to sleep.
+    /// It is also recommended to prefer this type of operation if the speed of the operation
+    /// is not critical or if completion of the operation is critical, such as when saving data
     /// to a file.
+    /// </para>
+    /// <para>
+    /// If the <see cref="IsBackground"/> property is changed while the synchronized operation
+    /// is running, behavior is undefined.
+    /// </para>
     /// </remarks>
     public class LongSynchronizedOperation : SynchronizedOperationBase
     {
@@ -109,16 +116,33 @@ namespace gemstone.threading.SynchronizedOperations
         /// </summary>
         protected override void ExecuteActionAsync()
         {
-            new Thread(() =>
+            if (IsBackground)
+                ExecuteActionAsyncBackground();
+            else
+                ExecuteActionAsyncForeground();
+        }
+
+        private void ExecuteActionAsyncBackground()
+        {
+            Action taskAction = () =>
+            {
+                if (ExecuteAction())
+                    ExecuteActionAsync();
+            };
+
+            Task.Factory.StartNew(taskAction, TaskCreationOptions.LongRunning);
+        }
+
+        private void ExecuteActionAsyncForeground()
+        {
+            ThreadStart threadAction = () =>
             {
                 while (ExecuteAction())
                 {
                 }
-            })
-            {
-                IsBackground = IsBackground
-            }
-            .Start();
+            };
+
+            new Thread(threadAction).Start();
         }
 
         #endregion

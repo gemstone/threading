@@ -23,6 +23,7 @@
 
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace gemstone.threading.SynchronizedOperations
 {
@@ -31,11 +32,11 @@ namespace gemstone.threading.SynchronizedOperations
     /// that cannot run while it is already in progress.
     /// </summary>
     /// <remarks>
-    /// The action performed by the <see cref="ShortSynchronizedOperation"/> is executed on
-    /// the <see cref="ThreadPool"/> when running the operation asynchronously. When the
-    /// operation is set to pending, the action is executed in an asynchronous loop on the
-    /// thread pool until all pending operations have been completed. Since the action is
-    /// executed on the thread pool, it is best if it can be executed quickly, without
+    /// By default, the action performed by the <see cref="ShortSynchronizedOperation"/>
+    /// is executed on the <see cref="ThreadPool"/> when running the operation asynchronously.
+    /// When the operation is set to pending, the action is executed in an asynchronous loop
+    /// on the thread pool until all pending operations have been completed. Since the action
+    /// is executed on the thread pool, it is best if it can be executed quickly, without
     /// blocking the thread or putting it to sleep. If completion of the operation is
     /// critical, such as when saving data to a file, this type of operation should not
     /// be used since thread pool threads are background threads and will not prevent the
@@ -57,36 +58,9 @@ namespace gemstone.threading.SynchronizedOperations
         /// <summary>
         /// Creates a new instance of the <see cref="ShortSynchronizedOperation"/> class.
         /// </summary>
-        /// <param name="action">The cancellable action to be performed during this operation.</param>
-        /// <remarks>
-        /// Cancellable synchronized operation is useful in cases where actions should be terminated
-        /// during dispose and/or shutdown operations.
-        /// </remarks>
-        public ShortSynchronizedOperation(Action<CancellationToken> action)
-            : base(action)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="ShortSynchronizedOperation"/> class.
-        /// </summary>
         /// <param name="action">The action to be performed during this operation.</param>
         /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
         public ShortSynchronizedOperation(Action action, Action<Exception> exceptionAction)
-            : base(action, exceptionAction)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="ShortSynchronizedOperation"/> class.
-        /// </summary>
-        /// <param name="action">The action to be performed during this operation.</param>
-        /// <param name="exceptionAction">The cancellable action to be performed if an exception is thrown from the action.</param>
-        /// <remarks>
-        /// Cancellable synchronized operation is useful in cases where actions should be terminated
-        /// during dispose and/or shutdown operations.
-        /// </remarks>
-        public ShortSynchronizedOperation(Action<CancellationToken> action, Action<Exception> exceptionAction)
             : base(action, exceptionAction)
         {
         }
@@ -101,7 +75,7 @@ namespace gemstone.threading.SynchronizedOperations
         /// </summary>
         protected override void ExecuteActionAsync()
         {
-            ThreadPool.QueueUserWorkItem(_ =>
+            Task.Run(() =>
             {
                 if (ExecuteAction())
                     ExecuteActionAsync();
