@@ -73,11 +73,34 @@ namespace gemstone.threading.SynchronizedOperation
         /// <summary>
         /// Creates a new instance of the <see cref="DelayedSynchronizedOperation"/> class.
         /// </summary>
+        /// <param name="action">The cancellable action to be performed during this operation.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public DelayedSynchronizedOperation(Action<CancellationToken> action, CancellationToken cancellationToken)
+            : this(action, null, cancellationToken)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="DelayedSynchronizedOperation"/> class.
+        /// </summary>
         /// <param name="action">The action to be performed during this operation.</param>
         /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
         public DelayedSynchronizedOperation(Action action, Action<Exception> exceptionAction)
-            : base(action, exceptionAction)
+            : this(new Action<CancellationToken>(_ => action()), exceptionAction, CancellationToken.None)
         {
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="DelayedSynchronizedOperation"/> class.
+        /// </summary>
+        /// <param name="action">The cancellable action to be performed during this operation.</param>
+        /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        public DelayedSynchronizedOperation(Action<CancellationToken> action, Action<Exception> exceptionAction, CancellationToken cancellationToken)
+            : base(() => action(cancellationToken), exceptionAction)
+        {
+            CancellationToken = cancellationToken;
+
             m_delayedAction = () =>
             {
                 if (ExecuteAction())
@@ -98,6 +121,11 @@ namespace gemstone.threading.SynchronizedOperation
         /// </remarks>
         public int Delay { get; set; } = DefaultDelay;
 
+        /// <summary>
+        /// Gets <see cref="Threading.CancellationToken"/> used for cancelling delayed operations.
+        /// </summary>
+        public CancellationToken CancellationToken { get; } = CancellationToken.None;
+
         #endregion
 
         #region [ Methods ]
@@ -106,7 +134,8 @@ namespace gemstone.threading.SynchronizedOperation
         /// Executes the action on a separate thread after the specified <see cref="Delay"/>.
         /// </summary>
         protected override void ExecuteActionAsync() =>
-            m_delayedAction.DelayAndExecute(Delay);
+            m_delayedAction.DelayAndExecute(Delay, CancellationToken);
+
 
         #endregion
     }
