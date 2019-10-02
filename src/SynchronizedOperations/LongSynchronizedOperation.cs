@@ -1,5 +1,5 @@
 ﻿//******************************************************************************************************
-//  ShortSynchronizedOperation.cs - Gbtc
+//  LongSynchronizedOperation.cs - Gbtc
 //
 //  Copyright © 2014, Grid Protection Alliance.  All Rights Reserved.
 //
@@ -24,44 +24,70 @@
 using System;
 using System.Threading;
 
-namespace gemstone.threading.SynchronizedOperation
+namespace gemstone.threading.SynchronizedOperations
 {
     /// <summary>
-    /// Represents a short-running synchronized operation
+    /// Represents a long-running synchronized operation
     /// that cannot run while it is already in progress.
     /// </summary>
     /// <remarks>
-    /// The action performed by the <see cref="ShortSynchronizedOperation"/> is executed on
-    /// the <see cref="ThreadPool"/> when running the operation asynchronously. When the
-    /// operation is set to pending, the action is executed in an asynchronous loop on the
-    /// thread pool until all pending operations have been completed. Since the action is
-    /// executed on the thread pool, it is best if it can be executed quickly, without
-    /// blocking the thread or putting it to sleep. If completion of the operation is
-    /// critical, such as when saving data to a file, this type of operation should not
-    /// be used since thread pool threads are background threads and will not prevent the
-    /// program from ending before the operation is complete.
+    /// The action performed by the <see cref="LongSynchronizedOperation"/> is executed on
+    /// its own dedicated thread when running the operation asynchronously. When running on
+    /// its own thread, the action is executed in a tight loop until all pending operations
+    /// have been completed. This type of synchronized operation should be preferred if
+    /// operations may take a long time, block the thread, or put it to sleep. It is also
+    /// recommended to prefer this type of operation if the speed of the operation is not
+    /// critical or if completion of the operation is critical, such as when saving data
+    /// to a file.
     /// </remarks>
-    public class ShortSynchronizedOperation : SynchronizedOperationBase
+    public class LongSynchronizedOperation : SynchronizedOperationBase
     {
+        #region [ Members ]
+
+        // Fields
+        private bool m_isBackground;
+
+        #endregion
+
         #region [ Constructors ]
 
         /// <summary>
-        /// Creates a new instance of the <see cref="ShortSynchronizedOperation"/> class.
+        /// Creates a new instance of the <see cref="LongSynchronizedOperation"/> class.
         /// </summary>
         /// <param name="action">The action to be performed during this operation.</param>
-        public ShortSynchronizedOperation(Action action)
+        public LongSynchronizedOperation(Action action)
             : base(action)
         {
         }
 
         /// <summary>
-        /// Creates a new instance of the <see cref="ShortSynchronizedOperation"/> class.
+        /// Creates a new instance of the <see cref="LongSynchronizedOperation"/> class.
         /// </summary>
         /// <param name="action">The action to be performed during this operation.</param>
         /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
-        public ShortSynchronizedOperation(Action action, Action<Exception> exceptionAction)
+        public LongSynchronizedOperation(Action action, Action<Exception> exceptionAction)
             : base(action, exceptionAction)
         {
+        }
+
+        #endregion
+
+        #region [ Properties ]
+
+        /// <summary>
+        /// Gets or sets whether or not the thread
+        /// executing the action is a background thread.
+        /// </summary>
+        public bool IsBackground
+        {
+            get
+            {
+                return m_isBackground;
+            }
+            set
+            {
+                m_isBackground = value;
+            }
         }
 
         #endregion
@@ -69,16 +95,19 @@ namespace gemstone.threading.SynchronizedOperation
         #region [ Methods ]
 
         /// <summary>
-        /// Executes the action in an asynchronous loop on
-        /// the thread pool, as long as the operation is pending.
+        /// Executes the action on a separate thread.
         /// </summary>
         protected override void ExecuteActionAsync()
         {
-            ThreadPool.QueueUserWorkItem(state =>
+            Thread actionThread = new Thread(() =>
             {
-                if (ExecuteAction())
-                    ExecuteActionAsync();
+                while (ExecuteAction())
+                {
+                }
             });
+
+            actionThread.IsBackground = m_isBackground;
+            actionThread.Start();
         }
 
         #endregion

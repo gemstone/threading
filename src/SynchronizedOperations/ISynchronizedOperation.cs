@@ -21,7 +21,7 @@
 //
 //******************************************************************************************************
 
-namespace gemstone.threading.SynchronizedOperation
+namespace gemstone.threading.SynchronizedOperations
 {
     /// <summary>
     /// Represents an operation that cannot run while it is already in progress.
