@@ -1,4 +1,4 @@
-<img align="right" src="img/GemstoneWithLock.png" alt="gemstone logo" width="150px" height="150px">
+<img align="right" src="https://gridprotectionalliance.org/images/Gemstone_600.png" alt="gemstone logo">
 
 # Threading
 ### GPA Gemstone Library
