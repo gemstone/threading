@@ -147,6 +147,7 @@
     <None Include="Content\gemstone.aml" />
     <None Include="Content\versions\v1.0.0.0.aml" />
     <None Include="Content\versions\versions.aml" />
+    <Content Include="icons\favicon.ico" />
   </ItemGroup>
   <ItemGroup>
     <ContentLayout Include="ContentLayout.content" />
