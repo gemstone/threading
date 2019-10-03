@@ -23,7 +23,7 @@
 
 using System;
 using System.Threading;
-using gemstone.threading.ActionExtensions;
+using gemstone.threading.Extensions;
 
 namespace gemstone.threading.SynchronizedOperations
 {
