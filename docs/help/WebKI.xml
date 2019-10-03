@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HelpKI>
+  <HelpKINode Title="ActionExtensions class">
+    <HelpKINode Title="ActionExtensions Class" Url="html/fb51f667-4239-3201-f8e6-7563c864090e.htm" />
+    <HelpKINode Title="methods" Url="html/72a0b2ea-c817-6a20-2a1e-6f7cc807be79.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ActionExtensions.DelayAndExecute method" Url="html/92744f41-59c2-5c83-b9f7-0c9e3578d1eb.htm" />
+  <HelpKINode Title="CancellationToken property" Url="html/10b338ea-a999-a746-677a-3912dacef632.htm" />
+  <HelpKINode Title="DefaultDelay field" Url="html/ca08ef50-152b-8df1-5530-7427288b70a1.htm" />
+  <HelpKINode Title="Delay property" Url="html/83c3e327-ca09-1869-ca67-1d37520959ba.htm" />
+  <HelpKINode Title="DelayAndExecute method" Url="html/92744f41-59c2-5c83-b9f7-0c9e3578d1eb.htm" />
+  <HelpKINode Title="DelayedSynchronizedOperation class">
+    <HelpKINode Title="DelayedSynchronizedOperation Class" Url="html/28e0b57f-adc8-4eea-1418-a1cc460308e6.htm" />
+    <HelpKINode Title="constructor" Url="html/db71dca2-fb72-0320-cb18-7ae89f4b9650.htm" />
+    <HelpKINode Title="fields" Url="html/840f9613-780c-fe4e-9562-2be97131ccce.htm" />
+    <HelpKINode Title="methods" Url="html/19479d01-eabe-6efb-8598-6bb729a01d17.htm" />
+    <HelpKINode Title="properties" Url="html/07a755ce-2d0a-f46b-a8ed-b10c459c1fdb.htm" />
+  </HelpKINode>
+  <HelpKINode Title="DelayedSynchronizedOperation.DefaultDelay field" Url="html/ca08ef50-152b-8df1-5530-7427288b70a1.htm" />
+  <HelpKINode Title="DelayedSynchronizedOperation.Delay property" Url="html/83c3e327-ca09-1869-ca67-1d37520959ba.htm" />
+  <HelpKINode Title="DelayedSynchronizedOperation.DelayedSynchronizedOperation constructor" Url="html/db71dca2-fb72-0320-cb18-7ae89f4b9650.htm" />
+  <HelpKINode Title="DelayedSynchronizedOperation.ExecuteActionAsync method" Url="html/68fb7e87-8172-2b89-aaf0-57d1050abe43.htm" />
+  <HelpKINode Title="ExecuteAction method" Url="html/f7be44f8-541b-eb24-1928-7de3434fd59f.htm" />
+  <HelpKINode Title="ExecuteActionAsync method">
+    <HelpKINode Title="DelayedSynchronizedOperation.ExecuteActionAsync Method " Url="html/68fb7e87-8172-2b89-aaf0-57d1050abe43.htm" />
+    <HelpKINode Title="LongSynchronizedOperation.ExecuteActionAsync Method " Url="html/4fc7c3d2-f959-d736-c099-d9a3b61a3ddf.htm" />
+    <HelpKINode Title="ShortSynchronizedOperation.ExecuteActionAsync Method " Url="html/8c3e206f-6f81-1860-8643-d4561bff2fe6.htm" />
+    <HelpKINode Title="SynchronizedOperationBase.ExecuteActionAsync Method " Url="html/579744fe-64f9-14c6-6aac-9237cce6f3da.htm" />
+  </HelpKINode>
+  <HelpKINode Title="gemstone.threading.ActionExtensions namespace" Url="html/ff28f407-ec7a-10fd-c9b7-f14d72c9cc63.htm" />
+  <HelpKINode Title="gemstone.threading.ActionExtensions.ActionExtensions class" Url="html/fb51f667-4239-3201-f8e6-7563c864090e.htm" />
+  <HelpKINode Title="gemstone.threading.SynchronizedOperations namespace" Url="html/1f40f322-ebc7-b97d-11c0-ccf540bd3b46.htm" />
+  <HelpKINode Title="gemstone.threading.SynchronizedOperations.DelayedSynchronizedOperation class" Url="html/28e0b57f-adc8-4eea-1418-a1cc460308e6.htm" />
+  <HelpKINode Title="gemstone.threading.SynchronizedOperations.ISynchronizedOperation interface" Url="html/eed43965-f7ae-3704-0ea5-5c3b68f4e48b.htm" />
+  <HelpKINode Title="gemstone.threading.SynchronizedOperations.LongSynchronizedOperation class" Url="html/03b066d6-d650-1f55-c104-dbac49de91a1.htm" />
+  <HelpKINode Title="gemstone.threading.SynchronizedOperations.ShortSynchronizedOperation class" Url="html/ea118db1-3ade-9151-b6a8-3a072dff6501.htm" />
+  <HelpKINode Title="gemstone.threading.SynchronizedOperations.SynchronizedOperationBase class" Url="html/8a08de6d-bbac-0406-89f3-5e0f87457eb3.htm" />
+  <HelpKINode Title="IsBackground property" Url="html/05e02cae-00d4-56e8-6ab4-eee66df55468.htm" />
+  <HelpKINode Title="IsPending property">
+    <HelpKINode Title="ISynchronizedOperation.IsPending Property " Url="html/557e7b57-a7a5-f325-566a-c41d83dccd8f.htm" />
+    <HelpKINode Title="SynchronizedOperationBase.IsPending Property " Url="html/e804fe39-287b-fe12-ad3d-bbcbb3351471.htm" />
+  </HelpKINode>
+  <HelpKINode Title="IsRunning property">
+    <HelpKINode Title="ISynchronizedOperation.IsRunning Property " Url="html/bd2c02af-fa04-cd97-1f03-d3485f9ef8ff.htm" />
+    <HelpKINode Title="SynchronizedOperationBase.IsRunning Property " Url="html/b56c4724-a6fe-0c13-fee8-5d31d7259450.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ISynchronizedOperation interface">
+    <HelpKINode Title="ISynchronizedOperation Interface" Url="html/eed43965-f7ae-3704-0ea5-5c3b68f4e48b.htm" />
+    <HelpKINode Title="methods" Url="html/90476111-1d56-9c31-db1a-e285cb282fb8.htm" />
+    <HelpKINode Title="properties" Url="html/1133494d-b22e-45a0-9ad9-fde84a9e9202.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ISynchronizedOperation.IsPending property" Url="html/557e7b57-a7a5-f325-566a-c41d83dccd8f.htm" />
+  <HelpKINode Title="ISynchronizedOperation.IsRunning property" Url="html/bd2c02af-fa04-cd97-1f03-d3485f9ef8ff.htm" />
+  <HelpKINode Title="ISynchronizedOperation.Run method" Url="html/8693da72-df7b-edd5-7a51-89cf8cd60639.htm" />
+  <HelpKINode Title="ISynchronizedOperation.RunOnce method" Url="html/9a9f2002-aedb-e140-2066-ae91b658eb1b.htm" />
+  <HelpKINode Title="ISynchronizedOperation.RunOnceAsync method" Url="html/494f7dc6-c9ac-6963-323d-417dac0746c5.htm" />
+  <HelpKINode Title="ISynchronizedOperation.TryRun method" Url="html/5c52933f-95c3-2231-e8f8-8b1b13b2e383.htm" />
+  <HelpKINode Title="ISynchronizedOperation.TryRunOnce method" Url="html/1b64bfbf-c8a8-ee26-d319-ae7c3683375f.htm" />
+  <HelpKINode Title="ISynchronizedOperation.TryRunOnceAsync method" Url="html/c74172ca-0c42-f990-82b6-4a46d91545ca.htm" />
+  <HelpKINode Title="LongSynchronizedOperation class">
+    <HelpKINode Title="LongSynchronizedOperation Class" Url="html/03b066d6-d650-1f55-c104-dbac49de91a1.htm" />
+    <HelpKINode Title="constructor" Url="html/f5689690-cd76-7659-4152-79bf6247eff0.htm" />
+    <HelpKINode Title="methods" Url="html/48551771-4d79-89a5-18c5-961c20d07e88.htm" />
+    <HelpKINode Title="properties" Url="html/7f9b12b5-be93-272f-23d5-2bafc72ead0c.htm" />
+  </HelpKINode>
+  <HelpKINode Title="LongSynchronizedOperation.ExecuteActionAsync method" Url="html/4fc7c3d2-f959-d736-c099-d9a3b61a3ddf.htm" />
+  <HelpKINode Title="LongSynchronizedOperation.IsBackground property" Url="html/05e02cae-00d4-56e8-6ab4-eee66df55468.htm" />
+  <HelpKINode Title="LongSynchronizedOperation.LongSynchronizedOperation constructor" Url="html/f5689690-cd76-7659-4152-79bf6247eff0.htm" />
+  <HelpKINode Title="Run method">
+    <HelpKINode Title="ISynchronizedOperation.Run Method " Url="html/8693da72-df7b-edd5-7a51-89cf8cd60639.htm" />
+    <HelpKINode Title="SynchronizedOperationBase.Run Method " Url="html/6b7e22bb-3693-0279-0c66-608ea85caf72.htm" />
+  </HelpKINode>
+  <HelpKINode Title="RunOnce method">
+    <HelpKINode Title="ISynchronizedOperation.RunOnce Method " Url="html/9a9f2002-aedb-e140-2066-ae91b658eb1b.htm" />
+    <HelpKINode Title="SynchronizedOperationBase.RunOnce Method " Url="html/a35c7831-56f0-33e3-ec79-a73a0d82c162.htm" />
+  </HelpKINode>
+  <HelpKINode Title="RunOnceAsync method">
+    <HelpKINode Title="ISynchronizedOperation.RunOnceAsync Method " Url="html/494f7dc6-c9ac-6963-323d-417dac0746c5.htm" />
+    <HelpKINode Title="SynchronizedOperationBase.RunOnceAsync Method " Url="html/555c7772-0fad-5dda-4a08-ca42e48b0c3f.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ShortSynchronizedOperation class">
+    <HelpKINode Title="ShortSynchronizedOperation Class" Url="html/ea118db1-3ade-9151-b6a8-3a072dff6501.htm" />
+    <HelpKINode Title="constructor" Url="html/d7a2fe3f-04b1-cd16-0551-b0c593349605.htm" />
+    <HelpKINode Title="methods" Url="html/667181cc-90cd-5b6f-e68f-64e68e5094bc.htm" />
+    <HelpKINode Title="properties" Url="html/fb1258f9-fef7-05f5-e74b-6c7a3bcc61c6.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ShortSynchronizedOperation.ExecuteActionAsync method" Url="html/8c3e206f-6f81-1860-8643-d4561bff2fe6.htm" />
+  <HelpKINode Title="ShortSynchronizedOperation.ShortSynchronizedOperation constructor" Url="html/d7a2fe3f-04b1-cd16-0551-b0c593349605.htm" />
+  <HelpKINode Title="SynchronizedOperationBase class">
+    <HelpKINode Title="SynchronizedOperationBase Class" Url="html/8a08de6d-bbac-0406-89f3-5e0f87457eb3.htm" />
+    <HelpKINode Title="constructor" Url="html/8f395d79-daa1-5ebe-aa90-6a5719a73560.htm" />
+    <HelpKINode Title="methods" Url="html/7a6f74f7-675e-5519-9c46-447125afa18d.htm" />
+    <HelpKINode Title="properties" Url="html/504c15b8-ebb4-2cff-1755-570a55fe8df9.htm" />
+  </HelpKINode>
+  <HelpKINode Title="SynchronizedOperationBase.CancellationToken property" Url="html/10b338ea-a999-a746-677a-3912dacef632.htm" />
+  <HelpKINode Title="SynchronizedOperationBase.ExecuteAction method" Url="html/f7be44f8-541b-eb24-1928-7de3434fd59f.htm" />
+  <HelpKINode Title="SynchronizedOperationBase.ExecuteActionAsync method" Url="html/579744fe-64f9-14c6-6aac-9237cce6f3da.htm" />
+  <HelpKINode Title="SynchronizedOperationBase.IsPending property" Url="html/e804fe39-287b-fe12-ad3d-bbcbb3351471.htm" />
+  <HelpKINode Title="SynchronizedOperationBase.IsRunning property" Url="html/b56c4724-a6fe-0c13-fee8-5d31d7259450.htm" />
+  <HelpKINode Title="SynchronizedOperationBase.Run method" Url="html/6b7e22bb-3693-0279-0c66-608ea85caf72.htm" />
+  <HelpKINode Title="SynchronizedOperationBase.RunOnce method" Url="html/a35c7831-56f0-33e3-ec79-a73a0d82c162.htm" />
+  <HelpKINode Title="SynchronizedOperationBase.RunOnceAsync method" Url="html/555c7772-0fad-5dda-4a08-ca42e48b0c3f.htm" />
+  <HelpKINode Title="SynchronizedOperationBase.SynchronizedOperationBase constructor" Url="html/8f395d79-daa1-5ebe-aa90-6a5719a73560.htm" />
+  <HelpKINode Title="SynchronizedOperationBase.TryRun method" Url="html/2420e39e-8540-5d96-ba97-c7ba2a022ed5.htm" />
+  <HelpKINode Title="SynchronizedOperationBase.TryRunOnce method" Url="html/49718b7d-e124-e311-3d97-b3bacd03e288.htm" />
+  <HelpKINode Title="SynchronizedOperationBase.TryRunOnceAsync method" Url="html/76aa4ceb-d695-70fa-a909-6b39408c4a71.htm" />
+  <HelpKINode Title="TryRun method">
+    <HelpKINode Title="ISynchronizedOperation.TryRun Method " Url="html/5c52933f-95c3-2231-e8f8-8b1b13b2e383.htm" />
+    <HelpKINode Title="SynchronizedOperationBase.TryRun Method " Url="html/2420e39e-8540-5d96-ba97-c7ba2a022ed5.htm" />
+  </HelpKINode>
+  <HelpKINode Title="TryRunOnce method">
+    <HelpKINode Title="ISynchronizedOperation.TryRunOnce Method " Url="html/1b64bfbf-c8a8-ee26-d319-ae7c3683375f.htm" />
+    <HelpKINode Title="SynchronizedOperationBase.TryRunOnce Method " Url="html/49718b7d-e124-e311-3d97-b3bacd03e288.htm" />
+  </HelpKINode>
+  <HelpKINode Title="TryRunOnceAsync method">
+    <HelpKINode Title="ISynchronizedOperation.TryRunOnceAsync Method " Url="html/c74172ca-0c42-f990-82b6-4a46d91545ca.htm" />
+    <HelpKINode Title="SynchronizedOperationBase.TryRunOnceAsync Method " Url="html/76aa4ceb-d695-70fa-a909-6b39408c4a71.htm" />
+  </HelpKINode>
+  <HelpKINode Title="version">
+    <HelpKINode Title="1.0.0.0" Url="html/6acb9445-970c-4cce-96bc-e1b89763a7c7.htm" />
+    <HelpKINode Title="history" Url="html/40c6dd73-a863-4974-8d07-1d8ed94559b2.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Welcome" Url="html/62470047-a519-43bd-a20c-fc3d11fc3f43.htm" />
+</HelpKI>
