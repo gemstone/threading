@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<topic id="40c6dd73-a863-4974-8d07-1d8ed94559b2" revisionNumber="1">
+<topic id="versions" revisionNumber="1">
 	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
 		<introduction>
-			<para>The topics in this section describe the various changes made to the [TODO: Project Title] over the
-life of the project.</para>
+			<para>The topics in this section describe the various changes made to the gemstone.threading library over the life of the project.</para>
 		</introduction>
 
 		<section>
@@ -13,7 +12,7 @@ life of the project.</para>
 
 				<list class="bullet">
 					<listItem>
-						<para><link xlink:href="6acb9445-970c-4cce-96bc-e1b89763a7c7" /></para>
+						<para><link xlink:href="v1.0.0.0" /></para>
 					</listItem>
 
 					<listItem>
@@ -26,7 +25,7 @@ life of the project.</para>
 		</section>
 
 		<relatedTopics>
-			<link xlink:href="62470047-a519-43bd-a20c-fc3d11fc3f43" />
+			<link xlink:href="gemstone" />
 		</relatedTopics>
 
 	</developerConceptualDocument>

@@ -1,103 +1,103 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <HelpTOC>
 
-  <HelpTOCNode Id="69c928c8-771c-4fb9-8823-cdf21bd3c022" Title="gemstone" Url="html/62470047-a519-43bd-a20c-fc3d11fc3f43.htm">
-    <HelpTOCNode Id="d8757c18-4c00-4899-b12a-25b3bc53171d" Title="gemstone.threading" Url="html/8b7c4f86-5e46-2a1a-9f8b-bd13929e1ce2.htm">
-      <HelpTOCNode Id="1d66714b-dba8-41ab-a904-99f5cdf1476e" Title="gemstone.threading.extensions" Url="html/67975610-d04c-e8da-8720-1e9ce0cae67b.htm">
-        <HelpTOCNode Id="76f4282e-c371-4ecd-b8c2-71bae877e7a6" Title="ActionExtensions Class" Url="html/800eca25-bb51-f1e9-d5f1-022d9d6c44cb.htm">
-          <HelpTOCNode Id="cb8ec779-81e2-41a9-9e59-812016fe2162" Title="ActionExtensions Methods" Url="html/f9f8dcf8-f00b-59fe-6bbb-b82861ae5cbf.htm">
-            <HelpTOCNode Id="9c5621d2-4e4d-409a-b1b5-d96e64569755" Title="DelayAndExecute Method " Url="html/95a21aa2-f479-b7dc-078c-20bc3d7a4a9c.htm">
-              <HelpTOCNode Title="DelayAndExecute Method (Action, Int32)" Url="html/d6ec5567-5776-b914-fdeb-ec7508f0ca9c.htm" />
-              <HelpTOCNode Title="DelayAndExecute Method (Action(CancellationToken), Int32)" Url="html/9e579c41-7f7b-a630-843e-f9b4db9463f7.htm" />
-              <HelpTOCNode Title="DelayAndExecute Method (Action, Int32, CancellationToken)" Url="html/dc5df38c-7bd7-ed9a-2342-0b43af1b985b.htm" />
-              <HelpTOCNode Title="DelayAndExecute Method (Action(CancellationToken), Int32, CancellationToken)" Url="html/c3c80e71-7243-d49d-b6b7-f3021d5e8259.htm" />
+  <HelpTOCNode Id="153842f0-46c6-4873-b78c-c8016a1f40aa" Title="gemstone" Url="html/gemstone.htm">
+    <HelpTOCNode Id="37fcd0d0-95cb-4835-8322-c8301eab7ec5" Title="gemstone.threading" Url="html/R_Project_Library_Documentation.htm">
+      <HelpTOCNode Id="1c7af3ea-32f9-4bdf-893d-d75c51fb6370" Title="gemstone.threading.extensions" Url="html/N_gemstone_threading_extensions.htm">
+        <HelpTOCNode Id="0874a174-a66a-49c4-b7e1-702517362ded" Title="ActionExtensions Class" Url="html/T_gemstone_threading_extensions_ActionExtensions.htm">
+          <HelpTOCNode Id="22fbe2bc-fb05-490a-96e5-c6c2aea55608" Title="ActionExtensions Methods" Url="html/Methods_T_gemstone_threading_extensions_ActionExtensions.htm">
+            <HelpTOCNode Id="cbc82b0a-bd39-4fe4-a0c2-993005dd22d2" Title="DelayAndExecute Method " Url="html/Overload_gemstone_threading_extensions_ActionExtensions_DelayAndExecute.htm">
+              <HelpTOCNode Title="DelayAndExecute Method (Action, Int32)" Url="html/M_gemstone_threading_extensions_ActionExtensions_DelayAndExecute.htm" />
+              <HelpTOCNode Title="DelayAndExecute Method (Action(CancellationToken), Int32)" Url="html/M_gemstone_threading_extensions_ActionExtensions_DelayAndExecute_2.htm" />
+              <HelpTOCNode Title="DelayAndExecute Method (Action, Int32, CancellationToken)" Url="html/M_gemstone_threading_extensions_ActionExtensions_DelayAndExecute_1.htm" />
+              <HelpTOCNode Title="DelayAndExecute Method (Action(CancellationToken), Int32, CancellationToken)" Url="html/M_gemstone_threading_extensions_ActionExtensions_DelayAndExecute_3.htm" />
             </HelpTOCNode>
           </HelpTOCNode>
         </HelpTOCNode>
       </HelpTOCNode>
-      <HelpTOCNode Id="e0b9456a-ac25-41e8-87f3-f42edf15f2a2" Title="gemstone.threading.synchronizedoperations" Url="html/6f890ae7-5e7f-54aa-c3bf-dfd2d2d2f23f.htm">
-        <HelpTOCNode Id="b6b2f0c8-b3af-4d35-800d-838c83040f3d" Title="DelayedSynchronizedOperation Class" Url="html/8db7f02b-9a33-37d7-1ec1-5dea2b8e2545.htm">
-          <HelpTOCNode Id="4ae93793-1287-4944-9f37-5caabcace7a2" Title="DelayedSynchronizedOperation Constructor " Url="html/916d19de-1ae7-fa3b-b386-5de949f7c5bc.htm">
-            <HelpTOCNode Title="DelayedSynchronizedOperation Constructor (Action)" Url="html/1d808177-6373-7acf-88e7-6faeaadc0c95.htm" />
-            <HelpTOCNode Title="DelayedSynchronizedOperation Constructor (Action(CancellationToken))" Url="html/eb717937-2cb9-dc38-edd6-f9b88aeb217c.htm" />
-            <HelpTOCNode Title="DelayedSynchronizedOperation Constructor (Action, Action(Exception))" Url="html/1634352c-f2bc-10c6-601f-7167007f864f.htm" />
-            <HelpTOCNode Title="DelayedSynchronizedOperation Constructor (Action(CancellationToken), Action(Exception))" Url="html/c1971482-cda0-0b66-e10f-9573cefb71b0.htm" />
+      <HelpTOCNode Id="ec8aaa02-a205-4215-9b17-c3727fca5bf0" Title="gemstone.threading.synchronizedoperations" Url="html/N_gemstone_threading_synchronizedoperations.htm">
+        <HelpTOCNode Id="02c49755-269a-4aa8-a3f3-beafdb515d17" Title="DelayedSynchronizedOperation Class" Url="html/T_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation.htm">
+          <HelpTOCNode Id="8a85bff4-9491-4ed4-bf9b-492e67884c4a" Title="DelayedSynchronizedOperation Constructor " Url="html/Overload_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation__ctor.htm">
+            <HelpTOCNode Title="DelayedSynchronizedOperation Constructor (Action)" Url="html/M_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation__ctor.htm" />
+            <HelpTOCNode Title="DelayedSynchronizedOperation Constructor (Action(CancellationToken))" Url="html/M_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation__ctor_2.htm" />
+            <HelpTOCNode Title="DelayedSynchronizedOperation Constructor (Action, Action(Exception))" Url="html/M_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation__ctor_1.htm" />
+            <HelpTOCNode Title="DelayedSynchronizedOperation Constructor (Action(CancellationToken), Action(Exception))" Url="html/M_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation__ctor_3.htm" />
           </HelpTOCNode>
-          <HelpTOCNode Id="aafd6306-e09b-437c-8789-d7a49d47a052" Title="DelayedSynchronizedOperation Properties" Url="html/cf9a6a58-a9e3-e2ed-2efe-10b1a6f3e244.htm">
-            <HelpTOCNode Title="Delay Property " Url="html/fdf3e202-fcf0-c2b9-ad2f-785f7e7359fa.htm" />
+          <HelpTOCNode Id="0b56f5c2-b5cd-4899-896d-fad636935814" Title="DelayedSynchronizedOperation Properties" Url="html/Properties_T_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation.htm">
+            <HelpTOCNode Title="Delay Property " Url="html/P_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation_Delay.htm" />
           </HelpTOCNode>
-          <HelpTOCNode Id="a12f87a2-66ba-4daa-ae0c-bbce75209f8c" Title="DelayedSynchronizedOperation Methods" Url="html/b47473a1-84c2-a9ef-1db4-3238b81766e7.htm">
-            <HelpTOCNode Title="ExecuteActionAsync Method " Url="html/b2eac696-a26b-5d3a-d098-bc876a0bf670.htm" />
+          <HelpTOCNode Id="7de53a98-9a5e-46a0-8bfd-9e2a43ccef42" Title="DelayedSynchronizedOperation Methods" Url="html/Methods_T_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation.htm">
+            <HelpTOCNode Title="ExecuteActionAsync Method " Url="html/M_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation_ExecuteActionAsync.htm" />
           </HelpTOCNode>
-          <HelpTOCNode Id="86d8e430-021c-476c-b253-04ee83466a51" Title="DelayedSynchronizedOperation Fields" Url="html/aec30b72-6548-666b-dec7-96dc5c3adb48.htm">
-            <HelpTOCNode Title="DefaultDelay Field" Url="html/34c95424-678e-3663-e5d6-093b97db633d.htm" />
-          </HelpTOCNode>
-        </HelpTOCNode>
-        <HelpTOCNode Id="306f812a-8376-4b88-813d-5cf21c29b493" Title="ISynchronizedOperation Interface" Url="html/02bd4f96-082c-f9ce-a90a-4da4ef78c42b.htm">
-          <HelpTOCNode Id="94983cb6-7a0e-4468-961e-4a96d93dda88" Title="ISynchronizedOperation Properties" Url="html/7a21975d-7c56-c104-05e4-861c06c65c53.htm">
-            <HelpTOCNode Title="IsPending Property " Url="html/1a11e6f2-715b-b5e8-ca91-391a6cd29bf8.htm" />
-            <HelpTOCNode Title="IsRunning Property " Url="html/c0cf6072-6175-2d53-6c0e-3d7fe4fd6abb.htm" />
-          </HelpTOCNode>
-          <HelpTOCNode Id="13302608-55f2-49b5-ac49-befd6b1a4bd8" Title="ISynchronizedOperation Methods" Url="html/3e1893b6-9507-1256-0f29-a4947ecb7f3e.htm">
-            <HelpTOCNode Title="Run Method " Url="html/da3201f7-04f9-1e4e-c256-783d44849a4b.htm" />
-            <HelpTOCNode Title="RunOnce Method " Url="html/a4f5cba1-7fa6-894a-98dc-984fda07ae3d.htm" />
-            <HelpTOCNode Title="RunOnceAsync Method " Url="html/1a4dd5f9-f331-601e-5db0-a8d94bfce875.htm" />
-            <HelpTOCNode Title="TryRun Method " Url="html/89fd5be4-ef3e-0423-0113-a2ea746ca0cd.htm" />
-            <HelpTOCNode Title="TryRunOnce Method " Url="html/675eb712-24db-29a6-3713-442cc862da01.htm" />
-            <HelpTOCNode Title="TryRunOnceAsync Method " Url="html/f0ff2eb7-8d91-0fad-d0cf-038ecd4d62c9.htm" />
+          <HelpTOCNode Id="f4e32cd1-146e-432c-afd3-827d870ababa" Title="DelayedSynchronizedOperation Fields" Url="html/Fields_T_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation.htm">
+            <HelpTOCNode Title="DefaultDelay Field" Url="html/F_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation_DefaultDelay.htm" />
           </HelpTOCNode>
         </HelpTOCNode>
-        <HelpTOCNode Id="1b52f635-e6fb-46bc-b29f-7596e74f05ab" Title="LongSynchronizedOperation Class" Url="html/9176fc94-ea02-974a-8430-325c3fd20490.htm">
-          <HelpTOCNode Id="a24666c8-4394-4b53-ab81-d68c6414b3ad" Title="LongSynchronizedOperation Constructor " Url="html/e6f08425-6f3b-8cf3-77bf-9c2c37f19424.htm">
-            <HelpTOCNode Title="LongSynchronizedOperation Constructor (Action)" Url="html/70c9c502-bcd9-d9b3-a363-2996031cf109.htm" />
-            <HelpTOCNode Title="LongSynchronizedOperation Constructor (Action(CancellationToken))" Url="html/66b8b35c-7aef-479a-8d66-c79086a9cfaf.htm" />
-            <HelpTOCNode Title="LongSynchronizedOperation Constructor (Action, Action(Exception))" Url="html/0e29ee41-e025-e4cc-804e-463460871ead.htm" />
-            <HelpTOCNode Title="LongSynchronizedOperation Constructor (Action(CancellationToken), Action(Exception))" Url="html/9ffa3842-b407-019d-01b2-852481fe27ab.htm" />
+        <HelpTOCNode Id="16949011-9fb6-41b9-ba76-947ee8a54bb5" Title="ISynchronizedOperation Interface" Url="html/T_gemstone_threading_synchronizedoperations_ISynchronizedOperation.htm">
+          <HelpTOCNode Id="77e6a312-7501-48bf-a37f-521b995bc19a" Title="ISynchronizedOperation Properties" Url="html/Properties_T_gemstone_threading_synchronizedoperations_ISynchronizedOperation.htm">
+            <HelpTOCNode Title="IsPending Property " Url="html/P_gemstone_threading_synchronizedoperations_ISynchronizedOperation_IsPending.htm" />
+            <HelpTOCNode Title="IsRunning Property " Url="html/P_gemstone_threading_synchronizedoperations_ISynchronizedOperation_IsRunning.htm" />
           </HelpTOCNode>
-          <HelpTOCNode Id="82808b20-7dff-4680-8c9d-8ccd4420e864" Title="LongSynchronizedOperation Properties" Url="html/c96cd33d-916d-be4e-eae9-1c88324cf3e2.htm">
-            <HelpTOCNode Title="IsBackground Property " Url="html/6360913e-d3b2-0393-c947-9e09e3fca470.htm" />
-          </HelpTOCNode>
-          <HelpTOCNode Id="a973651a-6fed-470c-90a9-efe41e51e4ae" Title="LongSynchronizedOperation Methods" Url="html/c985cfd9-dba3-9811-3e54-97aff8e8488f.htm">
-            <HelpTOCNode Title="ExecuteActionAsync Method " Url="html/09a78999-d2cb-144e-d06d-a942ea8b02a3.htm" />
-          </HelpTOCNode>
-        </HelpTOCNode>
-        <HelpTOCNode Id="b825c7e2-7759-4cf3-ad53-54287178836b" Title="ShortSynchronizedOperation Class" Url="html/5250036a-54f4-8631-a2e9-011a65cecc63.htm">
-          <HelpTOCNode Id="24566ac9-960e-4b57-b012-7edbdc9c98cf" Title="ShortSynchronizedOperation Constructor " Url="html/58bda768-9057-3b21-c422-00cd8abbd245.htm">
-            <HelpTOCNode Title="ShortSynchronizedOperation Constructor (Action)" Url="html/38d494c1-4754-181f-af9d-1489840b8da4.htm" />
-            <HelpTOCNode Title="ShortSynchronizedOperation Constructor (Action, Action(Exception))" Url="html/8c04efb8-cf24-2b5d-290f-13536624d825.htm" />
-          </HelpTOCNode>
-          <HelpTOCNode Title="ShortSynchronizedOperation Properties" Url="html/7f0137ff-bcb7-a41d-17bb-936c129cfa10.htm" />
-          <HelpTOCNode Id="e8c5a887-7695-422d-9762-0e37b3929d3d" Title="ShortSynchronizedOperation Methods" Url="html/4f59554e-d347-6043-6930-7d3713543c60.htm">
-            <HelpTOCNode Title="ExecuteActionAsync Method " Url="html/82ac9b9a-a5d1-7299-73e6-f74fbe0dd00c.htm" />
+          <HelpTOCNode Id="5fbdc49c-589d-43e3-a591-ed9a13ad60c0" Title="ISynchronizedOperation Methods" Url="html/Methods_T_gemstone_threading_synchronizedoperations_ISynchronizedOperation.htm">
+            <HelpTOCNode Title="Run Method " Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_Run.htm" />
+            <HelpTOCNode Title="RunOnce Method " Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_RunOnce.htm" />
+            <HelpTOCNode Title="RunOnceAsync Method " Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_RunOnceAsync.htm" />
+            <HelpTOCNode Title="TryRun Method " Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_TryRun.htm" />
+            <HelpTOCNode Title="TryRunOnce Method " Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_TryRunOnce.htm" />
+            <HelpTOCNode Title="TryRunOnceAsync Method " Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_TryRunOnceAsync.htm" />
           </HelpTOCNode>
         </HelpTOCNode>
-        <HelpTOCNode Id="6600223f-bd0a-483f-a84c-e7271c68a868" Title="SynchronizedOperationBase Class" Url="html/eac53720-520a-b797-029a-cfab4843cd80.htm">
-          <HelpTOCNode Id="60295cbe-bdda-46cc-a88b-5f7e47ba2836" Title="SynchronizedOperationBase Constructor " Url="html/d2fa307e-9b27-8541-20fa-96efda8732ed.htm">
-            <HelpTOCNode Title="SynchronizedOperationBase Constructor (Action)" Url="html/7f992c6c-8eed-529a-0483-04e4b5fa4310.htm" />
-            <HelpTOCNode Title="SynchronizedOperationBase Constructor (Action(CancellationToken))" Url="html/2a35fdda-1369-c149-1ebf-25248ed26d32.htm" />
-            <HelpTOCNode Title="SynchronizedOperationBase Constructor (Action, Action(Exception))" Url="html/9d2eeabd-d543-27d0-79be-e6afd6041c3a.htm" />
-            <HelpTOCNode Title="SynchronizedOperationBase Constructor (Action(CancellationToken), Action(Exception))" Url="html/dd07ab6b-9d17-61e4-89ed-f2382c2416a0.htm" />
+        <HelpTOCNode Id="35d15330-7e3c-4f47-9846-de731d2117cf" Title="LongSynchronizedOperation Class" Url="html/T_gemstone_threading_synchronizedoperations_LongSynchronizedOperation.htm">
+          <HelpTOCNode Id="ebd8ede9-772f-4a24-8b4a-a12c54530083" Title="LongSynchronizedOperation Constructor " Url="html/Overload_gemstone_threading_synchronizedoperations_LongSynchronizedOperation__ctor.htm">
+            <HelpTOCNode Title="LongSynchronizedOperation Constructor (Action)" Url="html/M_gemstone_threading_synchronizedoperations_LongSynchronizedOperation__ctor.htm" />
+            <HelpTOCNode Title="LongSynchronizedOperation Constructor (Action(CancellationToken))" Url="html/M_gemstone_threading_synchronizedoperations_LongSynchronizedOperation__ctor_2.htm" />
+            <HelpTOCNode Title="LongSynchronizedOperation Constructor (Action, Action(Exception))" Url="html/M_gemstone_threading_synchronizedoperations_LongSynchronizedOperation__ctor_1.htm" />
+            <HelpTOCNode Title="LongSynchronizedOperation Constructor (Action(CancellationToken), Action(Exception))" Url="html/M_gemstone_threading_synchronizedoperations_LongSynchronizedOperation__ctor_3.htm" />
           </HelpTOCNode>
-          <HelpTOCNode Id="51737e57-7c4b-4a63-a23c-92d60684978a" Title="SynchronizedOperationBase Properties" Url="html/96d90668-b3c9-3289-e601-93b6cfe2a09a.htm">
-            <HelpTOCNode Title="CancellationToken Property " Url="html/2539d435-1ed4-2225-908b-9e992582312f.htm" />
-            <HelpTOCNode Title="IsPending Property " Url="html/8e42358a-d36e-14ab-0c01-9ec527af7b42.htm" />
-            <HelpTOCNode Title="IsRunning Property " Url="html/1e8acc3a-0864-0123-6a4b-12ea86a84b2a.htm" />
+          <HelpTOCNode Id="f72bd9b1-b44d-4ae4-9698-8ee753ba2248" Title="LongSynchronizedOperation Properties" Url="html/Properties_T_gemstone_threading_synchronizedoperations_LongSynchronizedOperation.htm">
+            <HelpTOCNode Title="IsBackground Property " Url="html/P_gemstone_threading_synchronizedoperations_LongSynchronizedOperation_IsBackground.htm" />
           </HelpTOCNode>
-          <HelpTOCNode Id="e76c4b1e-ec50-4c52-b8a6-04e16b2e5fa5" Title="SynchronizedOperationBase Methods" Url="html/8ff10ce5-8018-c0e8-6e20-66b562ffc6cc.htm">
-            <HelpTOCNode Title="ExecuteAction Method " Url="html/472a9a5e-7138-9e15-3b8e-fc48cdc4a651.htm" />
-            <HelpTOCNode Title="ExecuteActionAsync Method " Url="html/8817223d-8271-80dd-67ef-9fb2b9cbd383.htm" />
-            <HelpTOCNode Title="Run Method " Url="html/cd925df9-386a-746c-1ecb-004cf1efd4fe.htm" />
-            <HelpTOCNode Title="RunOnce Method " Url="html/07d4bfb2-7266-fbac-0be9-d1f024c7b8b4.htm" />
-            <HelpTOCNode Title="RunOnceAsync Method " Url="html/8c5d0007-6b59-8000-3e03-c6999201f056.htm" />
-            <HelpTOCNode Title="TryRun Method " Url="html/1e1aec2d-5661-947d-54a8-432231a5bb4e.htm" />
-            <HelpTOCNode Title="TryRunOnce Method " Url="html/1286aca6-9de2-b595-34bb-6f44984d3d57.htm" />
-            <HelpTOCNode Title="TryRunOnceAsync Method " Url="html/551dc2ac-7eca-44b4-3ccf-4d6e5f796bf4.htm" />
+          <HelpTOCNode Id="49d9d980-5f87-40dc-beed-579bee8fabbb" Title="LongSynchronizedOperation Methods" Url="html/Methods_T_gemstone_threading_synchronizedoperations_LongSynchronizedOperation.htm">
+            <HelpTOCNode Title="ExecuteActionAsync Method " Url="html/M_gemstone_threading_synchronizedoperations_LongSynchronizedOperation_ExecuteActionAsync.htm" />
+          </HelpTOCNode>
+        </HelpTOCNode>
+        <HelpTOCNode Id="a0e6cff5-f0c5-4130-84f4-a2fee68b6c4c" Title="ShortSynchronizedOperation Class" Url="html/T_gemstone_threading_synchronizedoperations_ShortSynchronizedOperation.htm">
+          <HelpTOCNode Id="631d364d-eb9a-4d34-97c5-bab28fa76a09" Title="ShortSynchronizedOperation Constructor " Url="html/Overload_gemstone_threading_synchronizedoperations_ShortSynchronizedOperation__ctor.htm">
+            <HelpTOCNode Title="ShortSynchronizedOperation Constructor (Action)" Url="html/M_gemstone_threading_synchronizedoperations_ShortSynchronizedOperation__ctor.htm" />
+            <HelpTOCNode Title="ShortSynchronizedOperation Constructor (Action, Action(Exception))" Url="html/M_gemstone_threading_synchronizedoperations_ShortSynchronizedOperation__ctor_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="ShortSynchronizedOperation Properties" Url="html/Properties_T_gemstone_threading_synchronizedoperations_ShortSynchronizedOperation.htm" />
+          <HelpTOCNode Id="1d2908a9-2396-418c-b1f7-3405599c680f" Title="ShortSynchronizedOperation Methods" Url="html/Methods_T_gemstone_threading_synchronizedoperations_ShortSynchronizedOperation.htm">
+            <HelpTOCNode Title="ExecuteActionAsync Method " Url="html/M_gemstone_threading_synchronizedoperations_ShortSynchronizedOperation_ExecuteActionAsync.htm" />
+          </HelpTOCNode>
+        </HelpTOCNode>
+        <HelpTOCNode Id="87eb7e91-7ac3-47a8-b69c-421834a1d0b0" Title="SynchronizedOperationBase Class" Url="html/T_gemstone_threading_synchronizedoperations_SynchronizedOperationBase.htm">
+          <HelpTOCNode Id="670061b7-dd6b-4bb8-abf2-5291cbcd3c49" Title="SynchronizedOperationBase Constructor " Url="html/Overload_gemstone_threading_synchronizedoperations_SynchronizedOperationBase__ctor.htm">
+            <HelpTOCNode Title="SynchronizedOperationBase Constructor (Action)" Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase__ctor.htm" />
+            <HelpTOCNode Title="SynchronizedOperationBase Constructor (Action(CancellationToken))" Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase__ctor_2.htm" />
+            <HelpTOCNode Title="SynchronizedOperationBase Constructor (Action, Action(Exception))" Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase__ctor_1.htm" />
+            <HelpTOCNode Title="SynchronizedOperationBase Constructor (Action(CancellationToken), Action(Exception))" Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase__ctor_3.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="0efce23e-81cc-4bca-9dcb-8752c6b26e2d" Title="SynchronizedOperationBase Properties" Url="html/Properties_T_gemstone_threading_synchronizedoperations_SynchronizedOperationBase.htm">
+            <HelpTOCNode Title="CancellationToken Property " Url="html/P_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_CancellationToken.htm" />
+            <HelpTOCNode Title="IsPending Property " Url="html/P_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_IsPending.htm" />
+            <HelpTOCNode Title="IsRunning Property " Url="html/P_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_IsRunning.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="9bd04e6d-efcb-4092-b5d7-beb63c8f7fed" Title="SynchronizedOperationBase Methods" Url="html/Methods_T_gemstone_threading_synchronizedoperations_SynchronizedOperationBase.htm">
+            <HelpTOCNode Title="ExecuteAction Method " Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_ExecuteAction.htm" />
+            <HelpTOCNode Title="ExecuteActionAsync Method " Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_ExecuteActionAsync.htm" />
+            <HelpTOCNode Title="Run Method " Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_Run.htm" />
+            <HelpTOCNode Title="RunOnce Method " Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_RunOnce.htm" />
+            <HelpTOCNode Title="RunOnceAsync Method " Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_RunOnceAsync.htm" />
+            <HelpTOCNode Title="TryRun Method " Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_TryRun.htm" />
+            <HelpTOCNode Title="TryRunOnce Method " Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_TryRunOnce.htm" />
+            <HelpTOCNode Title="TryRunOnceAsync Method " Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_TryRunOnceAsync.htm" />
           </HelpTOCNode>
         </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="7586fe1d-ce0b-4ff6-ab99-68518305689e" Title="versions" Url="html/40c6dd73-a863-4974-8d07-1d8ed94559b2.htm">
-    <HelpTOCNode Title="version 1.0.0.0" Url="html/6acb9445-970c-4cce-96bc-e1b89763a7c7.htm" />
+  <HelpTOCNode Id="247c963d-dfa5-48e2-a4c5-cbab2c85a256" Title="versions" Url="html/versions.htm">
+    <HelpTOCNode Title="version 1.0.0.0" Url="html/v1.0.0.0.htm" />
   </HelpTOCNode>
 </HelpTOC>
