@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Topics>
-  <Topic id="62470047-a519-43bd-a20c-fc3d11fc3f43" visible="True" isDefault="true" isSelected="true" apiParentMode="InsertAfter" title="Welcome to the GPA Gemstone Threading Library" tocTitle="API Documentation" linkText="https://github.com/gemstone/threading">
+  <Topic id="62470047-a519-43bd-a20c-fc3d11fc3f43" visible="True" isDefault="true" isSelected="true" apiParentMode="InsertAfter" title="Gemstone Threading Library Documentation" tocTitle="Getting Started" linkText="https://github.com/gemstone/threading">
     <HelpKeywords>
       <HelpKeyword index="K" term="Welcome" />
     </HelpKeywords>
