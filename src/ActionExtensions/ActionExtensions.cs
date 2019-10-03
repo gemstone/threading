@@ -39,6 +39,7 @@ namespace gemstone.threading.ActionExtensions
         /// </summary>
         /// <param name="action">The action to be executed.</param>
         /// <param name="delay">The amount of time to wait before execution, in milliseconds.</param>
+        /// <param name="cancellationToken">The token used to cancel execution.</param>
         /// <returns>
         /// A function to call which will cancel the operation.
         /// Cancel function returns true if <paramref name="action"/> is cancelled in time, false if not.

@@ -114,14 +114,14 @@ namespace gemstone.threading.SynchronizedOperations
         public bool IsRunning => Interlocked.CompareExchange(ref m_state, NotRunning, NotRunning) != NotRunning;
 
         /// <summary>
-        /// Gets a value to indiate whether the synchronized operation
+        /// Gets a value to indicate whether the synchronized operation
         /// has an additional operation that is pending execution after
         /// the currently running action has completed.
         /// </summary>
         public bool IsPending => Interlocked.CompareExchange(ref m_state, NotRunning, NotRunning) == Pending;
 
         /// <summary>
-        /// Gets or sets <see cref="Threading.CancellationToken"/> to use for cancelling actions.
+        /// Gets or sets <see cref="System.Threading.CancellationToken"/> to use for cancelling actions.
         /// </summary>
         public CancellationToken CancellationToken { get; set; } = CancellationToken.None;
 
