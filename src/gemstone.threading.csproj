@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks>
+    <!--TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks-->
+    <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>gemstone.threading</RootNamespace>
     <PackageId>gemstone.threading</PackageId>
     <Authors>Grid Protection Alliance</Authors>
@@ -20,12 +21,18 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <PropertyGroup>
     <OutputPath>$(SolutionDir)..\build\$(Configuration)</OutputPath>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>$(SolutionDir)..\build\$(Configuration)</OutputPath>
+  <PropertyGroup>
+    <DocumentationFile>$(SolutionDir)..\build\$(Configuration)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="DocGen\**" />
+    <EmbeddedResource Remove="DocGen\**" />
+    <None Remove="DocGen\**" />
+  </ItemGroup>
 
 </Project>
