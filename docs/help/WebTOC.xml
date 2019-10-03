@@ -1,14 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <HelpTOC>
 
-  <HelpTOCNode Title="Welcome to the [TODO: Add project name]" Url="html/62470047-a519-43bd-a20c-fc3d11fc3f43.htm" />
-  <HelpTOCNode Id="61c80dc7-7288-4f0f-8dcd-226aea8050ec" Title="Version History" Url="html/40c6dd73-a863-4974-8d07-1d8ed94559b2.htm">
-    <HelpTOCNode Title="Version 1.0.0.0" Url="html/6acb9445-970c-4cce-96bc-e1b89763a7c7.htm" />
-  </HelpTOCNode>
-  <HelpTOCNode Id="24510edc-be34-45d7-a155-a403e9f6680f" Title="gemstone.threading.ActionExtensions" Url="html/ff28f407-ec7a-10fd-c9b7-f14d72c9cc63.htm">
-    <HelpTOCNode Id="57b7d6bc-5d53-4b76-8ee3-2c1ac26ef2cc" Title="ActionExtensions Class" Url="html/fb51f667-4239-3201-f8e6-7563c864090e.htm">
-      <HelpTOCNode Id="44a2b3ec-3175-49c2-b92c-0309e7402169" Title="ActionExtensions Methods" Url="html/72a0b2ea-c817-6a20-2a1e-6f7cc807be79.htm">
-        <HelpTOCNode Id="0205c406-7478-43e6-afa2-300b0c16a181" Title="DelayAndExecute Method " Url="html/92744f41-59c2-5c83-b9f7-0c9e3578d1eb.htm">
+  <HelpTOCNode Title="API Documentation" Url="html/62470047-a519-43bd-a20c-fc3d11fc3f43.htm" />
+  <HelpTOCNode Id="7aaba322-4873-4759-b97e-5f2d85c76e5d" Title="gemstone.threading.ActionExtensions" Url="html/ff28f407-ec7a-10fd-c9b7-f14d72c9cc63.htm">
+    <HelpTOCNode Id="f5174cc6-e975-4d30-99ff-71cc205ad611" Title="ActionExtensions Class" Url="html/fb51f667-4239-3201-f8e6-7563c864090e.htm">
+      <HelpTOCNode Id="354600e9-371d-407f-8739-15aee9a6173b" Title="ActionExtensions Methods" Url="html/72a0b2ea-c817-6a20-2a1e-6f7cc807be79.htm">
+        <HelpTOCNode Id="8cfdce7a-2581-4f3d-bfe8-645a4b6b06a4" Title="DelayAndExecute Method " Url="html/92744f41-59c2-5c83-b9f7-0c9e3578d1eb.htm">
           <HelpTOCNode Title="DelayAndExecute Method (Action, Int32)" Url="html/28fdbd10-f184-61c2-728b-074c34d3b5b0.htm" />
           <HelpTOCNode Title="DelayAndExecute Method (Action(CancellationToken), Int32)" Url="html/768ba1e5-b0d3-d91b-3460-aaf7c09429da.htm" />
           <HelpTOCNode Title="DelayAndExecute Method (Action, Int32, CancellationToken)" Url="html/92b38dc9-002e-ef93-c844-a978f7dd5f6c.htm" />
@@ -17,30 +14,30 @@
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
-  <HelpTOCNode Id="0082161d-75c1-4bee-bf79-cbb992108428" Title="gemstone.threading.SynchronizedOperations" Url="html/1f40f322-ebc7-b97d-11c0-ccf540bd3b46.htm">
-    <HelpTOCNode Id="10db55c7-3a0e-4ada-a9c5-f53180d79ab9" Title="DelayedSynchronizedOperation Class" Url="html/28e0b57f-adc8-4eea-1418-a1cc460308e6.htm">
-      <HelpTOCNode Id="91c00b45-023d-43ce-846a-4b35a4e6b8a9" Title="DelayedSynchronizedOperation Constructor " Url="html/db71dca2-fb72-0320-cb18-7ae89f4b9650.htm">
+  <HelpTOCNode Id="d11b6953-be20-4d84-8a44-62a37cf32f1e" Title="gemstone.threading.SynchronizedOperations" Url="html/1f40f322-ebc7-b97d-11c0-ccf540bd3b46.htm">
+    <HelpTOCNode Id="9dfe05da-05c3-4423-b5cd-42fafbd4e4ca" Title="DelayedSynchronizedOperation Class" Url="html/28e0b57f-adc8-4eea-1418-a1cc460308e6.htm">
+      <HelpTOCNode Id="c5e94374-0fb1-4a52-ad61-b077cea977ed" Title="DelayedSynchronizedOperation Constructor " Url="html/db71dca2-fb72-0320-cb18-7ae89f4b9650.htm">
         <HelpTOCNode Title="DelayedSynchronizedOperation Constructor (Action)" Url="html/66e8a3d4-f08e-080d-8267-6d9d2052bbe8.htm" />
         <HelpTOCNode Title="DelayedSynchronizedOperation Constructor (Action(CancellationToken))" Url="html/039d3df3-fa3b-3d47-c22f-9b711d1c696b.htm" />
         <HelpTOCNode Title="DelayedSynchronizedOperation Constructor (Action, Action(Exception))" Url="html/3570129b-e135-65a9-5c7e-eba3bf0489ae.htm" />
         <HelpTOCNode Title="DelayedSynchronizedOperation Constructor (Action(CancellationToken), Action(Exception))" Url="html/855e92e0-f756-04b6-9190-2729a3314003.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="232c20da-2415-4b09-8781-fea00d039bc0" Title="DelayedSynchronizedOperation Properties" Url="html/07a755ce-2d0a-f46b-a8ed-b10c459c1fdb.htm">
+      <HelpTOCNode Id="fa5ecc23-328d-4964-83fd-890c6bca5ebc" Title="DelayedSynchronizedOperation Properties" Url="html/07a755ce-2d0a-f46b-a8ed-b10c459c1fdb.htm">
         <HelpTOCNode Title="Delay Property " Url="html/83c3e327-ca09-1869-ca67-1d37520959ba.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="69531d94-d2f3-47cf-8d64-a56cf71a653b" Title="DelayedSynchronizedOperation Methods" Url="html/19479d01-eabe-6efb-8598-6bb729a01d17.htm">
+      <HelpTOCNode Id="67c6d6fb-e24c-44e6-92cd-2f5ba64d1c36" Title="DelayedSynchronizedOperation Methods" Url="html/19479d01-eabe-6efb-8598-6bb729a01d17.htm">
         <HelpTOCNode Title="ExecuteActionAsync Method " Url="html/68fb7e87-8172-2b89-aaf0-57d1050abe43.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="1fc131ac-8186-41ce-a262-5c57d1bcb5c8" Title="DelayedSynchronizedOperation Fields" Url="html/840f9613-780c-fe4e-9562-2be97131ccce.htm">
+      <HelpTOCNode Id="9948ecc3-c716-4e84-90d0-568ee698d56b" Title="DelayedSynchronizedOperation Fields" Url="html/840f9613-780c-fe4e-9562-2be97131ccce.htm">
         <HelpTOCNode Title="DefaultDelay Field" Url="html/ca08ef50-152b-8df1-5530-7427288b70a1.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="36736614-e4bd-445e-a638-c0e6fcc4950f" Title="ISynchronizedOperation Interface" Url="html/eed43965-f7ae-3704-0ea5-5c3b68f4e48b.htm">
-      <HelpTOCNode Id="3ccf7eef-d9bd-456d-9778-e06e4458c7bc" Title="ISynchronizedOperation Properties" Url="html/1133494d-b22e-45a0-9ad9-fde84a9e9202.htm">
+    <HelpTOCNode Id="c2f68e77-c2b6-4dce-8662-f59a800f3ae3" Title="ISynchronizedOperation Interface" Url="html/eed43965-f7ae-3704-0ea5-5c3b68f4e48b.htm">
+      <HelpTOCNode Id="7c1e8454-8f9b-473d-b643-60a6b7c1f951" Title="ISynchronizedOperation Properties" Url="html/1133494d-b22e-45a0-9ad9-fde84a9e9202.htm">
         <HelpTOCNode Title="IsPending Property " Url="html/557e7b57-a7a5-f325-566a-c41d83dccd8f.htm" />
         <HelpTOCNode Title="IsRunning Property " Url="html/bd2c02af-fa04-cd97-1f03-d3485f9ef8ff.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="17233ebe-038d-4efd-b34b-f658d94b78a3" Title="ISynchronizedOperation Methods" Url="html/90476111-1d56-9c31-db1a-e285cb282fb8.htm">
+      <HelpTOCNode Id="6c93d9d8-c9de-4a29-b7ef-133fb420fc67" Title="ISynchronizedOperation Methods" Url="html/90476111-1d56-9c31-db1a-e285cb282fb8.htm">
         <HelpTOCNode Title="Run Method " Url="html/8693da72-df7b-edd5-7a51-89cf8cd60639.htm" />
         <HelpTOCNode Title="RunOnce Method " Url="html/9a9f2002-aedb-e140-2066-ae91b658eb1b.htm" />
         <HelpTOCNode Title="RunOnceAsync Method " Url="html/494f7dc6-c9ac-6963-323d-417dac0746c5.htm" />
@@ -49,43 +46,43 @@
         <HelpTOCNode Title="TryRunOnceAsync Method " Url="html/c74172ca-0c42-f990-82b6-4a46d91545ca.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="875e5d38-08fc-4558-9ba4-0dfad813498a" Title="LongSynchronizedOperation Class" Url="html/03b066d6-d650-1f55-c104-dbac49de91a1.htm">
-      <HelpTOCNode Id="5487eed6-7559-4b45-85cf-52d019202d07" Title="LongSynchronizedOperation Constructor " Url="html/f5689690-cd76-7659-4152-79bf6247eff0.htm">
+    <HelpTOCNode Id="94c79b49-d26e-43bd-be7c-8b87bb2c0352" Title="LongSynchronizedOperation Class" Url="html/03b066d6-d650-1f55-c104-dbac49de91a1.htm">
+      <HelpTOCNode Id="c7f06546-5636-4d2b-84f5-3171cde044c2" Title="LongSynchronizedOperation Constructor " Url="html/f5689690-cd76-7659-4152-79bf6247eff0.htm">
         <HelpTOCNode Title="LongSynchronizedOperation Constructor (Action)" Url="html/5b0d61a6-1798-8106-9b63-a338fa254795.htm" />
         <HelpTOCNode Title="LongSynchronizedOperation Constructor (Action(CancellationToken))" Url="html/e134bc27-8fba-cc9e-e747-41f8abd9e68f.htm" />
         <HelpTOCNode Title="LongSynchronizedOperation Constructor (Action, Action(Exception))" Url="html/91702753-b1e9-5007-6364-798910b93011.htm" />
         <HelpTOCNode Title="LongSynchronizedOperation Constructor (Action(CancellationToken), Action(Exception))" Url="html/8a601edc-273d-b098-1fd7-1bb5cb97341f.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="3a65539f-9d69-4c51-b2c9-c7a5df500b9e" Title="LongSynchronizedOperation Properties" Url="html/7f9b12b5-be93-272f-23d5-2bafc72ead0c.htm">
+      <HelpTOCNode Id="5db79a39-98c9-4f02-af71-6f46acd58d96" Title="LongSynchronizedOperation Properties" Url="html/7f9b12b5-be93-272f-23d5-2bafc72ead0c.htm">
         <HelpTOCNode Title="IsBackground Property " Url="html/05e02cae-00d4-56e8-6ab4-eee66df55468.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="8077ed33-8400-4ad9-bafb-4ee5e758c1e2" Title="LongSynchronizedOperation Methods" Url="html/48551771-4d79-89a5-18c5-961c20d07e88.htm">
+      <HelpTOCNode Id="5f31dbf9-186d-4d71-8446-227ada558c3f" Title="LongSynchronizedOperation Methods" Url="html/48551771-4d79-89a5-18c5-961c20d07e88.htm">
         <HelpTOCNode Title="ExecuteActionAsync Method " Url="html/4fc7c3d2-f959-d736-c099-d9a3b61a3ddf.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="c24658c0-fe88-413c-9881-ece996638492" Title="ShortSynchronizedOperation Class" Url="html/ea118db1-3ade-9151-b6a8-3a072dff6501.htm">
-      <HelpTOCNode Id="75b0d3de-2c99-4233-8903-69d2bfeb0549" Title="ShortSynchronizedOperation Constructor " Url="html/d7a2fe3f-04b1-cd16-0551-b0c593349605.htm">
+    <HelpTOCNode Id="fa532b99-1587-4960-9c3e-d720c5d8e8f9" Title="ShortSynchronizedOperation Class" Url="html/ea118db1-3ade-9151-b6a8-3a072dff6501.htm">
+      <HelpTOCNode Id="fa10f228-61aa-43ea-8a2d-0d9214728e4d" Title="ShortSynchronizedOperation Constructor " Url="html/d7a2fe3f-04b1-cd16-0551-b0c593349605.htm">
         <HelpTOCNode Title="ShortSynchronizedOperation Constructor (Action)" Url="html/1529b47b-6386-f1ad-abef-9052793c5a97.htm" />
         <HelpTOCNode Title="ShortSynchronizedOperation Constructor (Action, Action(Exception))" Url="html/985a1f51-a423-1fea-2565-89ef1485f7fd.htm" />
       </HelpTOCNode>
       <HelpTOCNode Title="ShortSynchronizedOperation Properties" Url="html/fb1258f9-fef7-05f5-e74b-6c7a3bcc61c6.htm" />
-      <HelpTOCNode Id="3966a42d-a26c-4f2c-b606-f0d674d69921" Title="ShortSynchronizedOperation Methods" Url="html/667181cc-90cd-5b6f-e68f-64e68e5094bc.htm">
+      <HelpTOCNode Id="8114953c-92b3-4b6b-b9f3-fc33ea3a81ca" Title="ShortSynchronizedOperation Methods" Url="html/667181cc-90cd-5b6f-e68f-64e68e5094bc.htm">
         <HelpTOCNode Title="ExecuteActionAsync Method " Url="html/8c3e206f-6f81-1860-8643-d4561bff2fe6.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
-    <HelpTOCNode Id="64b4950f-33ee-458a-b9ba-630fd542a6bb" Title="SynchronizedOperationBase Class" Url="html/8a08de6d-bbac-0406-89f3-5e0f87457eb3.htm">
-      <HelpTOCNode Id="5d5297bc-5f0b-4c22-9824-32e0b0220095" Title="SynchronizedOperationBase Constructor " Url="html/8f395d79-daa1-5ebe-aa90-6a5719a73560.htm">
+    <HelpTOCNode Id="719610a4-61dc-466a-aad0-c9e1902a236a" Title="SynchronizedOperationBase Class" Url="html/8a08de6d-bbac-0406-89f3-5e0f87457eb3.htm">
+      <HelpTOCNode Id="a36b3047-0b03-474e-8085-498239bf00bc" Title="SynchronizedOperationBase Constructor " Url="html/8f395d79-daa1-5ebe-aa90-6a5719a73560.htm">
         <HelpTOCNode Title="SynchronizedOperationBase Constructor (Action)" Url="html/7c5e1dfd-2a9b-233d-688c-85a1fb570251.htm" />
         <HelpTOCNode Title="SynchronizedOperationBase Constructor (Action(CancellationToken))" Url="html/cca97965-68cb-83fa-801c-10187155122d.htm" />
         <HelpTOCNode Title="SynchronizedOperationBase Constructor (Action, Action(Exception))" Url="html/f5c86833-aed4-0e17-7a24-32562afab147.htm" />
         <HelpTOCNode Title="SynchronizedOperationBase Constructor (Action(CancellationToken), Action(Exception))" Url="html/75cd7d06-2a80-150a-37a5-ae177bd91b11.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="065350a3-623a-4fee-9106-7fcb00a513b7" Title="SynchronizedOperationBase Properties" Url="html/504c15b8-ebb4-2cff-1755-570a55fe8df9.htm">
+      <HelpTOCNode Id="d7c02fc1-b074-43e5-b707-36ea9a03c05f" Title="SynchronizedOperationBase Properties" Url="html/504c15b8-ebb4-2cff-1755-570a55fe8df9.htm">
         <HelpTOCNode Title="CancellationToken Property " Url="html/10b338ea-a999-a746-677a-3912dacef632.htm" />
         <HelpTOCNode Title="IsPending Property " Url="html/e804fe39-287b-fe12-ad3d-bbcbb3351471.htm" />
         <HelpTOCNode Title="IsRunning Property " Url="html/b56c4724-a6fe-0c13-fee8-5d31d7259450.htm" />
       </HelpTOCNode>
-      <HelpTOCNode Id="3ad2409a-b698-4832-a3ac-e52998c8d7a8" Title="SynchronizedOperationBase Methods" Url="html/7a6f74f7-675e-5519-9c46-447125afa18d.htm">
+      <HelpTOCNode Id="6a4d38fe-38b2-4a29-a23f-ad6c49e39389" Title="SynchronizedOperationBase Methods" Url="html/7a6f74f7-675e-5519-9c46-447125afa18d.htm">
         <HelpTOCNode Title="ExecuteAction Method " Url="html/f7be44f8-541b-eb24-1928-7de3434fd59f.htm" />
         <HelpTOCNode Title="ExecuteActionAsync Method " Url="html/579744fe-64f9-14c6-6aac-9237cce6f3da.htm" />
         <HelpTOCNode Title="Run Method " Url="html/6b7e22bb-3693-0279-0c66-608ea85caf72.htm" />
@@ -96,5 +93,8 @@
         <HelpTOCNode Title="TryRunOnceAsync Method " Url="html/76aa4ceb-d695-70fa-a909-6b39408c4a71.htm" />
       </HelpTOCNode>
     </HelpTOCNode>
+  </HelpTOCNode>
+  <HelpTOCNode Id="99adfdc4-02e8-4989-b343-50c8e5a427d0" Title="Version History" Url="html/40c6dd73-a863-4974-8d07-1d8ed94559b2.htm">
+    <HelpTOCNode Title="Version 1.0.0.0" Url="html/6acb9445-970c-4cce-96bc-e1b89763a7c7.htm" />
   </HelpTOCNode>
 </HelpTOC>
