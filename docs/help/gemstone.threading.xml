@@ -4,12 +4,12 @@
     <name>gemstone.threading</name>
   </assembly>
   <members>
-    <member name="T:gemstone.threading.ActionExtensions.ActionExtensions">
+    <member name="T:gemstone.threading.extensions.ActionExtensions">
       <summary>
             Defines extension methods for actions.
             </summary>
     </member>
-    <member name="M:gemstone.threading.ActionExtensions.ActionExtensions.DelayAndExecute(System.Action,System.Int32)">
+    <member name="M:gemstone.threading.extensions.ActionExtensions.DelayAndExecute(System.Action,System.Int32)">
       <summary>
             Execute an action on the thread pool after a specified number of milliseconds.
             </summary>
@@ -20,7 +20,7 @@
             Cancel function returns true if <paramref name="action" /> is cancelled in time, false if not.
             </returns>
     </member>
-    <member name="M:gemstone.threading.ActionExtensions.ActionExtensions.DelayAndExecute(System.Action,System.Int32,System.Threading.CancellationToken)">
+    <member name="M:gemstone.threading.extensions.ActionExtensions.DelayAndExecute(System.Action,System.Int32,System.Threading.CancellationToken)">
       <summary>
             Execute an action on the thread pool after a specified number of milliseconds.
             </summary>
@@ -32,7 +32,7 @@
             Cancel function returns true if <paramref name="action" /> is cancelled in time, false if not.
             </returns>
     </member>
-    <member name="M:gemstone.threading.ActionExtensions.ActionExtensions.DelayAndExecute(System.Action{System.Threading.CancellationToken},System.Int32)">
+    <member name="M:gemstone.threading.extensions.ActionExtensions.DelayAndExecute(System.Action{System.Threading.CancellationToken},System.Int32)">
       <summary>
             Execute a cancellable action on the thread pool after a specified number of milliseconds.
             </summary>
@@ -43,7 +43,7 @@
             Cancel function returns true if <paramref name="action" /> is cancelled, false if not.
             </returns>
     </member>
-    <member name="M:gemstone.threading.ActionExtensions.ActionExtensions.DelayAndExecute(System.Action{System.Threading.CancellationToken},System.Int32,System.Threading.CancellationToken)">
+    <member name="M:gemstone.threading.extensions.ActionExtensions.DelayAndExecute(System.Action{System.Threading.CancellationToken},System.Int32,System.Threading.CancellationToken)">
       <summary>
             Execute a cancellable action on the thread pool after a specified number of milliseconds.
             </summary>
@@ -51,268 +51,268 @@
       <param name="delay">The amount of time to wait before execution, in milliseconds.</param>
       <param name="cancellationToken">The token used to cancel execution.</param>
     </member>
-    <member name="T:gemstone.threading.SynchronizedOperations.DelayedSynchronizedOperation">
+    <member name="T:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation">
       <summary>
             Represents a short-running synchronized operation that cannot run while it is already
             in progress. Async operations will execute on the thread-pool after the specified
-            <see cref="P:gemstone.threading.SynchronizedOperations.DelayedSynchronizedOperation.Delay" /> in milliseconds.
+            <see cref="P:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.Delay" /> in milliseconds.
             </summary>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.DelayedSynchronizedOperation.#ctor(System.Action)">
+    <member name="M:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.#ctor(System.Action)">
       <summary>
-            Creates a new instance of the <see cref="T:gemstone.threading.SynchronizedOperations.DelayedSynchronizedOperation" /> class.
+            Creates a new instance of the <see cref="T:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation" /> class.
             </summary>
       <param name="action">The action to be performed during this operation.</param>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.DelayedSynchronizedOperation.#ctor(System.Action,System.Action{System.Exception})">
+    <member name="M:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.#ctor(System.Action,System.Action{System.Exception})">
       <summary>
-            Creates a new instance of the <see cref="T:gemstone.threading.SynchronizedOperations.DelayedSynchronizedOperation" /> class.
+            Creates a new instance of the <see cref="T:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation" /> class.
             </summary>
       <param name="action">The action to be performed during this operation.</param>
       <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.DelayedSynchronizedOperation.#ctor(System.Action{System.Threading.CancellationToken})">
+    <member name="M:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.#ctor(System.Action{System.Threading.CancellationToken})">
       <summary>
-            Creates a new instance of the <see cref="T:gemstone.threading.SynchronizedOperations.DelayedSynchronizedOperation" /> class.
+            Creates a new instance of the <see cref="T:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation" /> class.
             </summary>
       <param name="action">The cancellable action to be performed during this operation.</param>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.DelayedSynchronizedOperation.#ctor(System.Action{System.Threading.CancellationToken},System.Action{System.Exception})">
+    <member name="M:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.#ctor(System.Action{System.Threading.CancellationToken},System.Action{System.Exception})">
       <summary>
-            Creates a new instance of the <see cref="T:gemstone.threading.SynchronizedOperations.DelayedSynchronizedOperation" /> class.
+            Creates a new instance of the <see cref="T:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation" /> class.
             </summary>
       <param name="action">The cancellable action to be performed during this operation.</param>
       <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
     </member>
-    <member name="F:gemstone.threading.SynchronizedOperations.DelayedSynchronizedOperation.DefaultDelay">
+    <member name="F:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.DefaultDelay">
       <summary>
-            Defines the default value for the <see cref="P:gemstone.threading.SynchronizedOperations.DelayedSynchronizedOperation.Delay" /> property.
+            Defines the default value for the <see cref="P:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.Delay" /> property.
             </summary>
     </member>
-    <member name="P:gemstone.threading.SynchronizedOperations.DelayedSynchronizedOperation.Delay">
+    <member name="P:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.Delay">
       <summary>
             Gets or sets the amount of time to wait before execution, in milliseconds,
             for any asynchronous calls. Zero value will execute immediately.
             </summary>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.DelayedSynchronizedOperation.ExecuteActionAsync">
+    <member name="M:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.ExecuteActionAsync">
       <summary>
-            Executes the action on a separate thread after the specified <see cref="P:gemstone.threading.SynchronizedOperations.DelayedSynchronizedOperation.Delay" />.
+            Executes the action on a separate thread after the specified <see cref="P:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.Delay" />.
             </summary>
     </member>
-    <member name="T:gemstone.threading.SynchronizedOperations.ISynchronizedOperation">
+    <member name="T:gemstone.threading.synchronizedoperations.ISynchronizedOperation">
       <summary>
             Represents an operation that cannot run while it is already in progress.
             </summary>
     </member>
-    <member name="P:gemstone.threading.SynchronizedOperations.ISynchronizedOperation.IsPending">
+    <member name="P:gemstone.threading.synchronizedoperations.ISynchronizedOperation.IsPending">
       <summary>
             Gets a value to indiate whether the synchronized operation
             has an additional operation that is pending execution after
             the currently running action has completed.
             </summary>
     </member>
-    <member name="P:gemstone.threading.SynchronizedOperations.ISynchronizedOperation.IsRunning">
+    <member name="P:gemstone.threading.synchronizedoperations.ISynchronizedOperation.IsRunning">
       <summary>
             Gets a value to indicate whether the synchronized
             operation is currently executing its action.
             </summary>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.ISynchronizedOperation.Run">
+    <member name="M:gemstone.threading.synchronizedoperations.ISynchronizedOperation.Run">
       <summary>
             Executes the action on this thread or marks the
             operation as pending if the operation is already running.
             </summary>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.ISynchronizedOperation.RunOnce">
+    <member name="M:gemstone.threading.synchronizedoperations.ISynchronizedOperation.RunOnce">
       <summary>
             Executes the action on this thread or marks the
             operation as pending if the operation is already running.
             </summary>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.ISynchronizedOperation.RunOnceAsync">
+    <member name="M:gemstone.threading.synchronizedoperations.ISynchronizedOperation.RunOnceAsync">
       <summary>
             Executes the action on another thread or marks the
             operation as pending if the operation is already running.
             </summary>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.ISynchronizedOperation.TryRun">
+    <member name="M:gemstone.threading.synchronizedoperations.ISynchronizedOperation.TryRun">
       <summary>
             Attempts to execute the action on this thread.
             Does nothing if the operation is already running.
             </summary>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.ISynchronizedOperation.TryRunOnce">
+    <member name="M:gemstone.threading.synchronizedoperations.ISynchronizedOperation.TryRunOnce">
       <summary>
             Attempts to execute the action on this thread.
             Does nothing if the operation is already running.
             </summary>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.ISynchronizedOperation.TryRunOnceAsync">
+    <member name="M:gemstone.threading.synchronizedoperations.ISynchronizedOperation.TryRunOnceAsync">
       <summary>
             Attempts to execute the action on another thread.
             Does nothing if the operation is already running.
             </summary>
     </member>
-    <member name="T:gemstone.threading.SynchronizedOperations.LongSynchronizedOperation">
+    <member name="T:gemstone.threading.synchronizedoperations.LongSynchronizedOperation">
       <summary>
             Represents a long-running synchronized operation
             that cannot run while it is already in progress.
             </summary>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.LongSynchronizedOperation.#ctor(System.Action)">
+    <member name="M:gemstone.threading.synchronizedoperations.LongSynchronizedOperation.#ctor(System.Action)">
       <summary>
-            Creates a new instance of the <see cref="T:gemstone.threading.SynchronizedOperations.LongSynchronizedOperation" /> class.
+            Creates a new instance of the <see cref="T:gemstone.threading.synchronizedoperations.LongSynchronizedOperation" /> class.
             </summary>
       <param name="action">The action to be performed during this operation.</param>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.LongSynchronizedOperation.#ctor(System.Action,System.Action{System.Exception})">
+    <member name="M:gemstone.threading.synchronizedoperations.LongSynchronizedOperation.#ctor(System.Action,System.Action{System.Exception})">
       <summary>
-            Creates a new instance of the <see cref="T:gemstone.threading.SynchronizedOperations.LongSynchronizedOperation" /> class.
+            Creates a new instance of the <see cref="T:gemstone.threading.synchronizedoperations.LongSynchronizedOperation" /> class.
             </summary>
       <param name="action">The action to be performed during this operation.</param>
       <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.LongSynchronizedOperation.#ctor(System.Action{System.Threading.CancellationToken})">
+    <member name="M:gemstone.threading.synchronizedoperations.LongSynchronizedOperation.#ctor(System.Action{System.Threading.CancellationToken})">
       <summary>
-            Creates a new instance of the <see cref="T:gemstone.threading.SynchronizedOperations.LongSynchronizedOperation" /> class.
+            Creates a new instance of the <see cref="T:gemstone.threading.synchronizedoperations.LongSynchronizedOperation" /> class.
             </summary>
       <param name="action">The cancellable action to be performed during this operation.</param>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.LongSynchronizedOperation.#ctor(System.Action{System.Threading.CancellationToken},System.Action{System.Exception})">
+    <member name="M:gemstone.threading.synchronizedoperations.LongSynchronizedOperation.#ctor(System.Action{System.Threading.CancellationToken},System.Action{System.Exception})">
       <summary>
-            Creates a new instance of the <see cref="T:gemstone.threading.SynchronizedOperations.LongSynchronizedOperation" /> class.
+            Creates a new instance of the <see cref="T:gemstone.threading.synchronizedoperations.LongSynchronizedOperation" /> class.
             </summary>
       <param name="action">The action to be performed during this operation.</param>
       <param name="exceptionAction">The cancellable action to be performed if an exception is thrown from the action.</param>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.LongSynchronizedOperation.ExecuteActionAsync">
+    <member name="M:gemstone.threading.synchronizedoperations.LongSynchronizedOperation.ExecuteActionAsync">
       <summary>
             Executes the action on a separate thread.
             </summary>
     </member>
-    <member name="P:gemstone.threading.SynchronizedOperations.LongSynchronizedOperation.IsBackground">
+    <member name="P:gemstone.threading.synchronizedoperations.LongSynchronizedOperation.IsBackground">
       <summary>
             Gets or sets whether or not the thread
             executing the action is a background thread.
             </summary>
     </member>
-    <member name="T:gemstone.threading.SynchronizedOperations.ShortSynchronizedOperation">
+    <member name="T:gemstone.threading.synchronizedoperations.ShortSynchronizedOperation">
       <summary>
             Represents a short-running synchronized operation
             that cannot run while it is already in progress.
             </summary>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.ShortSynchronizedOperation.#ctor(System.Action)">
+    <member name="M:gemstone.threading.synchronizedoperations.ShortSynchronizedOperation.#ctor(System.Action)">
       <summary>
-            Creates a new instance of the <see cref="T:gemstone.threading.SynchronizedOperations.ShortSynchronizedOperation" /> class.
+            Creates a new instance of the <see cref="T:gemstone.threading.synchronizedoperations.ShortSynchronizedOperation" /> class.
             </summary>
       <param name="action">The action to be performed during this operation.</param>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.ShortSynchronizedOperation.#ctor(System.Action,System.Action{System.Exception})">
+    <member name="M:gemstone.threading.synchronizedoperations.ShortSynchronizedOperation.#ctor(System.Action,System.Action{System.Exception})">
       <summary>
-            Creates a new instance of the <see cref="T:gemstone.threading.SynchronizedOperations.ShortSynchronizedOperation" /> class.
+            Creates a new instance of the <see cref="T:gemstone.threading.synchronizedoperations.ShortSynchronizedOperation" /> class.
             </summary>
       <param name="action">The action to be performed during this operation.</param>
       <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.ShortSynchronizedOperation.ExecuteActionAsync">
+    <member name="M:gemstone.threading.synchronizedoperations.ShortSynchronizedOperation.ExecuteActionAsync">
       <summary>
             Executes the action in an asynchronous loop on
             the thread pool, as long as the operation is pending.
             </summary>
     </member>
-    <member name="T:gemstone.threading.SynchronizedOperations.SynchronizedOperationBase">
+    <member name="T:gemstone.threading.synchronizedoperations.SynchronizedOperationBase">
       <summary>
             Base class for operations that cannot run while they is already in progress.
             </summary>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.SynchronizedOperationBase.#ctor(System.Action)">
+    <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.#ctor(System.Action)">
       <summary>
-            Creates a new instance of the <see cref="T:gemstone.threading.SynchronizedOperations.SynchronizedOperationBase" /> class.
+            Creates a new instance of the <see cref="T:gemstone.threading.synchronizedoperations.SynchronizedOperationBase" /> class.
             </summary>
       <param name="action">The action to be performed during this operation.</param>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.SynchronizedOperationBase.#ctor(System.Action,System.Action{System.Exception})">
+    <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.#ctor(System.Action,System.Action{System.Exception})">
       <summary>
-            Creates a new instance of the <see cref="T:gemstone.threading.SynchronizedOperations.SynchronizedOperationBase" /> class.
+            Creates a new instance of the <see cref="T:gemstone.threading.synchronizedoperations.SynchronizedOperationBase" /> class.
             </summary>
       <param name="action">The action to be performed during this operation.</param>
       <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.SynchronizedOperationBase.#ctor(System.Action{System.Threading.CancellationToken})">
+    <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.#ctor(System.Action{System.Threading.CancellationToken})">
       <summary>
-            Creates a new instance of the <see cref="T:gemstone.threading.SynchronizedOperations.SynchronizedOperationBase" /> class.
+            Creates a new instance of the <see cref="T:gemstone.threading.synchronizedoperations.SynchronizedOperationBase" /> class.
             </summary>
       <param name="action">The cancellable action to be performed during this operation.</param>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.SynchronizedOperationBase.#ctor(System.Action{System.Threading.CancellationToken},System.Action{System.Exception})">
+    <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.#ctor(System.Action{System.Threading.CancellationToken},System.Action{System.Exception})">
       <summary>
-            Creates a new instance of the <see cref="T:gemstone.threading.SynchronizedOperations.SynchronizedOperationBase" /> class.
+            Creates a new instance of the <see cref="T:gemstone.threading.synchronizedoperations.SynchronizedOperationBase" /> class.
             </summary>
       <param name="action">The cancellable action to be performed during this operation.</param>
       <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
     </member>
-    <member name="P:gemstone.threading.SynchronizedOperations.SynchronizedOperationBase.CancellationToken">
+    <member name="P:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.CancellationToken">
       <summary>
             Gets or sets <see cref="T:System.Threading.CancellationToken" /> to use for cancelling actions.
             </summary>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.SynchronizedOperationBase.ExecuteAction">
+    <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.ExecuteAction">
       <summary>
             Executes the action once on the current thread.
             </summary>
       <returns>True if the action was pending and needs to run again; false otherwise.</returns>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.SynchronizedOperationBase.ExecuteActionAsync">
+    <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.ExecuteActionAsync">
       <summary>
              Executes the action on a separate thread.
              </summary>
     </member>
-    <member name="P:gemstone.threading.SynchronizedOperations.SynchronizedOperationBase.IsPending">
+    <member name="P:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.IsPending">
       <summary>
             Gets a value to indicate whether the synchronized operation
             has an additional operation that is pending execution after
             the currently running action has completed.
             </summary>
     </member>
-    <member name="P:gemstone.threading.SynchronizedOperations.SynchronizedOperationBase.IsRunning">
+    <member name="P:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.IsRunning">
       <summary>
             Gets a value to indicate whether the synchronized
             operation is currently executing its action.
             </summary>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.SynchronizedOperationBase.Run">
+    <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.Run">
       <summary>
             Executes the action on this thread or marks the
             operation as pending if the operation is already running.
             </summary>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.SynchronizedOperationBase.RunOnce">
+    <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.RunOnce">
       <summary>
             Executes the action on this thread or marks the
             operation as pending if the operation is already running.
             </summary>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.SynchronizedOperationBase.RunOnceAsync">
+    <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.RunOnceAsync">
       <summary>
             Executes the action on another thread or marks the
             operation as pending if the operation is already running.
             </summary>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.SynchronizedOperationBase.TryRun">
+    <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.TryRun">
       <summary>
             Attempts to execute the action on this thread.
             Does nothing if the operation is already running.
             </summary>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.SynchronizedOperationBase.TryRunOnce">
+    <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.TryRunOnce">
       <summary>
             Attempts to execute the action on this thread.
             Does nothing if the operation is already running.
             </summary>
     </member>
-    <member name="M:gemstone.threading.SynchronizedOperations.SynchronizedOperationBase.TryRunOnceAsync">
+    <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.TryRunOnceAsync">
       <summary>
             Attempts to execute the action on another thread.
             Does nothing if the operation is already running.
