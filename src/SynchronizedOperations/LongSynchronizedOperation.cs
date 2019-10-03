@@ -25,7 +25,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace gemstone.threading.SynchronizedOperations
+namespace gemstone.threading.synchronizedoperations
 {
     /// <summary>
     /// Represents a long-running synchronized operation

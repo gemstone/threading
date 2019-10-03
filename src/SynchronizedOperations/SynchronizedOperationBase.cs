@@ -24,7 +24,7 @@
 using System;
 using System.Threading;
 
-namespace gemstone.threading.SynchronizedOperations
+namespace gemstone.threading.synchronizedoperations
 {
     /// <summary>
     /// Base class for operations that cannot run while they is already in progress.

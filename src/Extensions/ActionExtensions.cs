@@ -27,7 +27,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace gemstone.threading.Extensions
+namespace gemstone.threading.extensions
 {
     /// <summary>
     /// Defines extension methods for actions.
