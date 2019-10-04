@@ -83,5 +83,19 @@ namespace gemstone.threading.synchronizedoperations
         }
 
         #endregion
+
+        #region [ Static ]
+
+        // Static Methods
+
+        /// <summary>
+        /// Factory method to match the <see cref="SynchronizedOperationFactory"/> signature.
+        /// </summary>
+        /// <param name="action">The action to be performed by the <see cref="ShortSynchronizedOperation"/>.</param>
+        /// <returns>A new instance of <see cref="ShortSynchronizedOperation"/>.</returns>
+        public static ISynchronizedOperation Factory(Action action) =>
+            new ShortSynchronizedOperation(action);
+
+        #endregion
     }
 }

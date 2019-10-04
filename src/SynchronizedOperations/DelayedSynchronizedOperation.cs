@@ -136,5 +136,19 @@ namespace gemstone.threading.synchronizedoperations
             m_delayedAction.DelayAndExecute(Delay, CancellationToken);
 
         #endregion
+
+        #region [ Static ]
+
+        // Static Methods
+
+        /// <summary>
+        /// Factory method to match the <see cref="SynchronizedOperationFactory"/> signature.
+        /// </summary>
+        /// <param name="action">The action to be performed by the <see cref="DelayedSynchronizedOperation"/>.</param>
+        /// <returns>A new instance of <see cref="DelayedSynchronizedOperation"/> with <see cref="DefaultDelay"/> of 1000 milliseconds.</returns>
+        public static ISynchronizedOperation Factory(Action action) =>
+            new DelayedSynchronizedOperation(action);
+
+        #endregion
     }
 }

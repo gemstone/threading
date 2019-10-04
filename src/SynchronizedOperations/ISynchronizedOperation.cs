@@ -21,8 +21,17 @@
 //
 //******************************************************************************************************
 
+using System;
+
 namespace gemstone.threading.synchronizedoperations
 {
+    /// <summary>
+    /// Factory method for creating synchronized operations.
+    /// </summary>
+    /// <param name="action">The action to be synchronized by the operation.</param>
+    /// <returns>The operation that synchronizes the given action.</returns>
+    public delegate ISynchronizedOperation SynchronizedOperationFactory(Action action);
+
     /// <summary>
     /// Represents an operation that cannot run while it is already in progress.
     /// </summary>
