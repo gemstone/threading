@@ -97,7 +97,7 @@ namespace gemstone.threading.strands
         /// Inline exeuction allows tasks to skip the line and run out of order.
         /// The only reason inline execution is supported at all is to avoid a common
         /// case of deadlocking where a task is queued in advance of another task that it
-        /// depends on (via <see cref="Task.Wait"/>, for instance). However, deadlocks can
+        /// depends on (via <see cref="Task.Wait()"/>, for instance). However, deadlocks can
         /// still occur when waiting on tasks scheduled by a different strand. To avoid
         /// out-of-order execution and deaclocks, be very careful about using API calls
         /// that wait on tasks.
