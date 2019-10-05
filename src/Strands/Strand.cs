@@ -99,7 +99,7 @@ namespace gemstone.threading.strands
         /// case of deadlocking where a task is queued in advance of another task that it
         /// depends on (via <see cref="Task.Wait()"/>, for instance). However, deadlocks can
         /// still occur when waiting on tasks scheduled by a different strand. To avoid
-        /// out-of-order execution and deaclocks, be very careful about using API calls
+        /// out-of-order execution and deadlocks, be very careful about using API calls
         /// that wait on tasks.
         /// </remarks>
         protected override bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued)
