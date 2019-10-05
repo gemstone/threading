@@ -65,6 +65,7 @@ namespace gemstone.threading.strands
             }
 
             public int Priority { get; }
+            public override int MaximumConcurrencyLevel => 1;
             private PriorityStrand PriorityStrand { get; }
 
             public new bool TryExecuteTask(Task task) =>

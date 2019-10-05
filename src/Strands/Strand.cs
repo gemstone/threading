@@ -58,6 +58,11 @@ namespace gemstone.threading.strands
 
         #region [ Properties ]
 
+        /// <summary>
+        /// Indicates the maximum concurrency level this <see cref="TaskScheduler"/> is able to support.
+        /// </summary>
+        public override int MaximumConcurrencyLevel => 1;
+
         private ISynchronizedOperation SynchronizedOperation { get; }
         private ConcurrentQueue<Task> Queue { get; }
         private Thread ProcessingThread { get; set; }
