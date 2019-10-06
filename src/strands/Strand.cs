@@ -21,11 +21,11 @@
 //
 //******************************************************************************************************
 
+using gemstone.threading.synchronizedoperations;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using gemstone.threading.synchronizedoperations;
 
 namespace gemstone.threading.strands
 {
@@ -94,7 +94,7 @@ namespace gemstone.threading.strands
         /// </param>
         /// <returns>A Boolean value indicating whether the task was executed inline.</returns>
         /// <remarks>
-        /// Inline exeuction allows tasks to skip the line and run out of order.
+        /// Inline execution allows tasks to skip the line and run out of order.
         /// The only reason inline execution is supported at all is to avoid a common
         /// case of deadlocking where a task is queued in advance of another task that it
         /// depends on (via <see cref="Task.Wait()"/>, for instance). However, deadlocks can

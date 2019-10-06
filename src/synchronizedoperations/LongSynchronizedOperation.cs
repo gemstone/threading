@@ -124,23 +124,23 @@ namespace gemstone.threading.synchronizedoperations
 
         private void ExecuteActionAsyncBackground()
         {
-            Action taskAction = () =>
+            void taskAction()
             {
                 if (ExecuteAction())
                     ExecuteActionAsync();
-            };
+            }
 
             Task.Factory.StartNew(taskAction, TaskCreationOptions.LongRunning);
         }
 
         private void ExecuteActionAsyncForeground()
         {
-            ThreadStart threadAction = () =>
+            void threadAction()
             {
                 while (ExecuteAction())
                 {
                 }
-            };
+            }
 
             new Thread(threadAction).Start();
         }

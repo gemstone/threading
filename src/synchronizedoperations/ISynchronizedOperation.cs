@@ -44,7 +44,7 @@ namespace gemstone.threading.synchronizedoperations
         bool IsRunning { get; }
 
         /// <summary>
-        /// Gets a value to indiate whether the synchronized operation
+        /// Gets a value to indicate whether the synchronized operation
         /// has an additional operation that is pending execution after
         /// the currently running action has completed.
         /// </summary>

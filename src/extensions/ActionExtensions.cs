@@ -40,12 +40,13 @@ namespace gemstone.threading.extensions
         /// <param name="action">The action to be executed.</param>
         /// <param name="delay">The amount of time to wait before execution, in milliseconds.</param>
         /// <param name="cancellationToken">The token used to cancel execution.</param>
-        /// <returns>
-        /// A function to call which will cancel the operation.
-        /// Cancel function returns true if <paramref name="action"/> is cancelled in time, false if not.
-        /// </returns>
-        public static void DelayAndExecute(this Action action, int delay, CancellationToken cancellationToken) =>
-            new Action<CancellationToken>(_ => action()).DelayAndExecute(delay, cancellationToken);
+        /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
+        /// <remarks>
+        /// End users should attach to the <see cref="TaskScheduler.UnobservedTaskException"/> event to log exceptions if the
+        /// <paramref name="exceptionAction"/> is not defined.
+        /// </remarks>
+        public static void DelayAndExecute(this Action action, int delay, CancellationToken cancellationToken, Action<Exception> exceptionAction = null) =>
+            new Action<CancellationToken>(_ => action()).DelayAndExecute(delay, cancellationToken, exceptionAction);
 
         /// <summary>
         /// Execute a cancellable action on the thread pool after a specified number of milliseconds.
@@ -53,42 +54,69 @@ namespace gemstone.threading.extensions
         /// <param name="action">The action to be executed.</param>
         /// <param name="delay">The amount of time to wait before execution, in milliseconds.</param>
         /// <param name="cancellationToken">The token used to cancel execution.</param>
-        public static void DelayAndExecute(this Action<CancellationToken> action, int delay, CancellationToken cancellationToken) =>
-            Task.Delay(delay, cancellationToken).ContinueWith(task => action(cancellationToken));
+        /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
+        /// <remarks>
+        /// End users should attach to the <see cref="TaskScheduler.UnobservedTaskException"/> event to log exceptions if the
+        /// <paramref name="exceptionAction"/> is not defined.
+        /// </remarks>
+        public static void DelayAndExecute(this Action<CancellationToken> action, int delay, CancellationToken cancellationToken, Action<Exception> exceptionAction = null) =>
+            Task.Delay(delay, cancellationToken)
+                .ContinueWith(task => action(cancellationToken), cancellationToken)
+                .ContinueWith(task =>
+                {
+                    // ReSharper disable once PossibleNullReferenceException
+                    if (exceptionAction == null)
+                        throw task.Exception;
+
+                    exceptionAction(task.Exception);
+                },
+                cancellationToken,
+                TaskContinuationOptions.OnlyOnFaulted,
+                TaskScheduler.Default);
 
         /// <summary>
         /// Execute an action on the thread pool after a specified number of milliseconds.
         /// </summary>
         /// <param name="action">The action to be executed.</param>
         /// <param name="delay">The amount of time to wait before execution, in milliseconds.</param>
+        /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
         /// <returns>
         /// A function to call which will cancel the operation.
         /// Cancel function returns true if <paramref name="action"/> is cancelled in time, false if not.
         /// </returns>
-        public static Func<bool> DelayAndExecute(this Action action, int delay) =>
-            new Action<CancellationToken>(_ => action()).DelayAndExecute(delay);
+        /// <remarks>
+        /// End users should attach to the <see cref="TaskScheduler.UnobservedTaskException"/> event to log exceptions if the
+        /// <paramref name="exceptionAction"/> is not defined.
+        /// </remarks>
+        public static Func<bool> DelayAndExecute(this Action action, int delay, Action<Exception> exceptionAction = null) =>
+            new Action<CancellationToken>(_ => action()).DelayAndExecute(delay, exceptionAction);
 
         /// <summary>
         /// Execute a cancellable action on the thread pool after a specified number of milliseconds.
         /// </summary>
         /// <param name="action">The action to be executed.</param>
         /// <param name="delay">The amount of time to wait before execution, in milliseconds.</param>
+        /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
         /// <returns>
         /// A function to call which will cancel the operation.
         /// Cancel function returns true if <paramref name="action"/> is cancelled, false if not.
         /// </returns>
-        public static Func<bool> DelayAndExecute(this Action<CancellationToken> action, int delay)
+        /// <remarks>
+        /// End users should attach to the <see cref="TaskScheduler.UnobservedTaskException"/> event to log exceptions if the
+        /// <paramref name="exceptionAction"/> is not defined.
+        /// </remarks>
+        public static Func<bool> DelayAndExecute(this Action<CancellationToken> action, int delay, Action<Exception> exceptionAction = null)
         {
             CancellationTokenSource tokenSource = new CancellationTokenSource();
             CancellationToken token = tokenSource.Token;
 
-            Func<bool> cancelFunc = () =>
+            bool cancelFunc()
             {
                 CancellationTokenSource tokenSourceRef = Interlocked.Exchange(ref tokenSource, null);
                 tokenSourceRef?.Cancel();
                 tokenSourceRef?.Dispose();
                 return tokenSourceRef != null;
-            };
+            }
 
             Action<CancellationToken> executeAction = _ =>
             {
@@ -105,7 +133,7 @@ namespace gemstone.threading.extensions
                 }
             };
 
-            executeAction.DelayAndExecute(delay, token);
+            executeAction.DelayAndExecute(delay, token, exceptionAction);
 
             return cancelFunc;
         }

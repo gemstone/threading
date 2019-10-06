@@ -81,7 +81,7 @@ namespace gemstone.threading.synchronizedoperations
         /// <param name="action">The action to be performed during this operation.</param>
         /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
         protected SynchronizedOperationBase(Action action, Action<Exception> exceptionAction)
-            : this(new Action<CancellationToken>(_ => action()), exceptionAction)
+            : this(_ => action(), exceptionAction)
         {
         }
 
@@ -264,7 +264,7 @@ namespace gemstone.threading.synchronizedoperations
         /// <summary>
         /// Executes the action once on the current thread.
         /// </summary>
-        /// <returns>True if the action was pending and needs to run again; false otherwise.</returns>
+        /// <returns><c>true</c> if the action was pending and needs to run again; otherwise, <c>false</c>.</returns>
         protected bool ExecuteAction()
         {
             try
@@ -274,14 +274,7 @@ namespace gemstone.threading.synchronizedoperations
             }
             catch (Exception ex)
             {
-                try
-                {
-                    if ((object)m_exceptionAction != null)
-                        m_exceptionAction(ex);
-                }
-                catch
-                {
-                }
+                ProcessException(ex);
             }
 
             // if (m_state == Pending)
@@ -329,6 +322,48 @@ namespace gemstone.threading.synchronizedoperations
         /// </code>
         /// </remarks>
         protected abstract void ExecuteActionAsync();
+
+        /// <summary>
+        /// Processes an exception thrown by an operation.
+        /// </summary>
+        /// <param name="ex"><see cref="Exception"/> to be processed.</param>
+        protected void ProcessException(Exception ex)
+        {
+            if (m_exceptionAction == null)
+            {
+                OnUnhandledException(this, ex);
+            }
+            else
+            {
+                try
+                {
+                    m_exceptionAction(ex);
+                }
+                catch (Exception handlerEx)
+                {
+                    OnUnhandledException(this, new AggregateException(handlerEx, ex));
+                }
+            }
+        }
+
+        #endregion
+
+        #region [ Static ]
+
+        // Static Events
+
+        /// <summary>
+        /// Exposes exceptions that were suppressed but otherwise unhandled by a synchronized operation.
+        /// </summary>
+        /// <remarks>
+        /// End users should attach to this event so that unhandled exceptions can be exposed to a log.
+        /// </remarks>
+        public static event EventHandler<UnhandledExceptionEventArgs> UnhandledException;
+
+        // Static Methods
+
+        private static void OnUnhandledException(object sender, Exception ex) =>
+            UnhandledException?.Invoke(sender, new UnhandledExceptionEventArgs(ex));
 
         #endregion
     }

@@ -21,13 +21,13 @@
 //
 //******************************************************************************************************
 
+using gemstone.threading.synchronizedoperations;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using gemstone.threading.synchronizedoperations;
 
 namespace gemstone.threading.strands
 {
@@ -161,7 +161,7 @@ namespace gemstone.threading.strands
             SynchronizedOperation.RunOnceAsync();
         }
 
-        // Inline exeuction allows tasks to skip the line and run out of order.
+        // Inline execution allows tasks to skip the line and run out of order.
         // The only reason inline execution is supported at all is to avoid a common
         // case of deadlocking where a task is queued in advance of another task that it
         // depends on (via Task.Wait(), for instance). However, deadlocks can still occur

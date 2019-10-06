@@ -21,9 +21,9 @@
 //
 //******************************************************************************************************
 
+using gemstone.threading.extensions;
 using System;
 using System.Threading;
-using gemstone.threading.extensions;
 
 namespace gemstone.threading.synchronizedoperations
 {
@@ -89,7 +89,7 @@ namespace gemstone.threading.synchronizedoperations
         /// <param name="action">The action to be performed during this operation.</param>
         /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
         public DelayedSynchronizedOperation(Action action, Action<Exception> exceptionAction)
-            : this(new Action<CancellationToken>(_ => action()), exceptionAction)
+            : this(_ => action(), exceptionAction)
         {
         }
 
@@ -133,7 +133,7 @@ namespace gemstone.threading.synchronizedoperations
         /// Executes the action on a separate thread after the specified <see cref="Delay"/>.
         /// </summary>
         protected override void ExecuteActionAsync() =>
-            m_delayedAction.DelayAndExecute(Delay, CancellationToken);
+            m_delayedAction.DelayAndExecute(Delay, CancellationToken, ProcessException);
 
         #endregion
 
