@@ -107,15 +107,51 @@ namespace gemstone.threading.extensions
         /// </remarks>
         public static Func<bool> DelayAndExecute(this Action<CancellationToken> action, int delay, Action<Exception> exceptionAction = null)
         {
+            // All this state complexity ensures that the token source
+            // is not disposed until after the action finishes executing;
+            // otherwise, token.ThrowIfCancellationRequested() might unexpectedly
+            // throw an ObjectDisposedException if used in the action
+            const int NotCancelled = 0;
+            const int Cancelling = 1;
+            const int Cancelled = 2;
+            const int Disposing = 3;
+
             CancellationTokenSource tokenSource = new CancellationTokenSource();
             CancellationToken token = tokenSource.Token;
+            int state = NotCancelled;
 
             bool cancelFunc()
             {
-                CancellationTokenSource tokenSourceRef = Interlocked.Exchange(ref tokenSource, null);
-                tokenSourceRef?.Cancel();
-                tokenSourceRef?.Dispose();
-                return tokenSourceRef != null;
+                // if (state == NotCancelled)
+                //     state = Cancelling;
+                // else
+                //     return false;
+                //
+                // tokenSource.Cancel();
+                //
+                // if (state == Cancelling)
+                //     state = Cancelled;
+                // else if (state == Disposing)
+                //     tokenSource.Dispose();
+                //
+                // return true;
+
+                int previousState = Interlocked.CompareExchange(ref state, Cancelling, NotCancelled);
+
+                if (previousState != NotCancelled)
+                    return false;
+
+                tokenSource.Cancel();
+
+                previousState = Interlocked.CompareExchange(ref state, Cancelled, Cancelling);
+
+                // If the state changed to Disposing while cancelFunc was cancelling,
+                // executeAction will prevent the race condition by not calling
+                // tokenSource.Dispose() so it must be called here instead
+                if (previousState == Disposing)
+                    tokenSource.Dispose();
+
+                return true;
             }
 
             Action<CancellationToken> executeAction = _ =>
@@ -127,8 +163,22 @@ namespace gemstone.threading.extensions
                 }
                 finally
                 {
-                    CancellationTokenSource tokenSourceRef = Interlocked.Exchange(ref tokenSource, null);
-                    tokenSourceRef?.Dispose();
+                    // int previousState = state;
+                    // state = Disposing;
+                    //
+                    // if (previousState == Cancelling)
+                    // {
+                    //     tokenSource.Cancel();
+                    //     tokenSource.Dispose();
+                    // }
+
+                    int previousState = Interlocked.Exchange(ref state, Disposing);
+
+                    // The Cancelling state is the only state in which it is not
+                    // safe to dispose on this thread because Cancelling means that
+                    // cancelFunc is in the process of calling tokenSource.Cancel()
+                    if (previousState != Cancelling)
+                        tokenSource.Dispose();
                 }
             };
 
