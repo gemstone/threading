@@ -27,7 +27,7 @@
       <Argument Key="maxVersionParts" Value="" />
       <Argument Key="defaultLanguage" Value="cs" />
       <Argument Key="includeEnumValues" Value="true" />
-      <Argument Key="baseSourceCodeUrl" Value="https://github.com/gemstone/threading/blob/master/src/ " />
+      <Argument Key="baseSourceCodeUrl" Value="https://github.com/gemstone/threading/blob/master/src/" />
       <Argument Key="requestExampleUrl" Value="Create a new issue: https://github.com/gemstone/threading/issues/new " />
     </TransformComponentArguments>
     <HelpFileFormat>Website</HelpFileFormat>
