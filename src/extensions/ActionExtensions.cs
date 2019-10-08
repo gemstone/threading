@@ -120,15 +120,14 @@ namespace gemstone.threading.extensions
 
             Action<CancellationToken> executeAction = _ =>
             {
-                CancellationTokenSource tokenSourceRef = Interlocked.Exchange(ref tokenSource, null);
-
                 try
                 {
-                    if (!(tokenSourceRef?.IsCancellationRequested ?? true))
+                    if (!token.IsCancellationRequested)
                         action(token);
                 }
                 finally
                 {
+                    CancellationTokenSource tokenSourceRef = Interlocked.Exchange(ref tokenSource, null);
                     tokenSourceRef?.Dispose();
                 }
             };
