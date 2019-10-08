@@ -166,11 +166,8 @@ namespace gemstone.threading.extensions
                     // int previousState = state;
                     // state = Disposing;
                     //
-                    // if (previousState == Cancelling)
-                    // {
-                    //     tokenSource.Cancel();
+                    // if (previousState != Cancelling)
                     //     tokenSource.Dispose();
-                    // }
 
                     int previousState = Interlocked.Exchange(ref state, Disposing);
 
