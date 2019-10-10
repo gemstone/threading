@@ -21,13 +21,13 @@
 //
 //******************************************************************************************************
 
-using gemstone.threading.synchronizedoperations;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using gemstone.threading.collections;
+using gemstone.threading.synchronizedoperations;
 
 namespace gemstone.threading.strands
 {
@@ -84,10 +84,6 @@ namespace gemstone.threading.strands
                 PriorityStrand.GetScheduledTasks(this);
         }
 
-        // These days I implement all internal fields as properties,
-        // but this needed to be Interlocked for resizing.
-        private ConcurrentQueue<QueuedTask>[] m_queues;
-
         #endregion
 
         #region [ Constructors ]
@@ -107,8 +103,7 @@ namespace gemstone.threading.strands
         public PriorityStrand(SynchronizedOperationFactory synchronizedOperationFactory)
         {
             SynchronizedOperation = synchronizedOperationFactory(Execute);
-            m_queues = new ConcurrentQueue<QueuedTask>[1];
-            Queues[0] = new ConcurrentQueue<QueuedTask>();
+            Queue = new PriorityQueue<QueuedTask>();
         }
 
         #endregion
@@ -116,7 +111,7 @@ namespace gemstone.threading.strands
         #region [ Properties ]
 
         private ISynchronizedOperation SynchronizedOperation { get; }
-        private ConcurrentQueue<QueuedTask>[] Queues => Interlocked.CompareExchange(ref m_queues, null, null);
+        private PriorityQueue<QueuedTask> Queue { get; }
         private Thread ProcessingThread { get; set; }
 
         #endregion
@@ -135,29 +130,14 @@ namespace gemstone.threading.strands
             if (priority < 0)
                 throw new ArgumentException("Priority must be a nonnegative integer.", nameof(priority));
 
-            while (Queues.Length <= priority)
-            {
-                ConcurrentQueue<QueuedTask>[] queues = Queues;
-                ConcurrentQueue<QueuedTask>[] resizedQueues = queues;
-                Array.Resize(ref resizedQueues, priority + 1);
-
-                for (int i = queues.Length; i < resizedQueues.Length; i++)
-                    queues[i] = new ConcurrentQueue<QueuedTask>();
-
-                // This prevents race conditions between threads
-                // attempting to resize the array in parallel
-                Interlocked.CompareExchange(ref m_queues, resizedQueues, queues);
-            }
-
             return new Scheduler(this, priority);
         }
 
         private void QueueTask(Task task, Scheduler scheduler)
         {
             int priority = scheduler.Priority;
-            ConcurrentQueue<QueuedTask> queue = Queues[priority];
             QueuedTask queuedTask = new QueuedTask(task, scheduler);
-            queue.Enqueue(queuedTask);
+            Queue.Enqueue(queuedTask, priority);
             SynchronizedOperation.RunOnceAsync();
         }
 
@@ -188,20 +168,18 @@ namespace gemstone.threading.strands
                 return false;
 
             int priority = scheduler.Priority;
-            ConcurrentQueue<QueuedTask> queue = Queues[priority];
 
-            // We can only dequeue tasks from the head of the queue,
-            // so this is really just a minimal-effort approach
-            if (queue.TryPeek(out QueuedTask head) && task == head.Task)
-                return queue.TryDequeue(out _);
+            // We can only dequeue tasks from the head of the queue at a given
+            // priority, so this is really just a minimal-effort approach
+            if (Queue.TryPeek(priority, out QueuedTask head) && task == head.Task)
+                return Queue.TryDequeue(priority, out _);
 
             return false;
         }
 
-        private IEnumerable<Task> GetScheduledTasks(TaskScheduler scheduler)
+        private IEnumerable<Task> GetScheduledTasks(Scheduler scheduler)
         {
-            return Queues
-                .SelectMany(queue => queue.ToArray())
+            return Queue
                 .Where(queuedTask => queuedTask.Scheduler == scheduler)
                 .Select(queuedTask => queuedTask.Task);
         }
@@ -216,17 +194,8 @@ namespace gemstone.threading.strands
 
                 while (true)
                 {
-                    // Higher numbers are higher in priority!
-                    ConcurrentQueue<QueuedTask> queue = Queues.LastOrDefault(q => !q.IsEmpty);
-
-                    if (queue == null)
-                        return;
-
-                    // Dequeue should never fail since we just determined
-                    // that the queue is not empty; but if it did fail,
-                    // this seems like reasonable behavior
-                    if (!queue.TryDequeue(out QueuedTask queuedTask))
-                        continue;
+                    if (!Queue.TryDequeue(out QueuedTask queuedTask))
+                        break;
 
                     Task task = queuedTask.Task;
                     Scheduler scheduler = queuedTask.Scheduler;
@@ -239,7 +208,7 @@ namespace gemstone.threading.strands
             {
                 ProcessingThread = null;
 
-                if (Queues.Any(queue => !queue.IsEmpty))
+                if (!Queue.IsEmpty)
                     SynchronizedOperation.RunOnceAsync();
             }
         }
