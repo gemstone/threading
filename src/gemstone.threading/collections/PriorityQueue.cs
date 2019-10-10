@@ -49,17 +49,44 @@ namespace gemstone.threading.collections
         /// Creates a new instance of the <see cref="PriorityQueue{T}"/> class.
         /// </summary>
         public PriorityQueue()
+            : this(1)
         {
-            m_queues = new ConcurrentQueue<T>[1];
-            m_queues[0] = new ConcurrentQueue<T>();
+        }
+
+        /// <summary>
+        /// Creates a new instance of the <see cref="PriorityQueue{T}"/> class.
+        /// </summary>
+        /// <param name="priorityLevels">The number of priority levels to preallocate in the queue.</param>
+        /// <exception cref="ArgumentException"><paramref name="priorityLevels"/> is less than or equal to 0</exception>
+        public PriorityQueue(int priorityLevels)
+        {
+            if (priorityLevels <= 0)
+                throw new ArgumentException("Priority queue must have at least one priority level.", nameof(priorityLevels));
+
+            m_queues = new ConcurrentQueue<T>[priorityLevels];
+
+            for (int i = 0; i < priorityLevels; i++)
+                m_queues[i] = new ConcurrentQueue<T>();
         }
 
         /// <summary>
         /// Creates a new instance of the <see cref="PriorityQueue{T}"/> class.
         /// </summary>
         /// <param name="collection">A collection of items to be enqueued at the lowest priority.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="collection"/> is null</exception>
         public PriorityQueue(IEnumerable<T> collection)
         {
+            if (collection == null)
+                throw new ArgumentNullException(nameof(collection));
+
+            PriorityQueue<T> priorityQueue = collection as PriorityQueue<T>;
+
+            if (priorityQueue != null)
+            {
+                InitializeFrom(priorityQueue);
+                return;
+            }
+
             m_queues = new ConcurrentQueue<T>[1];
             m_queues[0] = new ConcurrentQueue<T>();
 
@@ -71,18 +98,13 @@ namespace gemstone.threading.collections
         /// Creates a new instance of the <see cref="PriorityQueue{T}"/> class.
         /// </summary>
         /// <param name="priorityQueue">Another priority queue of items to be enqueued in this queue at the same priority.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="priorityQueue"/> is null</exception>
         public PriorityQueue(PriorityQueue<T> priorityQueue)
         {
-            int priorityLevels = priorityQueue.Queues.Length;
-            m_queues = new ConcurrentQueue<T>[priorityLevels];
+            if (priorityQueue == null)
+                throw new ArgumentNullException(nameof(priorityQueue));
 
-            for (int i = 0; i < priorityLevels; i++)
-            {
-                m_queues[i] = new ConcurrentQueue<T>();
-
-                foreach (T item in priorityQueue.Queues[i])
-                    m_queues[i].Enqueue(item);
-            }
+            InitializeFrom(priorityQueue);
         }
 
         #endregion
@@ -286,6 +308,20 @@ namespace gemstone.threading.collections
                 // If another thread updates the member variable while this thread was in the process of resizing,
                 // there will be additional queues in the new array that must not be overwritten
                 Array.Copy(queues, length, resizedQueues, length, queues.Length - length);
+            }
+        }
+
+        private void InitializeFrom(PriorityQueue<T> priorityQueue)
+        {
+            int priorityLevels = priorityQueue.Queues.Length;
+            m_queues = new ConcurrentQueue<T>[priorityLevels];
+
+            for (int i = 0; i < priorityLevels; i++)
+            {
+                m_queues[i] = new ConcurrentQueue<T>();
+
+                foreach (T item in priorityQueue.Queues[i])
+                    m_queues[i].Enqueue(item);
             }
         }
 
