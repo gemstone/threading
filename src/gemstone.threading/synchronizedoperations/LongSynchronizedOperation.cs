@@ -105,7 +105,11 @@ namespace gemstone.threading.synchronizedoperations
         /// Gets or sets whether or not the thread
         /// executing the action is a background thread.
         /// </summary>
-        public bool IsBackground { get; set; }
+        /// <remarks>
+        /// This defaults to <c>true</c>. If set to <c>false</c>, be
+        /// aware that running thread can prevent shutdown.
+        /// </remarks>
+        public bool IsBackground { get; set; } = true;
 
         #endregion
 
