@@ -4,6 +4,115 @@
     <name>gemstone.threading</name>
   </assembly>
   <members>
+    <member name="T:gemstone.threading.collections.PriorityQueue`1">
+      <summary>
+            Represents a thread-safe prioritized first in-first out (FIFO) collection.
+            </summary>
+      <typeparam name="T">The type of elements contained in the queue.</typeparam>
+    </member>
+    <member name="M:gemstone.threading.collections.PriorityQueue`1.#ctor">
+      <summary>
+            Creates a new instance of the <see cref="T:gemstone.threading.collections.PriorityQueue`1" /> class.
+            </summary>
+    </member>
+    <member name="M:gemstone.threading.collections.PriorityQueue`1.#ctor(gemstone.threading.collections.PriorityQueue{`0})">
+      <summary>
+            Creates a new instance of the <see cref="T:gemstone.threading.collections.PriorityQueue`1" /> class.
+            </summary>
+      <param name="priorityQueue">Another priority queue of items to be enqueued in this queue at the same priority.</param>
+    </member>
+    <member name="M:gemstone.threading.collections.PriorityQueue`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+      <summary>
+            Creates a new instance of the <see cref="T:gemstone.threading.collections.PriorityQueue`1" /> class.
+            </summary>
+      <param name="collection">A collection of items to be enqueued at the lowest priority.</param>
+    </member>
+    <member name="M:gemstone.threading.collections.PriorityQueue`1.CopyTo(`0[],System.Int32)">
+      <summary>
+            Copies the <see cref="T:gemstone.threading.collections.PriorityQueue`1" /> elements to an existing
+            one-dimensional <see cref="T:System.Array" />, starting at the specified array index.
+            </summary>
+      <param name="array">
+            The one-dimensional <see cref="T:System.Array" /> that is the destination of the elements copied
+            from the <see cref="T:gemstone.threading.collections.PriorityQueue`1" />. The <see cref="T:System.Array" /> must
+            have zero-based indexing.
+            </param>
+      <param name="index">The zero-based index in array at which copying begins.</param>
+      <exception cref="T:System.ArgumentNullException">array is a null reference (Nothing in Visual Basic).</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">index is less than zero.</exception>
+      <exception cref="T:System.ArgumentException">
+            index is equal to or greater than the length of the array -or- The number of
+            elements in the source <see cref="T:gemstone.threading.collections.PriorityQueue`1" /> is greater
+            than the available space from index to the end of the destination array.
+            </exception>
+    </member>
+    <member name="P:gemstone.threading.collections.PriorityQueue`1.Count">
+      <summary>
+            Gets the number of items in the queue.
+            </summary>
+    </member>
+    <member name="M:gemstone.threading.collections.PriorityQueue`1.Enqueue(`0,System.Int32)">
+      <summary>
+            Enqueues an item into the priority queue.
+            </summary>
+      <param name="item">The item to be enqueued.</param>
+      <param name="priority">The priority at which the item should be queued. Larger numbers have higher priority!</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="priority" /> is negative</exception>
+    </member>
+    <member name="M:gemstone.threading.collections.PriorityQueue`1.GetEnumerator">
+      <summary>
+            Returns an enumerator that iterates through the <see cref="T:gemstone.threading.collections.PriorityQueue`1" />.
+            </summary>
+      <returns>An enumerator for the contents of the <see cref="T:gemstone.threading.collections.PriorityQueue`1" />.</returns>
+    </member>
+    <member name="P:gemstone.threading.collections.PriorityQueue`1.IsEmpty">
+      <summary>
+            Indicates whether the <see cref="T:gemstone.threading.collections.PriorityQueue`1" /> is empty.
+            </summary>
+    </member>
+    <member name="M:gemstone.threading.collections.PriorityQueue`1.ToArray">
+      <summary>
+            Copies the elements stored in the <see cref="T:gemstone.threading.collections.PriorityQueue`1" /> to a new array.
+            </summary>
+      <returns>A new array containing a snapshot of elements copied from the <see cref="T:gemstone.threading.collections.PriorityQueue`1" />.</returns>
+    </member>
+    <member name="M:gemstone.threading.collections.PriorityQueue`1.TryDequeue(System.Int32,`0@)">
+      <summary>
+            Dequeues an item from the priority queue.
+            </summary>
+      <param name="priority">The priority at which the item should be dequeued.</param>
+      <param name="result">The item that was dequeued, or the default value if no item was dequeued.</param>
+      <returns>True if an item was dequeued; false if the queue is empty.</returns>
+    </member>
+    <member name="M:gemstone.threading.collections.PriorityQueue`1.TryDequeue(`0@)">
+      <summary>
+            Dequeues an item from the priority queue.
+            </summary>
+      <param name="result">The item that was dequeued, or the default value if no item was dequeued.</param>
+      <returns>True if an item was dequeued; false if the queue is empty.</returns>
+    </member>
+    <member name="M:gemstone.threading.collections.PriorityQueue`1.TryPeek(System.Int32,`0@)">
+      <summary>
+            Tries to return an object from the beginning of the <see cref="T:gemstone.threading.collections.PriorityQueue`1" /> without removing it.
+            </summary>
+      <param name="priority">The priority at which to peek into the queue.</param>
+      <param name="result">
+            When this method returns, result contains an object from the beginning of the
+            <see cref="T:gemstone.threading.collections.PriorityQueue`1" /> or an unspecified value if the operation failed.
+            </param>
+      <returns>true if an object was returned successfully; otherwise, false.</returns>
+    </member>
+    <member name="M:gemstone.threading.collections.PriorityQueue`1.TryPeek(`0@)">
+      <summary>
+            Tries to return an object from the beginning of the <see cref="T:gemstone.threading.collections.PriorityQueue`1" /> without removing it.
+            </summary>
+      <param name="result">
+            When this method returns, result contains an object from the beginning of the
+            <see cref="T:gemstone.threading.collections.PriorityQueue`1" /> or an unspecified value if the operation failed.
+            </param>
+      <returns>true if an object was returned successfully; otherwise, false.</returns>
+    </member>
     <member name="T:gemstone.threading.extensions.ActionExtensions">
       <summary>
             Defines extension methods for actions.

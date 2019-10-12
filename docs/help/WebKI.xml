@@ -6,6 +6,8 @@
   </HelpKINode>
   <HelpKINode Title="ActionExtensions.DelayAndExecute method" Url="html/Overload_gemstone_threading_extensions_ActionExtensions_DelayAndExecute.htm" />
   <HelpKINode Title="CancellationToken property" Url="html/P_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_CancellationToken.htm" />
+  <HelpKINode Title="CopyTo method" Url="html/M_gemstone_threading_collections_PriorityQueue_1_CopyTo.htm" />
+  <HelpKINode Title="Count property" Url="html/P_gemstone_threading_collections_PriorityQueue_1_Count.htm" />
   <HelpKINode Title="DefaultDelay field" Url="html/F_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation_DefaultDelay.htm" />
   <HelpKINode Title="Delay property" Url="html/P_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation_Delay.htm" />
   <HelpKINode Title="DelayAndExecute method" Url="html/Overload_gemstone_threading_extensions_ActionExtensions_DelayAndExecute.htm" />
@@ -21,6 +23,7 @@
   <HelpKINode Title="DelayedSynchronizedOperation.DelayedSynchronizedOperation constructor" Url="html/Overload_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation__ctor.htm" />
   <HelpKINode Title="DelayedSynchronizedOperation.ExecuteActionAsync method" Url="html/M_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation_ExecuteActionAsync.htm" />
   <HelpKINode Title="DelayedSynchronizedOperation.Factory method" Url="html/M_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation_Factory.htm" />
+  <HelpKINode Title="Enqueue method" Url="html/M_gemstone_threading_collections_PriorityQueue_1_Enqueue.htm" />
   <HelpKINode Title="ExecuteAction method" Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_ExecuteAction.htm" />
   <HelpKINode Title="ExecuteActionAsync method">
     <HelpKINode Title="DelayedSynchronizedOperation.ExecuteActionAsync Method " Url="html/M_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation_ExecuteActionAsync.htm" />
@@ -33,6 +36,9 @@
     <HelpKINode Title="LongSynchronizedOperation.Factory Method " Url="html/M_gemstone_threading_synchronizedoperations_LongSynchronizedOperation_Factory.htm" />
     <HelpKINode Title="ShortSynchronizedOperation.Factory Method " Url="html/M_gemstone_threading_synchronizedoperations_ShortSynchronizedOperation_Factory.htm" />
   </HelpKINode>
+  <HelpKINode Title="gemstone.threading.collections namespace" Url="html/N_gemstone_threading_collections.htm" />
+  <HelpKINode Title="gemstone.threading.collections.PriorityQueue(Of T) class" Url="html/T_gemstone_threading_collections_PriorityQueue_1.htm" />
+  <HelpKINode Title="gemstone.threading.collections.PriorityQueue&lt;T&gt; class" Url="html/T_gemstone_threading_collections_PriorityQueue_1.htm" />
   <HelpKINode Title="gemstone.threading.extensions namespace" Url="html/N_gemstone_threading_extensions.htm" />
   <HelpKINode Title="gemstone.threading.extensions.ActionExtensions class" Url="html/T_gemstone_threading_extensions_ActionExtensions.htm" />
   <HelpKINode Title="gemstone.threading.strands namespace" Url="html/N_gemstone_threading_strands.htm" />
@@ -46,9 +52,11 @@
   <HelpKINode Title="gemstone.threading.synchronizedoperations.SynchronizedOperationBase class" Url="html/T_gemstone_threading_synchronizedoperations_SynchronizedOperationBase.htm" />
   <HelpKINode Title="gemstone.threading.synchronizedoperations.SynchronizedOperationFactory delegate" Url="html/T_gemstone_threading_synchronizedoperations_SynchronizedOperationFactory.htm" />
   <HelpKINode Title="gemstone.threading.synchronizedoperations.UnhandledExceptionEventArgs class" Url="html/T_gemstone_threading_synchronizedoperations_UnhandledExceptionEventArgs.htm" />
+  <HelpKINode Title="GetEnumerator method" Url="html/M_gemstone_threading_collections_PriorityQueue_1_GetEnumerator.htm" />
   <HelpKINode Title="GetScheduledTasks method" Url="html/M_gemstone_threading_strands_Strand_GetScheduledTasks.htm" />
   <HelpKINode Title="GetScheduler method" Url="html/M_gemstone_threading_strands_PriorityStrand_GetScheduler.htm" />
   <HelpKINode Title="IsBackground property" Url="html/P_gemstone_threading_synchronizedoperations_LongSynchronizedOperation_IsBackground.htm" />
+  <HelpKINode Title="IsEmpty property" Url="html/P_gemstone_threading_collections_PriorityQueue_1_IsEmpty.htm" />
   <HelpKINode Title="IsPending property">
     <HelpKINode Title="ISynchronizedOperation.IsPending Property " Url="html/P_gemstone_threading_synchronizedoperations_ISynchronizedOperation_IsPending.htm" />
     <HelpKINode Title="SynchronizedOperationBase.IsPending Property " Url="html/P_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_IsPending.htm" />
@@ -81,6 +89,36 @@
   <HelpKINode Title="LongSynchronizedOperation.IsBackground property" Url="html/P_gemstone_threading_synchronizedoperations_LongSynchronizedOperation_IsBackground.htm" />
   <HelpKINode Title="LongSynchronizedOperation.LongSynchronizedOperation constructor" Url="html/Overload_gemstone_threading_synchronizedoperations_LongSynchronizedOperation__ctor.htm" />
   <HelpKINode Title="MaximumConcurrencyLevel property" Url="html/P_gemstone_threading_strands_Strand_MaximumConcurrencyLevel.htm" />
+  <HelpKINode Title="PriorityQueue(Of T) class">
+    <HelpKINode Title="PriorityQueue(T) Class" Url="html/T_gemstone_threading_collections_PriorityQueue_1.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_gemstone_threading_collections_PriorityQueue_1__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_gemstone_threading_collections_PriorityQueue_1.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_gemstone_threading_collections_PriorityQueue_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="PriorityQueue(Of T).CopyTo method" Url="html/M_gemstone_threading_collections_PriorityQueue_1_CopyTo.htm" />
+  <HelpKINode Title="PriorityQueue(Of T).Count property" Url="html/P_gemstone_threading_collections_PriorityQueue_1_Count.htm" />
+  <HelpKINode Title="PriorityQueue(Of T).Enqueue method" Url="html/M_gemstone_threading_collections_PriorityQueue_1_Enqueue.htm" />
+  <HelpKINode Title="PriorityQueue(Of T).GetEnumerator method" Url="html/M_gemstone_threading_collections_PriorityQueue_1_GetEnumerator.htm" />
+  <HelpKINode Title="PriorityQueue(Of T).IsEmpty property" Url="html/P_gemstone_threading_collections_PriorityQueue_1_IsEmpty.htm" />
+  <HelpKINode Title="PriorityQueue(Of T).PriorityQueue constructor" Url="html/Overload_gemstone_threading_collections_PriorityQueue_1__ctor.htm" />
+  <HelpKINode Title="PriorityQueue(Of T).ToArray method" Url="html/M_gemstone_threading_collections_PriorityQueue_1_ToArray.htm" />
+  <HelpKINode Title="PriorityQueue(Of T).TryDequeue method" Url="html/Overload_gemstone_threading_collections_PriorityQueue_1_TryDequeue.htm" />
+  <HelpKINode Title="PriorityQueue(Of T).TryPeek method" Url="html/Overload_gemstone_threading_collections_PriorityQueue_1_TryPeek.htm" />
+  <HelpKINode Title="PriorityQueue&lt;T&gt; class">
+    <HelpKINode Title="PriorityQueue(T) Class" Url="html/T_gemstone_threading_collections_PriorityQueue_1.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_gemstone_threading_collections_PriorityQueue_1__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_gemstone_threading_collections_PriorityQueue_1.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_gemstone_threading_collections_PriorityQueue_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="PriorityQueue&lt;T&gt;.CopyTo method" Url="html/M_gemstone_threading_collections_PriorityQueue_1_CopyTo.htm" />
+  <HelpKINode Title="PriorityQueue&lt;T&gt;.Count property" Url="html/P_gemstone_threading_collections_PriorityQueue_1_Count.htm" />
+  <HelpKINode Title="PriorityQueue&lt;T&gt;.Enqueue method" Url="html/M_gemstone_threading_collections_PriorityQueue_1_Enqueue.htm" />
+  <HelpKINode Title="PriorityQueue&lt;T&gt;.GetEnumerator method" Url="html/M_gemstone_threading_collections_PriorityQueue_1_GetEnumerator.htm" />
+  <HelpKINode Title="PriorityQueue&lt;T&gt;.IsEmpty property" Url="html/P_gemstone_threading_collections_PriorityQueue_1_IsEmpty.htm" />
+  <HelpKINode Title="PriorityQueue&lt;T&gt;.PriorityQueue constructor" Url="html/Overload_gemstone_threading_collections_PriorityQueue_1__ctor.htm" />
+  <HelpKINode Title="PriorityQueue&lt;T&gt;.ToArray method" Url="html/M_gemstone_threading_collections_PriorityQueue_1_ToArray.htm" />
+  <HelpKINode Title="PriorityQueue&lt;T&gt;.TryDequeue method" Url="html/Overload_gemstone_threading_collections_PriorityQueue_1_TryDequeue.htm" />
+  <HelpKINode Title="PriorityQueue&lt;T&gt;.TryPeek method" Url="html/Overload_gemstone_threading_collections_PriorityQueue_1_TryPeek.htm" />
   <HelpKINode Title="PriorityStrand class">
     <HelpKINode Title="PriorityStrand Class" Url="html/T_gemstone_threading_strands_PriorityStrand.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_gemstone_threading_strands_PriorityStrand__ctor.htm" />
@@ -145,8 +183,13 @@
   <HelpKINode Title="SynchronizedOperationBase.TryRunOnceAsync method" Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_TryRunOnceAsync.htm" />
   <HelpKINode Title="SynchronizedOperationBase.UnhandledException event" Url="html/E_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_UnhandledException.htm" />
   <HelpKINode Title="SynchronizedOperationFactory delegate" Url="html/T_gemstone_threading_synchronizedoperations_SynchronizedOperationFactory.htm" />
-  <HelpKINode Title="TryDequeue method" Url="html/M_gemstone_threading_strands_Strand_TryDequeue.htm" />
+  <HelpKINode Title="ToArray method" Url="html/M_gemstone_threading_collections_PriorityQueue_1_ToArray.htm" />
+  <HelpKINode Title="TryDequeue method">
+    <HelpKINode Title="PriorityQueue(T).TryDequeue Method " Url="html/Overload_gemstone_threading_collections_PriorityQueue_1_TryDequeue.htm" />
+    <HelpKINode Title="Strand.TryDequeue Method " Url="html/M_gemstone_threading_strands_Strand_TryDequeue.htm" />
+  </HelpKINode>
   <HelpKINode Title="TryExecuteTaskInline method" Url="html/M_gemstone_threading_strands_Strand_TryExecuteTaskInline.htm" />
+  <HelpKINode Title="TryPeek method" Url="html/Overload_gemstone_threading_collections_PriorityQueue_1_TryPeek.htm" />
   <HelpKINode Title="TryRun method">
     <HelpKINode Title="ISynchronizedOperation.TryRun Method " Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_TryRun.htm" />
     <HelpKINode Title="SynchronizedOperationBase.TryRun Method " Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_TryRun.htm" />
@@ -169,10 +212,6 @@
   </HelpKINode>
   <HelpKINode Title="UnhandledExceptionEventArgs.UnhandledException property" Url="html/P_gemstone_threading_synchronizedoperations_UnhandledExceptionEventArgs_UnhandledException.htm" />
   <HelpKINode Title="UnhandledExceptionEventArgs.UnhandledExceptionEventArgs constructor" Url="html/M_gemstone_threading_synchronizedoperations_UnhandledExceptionEventArgs__ctor.htm" />
-  <HelpKINode Title="version">
-    <HelpKINode Title="1.0.0.0" Url="html/v1.0.0.0.htm" />
-    <HelpKINode Title="history" Url="html/versions.htm" />
-  </HelpKINode>
   <HelpKINode Title="welcome">
     <HelpKINode Title="getting started, root, gemstone" Url="html/gemstone.htm" />
   </HelpKINode>
