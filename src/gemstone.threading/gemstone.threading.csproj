@@ -29,10 +29,4 @@
     <DocumentationFile>$(SolutionDir)..\build\$(Configuration)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="DocGen\**" />
-    <EmbeddedResource Remove="DocGen\**" />
-    <None Remove="DocGen\**" />
-  </ItemGroup>
-
 </Project>
