@@ -91,7 +91,7 @@
       </PlugInConfig>
     </PlugInConfigurations>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\gemstone.threading.csproj" />
+      <DocumentationSource sourceFile="..\gemstone.threading\gemstone.threading.csproj" />
     </DocumentationSources>
     <WarnOnMissingSourceContext>False</WarnOnMissingSourceContext>
     <HelpTitle>Gemstone Threading Library</HelpTitle>
