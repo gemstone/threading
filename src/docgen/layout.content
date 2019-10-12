@@ -1,18 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Topics>
-  <Topic id="gemstone" visible="True" isDefault="true" apiParentMode="InsertAsChild" title="Gemstone Threading Library Documentation" tocTitle="gemstone" linkText="https://github.com/gemstone/threading">
+  <Topic id="gemstone" visible="True" isDefault="true" isSelected="true" apiParentMode="InsertAsChild" title="Gemstone Threading Library Documentation" tocTitle="gemstone" linkText="https://github.com/gemstone/threading">
     <HelpKeywords>
       <HelpKeyword index="K" term="welcome, getting started, root, gemstone" />
     </HelpKeywords>
-  </Topic>
-  <Topic id="versions" visible="True" isExpanded="true" title="versions">
-    <HelpKeywords>
-      <HelpKeyword index="K" term="version, history" />
-    </HelpKeywords>
-    <Topic id="v1.0.0.0" visible="True" isSelected="true" title="version 1.0.0.0">
-      <HelpKeywords>
-        <HelpKeyword index="K" term="version, 1.0.0.0" />
-      </HelpKeywords>
-    </Topic>
   </Topic>
 </Topics>
