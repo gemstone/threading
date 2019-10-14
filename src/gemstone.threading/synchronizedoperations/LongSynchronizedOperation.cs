@@ -106,10 +106,13 @@ namespace gemstone.threading.synchronizedoperations
         /// executing the action is a background thread.
         /// </summary>
         /// <remarks>
-        /// This defaults to <c>true</c>. If set to <c>false</c>, be
-        /// aware that running thread can prevent shutdown.
+        /// This defaults to <c>false</c>, be aware that
+        /// foreground thread will prevent shutdown while
+        /// task is running. Note that if a task keeps
+        /// getting marked as pending, application will
+        /// not shutdown.
         /// </remarks>
-        public bool IsBackground { get; set; } = true;
+        public bool IsBackground { get; set; }
 
         #endregion
 
