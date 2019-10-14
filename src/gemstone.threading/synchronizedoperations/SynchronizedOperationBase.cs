@@ -127,7 +127,7 @@ namespace gemstone.threading.synchronizedoperations
 
         /// <summary>
         /// Gets or sets <see cref="System.Threading.CancellationToken"/> to use for cancelling actions.
-        /// </summary>
+        /// </summary>Defines synchronization mode for running any pending operation.
         public CancellationToken CancellationToken { get; set; } = CancellationToken.None;
 
         #endregion
@@ -137,6 +137,7 @@ namespace gemstone.threading.synchronizedoperations
         /// <summary>
         /// Executes the action on current thread or marks the operation as pending if the operation is already running.
         /// </summary>
+        /// <param name="runPendingAsync">Defines synchronization mode for running any pending operation.</param>
         /// <remarks>
         /// <para>
         /// When the operation is marked as pending, it will run again after the operation that is currently running
@@ -163,6 +164,7 @@ namespace gemstone.threading.synchronizedoperations
         /// <summary>
         /// Attempts to execute the action on current thread. Does nothing if the operation is already running.
         /// </summary>
+        /// <param name="runPendingAsync">Defines synchronization mode for running any pending operation.</param>
         /// <remarks>
         /// When <paramref name="runPendingAsync"/> is <c>false</c>, this method will not guarantee that control will
         /// be returned to the thread that called it; if other threads continuously mark the operation as pending,
