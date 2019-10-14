@@ -5,7 +5,10 @@
     <HelpKINode Title="methods" Url="html/Methods_T_gemstone_threading_extensions_ActionExtensions.htm" />
   </HelpKINode>
   <HelpKINode Title="ActionExtensions.DelayAndExecute method" Url="html/Overload_gemstone_threading_extensions_ActionExtensions_DelayAndExecute.htm" />
-  <HelpKINode Title="CancellationToken property" Url="html/P_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_CancellationToken.htm" />
+  <HelpKINode Title="CancellationToken property">
+    <HelpKINode Title="ISynchronizedOperation.CancellationToken Property " Url="html/P_gemstone_threading_synchronizedoperations_ISynchronizedOperation_CancellationToken.htm" />
+    <HelpKINode Title="SynchronizedOperationBase.CancellationToken Property " Url="html/P_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_CancellationToken.htm" />
+  </HelpKINode>
   <HelpKINode Title="CopyTo method" Url="html/M_gemstone_threading_collections_PriorityQueue_1_CopyTo.htm" />
   <HelpKINode Title="Count property" Url="html/P_gemstone_threading_collections_PriorityQueue_1_Count.htm" />
   <HelpKINode Title="DefaultDelay field" Url="html/F_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation_DefaultDelay.htm" />
@@ -70,14 +73,13 @@
     <HelpKINode Title="methods" Url="html/Methods_T_gemstone_threading_synchronizedoperations_ISynchronizedOperation.htm" />
     <HelpKINode Title="properties" Url="html/Properties_T_gemstone_threading_synchronizedoperations_ISynchronizedOperation.htm" />
   </HelpKINode>
+  <HelpKINode Title="ISynchronizedOperation.CancellationToken property" Url="html/P_gemstone_threading_synchronizedoperations_ISynchronizedOperation_CancellationToken.htm" />
   <HelpKINode Title="ISynchronizedOperation.IsPending property" Url="html/P_gemstone_threading_synchronizedoperations_ISynchronizedOperation_IsPending.htm" />
   <HelpKINode Title="ISynchronizedOperation.IsRunning property" Url="html/P_gemstone_threading_synchronizedoperations_ISynchronizedOperation_IsRunning.htm" />
   <HelpKINode Title="ISynchronizedOperation.Run method" Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_Run.htm" />
-  <HelpKINode Title="ISynchronizedOperation.RunOnce method" Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_RunOnce.htm" />
-  <HelpKINode Title="ISynchronizedOperation.RunOnceAsync method" Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_RunOnceAsync.htm" />
+  <HelpKINode Title="ISynchronizedOperation.RunAsync method" Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_RunAsync.htm" />
   <HelpKINode Title="ISynchronizedOperation.TryRun method" Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_TryRun.htm" />
-  <HelpKINode Title="ISynchronizedOperation.TryRunOnce method" Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_TryRunOnce.htm" />
-  <HelpKINode Title="ISynchronizedOperation.TryRunOnceAsync method" Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_TryRunOnceAsync.htm" />
+  <HelpKINode Title="ISynchronizedOperation.TryRunAsync method" Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_TryRunAsync.htm" />
   <HelpKINode Title="LongSynchronizedOperation class">
     <HelpKINode Title="LongSynchronizedOperation Class" Url="html/T_gemstone_threading_synchronizedoperations_LongSynchronizedOperation.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_gemstone_threading_synchronizedoperations_LongSynchronizedOperation__ctor.htm" />
@@ -132,13 +134,9 @@
     <HelpKINode Title="ISynchronizedOperation.Run Method " Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_Run.htm" />
     <HelpKINode Title="SynchronizedOperationBase.Run Method " Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_Run.htm" />
   </HelpKINode>
-  <HelpKINode Title="RunOnce method">
-    <HelpKINode Title="ISynchronizedOperation.RunOnce Method " Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_RunOnce.htm" />
-    <HelpKINode Title="SynchronizedOperationBase.RunOnce Method " Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_RunOnce.htm" />
-  </HelpKINode>
-  <HelpKINode Title="RunOnceAsync method">
-    <HelpKINode Title="ISynchronizedOperation.RunOnceAsync Method " Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_RunOnceAsync.htm" />
-    <HelpKINode Title="SynchronizedOperationBase.RunOnceAsync Method " Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_RunOnceAsync.htm" />
+  <HelpKINode Title="RunAsync method">
+    <HelpKINode Title="ISynchronizedOperation.RunAsync Method " Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_RunAsync.htm" />
+    <HelpKINode Title="SynchronizedOperationBase.RunAsync Method " Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_RunAsync.htm" />
   </HelpKINode>
   <HelpKINode Title="ShortSynchronizedOperation class">
     <HelpKINode Title="ShortSynchronizedOperation Class" Url="html/T_gemstone_threading_synchronizedoperations_ShortSynchronizedOperation.htm" />
@@ -175,12 +173,10 @@
   <HelpKINode Title="SynchronizedOperationBase.IsRunning property" Url="html/P_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_IsRunning.htm" />
   <HelpKINode Title="SynchronizedOperationBase.ProcessException method" Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_ProcessException.htm" />
   <HelpKINode Title="SynchronizedOperationBase.Run method" Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_Run.htm" />
-  <HelpKINode Title="SynchronizedOperationBase.RunOnce method" Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_RunOnce.htm" />
-  <HelpKINode Title="SynchronizedOperationBase.RunOnceAsync method" Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_RunOnceAsync.htm" />
+  <HelpKINode Title="SynchronizedOperationBase.RunAsync method" Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_RunAsync.htm" />
   <HelpKINode Title="SynchronizedOperationBase.SynchronizedOperationBase constructor" Url="html/Overload_gemstone_threading_synchronizedoperations_SynchronizedOperationBase__ctor.htm" />
   <HelpKINode Title="SynchronizedOperationBase.TryRun method" Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_TryRun.htm" />
-  <HelpKINode Title="SynchronizedOperationBase.TryRunOnce method" Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_TryRunOnce.htm" />
-  <HelpKINode Title="SynchronizedOperationBase.TryRunOnceAsync method" Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_TryRunOnceAsync.htm" />
+  <HelpKINode Title="SynchronizedOperationBase.TryRunAsync method" Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_TryRunAsync.htm" />
   <HelpKINode Title="SynchronizedOperationBase.UnhandledException event" Url="html/E_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_UnhandledException.htm" />
   <HelpKINode Title="SynchronizedOperationFactory delegate" Url="html/T_gemstone_threading_synchronizedoperations_SynchronizedOperationFactory.htm" />
   <HelpKINode Title="ToArray method" Url="html/M_gemstone_threading_collections_PriorityQueue_1_ToArray.htm" />
@@ -194,13 +190,9 @@
     <HelpKINode Title="ISynchronizedOperation.TryRun Method " Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_TryRun.htm" />
     <HelpKINode Title="SynchronizedOperationBase.TryRun Method " Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_TryRun.htm" />
   </HelpKINode>
-  <HelpKINode Title="TryRunOnce method">
-    <HelpKINode Title="ISynchronizedOperation.TryRunOnce Method " Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_TryRunOnce.htm" />
-    <HelpKINode Title="SynchronizedOperationBase.TryRunOnce Method " Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_TryRunOnce.htm" />
-  </HelpKINode>
-  <HelpKINode Title="TryRunOnceAsync method">
-    <HelpKINode Title="ISynchronizedOperation.TryRunOnceAsync Method " Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_TryRunOnceAsync.htm" />
-    <HelpKINode Title="SynchronizedOperationBase.TryRunOnceAsync Method " Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_TryRunOnceAsync.htm" />
+  <HelpKINode Title="TryRunAsync method">
+    <HelpKINode Title="ISynchronizedOperation.TryRunAsync Method " Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_TryRunAsync.htm" />
+    <HelpKINode Title="SynchronizedOperationBase.TryRunAsync Method " Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_TryRunAsync.htm" />
   </HelpKINode>
   <HelpKINode Title="UnhandledException event" Url="html/E_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_UnhandledException.htm" />
   <HelpKINode Title="UnhandledException property" Url="html/P_gemstone_threading_synchronizedoperations_UnhandledExceptionEventArgs_UnhandledException.htm" />

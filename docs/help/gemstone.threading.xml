@@ -301,53 +301,42 @@
             Represents an operation that cannot run while it is already in progress.
             </summary>
     </member>
+    <member name="P:gemstone.threading.synchronizedoperations.ISynchronizedOperation.CancellationToken">
+      <summary>
+            Gets or sets <see cref="T:System.Threading.CancellationToken" /> to use for cancelling actions.
+            </summary>
+    </member>
     <member name="P:gemstone.threading.synchronizedoperations.ISynchronizedOperation.IsPending">
       <summary>
-            Gets a value to indicate whether the synchronized operation
-            has an additional operation that is pending execution after
-            the currently running action has completed.
+            Gets a value to indicate whether the synchronized operation has an additional operation that is pending
+            execution after the currently running action has completed.
             </summary>
     </member>
     <member name="P:gemstone.threading.synchronizedoperations.ISynchronizedOperation.IsRunning">
       <summary>
-            Gets a value to indicate whether the synchronized
-            operation is currently executing its action.
+            Gets a value to indicate whether the synchronized operation is currently executing its action.
             </summary>
     </member>
-    <member name="M:gemstone.threading.synchronizedoperations.ISynchronizedOperation.Run">
+    <member name="M:gemstone.threading.synchronizedoperations.ISynchronizedOperation.Run(System.Boolean)">
       <summary>
-            Executes the action on this thread or marks the
-            operation as pending if the operation is already running.
+            Executes the action on current thread or marks the operation as pending if the operation is already running.
+            </summary>
+      <param name="runPendingAsync">Defines synchronization mode for running any pending operation.</param>
+    </member>
+    <member name="M:gemstone.threading.synchronizedoperations.ISynchronizedOperation.RunAsync">
+      <summary>
+            Executes the action on another thread or marks the operation as pending if the operation is already running.
             </summary>
     </member>
-    <member name="M:gemstone.threading.synchronizedoperations.ISynchronizedOperation.RunOnce">
+    <member name="M:gemstone.threading.synchronizedoperations.ISynchronizedOperation.TryRun(System.Boolean)">
       <summary>
-            Executes the action on this thread or marks the
-            operation as pending if the operation is already running.
+            Attempts to execute the action on current thread. Does nothing if the operation is already running.
             </summary>
+      <param name="runPendingAsync">Defines synchronization mode for running any pending operation.</param>
     </member>
-    <member name="M:gemstone.threading.synchronizedoperations.ISynchronizedOperation.RunOnceAsync">
+    <member name="M:gemstone.threading.synchronizedoperations.ISynchronizedOperation.TryRunAsync">
       <summary>
-            Executes the action on another thread or marks the
-            operation as pending if the operation is already running.
-            </summary>
-    </member>
-    <member name="M:gemstone.threading.synchronizedoperations.ISynchronizedOperation.TryRun">
-      <summary>
-            Attempts to execute the action on this thread.
-            Does nothing if the operation is already running.
-            </summary>
-    </member>
-    <member name="M:gemstone.threading.synchronizedoperations.ISynchronizedOperation.TryRunOnce">
-      <summary>
-            Attempts to execute the action on this thread.
-            Does nothing if the operation is already running.
-            </summary>
-    </member>
-    <member name="M:gemstone.threading.synchronizedoperations.ISynchronizedOperation.TryRunOnceAsync">
-      <summary>
-            Attempts to execute the action on another thread.
-            Does nothing if the operation is already running.
+            Attempts to execute the action on another thread. Does nothing if the operation is already running.
             </summary>
     </member>
     <member name="T:gemstone.threading.synchronizedoperations.LongSynchronizedOperation">
@@ -396,8 +385,7 @@
     </member>
     <member name="P:gemstone.threading.synchronizedoperations.LongSynchronizedOperation.IsBackground">
       <summary>
-            Gets or sets whether or not the thread
-            executing the action is a background thread.
+            Gets or sets whether or not the thread executing the action is a background thread.
             </summary>
     </member>
     <member name="T:gemstone.threading.synchronizedoperations.ShortSynchronizedOperation">
@@ -482,15 +470,13 @@
     </member>
     <member name="P:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.IsPending">
       <summary>
-            Gets a value to indicate whether the synchronized operation
-            has an additional operation that is pending execution after
-            the currently running action has completed.
+            Gets a value to indicate whether the synchronized operation has an additional operation that is pending
+            execution after the currently running action has completed.
             </summary>
     </member>
     <member name="P:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.IsRunning">
       <summary>
-            Gets a value to indicate whether the synchronized
-            operation is currently executing its action.
+            Gets a value to indicate whether the synchronized operation is currently executing its action.
             </summary>
     </member>
     <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.ProcessException(System.Exception)">
@@ -500,40 +486,26 @@
       <param name="ex">
         <see cref="T:System.Exception" /> to be processed.</param>
     </member>
-    <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.Run">
+    <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.Run(System.Boolean)">
       <summary>
-            Executes the action on this thread or marks the
-            operation as pending if the operation is already running.
+            Executes the action on current thread or marks the operation as pending if the operation is already running.
+            </summary>
+      <param name="runPendingAsync">Defines synchronization mode for running any pending operation.</param>
+    </member>
+    <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.RunAsync">
+      <summary>
+            Executes the action on another thread or marks the operation as pending if the operation is already running.
             </summary>
     </member>
-    <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.RunOnce">
+    <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.TryRun(System.Boolean)">
       <summary>
-            Executes the action on this thread or marks the
-            operation as pending if the operation is already running.
+            Attempts to execute the action on current thread. Does nothing if the operation is already running.
             </summary>
+      <param name="runPendingAsync">Defines synchronization mode for running any pending operation.</param>
     </member>
-    <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.RunOnceAsync">
+    <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.TryRunAsync">
       <summary>
-            Executes the action on another thread or marks the
-            operation as pending if the operation is already running.
-            </summary>
-    </member>
-    <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.TryRun">
-      <summary>
-            Attempts to execute the action on this thread.
-            Does nothing if the operation is already running.
-            </summary>
-    </member>
-    <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.TryRunOnce">
-      <summary>
-            Attempts to execute the action on this thread.
-            Does nothing if the operation is already running.
-            </summary>
-    </member>
-    <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.TryRunOnceAsync">
-      <summary>
-            Attempts to execute the action on another thread.
-            Does nothing if the operation is already running.
+            Attempts to execute the action on another thread. Does nothing if the operation is already running.
             </summary>
     </member>
     <member name="E:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.UnhandledException">
