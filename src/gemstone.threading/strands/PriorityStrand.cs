@@ -138,7 +138,7 @@ namespace gemstone.threading.strands
             int priority = scheduler.Priority;
             QueuedTask queuedTask = new QueuedTask(task, scheduler);
             Queue.Enqueue(queuedTask, priority);
-            SynchronizedOperation.RunOnceAsync();
+            SynchronizedOperation.RunAsync();
         }
 
         // Inline execution allows tasks to skip the line and run out of order.
@@ -209,7 +209,7 @@ namespace gemstone.threading.strands
                 ProcessingThread = null;
 
                 if (!Queue.IsEmpty)
-                    SynchronizedOperation.RunOnceAsync();
+                    SynchronizedOperation.RunAsync();
             }
         }
 

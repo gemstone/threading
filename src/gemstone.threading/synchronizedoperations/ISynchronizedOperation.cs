@@ -18,10 +18,13 @@
 //  ----------------------------------------------------------------------------------------------------
 //  03/21/2014 - Stephen C. Wills
 //       Generated original version of source code.
+//  10/14/2019 - J. Ritchie Carroll
+//       Simplified calling model to Run, TryRun, RunAsync, and TryRunAsync.
 //
 //******************************************************************************************************
 
 using System;
+using System.Threading;
 
 namespace gemstone.threading.synchronizedoperations
 {
@@ -38,79 +41,61 @@ namespace gemstone.threading.synchronizedoperations
     public interface ISynchronizedOperation
     {
         /// <summary>
-        /// Gets a value to indicate whether the synchronized
-        /// operation is currently executing its action.
+        /// Gets a value to indicate whether the synchronized operation is currently executing its action.
         /// </summary>
         bool IsRunning { get; }
 
         /// <summary>
-        /// Gets a value to indicate whether the synchronized operation
-        /// has an additional operation that is pending execution after
-        /// the currently running action has completed.
+        /// Gets a value to indicate whether the synchronized operation has an additional operation that is pending
+        /// execution after the currently running action has completed.
         /// </summary>
         bool IsPending { get; }
 
         /// <summary>
-        /// Executes the action on this thread or marks the
-        /// operation as pending if the operation is already running.
+        /// Gets or sets <see cref="System.Threading.CancellationToken"/> to use for cancelling actions.
         /// </summary>
-        /// <remarks>
-        /// <para>When the operation is marked as pending, it will run again after
-        /// the operation that is currently running has completed. This is useful
-        /// if an update has invalidated the operation that is currently running
-        /// and will therefore need to be run again.</para>
-        /// 
-        /// <para>This method does not guarantee that control will be returned to the
-        /// thread that called it. If other threads continuously mark the operation as
-        /// pending, this thread will continue to run the operation indefinitely.</para>
-        /// </remarks>
-        void Run();
+        CancellationToken CancellationToken { get; set; }
 
         /// <summary>
-        /// Attempts to execute the action on this thread.
-        /// Does nothing if the operation is already running.
+        /// Executes the action on current thread or marks the operation as pending if the operation is already running.
         /// </summary>
         /// <remarks>
-        /// This method does not guarantee that control will be returned to the thread
-        /// that called it. If other threads continuously mark the operation as pending,
-        /// this thread will continue to run the operation indefinitely.
+        /// <para>
+        /// When the operation is marked as pending, it will run again after the operation that is currently running
+        /// has completed. This is useful if an update has invalidated the operation that is currently running and
+        /// will therefore need to be run again.
+        /// </para>
+        /// <para>
+        /// When <paramref name="runPendingAsync"/> is <c>false</c>, this method will not guarantee that control will
+        /// be returned to the thread that called it; if other threads continuously mark the operation as pending,
+        /// this thread will continue to run the operation indefinitely on the calling thread.
+        /// </para>
         /// </remarks>
-        void TryRun();
+        void Run(bool runPendingAsync = true);
 
         /// <summary>
-        /// Executes the action on this thread or marks the
-        /// operation as pending if the operation is already running.
+        /// Attempts to execute the action on current thread. Does nothing if the operation is already running.
         /// </summary>
         /// <remarks>
-        /// When the operation is marked as pending, it will run again after the
-        /// operation that is currently running has completed. This is useful if
-        /// an update has invalidated the operation that is currently running and
+        /// When <paramref name="runPendingAsync"/> is <c>false</c>, this method will not guarantee that control will
+        /// be returned to the thread that called it; if other threads continuously mark the operation as pending,
+        /// this thread will continue to run the operation indefinitely on the calling thread.
+        /// </remarks>
+        void TryRun(bool runPendingAsync = true);
+
+        /// <summary>
+        /// Executes the action on another thread or marks the operation as pending if the operation is already running.
+        /// </summary>
+        /// <remarks>
+        /// When the operation is marked as pending, it will run again after the operation that is currently running
+        /// has completed. This is useful if an update has invalidated the operation that is currently running and
         /// will therefore need to be run again.
         /// </remarks>
-        void RunOnce();
+        void RunAsync();
 
         /// <summary>
-        /// Executes the action on another thread or marks the
-        /// operation as pending if the operation is already running.
+        /// Attempts to execute the action on another thread. Does nothing if the operation is already running.
         /// </summary>
-        /// <remarks>
-        /// When the operation is marked as pending, it will run again after the
-        /// operation that is currently running has completed. This is useful if
-        /// an update has invalidated the operation that is currently running and
-        /// will therefore need to be run again.
-        /// </remarks>
-        void RunOnceAsync();
-
-        /// <summary>
-        /// Attempts to execute the action on this thread.
-        /// Does nothing if the operation is already running.
-        /// </summary>
-        void TryRunOnce();
-
-        /// <summary>
-        /// Attempts to execute the action on another thread.
-        /// Does nothing if the operation is already running.
-        /// </summary>
-        void TryRunOnceAsync();
+        void TryRunAsync();
     }
 }

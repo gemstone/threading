@@ -18,6 +18,8 @@
 //  ----------------------------------------------------------------------------------------------------
 //  03/21/2014 - Stephen C. Wills
 //       Generated original version of source code.
+//  10/14/2019 - J. Ritchie Carroll
+//       Simplified calling model to Run, TryRun, RunAsync, and TryRunAsync.
 //
 //******************************************************************************************************
 
@@ -30,10 +32,15 @@ namespace gemstone.threading.synchronizedoperations
     /// Base class for operations that cannot run while they is already in progress.
     /// </summary>
     /// <remarks>
-    /// This class handles the synchronization between the methods defined in the
-    /// <see cref="ISynchronizedOperation"/> interface. Implementers should only need
-    /// to implement the <see cref="ExecuteActionAsync"/> method to provide a mechanism
-    /// for executing the action on a separate thread.
+    /// <para>
+    /// This class handles the synchronization between the methods defined in the <see cref="ISynchronizedOperation"/>
+    /// interface. Implementers should only need to implement the <see cref="ExecuteActionAsync"/> method to provide a
+    /// mechanism for executing the action on a separate thread.
+    /// </para>
+    /// <para>
+    /// If subclass implementations get constructed without an exception handler, applications should attach to the
+    /// static <see cref="UnhandledException"/> event so that any unhandled exceptions can be exposed to a log.
+    /// </para>
     /// </remarks>
     public abstract class SynchronizedOperationBase : ISynchronizedOperation
     {
@@ -108,15 +115,13 @@ namespace gemstone.threading.synchronizedoperations
         #region [ Properties ]
 
         /// <summary>
-        /// Gets a value to indicate whether the synchronized
-        /// operation is currently executing its action.
+        /// Gets a value to indicate whether the synchronized operation is currently executing its action.
         /// </summary>
         public bool IsRunning => Interlocked.CompareExchange(ref m_state, NotRunning, NotRunning) != NotRunning;
 
         /// <summary>
-        /// Gets a value to indicate whether the synchronized operation
-        /// has an additional operation that is pending execution after
-        /// the currently running action has completed.
+        /// Gets a value to indicate whether the synchronized operation has an additional operation that is pending
+        /// execution after the currently running action has completed.
         /// </summary>
         public bool IsPending => Interlocked.CompareExchange(ref m_state, NotRunning, NotRunning) == Pending;
 
@@ -130,90 +135,83 @@ namespace gemstone.threading.synchronizedoperations
         #region [ Methods ]
 
         /// <summary>
-        /// Executes the action on this thread or marks the
-        /// operation as pending if the operation is already running.
+        /// Executes the action on current thread or marks the operation as pending if the operation is already running.
         /// </summary>
         /// <remarks>
-        /// <para>When the operation is marked as pending, it will run again after
-        /// the operation that is currently running has completed. This is useful
-        /// if an update has invalidated the operation that is currently running
-        /// and will therefore need to be run again.</para>
-        /// 
-        /// <para>This method does not guarantee that control will be returned to the
-        /// thread that called it. If other threads continuously mark the operation as
-        /// pending, this thread will continue to run the operation indefinitely.</para>
+        /// <para>
+        /// When the operation is marked as pending, it will run again after the operation that is currently running
+        /// has completed. This is useful if an update has invalidated the operation that is currently running and
+        /// will therefore need to be run again.
+        /// </para>
+        /// <para>
+        /// When <paramref name="runPendingAsync"/> is <c>false</c>, this method will not guarantee that control will
+        /// be returned to the thread that called it; if other threads continuously mark the operation as pending,
+        /// this thread will continue to run the operation indefinitely on the calling thread.
+        /// </para>
         /// </remarks>
-        public void Run()
+        public void Run(bool runPendingAsync = true)
         {
             // if (m_state == NotRunning)
-            //     TryRun();
+            //     TryRun(runPendingAsync);
             // else if (m_state == Running)
             //     m_state = Pending;
 
             if (Interlocked.CompareExchange(ref m_state, Pending, Running) == NotRunning)
-                TryRun();
+                TryRun(runPendingAsync);
         }
 
         /// <summary>
-        /// Attempts to execute the action on this thread.
-        /// Does nothing if the operation is already running.
+        /// Attempts to execute the action on current thread. Does nothing if the operation is already running.
         /// </summary>
         /// <remarks>
-        /// This method does not guarantee that control will be returned to the thread
-        /// that called it. If other threads continuously mark the operation as pending,
-        /// this thread will continue to run the operation indefinitely.
+        /// When <paramref name="runPendingAsync"/> is <c>false</c>, this method will not guarantee that control will
+        /// be returned to the thread that called it; if other threads continuously mark the operation as pending,
+        /// this thread will continue to run the operation indefinitely on the calling thread.
         /// </remarks>
-        public void TryRun()
+        public void TryRun(bool runPendingAsync = true)
         {
             // if (m_state == NotRunning)
             // {
             //     m_state = Running;
             //
-            //     while (ExecuteAction())
+            //     if (runPendingAsync)
             //     {
+            //         if (ExecuteAction())
+            //             ExecuteActionAsync();
+            //     }
+            //     else
+            //     {
+            //         while (ExecuteAction())
+            //         {
+            //         }
             //     }
             // }
 
             if (Interlocked.CompareExchange(ref m_state, Running, NotRunning) == NotRunning)
             {
-                while (ExecuteAction())
+                if (runPendingAsync)
                 {
+                    if (ExecuteAction())
+                        ExecuteActionAsync();
+                }
+                else
+                {
+                    while (ExecuteAction())
+                    {
+                    }
                 }
             }
         }
 
         /// <summary>
-        /// Executes the action on this thread or marks the
-        /// operation as pending if the operation is already running.
+        /// Executes the action on another thread or marks the operation as pending if the operation is already running.
         /// </summary>
         /// <remarks>
-        /// When the operation is marked as pending, it will run again after the
-        /// operation that is currently running has completed. This is useful if
-        /// an update has invalidated the operation that is currently running and
+        /// When the operation is marked as pending, it will run again after the operation that is currently running
+        /// has completed. This is useful if an update has invalidated the operation that is currently running and
         /// will therefore need to be run again.
         /// </remarks>
-        public void RunOnce()
-        {
-            // if (m_state == NotRunning)
-            //     TryRunOnce();
-            // else if (m_state == Running)
-            //     m_state = Pending;
-
-            if (Interlocked.CompareExchange(ref m_state, Pending, Running) == NotRunning)
-                TryRunOnce();
-        }
-
-        /// <summary>
-        /// Executes the action on another thread or marks the
-        /// operation as pending if the operation is already running.
-        /// </summary>
-        /// <remarks>
-        /// When the operation is marked as pending, it will run again after the
-        /// operation that is currently running has completed. This is useful if
-        /// an update has invalidated the operation that is currently running and
-        /// will therefore need to be run again.
-        /// </remarks>
-        public void RunOnceAsync()
+        public void RunAsync()
         {
             // if (m_state == NotRunning)
             //     TryRunOnceAsync();
@@ -221,35 +219,13 @@ namespace gemstone.threading.synchronizedoperations
             //     m_state = Pending;
 
             if (Interlocked.CompareExchange(ref m_state, Pending, Running) == NotRunning)
-                TryRunOnceAsync();
+                TryRunAsync();
         }
 
         /// <summary>
-        /// Attempts to execute the action on this thread.
-        /// Does nothing if the operation is already running.
+        /// Attempts to execute the action on another thread. Does nothing if the operation is already running.
         /// </summary>
-        public void TryRunOnce()
-        {
-            // if (m_state == NotRunning)
-            // {
-            //     m_state = Running;
-            //
-            //     if (ExecuteAction())
-            //         ExecuteActionAsync();
-            // }
-
-            if (Interlocked.CompareExchange(ref m_state, Running, NotRunning) == NotRunning)
-            {
-                if (ExecuteAction())
-                    ExecuteActionAsync();
-            }
-        }
-
-        /// <summary>
-        /// Attempts to execute the action on another thread.
-        /// Does nothing if the operation is already running.
-        /// </summary>
-        public void TryRunOnceAsync()
+        public void TryRunAsync()
         {
             // if (m_state == NotRunning)
             // {
@@ -302,10 +278,9 @@ namespace gemstone.threading.synchronizedoperations
         /// Executes the action on a separate thread.
         /// </summary>
         /// <remarks>
-        /// Implementers should call <see cref="ExecuteAction"/> on a separate thread
-        /// and check the return value. If it returns true, that means it needs to run
-        /// again. The following is a sample implementation using a regular dedicated
-        /// thread.
+        /// Implementers should call <see cref="ExecuteAction"/> on a separate thread and check the return value.
+        /// If it returns true, that means it needs to run again. The following is a sample implementation using
+        /// a regular dedicated thread.
         /// 
         /// <code>
         /// protected override void ExecuteActionAsync()

@@ -78,7 +78,7 @@ namespace gemstone.threading.strands
         protected override void QueueTask(Task task)
         {
             Queue.Enqueue(task);
-            SynchronizedOperation.RunOnceAsync();
+            SynchronizedOperation.RunAsync();
         }
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace gemstone.threading.strands
                 ProcessingThread = null;
 
                 if (!Queue.IsEmpty)
-                    SynchronizedOperation.RunOnceAsync();
+                    SynchronizedOperation.RunAsync();
             }
         }
 
