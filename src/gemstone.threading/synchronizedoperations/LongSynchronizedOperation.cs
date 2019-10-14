@@ -102,15 +102,13 @@ namespace gemstone.threading.synchronizedoperations
         #region [ Properties ]
 
         /// <summary>
-        /// Gets or sets whether or not the thread
-        /// executing the action is a background thread.
+        /// Gets or sets whether or not the thread executing the action is a background thread.
         /// </summary>
         /// <remarks>
-        /// This defaults to <c>false</c>, be aware that
-        /// foreground thread will prevent shutdown while
-        /// task is running. Note that if a task keeps
-        /// getting marked as pending, application will
-        /// not shutdown.
+        /// This defaults to <c>false</c>, be aware that foreground thread will prevent shutdown
+        /// while task is running. If a task keeps getting marked as pending, application will not
+        /// shutdown; consider a cancellable action for <see cref="LongSynchronizedOperation"/>
+        /// instances that use a foreground thread.
         /// </remarks>
         public bool IsBackground { get; set; }
 
