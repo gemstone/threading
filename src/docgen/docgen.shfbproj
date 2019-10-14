@@ -30,7 +30,7 @@
       <Argument Key="requestExampleUrl" Value="Create a new issue: https://github.com/gemstone/threading/issues/new " />
     </TransformComponentArguments>
     <HelpFileFormat>Website</HelpFileFormat>
-    <SyntaxFilters>C#, Visual Basic, Managed C++, F#, JavaScript</SyntaxFilters>
+    <SyntaxFilters>C#, Visual Basic, Managed C++, JavaScript</SyntaxFilters>
     <PresentationStyle>VS2013</PresentationStyle>
     <CleanIntermediates>True</CleanIntermediates>
     <KeepLogFile>True</KeepLogFile>
