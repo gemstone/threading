@@ -130,6 +130,47 @@ namespace gemstone.threading.synchronizedoperations
         #region [ Methods ]
 
         /// <summary>
+        /// Executes the action on current thread or marks the operation as pending if the operation is already running.
+        /// </summary>
+        /// <param name="runPendingAsync">
+        /// Defines synchronization mode for running any pending operation; must be <c>true</c> for
+        /// <see cref="DelayedSynchronizedOperation"/>.
+        /// </param>
+        /// <remarks>
+        /// When the operation is marked as pending, it will run again after the operation that is currently running
+        /// has completed. This is useful if an update has invalidated the operation that is currently running and
+        /// will therefore need to be run again.
+        /// </remarks>
+        /// <exception cref="InvalidOperationException">
+        /// <paramref name="runPendingAsync"/> must be <c>true</c> for <see cref="DelayedSynchronizedOperation"/>.
+        /// </exception>
+        public override void Run(bool runPendingAsync = true)
+        {
+            if (!runPendingAsync)
+                throw new InvalidOperationException("runPendingAsync must be true for DelayedSynchronizedOperation");
+
+            base.Run(runPendingAsync);
+        }
+
+        /// <summary>
+        /// Attempts to execute the action on current thread. Does nothing if the operation is already running.
+        /// </summary>
+        /// <param name="runPendingAsync">
+        /// Defines synchronization mode for running any pending operation; must be <c>true</c> for
+        /// <see cref="DelayedSynchronizedOperation"/>.
+        /// </param>
+        /// <exception cref="InvalidOperationException">
+        /// <paramref name="runPendingAsync"/> must be <c>true</c> for <see cref="DelayedSynchronizedOperation"/>.
+        /// </exception>
+        public override void TryRun(bool runPendingAsync = true)
+        {
+            if (!runPendingAsync)
+                throw new InvalidOperationException("runPendingAsync must be true for DelayedSynchronizedOperation");
+
+            base.TryRun(runPendingAsync);
+        }
+
+        /// <summary>
         /// Executes the action on a separate thread after the specified <see cref="Delay"/>.
         /// </summary>
         protected override void ExecuteActionAsync() =>

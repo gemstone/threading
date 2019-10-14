@@ -150,7 +150,7 @@ namespace gemstone.threading.synchronizedoperations
         /// this thread will continue to run the operation indefinitely on the calling thread.
         /// </para>
         /// </remarks>
-        public void Run(bool runPendingAsync = true)
+        public virtual void Run(bool runPendingAsync = true)
         {
             // if (m_state == NotRunning)
             //     TryRun(runPendingAsync);
@@ -170,7 +170,7 @@ namespace gemstone.threading.synchronizedoperations
         /// be returned to the thread that called it; if other threads continuously mark the operation as pending,
         /// this thread will continue to run the operation indefinitely on the calling thread.
         /// </remarks>
-        public void TryRun(bool runPendingAsync = true)
+        public virtual void TryRun(bool runPendingAsync = true)
         {
             // if (m_state == NotRunning)
             // {
