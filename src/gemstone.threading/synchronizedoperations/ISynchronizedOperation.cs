@@ -59,8 +59,8 @@ namespace gemstone.threading.synchronizedoperations
         /// <summary>
         /// Executes the action on current thread or marks the operation as pending if the operation is already running.
         /// </summary>
-        /// <remarks>
         /// <param name="runPendingAsync">Defines synchronization mode for running any pending operation.</param>
+        /// <remarks>
         /// <para>
         /// When the operation is marked as pending, it will run again after the operation that is currently running
         /// has completed. This is useful if an update has invalidated the operation that is currently running and
