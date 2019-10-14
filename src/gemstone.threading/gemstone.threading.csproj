@@ -26,7 +26,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <DocumentationFile>$(TargetDir)$(AssemblyName).xml</DocumentationFile>
+    <DocumentationFile>$(SolutionDir)..\build\$(Configuration)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
 </Project>
