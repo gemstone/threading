@@ -346,7 +346,7 @@
       <summary>
             Executes the action on current thread or marks the operation as pending if the operation is already running.
             </summary>
-      <param name="runPendingAsync">Defines synchronization mode for running any pending operation.</param>
+      <param name="runPendingSynchronously">Defines synchronization mode for running any pending operation.</param>
     </member>
     <member name="M:gemstone.threading.synchronizedoperations.ISynchronizedOperation.RunAsync">
       <summary>
@@ -357,7 +357,7 @@
       <summary>
             Attempts to execute the action on current thread. Does nothing if the operation is already running.
             </summary>
-      <param name="runPendingAsync">Defines synchronization mode for running any pending operation.</param>
+      <param name="runPendingSynchronously">Defines synchronization mode for running any pending operation.</param>
     </member>
     <member name="M:gemstone.threading.synchronizedoperations.ISynchronizedOperation.TryRunAsync">
       <summary>
