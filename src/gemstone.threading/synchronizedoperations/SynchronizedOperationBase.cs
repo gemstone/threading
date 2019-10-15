@@ -127,7 +127,7 @@ namespace gemstone.threading.synchronizedoperations
 
         /// <summary>
         /// Gets or sets <see cref="System.Threading.CancellationToken"/> to use for cancelling actions.
-        /// </summary>Defines synchronization mode for running any pending operation.
+        /// </summary>
         public CancellationToken CancellationToken { get; set; } = CancellationToken.None;
 
         #endregion
