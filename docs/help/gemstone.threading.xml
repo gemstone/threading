@@ -321,6 +321,30 @@
       <param name="action">The action to be performed by the <see cref="T:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation" />.</param>
       <returns>A new instance of <see cref="T:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation" /> with <see cref="F:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.DefaultDelay" /> of 1000 milliseconds.</returns>
     </member>
+    <member name="M:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.Run(System.Boolean)">
+      <summary>
+            Executes the action on current thread or marks the operation as pending if the operation is already running.
+            </summary>
+      <param name="runPendingSynchronously">
+            Defines synchronization mode for running any pending operation; must be <c>false</c> for
+            <see cref="T:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation" />.
+            </param>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="runPendingSynchronously" /> must be <c>false</c> for <see cref="T:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation" />.
+            </exception>
+    </member>
+    <member name="M:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.TryRun(System.Boolean)">
+      <summary>
+            Attempts to execute the action on current thread. Does nothing if the operation is already running.
+            </summary>
+      <param name="runPendingSynchronously">
+            Defines synchronization mode for running any pending operation; must be <c>false</c> for
+            <see cref="T:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation" />.
+            </param>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="runPendingSynchronously" /> must be <c>false</c> for <see cref="T:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation" />.
+            </exception>
+    </member>
     <member name="T:gemstone.threading.synchronizedoperations.ISynchronizedOperation">
       <summary>
             Represents an operation that cannot run while it is already in progress.

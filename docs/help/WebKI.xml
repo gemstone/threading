@@ -26,6 +26,8 @@
   <HelpKINode Title="DelayedSynchronizedOperation.DelayedSynchronizedOperation constructor" Url="html/Overload_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation__ctor.htm" />
   <HelpKINode Title="DelayedSynchronizedOperation.ExecuteActionAsync method" Url="html/M_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation_ExecuteActionAsync.htm" />
   <HelpKINode Title="DelayedSynchronizedOperation.Factory method" Url="html/M_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation_Factory.htm" />
+  <HelpKINode Title="DelayedSynchronizedOperation.Run method" Url="html/M_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation_Run.htm" />
+  <HelpKINode Title="DelayedSynchronizedOperation.TryRun method" Url="html/M_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation_TryRun.htm" />
   <HelpKINode Title="Enqueue method" Url="html/M_gemstone_threading_collections_PriorityQueue_1_Enqueue.htm" />
   <HelpKINode Title="ExecuteAction method" Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_ExecuteAction.htm" />
   <HelpKINode Title="ExecuteActionAsync method">
@@ -131,6 +133,7 @@
   <HelpKINode Title="ProcessException method" Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_ProcessException.htm" />
   <HelpKINode Title="QueueTask method" Url="html/M_gemstone_threading_strands_Strand_QueueTask.htm" />
   <HelpKINode Title="Run method">
+    <HelpKINode Title="DelayedSynchronizedOperation.Run Method " Url="html/M_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation_Run.htm" />
     <HelpKINode Title="ISynchronizedOperation.Run Method " Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_Run.htm" />
     <HelpKINode Title="SynchronizedOperationBase.Run Method " Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_Run.htm" />
   </HelpKINode>
@@ -187,6 +190,7 @@
   <HelpKINode Title="TryExecuteTaskInline method" Url="html/M_gemstone_threading_strands_Strand_TryExecuteTaskInline.htm" />
   <HelpKINode Title="TryPeek method" Url="html/Overload_gemstone_threading_collections_PriorityQueue_1_TryPeek.htm" />
   <HelpKINode Title="TryRun method">
+    <HelpKINode Title="DelayedSynchronizedOperation.TryRun Method " Url="html/M_gemstone_threading_synchronizedoperations_DelayedSynchronizedOperation_TryRun.htm" />
     <HelpKINode Title="ISynchronizedOperation.TryRun Method " Url="html/M_gemstone_threading_synchronizedoperations_ISynchronizedOperation_TryRun.htm" />
     <HelpKINode Title="SynchronizedOperationBase.TryRun Method " Url="html/M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_TryRun.htm" />
   </HelpKINode>
