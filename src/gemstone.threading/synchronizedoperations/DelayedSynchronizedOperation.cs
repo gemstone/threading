@@ -23,6 +23,7 @@
 
 using gemstone.threading.extensions;
 using System;
+using System.ComponentModel;
 using System.Threading;
 
 namespace gemstone.threading.synchronizedoperations
@@ -132,42 +133,54 @@ namespace gemstone.threading.synchronizedoperations
         /// <summary>
         /// Executes the action on current thread or marks the operation as pending if the operation is already running.
         /// </summary>
-        /// <param name="runPendingAsync">
-        /// Defines synchronization mode for running any pending operation; must be <c>true</c> for
+        /// <param name="runPendingSynchronously">
+        /// Defines synchronization mode for running any pending operation; must be <c>false</c> for
         /// <see cref="DelayedSynchronizedOperation"/>.
         /// </param>
         /// <remarks>
+        /// <para>
+        /// For <see cref="DelayedSynchronizedOperation"/>, actions will always run on another thread.
+        /// </para>
+        /// <para>
         /// When the operation is marked as pending, it will run again after the operation that is currently running
         /// has completed. This is useful if an update has invalidated the operation that is currently running and
         /// will therefore need to be run again.
+        /// </para>
         /// </remarks>
         /// <exception cref="InvalidOperationException">
-        /// <paramref name="runPendingAsync"/> must be <c>true</c> for <see cref="DelayedSynchronizedOperation"/>.
+        /// <paramref name="runPendingSynchronously"/> must be <c>false</c> for <see cref="DelayedSynchronizedOperation"/>.
         /// </exception>
-        public override void Run(bool runPendingAsync = true)
+        /// <exclude />
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public new void Run(bool runPendingSynchronously = false) // Method shadowed to hide method from intellisense when referenced
         {
-            if (!runPendingAsync)
-                throw new InvalidOperationException("runPendingAsync must be true for DelayedSynchronizedOperation");
+            if (runPendingSynchronously)
+                throw new InvalidOperationException($"{nameof(runPendingSynchronously)} must be false for {nameof(DelayedSynchronizedOperation)}");
 
-            base.Run(runPendingAsync);
+            base.Run(runPendingSynchronously);
         }
 
         /// <summary>
         /// Attempts to execute the action on current thread. Does nothing if the operation is already running.
         /// </summary>
-        /// <param name="runPendingAsync">
-        /// Defines synchronization mode for running any pending operation; must be <c>true</c> for
+        /// <param name="runPendingSynchronously">
+        /// Defines synchronization mode for running any pending operation; must be <c>false</c> for
         /// <see cref="DelayedSynchronizedOperation"/>.
         /// </param>
+        /// <remarks>
+        /// For <see cref="DelayedSynchronizedOperation"/>, actions will always run on another thread.
+        /// </remarks>
         /// <exception cref="InvalidOperationException">
-        /// <paramref name="runPendingAsync"/> must be <c>true</c> for <see cref="DelayedSynchronizedOperation"/>.
+        /// <paramref name="runPendingSynchronously"/> must be <c>false</c> for <see cref="DelayedSynchronizedOperation"/>.
         /// </exception>
-        public override void TryRun(bool runPendingAsync = true)
+        /// <exclude />
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public new void TryRun(bool runPendingSynchronously = false) // Method shadowed to hide method from intellisense when referenced
         {
-            if (!runPendingAsync)
-                throw new InvalidOperationException("runPendingAsync must be true for DelayedSynchronizedOperation");
+            if (runPendingSynchronously)
+                throw new InvalidOperationException($"{nameof(runPendingSynchronously)} must be false for {nameof(DelayedSynchronizedOperation)}");
 
-            base.TryRun(runPendingAsync);
+            base.TryRun(runPendingSynchronously);
         }
 
         /// <summary>

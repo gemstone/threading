@@ -115,12 +115,12 @@ namespace gemstone.threading.synchronizedoperations
         #region [ Properties ]
 
         /// <summary>
-        /// Gets a value to indicate whether the synchronized operation is currently executing its action.
+        /// Gets flag indicating if the synchronized operation is currently executing its action.
         /// </summary>
         public bool IsRunning => Interlocked.CompareExchange(ref m_state, NotRunning, NotRunning) != NotRunning;
 
         /// <summary>
-        /// Gets a value to indicate whether the synchronized operation has an additional operation that is pending
+        /// Gets flag indicating if the synchronized operation has an additional operation that is pending
         /// execution after the currently running action has completed.
         /// </summary>
         public bool IsPending => Interlocked.CompareExchange(ref m_state, NotRunning, NotRunning) == Pending;
@@ -137,20 +137,20 @@ namespace gemstone.threading.synchronizedoperations
         /// <summary>
         /// Executes the action on current thread or marks the operation as pending if the operation is already running.
         /// </summary>
-        /// <param name="runPendingAsync">Defines synchronization mode for running any pending operation.</param>
+        /// <param name="runPendingSynchronously">Defines synchronization mode for running any pending operation.</param>
         /// <remarks>
         /// <para>
-        /// When the operation is marked as pending, it will run again after the operation that is currently running
-        /// has completed. This is useful if an update has invalidated the operation that is currently running and
-        /// will therefore need to be run again.
+        /// When the operation is marked as pending, operation will run again after currently running operation has
+        /// completed. This is useful if an update has invalidated the operation that is currently running and will
+        /// therefore need to be run again.
         /// </para>
         /// <para>
-        /// When <paramref name="runPendingAsync"/> is <c>false</c>, this method will not guarantee that control will
-        /// be returned to the thread that called it; if other threads continuously mark the operation as pending,
+        /// When <paramref name="runPendingSynchronously"/> is <c>true</c>, this method will not guarantee that control
+        /// will be returned to the thread that called it; if other threads continuously mark the operation as pending,
         /// this thread will continue to run the operation indefinitely on the calling thread.
         /// </para>
         /// </remarks>
-        public virtual void Run(bool runPendingAsync = true)
+        public void Run(bool runPendingSynchronously = false)
         {
             // if (m_state == NotRunning)
             //     TryRun(runPendingAsync);
@@ -158,19 +158,19 @@ namespace gemstone.threading.synchronizedoperations
             //     m_state = Pending;
 
             if (Interlocked.CompareExchange(ref m_state, Pending, Running) == NotRunning)
-                TryRun(runPendingAsync);
+                TryRun(runPendingSynchronously);
         }
 
         /// <summary>
         /// Attempts to execute the action on current thread. Does nothing if the operation is already running.
         /// </summary>
-        /// <param name="runPendingAsync">Defines synchronization mode for running any pending operation.</param>
+        /// <param name="runPendingSynchronously">Defines synchronization mode for running any pending operation.</param>
         /// <remarks>
-        /// When <paramref name="runPendingAsync"/> is <c>false</c>, this method will not guarantee that control will
-        /// be returned to the thread that called it; if other threads continuously mark the operation as pending,
+        /// When <paramref name="runPendingSynchronously"/> is <c>true</c>, this method will not guarantee that control
+        /// will be returned to the thread that called it; if other threads continuously mark the operation as pending,
         /// this thread will continue to run the operation indefinitely on the calling thread.
         /// </remarks>
-        public virtual void TryRun(bool runPendingAsync = true)
+        public void TryRun(bool runPendingSynchronously = false)
         {
             // if (m_state == NotRunning)
             // {
@@ -191,7 +191,7 @@ namespace gemstone.threading.synchronizedoperations
 
             if (Interlocked.CompareExchange(ref m_state, Running, NotRunning) == NotRunning)
             {
-                if (runPendingAsync)
+                if (runPendingSynchronously)
                 {
                     if (ExecuteAction())
                         ExecuteActionAsync();
@@ -209,9 +209,9 @@ namespace gemstone.threading.synchronizedoperations
         /// Executes the action on another thread or marks the operation as pending if the operation is already running.
         /// </summary>
         /// <remarks>
-        /// When the operation is marked as pending, it will run again after the operation that is currently running
-        /// has completed. This is useful if an update has invalidated the operation that is currently running and
-        /// will therefore need to be run again.
+        /// When the operation is marked as pending, operation will run again after currently running operation has
+        /// completed. This is useful if an update has invalidated the operation that is currently running and will
+        /// therefore need to be run again.
         /// </remarks>
         public void RunAsync()
         {

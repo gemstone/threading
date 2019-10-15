@@ -41,12 +41,12 @@ namespace gemstone.threading.synchronizedoperations
     public interface ISynchronizedOperation
     {
         /// <summary>
-        /// Gets a value to indicate whether the synchronized operation is currently executing its action.
+        /// Gets flag indicating if the synchronized operation is currently executing its action.
         /// </summary>
         bool IsRunning { get; }
 
         /// <summary>
-        /// Gets a value to indicate whether the synchronized operation has an additional operation that is pending
+        /// Gets flag indicating if the synchronized operation has an additional operation that is pending
         /// execution after the currently running action has completed.
         /// </summary>
         bool IsPending { get; }
