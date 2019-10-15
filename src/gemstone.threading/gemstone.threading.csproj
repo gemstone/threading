@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!--TargetFrameworks>netstandard2.1;netstandard2.0</TargetFrameworks-->
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <RootNamespace>gemstone.threading</RootNamespace>
     <PackageId>gemstone.threading</PackageId>
     <Authors>Grid Protection Alliance</Authors>
