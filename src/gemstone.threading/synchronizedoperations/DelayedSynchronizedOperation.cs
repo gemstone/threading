@@ -139,7 +139,8 @@ namespace gemstone.threading.synchronizedoperations
         /// </param>
         /// <remarks>
         /// <para>
-        /// For <see cref="DelayedSynchronizedOperation"/>, actions will always run on another thread.
+        /// For <see cref="DelayedSynchronizedOperation"/>, actions will always run on another thread so this method is
+        /// hidden from intellisense.
         /// </para>
         /// <para>
         /// When the operation is marked as pending, it will run again after the operation that is currently running
@@ -150,7 +151,6 @@ namespace gemstone.threading.synchronizedoperations
         /// <exception cref="InvalidOperationException">
         /// <paramref name="runPendingSynchronously"/> must be <c>false</c> for <see cref="DelayedSynchronizedOperation"/>.
         /// </exception>
-        /// <exclude />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public new void Run(bool runPendingSynchronously = false) // Method shadowed to hide method from intellisense when referenced
         {
@@ -168,12 +168,12 @@ namespace gemstone.threading.synchronizedoperations
         /// <see cref="DelayedSynchronizedOperation"/>.
         /// </param>
         /// <remarks>
-        /// For <see cref="DelayedSynchronizedOperation"/>, actions will always run on another thread.
+        /// For <see cref="DelayedSynchronizedOperation"/>, actions will always run on another thread so this method is
+        /// hidden from intellisense.
         /// </remarks>
         /// <exception cref="InvalidOperationException">
         /// <paramref name="runPendingSynchronously"/> must be <c>false</c> for <see cref="DelayedSynchronizedOperation"/>.
         /// </exception>
-        /// <exclude />
         [EditorBrowsable(EditorBrowsableState.Never)]
         public new void TryRun(bool runPendingSynchronously = false) // Method shadowed to hide method from intellisense when referenced
         {

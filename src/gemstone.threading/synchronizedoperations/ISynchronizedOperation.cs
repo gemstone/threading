@@ -59,31 +59,31 @@ namespace gemstone.threading.synchronizedoperations
         /// <summary>
         /// Executes the action on current thread or marks the operation as pending if the operation is already running.
         /// </summary>
-        /// <param name="runPendingAsync">Defines synchronization mode for running any pending operation.</param>
+        /// <param name="runPendingSynchronously">Defines synchronization mode for running any pending operation.</param>
         /// <remarks>
         /// <para>
-        /// When the operation is marked as pending, it will run again after the operation that is currently running
-        /// has completed. This is useful if an update has invalidated the operation that is currently running and
-        /// will therefore need to be run again.
+        /// When the operation is marked as pending, operation will run again after currently running operation has
+        /// completed. This is useful if an update has invalidated the operation that is currently running and will
+        /// therefore need to be run again.
         /// </para>
         /// <para>
-        /// When <paramref name="runPendingAsync"/> is <c>false</c>, this method will not guarantee that control will
-        /// be returned to the thread that called it; if other threads continuously mark the operation as pending,
+        /// When <paramref name="runPendingSynchronously"/> is <c>true</c>, this method will not guarantee that control
+        /// will be returned to the thread that called it; if other threads continuously mark the operation as pending,
         /// this thread will continue to run the operation indefinitely on the calling thread.
         /// </para>
         /// </remarks>
-        void Run(bool runPendingAsync = true);
+        void Run(bool runPendingSynchronously = false);
 
         /// <summary>
         /// Attempts to execute the action on current thread. Does nothing if the operation is already running.
         /// </summary>
-        /// <param name="runPendingAsync">Defines synchronization mode for running any pending operation.</param>
+        /// <param name="runPendingSynchronously">Defines synchronization mode for running any pending operation.</param>
         /// <remarks>
-        /// When <paramref name="runPendingAsync"/> is <c>false</c>, this method will not guarantee that control will
-        /// be returned to the thread that called it; if other threads continuously mark the operation as pending,
+        /// When <paramref name="runPendingSynchronously"/> is <c>true</c>, this method will not guarantee that control
+        /// will be returned to the thread that called it; if other threads continuously mark the operation as pending,
         /// this thread will continue to run the operation indefinitely on the calling thread.
         /// </remarks>
-        void TryRun(bool runPendingAsync = true);
+        void TryRun(bool runPendingSynchronously = false);
 
         /// <summary>
         /// Executes the action on another thread or marks the operation as pending if the operation is already running.
