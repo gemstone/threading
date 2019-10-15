@@ -131,7 +131,9 @@ namespace gemstone.threading.synchronizedoperations
         #region [ Methods ]
 
         /// <summary>
-        /// Executes the action on current thread or marks the operation as pending if the operation is already running.
+        /// Executes the action on another thread after the specified <see cref="Delay"/> in milliseconds or marks
+        /// the operation as pending if the operation is already running. Method same as <see cref="RunAsync"/> for
+        /// <see cref="DelayedSynchronizedOperation"/>.
         /// </summary>
         /// <param name="runPendingSynchronously">
         /// Defines synchronization mode for running any pending operation; must be <c>false</c> for
@@ -152,7 +154,7 @@ namespace gemstone.threading.synchronizedoperations
         /// <paramref name="runPendingSynchronously"/> must be <c>false</c> for <see cref="DelayedSynchronizedOperation"/>.
         /// </exception>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public new void Run(bool runPendingSynchronously = false) // Method shadowed to hide method from intellisense when referenced
+        public new void Run(bool runPendingSynchronously = false) // Method shadowed to hide from intellisense when referenced
         {
             if (runPendingSynchronously)
                 throw new InvalidOperationException($"{nameof(runPendingSynchronously)} must be false for {nameof(DelayedSynchronizedOperation)}");
@@ -161,7 +163,9 @@ namespace gemstone.threading.synchronizedoperations
         }
 
         /// <summary>
-        /// Attempts to execute the action on current thread. Does nothing if the operation is already running.
+        /// Attempts to execute the action on another thread after the specified <see cref="Delay"/> in milliseconds.
+        /// Does nothing if the operation is already running. Method same as <see cref="TryRunAsync"/> for
+        /// <see cref="DelayedSynchronizedOperation"/>.
         /// </summary>
         /// <param name="runPendingSynchronously">
         /// Defines synchronization mode for running any pending operation; must be <c>false</c> for
@@ -175,13 +179,32 @@ namespace gemstone.threading.synchronizedoperations
         /// <paramref name="runPendingSynchronously"/> must be <c>false</c> for <see cref="DelayedSynchronizedOperation"/>.
         /// </exception>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public new void TryRun(bool runPendingSynchronously = false) // Method shadowed to hide method from intellisense when referenced
+        public new void TryRun(bool runPendingSynchronously = false) // Method shadowed to hide from intellisense when referenced
         {
             if (runPendingSynchronously)
                 throw new InvalidOperationException($"{nameof(runPendingSynchronously)} must be false for {nameof(DelayedSynchronizedOperation)}");
 
             base.TryRun(runPendingSynchronously);
         }
+
+        /// <summary>
+        /// Executes the action on another thread after the specified <see cref="Delay"/> in milliseconds or marks
+        /// the operation as pending if the operation is already running
+        /// </summary>
+        /// <remarks>
+        /// When the operation is marked as pending, operation will run again after currently running operation has
+        /// completed. This is useful if an update has invalidated the operation that is currently running and will
+        /// therefore need to be run again.
+        /// </remarks>
+        public new void RunAsync() => // Method shadowed to provide updated documentation
+            base.RunAsync();
+
+        /// <summary>
+        /// Attempts to execute the action on another thread after the specified <see cref="Delay"/> in milliseconds.
+        /// Does nothing if the operation is already running.
+        /// </summary>
+        public new void TryRunAsync() => // Method shadowed to provide updated documentation
+            base.TryRunAsync();
 
         /// <summary>
         /// Executes the action on a separate thread after the specified <see cref="Delay"/>.
