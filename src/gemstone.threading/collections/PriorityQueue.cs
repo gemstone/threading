@@ -79,9 +79,7 @@ namespace gemstone.threading.collections
             if (collection == null)
                 throw new ArgumentNullException(nameof(collection));
 
-            PriorityQueue<T> priorityQueue = collection as PriorityQueue<T>;
-
-            if (priorityQueue != null)
+            if (collection is PriorityQueue<T> priorityQueue)
             {
                 InitializeFrom(priorityQueue);
                 return;
@@ -302,6 +300,7 @@ namespace gemstone.threading.collections
                 int length = queues.Length;
                 queues = Interlocked.CompareExchange(ref m_queues, resizedQueues, queues);
 
+                // ReSharper disable once PossibleNullReferenceException
                 if (queues.Length >= minSize)
                     break;
 

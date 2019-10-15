@@ -154,12 +154,12 @@ namespace gemstone.threading.synchronizedoperations
         /// <paramref name="runPendingSynchronously"/> must be <c>false</c> for <see cref="DelayedSynchronizedOperation"/>.
         /// </exception>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public new void Run(bool runPendingSynchronously = false) // Method shadowed to hide from intellisense when referenced
+        public new void Run(bool runPendingSynchronously = false) // Method shadowed to provide updated documentation and hide from intellisense
         {
             if (runPendingSynchronously)
                 throw new InvalidOperationException($"{nameof(runPendingSynchronously)} must be false for {nameof(DelayedSynchronizedOperation)}");
 
-            base.Run(runPendingSynchronously);
+            base.Run();
         }
 
         /// <summary>
@@ -179,12 +179,12 @@ namespace gemstone.threading.synchronizedoperations
         /// <paramref name="runPendingSynchronously"/> must be <c>false</c> for <see cref="DelayedSynchronizedOperation"/>.
         /// </exception>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public new void TryRun(bool runPendingSynchronously = false) // Method shadowed to hide from intellisense when referenced
+        public new void TryRun(bool runPendingSynchronously = false) // Method shadowed to provide updated documentation and hide from intellisense
         {
             if (runPendingSynchronously)
                 throw new InvalidOperationException($"{nameof(runPendingSynchronously)} must be false for {nameof(DelayedSynchronizedOperation)}");
 
-            base.TryRun(runPendingSynchronously);
+            base.TryRun();
         }
 
         /// <summary>
