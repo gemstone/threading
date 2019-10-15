@@ -178,14 +178,14 @@ namespace gemstone.threading.synchronizedoperations
             //
             //     if (runPendingAsync)
             //     {
-            //         if (ExecuteAction())
-            //             ExecuteActionAsync();
-            //     }
-            //     else
-            //     {
             //         while (ExecuteAction())
             //         {
             //         }
+            //     }
+            //     else
+            //     {
+            //         if (ExecuteAction())
+            //             ExecuteActionAsync();
             //     }
             // }
 
@@ -193,14 +193,14 @@ namespace gemstone.threading.synchronizedoperations
             {
                 if (runPendingSynchronously)
                 {
-                    if (ExecuteAction())
-                        ExecuteActionAsync();
-                }
-                else
-                {
                     while (ExecuteAction())
                     {
                     }
+                }
+                else
+                {
+                    if (ExecuteAction())
+                        ExecuteActionAsync();
                 }
             }
         }
@@ -282,8 +282,7 @@ namespace gemstone.threading.synchronizedoperations
         /// <remarks>
         /// Implementers should call <see cref="ExecuteAction"/> on a separate thread and check the return value.
         /// If it returns true, that means it needs to run again. The following is a sample implementation using
-        /// a regular dedicated thread.
-        /// 
+        /// a regular dedicated thread:
         /// <code>
         /// protected override void ExecuteActionAsync()
         /// {
