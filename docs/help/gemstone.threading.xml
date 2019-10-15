@@ -323,7 +323,9 @@
     </member>
     <member name="M:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.Run(System.Boolean)">
       <summary>
-            Executes the action on current thread or marks the operation as pending if the operation is already running.
+            Executes the action on another thread after the specified <see cref="P:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.Delay" /> in milliseconds or marks
+            the operation as pending if the operation is already running. Method same as <see cref="M:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.RunAsync" /> for
+            <see cref="T:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation" />.
             </summary>
       <param name="runPendingSynchronously">
             Defines synchronization mode for running any pending operation; must be <c>false</c> for
@@ -333,9 +335,17 @@
         <paramref name="runPendingSynchronously" /> must be <c>false</c> for <see cref="T:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation" />.
             </exception>
     </member>
+    <member name="M:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.RunAsync">
+      <summary>
+            Executes the action on another thread after the specified <see cref="P:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.Delay" /> in milliseconds or marks
+            the operation as pending if the operation is already running
+            </summary>
+    </member>
     <member name="M:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.TryRun(System.Boolean)">
       <summary>
-            Attempts to execute the action on current thread. Does nothing if the operation is already running.
+            Attempts to execute the action on another thread after the specified <see cref="P:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.Delay" /> in milliseconds.
+            Does nothing if the operation is already running. Method same as <see cref="M:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.TryRunAsync" /> for
+            <see cref="T:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation" />.
             </summary>
       <param name="runPendingSynchronously">
             Defines synchronization mode for running any pending operation; must be <c>false</c> for
@@ -344,6 +354,12 @@
       <exception cref="T:System.InvalidOperationException">
         <paramref name="runPendingSynchronously" /> must be <c>false</c> for <see cref="T:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation" />.
             </exception>
+    </member>
+    <member name="M:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.TryRunAsync">
+      <summary>
+            Attempts to execute the action on another thread after the specified <see cref="P:gemstone.threading.synchronizedoperations.DelayedSynchronizedOperation.Delay" /> in milliseconds.
+            Does nothing if the operation is already running.
+            </summary>
     </member>
     <member name="T:gemstone.threading.synchronizedoperations.ISynchronizedOperation">
       <summary>
