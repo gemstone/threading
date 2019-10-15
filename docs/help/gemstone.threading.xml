@@ -4,6 +4,82 @@
     <name>gemstone.threading</name>
   </assembly>
   <members>
+    <member name="T:gemstone.threading.ConcurrencyLimiter">
+      <summary>
+            Task scheduler that limits the number of tasks that can execute in parallel at any given time.
+            </summary>
+    </member>
+    <member name="M:gemstone.threading.ConcurrencyLimiter.#ctor">
+      <summary>
+            Creates a new instance of the <see cref="T:gemstone.threading.ConcurrencyLimiter" /> class
+            with a <see cref="T:gemstone.threading.synchronizedoperations.ShortSynchronizedOperation" /> and a maximum concurrency
+            level equal to the number of processors on the current machine.
+            </summary>
+    </member>
+    <member name="M:gemstone.threading.ConcurrencyLimiter.#ctor(gemstone.threading.synchronizedoperations.SynchronizedOperationFactory)">
+      <summary>
+            Creates a new instance of the <see cref="T:gemstone.threading.ConcurrencyLimiter" /> class with a
+            maximum concurrency level equal to the number of processors on the current machine.
+            </summary>
+      <param name="synchronizedOperationFactory">Factory function for creating the synchronized operations to be used for processing tasks.</param>
+    </member>
+    <member name="M:gemstone.threading.ConcurrencyLimiter.#ctor(gemstone.threading.synchronizedoperations.SynchronizedOperationFactory,System.Int32)">
+      <summary>
+            Creates a new instance of the <see cref="T:gemstone.threading.ConcurrencyLimiter" /> class.
+            </summary>
+      <param name="synchronizedOperationFactory">Factory function for creating the synchronized operations to be used for processing tasks.</param>
+      <param name="maximumConcurrencyLevel">The initial value for <see cref="P:gemstone.threading.ConcurrencyLimiter.MaximumConcurrencyLevel" />.</param>
+    </member>
+    <member name="M:gemstone.threading.ConcurrencyLimiter.#ctor(System.Int32)">
+      <summary>
+            Creates a new instance of the <see cref="T:gemstone.threading.ConcurrencyLimiter" /> class
+            with a <see cref="T:gemstone.threading.synchronizedoperations.ShortSynchronizedOperation" />.
+            </summary>
+      <param name="maximumConcurrencyLevel">The initial value for <see cref="P:gemstone.threading.ConcurrencyLimiter.MaximumConcurrencyLevel" />.</param>
+    </member>
+    <member name="P:gemstone.threading.ConcurrencyLimiter.CurrentConcurrencyLevel">
+      <summary>
+            Gets the number of threads that are currently executing tasks concurrently.
+            </summary>
+    </member>
+    <member name="M:gemstone.threading.ConcurrencyLimiter.GetScheduledTasks">
+      <summary>
+            For debugger support only, generates an enumerable of <see cref="T:System.Threading.Tasks.Task" />
+            instances currently queued to the scheduler waiting to be executed.
+            </summary>
+      <returns>An enumerable that allows a debugger to traverse the tasks currently queued to this scheduler.</returns>
+    </member>
+    <member name="P:gemstone.threading.ConcurrencyLimiter.MaximumConcurrencyLevel">
+      <summary>
+            Gets the maximum number of threads that can be executing tasks concurrently.
+            </summary>
+    </member>
+    <member name="M:gemstone.threading.ConcurrencyLimiter.QueueTask(System.Threading.Tasks.Task)">
+      <summary>
+            Queues a <see cref="T:System.Threading.Tasks.Task" /> to the scheduler.
+            </summary>
+      <param name="task">The <see cref="T:System.Threading.Tasks.Task" /> to be queued.</param>
+    </member>
+    <member name="M:gemstone.threading.ConcurrencyLimiter.SetMaximumConcurrencyLevel(System.Int32)">
+      <summary>
+            Sets the maximum number of threads that can be executing tasks concurrently.
+            </summary>
+      <param name="maximumConcurrencyLevel">The maximum concurrency level.</param>
+    </member>
+    <member name="M:gemstone.threading.ConcurrencyLimiter.TryExecuteTaskInline(System.Threading.Tasks.Task,System.Boolean)">
+      <summary>
+            Determines whether the provided <see cref="T:System.Threading.Tasks.Task" /> can be executed synchronously
+            in this call, and if it can, executes it.
+            </summary>
+      <param name="task">The <see cref="T:System.Threading.Tasks.Task" /> to be executed.</param>
+      <param name="taskWasPreviouslyQueued">
+            A <see cref="T:System.Boolean" /> denoting whether or not task has previously been queued.
+            If this parameter is True, then the task may have been previously queued (scheduled);
+            if False, then the task is known not to have been queued,
+            and this call is being made in order to execute the task inline without queuing it.
+            </param>
+      <returns>A <see cref="T:System.Boolean" /> value indicating whether the task was executed inline.</returns>
+    </member>
     <member name="T:gemstone.threading.collections.PriorityQueue`1">
       <summary>
             Represents a thread-safe prioritized first in-first out (FIFO) collection.

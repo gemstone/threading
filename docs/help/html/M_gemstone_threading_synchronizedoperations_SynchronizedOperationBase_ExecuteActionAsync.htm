@@ -22,8 +22,7 @@
 		</script><a target="_blank" class="button" href="https://github.com/gemstone/threading/blob/master/src/gemstone.threading/synchronizedoperations/SynchronizedOperationBase.cs" title="View the source code">View Source</a></div><div class="collapsibleAreaRegion"><span class="collapsibleRegionTitle" onclick="SectionExpandCollapse('ID2RB')" onkeypress="SectionExpandCollapse_CheckKey('ID2RB', event)" tabindex="0"><img id="ID2RBToggle" class="collapseToggle" src="../icons/SectionExpanded.png" />Remarks</span></div><div id="ID2RBSection" class="collapsibleSection">
              Implementers should call <a href="M_gemstone_threading_synchronizedoperations_SynchronizedOperationBase_ExecuteAction.htm">ExecuteAction<span id="LSTFA0231CC_1"></span><script type="text/javascript">AddLanguageSpecificTextSet("LSTFA0231CC_1?cs=()|vb=|cpp=()|nu=()|fs=()");</script></a> on a separate thread and check the return value.
              If it returns true, that means it needs to run again. The following is a sample implementation using
-             a regular dedicated thread.
-             
+             a regular dedicated thread:
              <div class="codeSnippetContainer"><div class="codeSnippetContainerCodeContainer"><div class="codeSnippetToolBar"><div class="codeSnippetToolBarText"><a id="ID0EAAABA_copyCode" href="#" class="copyCodeSnippet" onclick="javascript:CopyToClipboard('ID0EAAABA');return false;" title="Copy">Copy</a></div></div><div id="ID0EAAABA_code_Div1" class="codeSnippetContainerCode" style="display: block"><pre xml:space="preserve"><span class="highlight-keyword">protected</span> <span class="highlight-keyword">override</span> <span class="highlight-keyword">void</span> ExecuteActionAsync()
 {
     Thread actionThread = <span class="highlight-keyword">new</span> Thread(() =&gt;
