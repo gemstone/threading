@@ -20,12 +20,24 @@
             Creates a new instance of the <see cref="T:gemstone.threading.collections.PriorityQueue`1" /> class.
             </summary>
       <param name="priorityQueue">Another priority queue of items to be enqueued in this queue at the same priority.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="priorityQueue" /> is null</exception>
     </member>
     <member name="M:gemstone.threading.collections.PriorityQueue`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
       <summary>
             Creates a new instance of the <see cref="T:gemstone.threading.collections.PriorityQueue`1" /> class.
             </summary>
       <param name="collection">A collection of items to be enqueued at the lowest priority.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="collection" /> is null</exception>
+    </member>
+    <member name="M:gemstone.threading.collections.PriorityQueue`1.#ctor(System.Int32)">
+      <summary>
+            Creates a new instance of the <see cref="T:gemstone.threading.collections.PriorityQueue`1" /> class.
+            </summary>
+      <param name="priorityLevels">The number of priority levels to preallocate in the queue.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="priorityLevels" /> is less than or equal to 0</exception>
     </member>
     <member name="M:gemstone.threading.collections.PriorityQueue`1.CopyTo(`0[],System.Int32)">
       <summary>
@@ -176,6 +188,19 @@
             </summary>
       <param name="synchronizedOperationFactory">Factory function for creating the synchronized operation to be used for processing tasks.</param>
     </member>
+    <member name="M:gemstone.threading.strands.PriorityStrand.#ctor(gemstone.threading.synchronizedoperations.SynchronizedOperationFactory,System.Int32)">
+      <summary>
+            Creates a new instance of the <see cref="T:gemstone.threading.strands.PriorityStrand" /> class.
+            </summary>
+      <param name="synchronizedOperationFactory">Factory function for creating the synchronized operation to be used for processing tasks.</param>
+      <param name="priorityLevels">The number of priority levels to be preallocated by the priority queue.</param>
+    </member>
+    <member name="M:gemstone.threading.strands.PriorityStrand.#ctor(System.Int32)">
+      <summary>
+            Creates a new instance of the <see cref="T:gemstone.threading.strands.PriorityStrand" /> class with a <see cref="T:gemstone.threading.synchronizedoperations.ShortSynchronizedOperation" />.
+            </summary>
+      <param name="priorityLevels">The number of priority levels to be preallocated by the priority queue.</param>
+    </member>
     <member name="M:gemstone.threading.strands.PriorityStrand.GetScheduler(System.Int32)">
       <summary>
             Gets a <see cref="T:System.Threading.Tasks.TaskScheduler" /> used to queue tasks at a specific priority.
@@ -308,13 +333,13 @@
     </member>
     <member name="P:gemstone.threading.synchronizedoperations.ISynchronizedOperation.IsPending">
       <summary>
-            Gets a value to indicate whether the synchronized operation has an additional operation that is pending
+            Gets flag indicating if the synchronized operation has an additional operation that is pending
             execution after the currently running action has completed.
             </summary>
     </member>
     <member name="P:gemstone.threading.synchronizedoperations.ISynchronizedOperation.IsRunning">
       <summary>
-            Gets a value to indicate whether the synchronized operation is currently executing its action.
+            Gets flag indicating if the synchronized operation is currently executing its action.
             </summary>
     </member>
     <member name="M:gemstone.threading.synchronizedoperations.ISynchronizedOperation.Run(System.Boolean)">
@@ -470,13 +495,13 @@
     </member>
     <member name="P:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.IsPending">
       <summary>
-            Gets a value to indicate whether the synchronized operation has an additional operation that is pending
+            Gets flag indicating if the synchronized operation has an additional operation that is pending
             execution after the currently running action has completed.
             </summary>
     </member>
     <member name="P:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.IsRunning">
       <summary>
-            Gets a value to indicate whether the synchronized operation is currently executing its action.
+            Gets flag indicating if the synchronized operation is currently executing its action.
             </summary>
     </member>
     <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.ProcessException(System.Exception)">
@@ -490,7 +515,7 @@
       <summary>
             Executes the action on current thread or marks the operation as pending if the operation is already running.
             </summary>
-      <param name="runPendingAsync">Defines synchronization mode for running any pending operation.</param>
+      <param name="runPendingSynchronously">Defines synchronization mode for running any pending operation.</param>
     </member>
     <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.RunAsync">
       <summary>
@@ -501,7 +526,7 @@
       <summary>
             Attempts to execute the action on current thread. Does nothing if the operation is already running.
             </summary>
-      <param name="runPendingAsync">Defines synchronization mode for running any pending operation.</param>
+      <param name="runPendingSynchronously">Defines synchronization mode for running any pending operation.</param>
     </member>
     <member name="M:gemstone.threading.synchronizedoperations.SynchronizedOperationBase.TryRunAsync">
       <summary>
