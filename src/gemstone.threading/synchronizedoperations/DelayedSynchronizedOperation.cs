@@ -44,7 +44,7 @@ namespace gemstone.threading.synchronizedoperations
     /// be used since thread pool threads are background threads and will not prevent the
     /// program from ending before the operation is complete.
     /// </remarks>
-    public class DelayedSynchronizedOperation : SynchronizedOperationBase
+    public class DelayedSynchronizedOperation : SynchronizedOperationBase, ISynchronizedOperation
     {
         #region [ Members ]
 
@@ -162,6 +162,8 @@ namespace gemstone.threading.synchronizedoperations
             base.Run();
         }
 
+        void ISynchronizedOperation.Run(bool runPendingSynchronously) => Run(runPendingSynchronously);
+
         /// <summary>
         /// Attempts to execute the action on another thread after the specified <see cref="Delay"/> in milliseconds.
         /// Does nothing if the operation is already running. Method same as <see cref="TryRunAsync"/> for
@@ -186,6 +188,8 @@ namespace gemstone.threading.synchronizedoperations
 
             base.TryRun();
         }
+
+        void ISynchronizedOperation.TryRun(bool runPendingSynchronously) => TryRun(runPendingSynchronously);
 
         /// <summary>
         /// Executes the action on another thread after the specified <see cref="Delay"/> in milliseconds or marks
