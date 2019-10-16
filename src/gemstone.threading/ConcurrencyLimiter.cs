@@ -42,7 +42,7 @@ namespace gemstone.threading
         private int m_maximumConcurrencyLevel;
 
         [ThreadStatic]
-        private bool m_currentlyExecutingTask;
+        private static bool m_currentlyExecutingTask;
 
         #endregion
 
