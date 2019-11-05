@@ -1,23 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <topic id="gemstone" revisionNumber="1">
-    <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <introduction>
-            <para>
-        The Grid Protection Alliance Gemstone Library lorem ipsum dolor sit amet, ut vel alia maiorum, duo eu veri volutpat conceptam. Eum dico magna rebum at. Eros dicant vix ex, ad pri nostrum sensibus. Et vel omnes recusabo assentior. Nobis regione assentior et sit, eum molestie perfecto te. Id cum accusata consetetur, aliquando dissentiunt vis at. Soleat apeirian et nam.
-      </para>
-
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
       <para>
-        Ne usu debet signiferumque. Ut eos quod saepe. Eum ut modus meliore, ea fugit aliquid voluptatibus per, facer molestiae ea ius. Eum sumo ridens molestiae ea. Vix an utinam feugiat, eos ne zril facilisis.
+        The 
+        <externalLink>
+          <linkText>Grid Protection Alliance</linkText>
+          <linkAlternateText>Grid Protection Alliance</linkAlternateText>
+          <linkUri>https://gridprotectionalliance.org/</linkUri>
+          <linkTarget>_blank</linkTarget>
+        </externalLink>        
+        Gemstone Threading Library is useful a collection of open source classes method for threading.
       </para>
     </introduction>
-    
     <section>
-      <title>Other Gemstone Libraries</title>
+      <title>About the Gemstone Library</title>
       <content>
         <para>
-          Vis quidam repudiare consequuntur ex, pri soleat quaeque mediocritatem no. Per mutat soluta debitis an, duis referrentur mea an, qui diceret consetetur sadipscing in. Cum ex antiopam theophrastus? At eripuit convenire consequuntur usu, sit ex partem delenit reprehendunt!
+          The Grid Protection Alliance Gemstone Library is a collection of handy open source .NET code assemblies based on
+          <externalLink>
+            <linkText>continuous development since 2004.</linkText>
+            <linkAlternateText>Grid Solutions Framework Contributions</linkAlternateText>
+            <linkUri>https://github.com/GridProtectionAlliance/gsf/graphs/contributors</linkUri>
+            <linkTarget>_blank</linkTarget>
+          </externalLink>.
         </para>
-
+        <para>
+          These packages represent a focused re-envisioning of the best libraries, i.e., the "gems", from the
+          <externalLink>
+            <linkText>Grid Solutions Framework</linkText>
+            <linkAlternateText>Grid Solutions Framework</linkAlternateText>
+            <linkUri>https://github.com/GridProtectionAlliance/gsf/</linkUri>
+            <linkTarget>_blank</linkTarget>
+          </externalLink>
+          (GSF), which has long been in use by various open source projects and electric power utilities worldwide.
+        </para>
+        <para>
+          The Gemstone Library contains a large variety of code useful for any .NET project with of hundreds of class libraries that extend or expand the functionality included in .NET,
+          including many tools and protocol parsers that are useful for the electric power industry. For example:
+        </para>
         <list class="bullet">
           <listItem>
             <para>
@@ -29,82 +50,24 @@
                   <linkTarget>_blank</linkTarget>
                 </externalLink>               
               </legacyBold>
-              Ex feugait dignissim vituperata ius. At eum nostrud definiebas, expetenda prodesset eu sed. Voluptatibus vituperatoribus qui ea! Vis ei nibh veniam recteque, ut tota etiam aliquando per.
+              The Gemstone Threading Library organizes all Gemstone functionality related to threading.
             </para>
           </listItem>
-
           <listItem>
             <para>
               <legacyBold>
                 <externalLink>
-                  <linkText>gemstone.data</linkText>
-                  <linkAlternateText>gemstone.data</linkAlternateText>
-                  <linkUri>https://gemstone.github.io/threading/</linkUri>
+                  <linkText>gemstone.expressions</linkText>
+                  <linkAlternateText>gemstone.expressions</linkAlternateText>
+                  <linkUri>https://gemstone.github.io/expressions/</linkUri>
                   <linkTarget>_blank</linkTarget>
                 </externalLink>
               </legacyBold>
-              Ea democritum theophrastus vis, altera aliquando neglegentur et his? Mel sale accusam hendrerit cu, te nec putant molestiae! Soluta erroribus rationibus pri eu, in pro case vide. Mundi labores cu vis, eu nam tota scaevola, oporteat aliquando nam ea! Malis solet eligendi id quo, sit purto dicta aliquid ne? Sed ubique admodum salutandi te!
-            </para>
-          </listItem>
-
-          <listItem>
-            <para>
-              <legacyBold>
-                <externalLink>
-                  <linkText>gemstone.etc</linkText>
-                  <linkAlternateText>gemstone.etc</linkAlternateText>
-                  <linkUri>https://gemstone.github.io/threading/</linkUri>
-                  <linkTarget>_blank</linkTarget>
-                </externalLink>
-              </legacyBold>
-              Eu sit deserunt explicari. Pro probo civibus ea, his ne veniam omittantur, at labore offendit disputationi nam? Laudem accusata persecuti et quo, everti tritani ornatus te est, dictas invenire posidonium an est? His ponderum inciderint an, ea has nominati vituperatoribus! Nec an odio feugiat intellegam, cu vim exerci eripuit. Ex vix aliquip quaeque, corpora oporteat persequeris ei eum.
+              The Gemstone Expressions Library organizes all Gemstone functionality related to expression parsing.
             </para>
           </listItem>
         </list>
-
       </content>
     </section>
-
-    <section>
-            <title>Getting Started</title>
-            <content>
-                <para>To get started, add a documentation source to the project (a Visual Studio solution, project, or
-assembly and XML comments file).  See the <legacyBold>Getting Started</legacyBold> topics in the Sandcastle Help
-File Builder's help file for more information.  The following default items are included in this project:</para>
-
-                <list class="bullet">
-                    <listItem>
-                        <para><localUri>ContentLayout.content</localUri> - Use the content layout file to manage the
-conceptual content in the project and define its layout in the table of contents.</para>
-                    </listItem>
-
-                    <listItem>
-                        <para>The <localUri>.\media</localUri> folder - Place images in this folder that you will reference
-from conceptual content using <codeInline>medialLink</codeInline> or <codeInline>mediaLinkInline</codeInline>
-elements.  If you will not have any images in the file, you may remove this folder.</para>
-                    </listItem>
-
-                    <listItem>
-                        <para>The <localUri>.\icons</localUri> folder - This contains a default logo for the help file.  You
-may replace it or remove it and the folder if not wanted.  If removed or if you change the file name, update
-the <ui>Transform Args</ui> project properties page by removing or changing the filename in the
-<codeInline>logoFile</codeInline> transform argument.  Note that unlike images referenced from conceptual topics,
-the logo file should have its <legacyBold>BuildAction</legacyBold> property set to <codeInline>Content</codeInline>.</para>
-                    </listItem>
-
-                    <listItem>
-                        <para>The <localUri>.\Content</localUri> folder - Use this to store your conceptual topics.  You may
-name the files and organize them however you like.  One suggestion is to lay the files out on disk as you have
-them in the content layout file as shown in this project but the choice is yours.  Files can be added via the
-Solution Explorer or from within the content layout file editor.  Files must appear in the content layout file
-in order to be compiled into the help file.</para>
-                    </listItem>
-                </list>
-
-                <para>See the <legacyBold>Conceptual Content</legacyBold> topics in the Sandcastle Help File Builder's
-help file for more information.  See the <legacyBold> Sandcastle MAML Guide</legacyBold> for details on Microsoft
-Assistance Markup Language (MAML) which is used to create these topics.</para>
-            </content>
-        </section>
-    </developerConceptualDocument>
+  </developerConceptualDocument>
 </topic>
