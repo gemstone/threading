@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<content xml:space="preserve" xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <item id="AboutGemstoneSection"><!-- Do not make changes to this file in Gemstone Library projects, the content source is shared. -->
+<!-- The source for this file exists here: https://github.com/gemstone/shared-content  -->
+<!-- When content is updated in the shared-content repo, updates will be applied by build script. -->
+    <ddue:section xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5">
+      <ddue:title>About the Gemstone Libraries</ddue:title>
+      <ddue:content>
+        <ddue:para>
+          The 
+          <ddue:externalLink>
+            <ddue:linkText>Gemstone Libraries</ddue:linkText>
+            <ddue:linkAlternateText>Gemstone Libraries</ddue:linkAlternateText>
+            <ddue:linkUri>https://github.com/gemstone/</ddue:linkUri>
+            <ddue:linkTarget>_blank</ddue:linkTarget>
+          </ddue:externalLink>, maintained by the 
+          <ddue:externalLink>
+            <ddue:linkText>Grid Protection Alliance</ddue:linkText>
+            <ddue:linkAlternateText>Grid Protection Alliance</ddue:linkAlternateText>
+            <ddue:linkUri>https://gridprotectionalliance.org/</ddue:linkUri>
+            <ddue:linkTarget>_blank</ddue:linkTarget>
+          </ddue:externalLink> (GPA), are a collection of useful open source .NET code based on
+          <ddue:externalLink>
+            <ddue:linkText>continuous development since 2004</ddue:linkText>
+            <ddue:linkAlternateText>Grid Solutions Framework Contributions</ddue:linkAlternateText>
+            <ddue:linkUri>https://github.com/GridProtectionAlliance/gsf/graphs/contributors</ddue:linkUri>
+            <ddue:linkTarget>_blank</ddue:linkTarget>
+          </ddue:externalLink>.
+        </ddue:para>
+        <ddue:para>
+          These packages represent a focused re-envisioning of the best libraries, i.e., the "gems", from the
+          <ddue:externalLink>
+            <ddue:linkText>Grid Solutions Framework</ddue:linkText>
+            <ddue:linkAlternateText>Grid Solutions Framework</ddue:linkAlternateText>
+            <ddue:linkUri>https://github.com/GridProtectionAlliance/gsf/</ddue:linkUri>
+            <ddue:linkTarget>_blank</ddue:linkTarget>
+          </ddue:externalLink>
+          (GSF), which has long been in use by various open source projects and electric power utilities worldwide.
+        </ddue:para>
+        <ddue:para>
+          The Gemstone Libraries contain a large variety of code useful for any .NET project with of hundreds of class libraries that extend or expand the functionality provided with .NET,
+          including many tools and protocol parsers that are useful for the electric power industry. Below are a few of the more commonly used Gemstone libraries:
+        </ddue:para>
+        <ddue:list class="bullet">
+          <ddue:listItem>
+            <ddue:para>
+              <ddue:legacyBold>
+                <ddue:externalLink>
+                  <ddue:linkText>gemstone.threading</ddue:linkText>
+                  <ddue:linkAlternateText>gemstone.threading</ddue:linkAlternateText>
+                  <ddue:linkUri>https://gemstone.github.io/threading/</ddue:linkUri>
+                  <ddue:linkTarget>_blank</ddue:linkTarget>
+                </ddue:externalLink>               
+              </ddue:legacyBold>
+              organizes all Gemstone functionality related to threading.
+            </ddue:para>
+          </ddue:listItem>
+          <ddue:listItem>
+            <ddue:para>
+              <ddue:legacyBold>
+                <ddue:externalLink>
+                  <ddue:linkText>gemstone.expressions</ddue:linkText>
+                  <ddue:linkAlternateText>gemstone.expressions</ddue:linkAlternateText>
+                  <ddue:linkUri>https://gemstone.github.io/expressions/</ddue:linkUri>
+                  <ddue:linkTarget>_blank</ddue:linkTarget>
+                </ddue:externalLink>
+              </ddue:legacyBold>
+              organizes all Gemstone functionality related to expressions and expression parsing.
+            </ddue:para>
+          </ddue:listItem>
+        </ddue:list>
+      </ddue:content>
+    </ddue:section></item>
+  <item id="SHFB"><ddue:externalLink xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5">
+    <ddue:linkText>Sandcastle Help File Builder</ddue:linkText>
+    <ddue:linkUri>https://GitHub.com/EWSoftware/SHFB</ddue:linkUri>
+    </ddue:externalLink></item>
+</content>

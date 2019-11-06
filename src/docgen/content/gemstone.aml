@@ -3,71 +3,9 @@
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para>
-        The 
-        <externalLink>
-          <linkText>Grid Protection Alliance</linkText>
-          <linkAlternateText>Grid Protection Alliance</linkAlternateText>
-          <linkUri>https://gridprotectionalliance.org/</linkUri>
-          <linkTarget>_blank</linkTarget>
-        </externalLink>        
-        Gemstone Threading Library is a useful collection of open source classes and methods for threading.
+        The Gemstone Threading Library is a useful collection of open source classes and methods for threading.
       </para>
     </introduction>
-    <section>
-      <title>About the Gemstone Library</title>
-      <content>
-        <para>
-          The Grid Protection Alliance Gemstone Library is a collection of handy open source .NET code assemblies based on
-          <externalLink>
-            <linkText>continuous development since 2004.</linkText>
-            <linkAlternateText>Grid Solutions Framework Contributions</linkAlternateText>
-            <linkUri>https://github.com/GridProtectionAlliance/gsf/graphs/contributors</linkUri>
-            <linkTarget>_blank</linkTarget>
-          </externalLink>.
-        </para>
-        <para>
-          These packages represent a focused re-envisioning of the best libraries, i.e., the "gems", from the
-          <externalLink>
-            <linkText>Grid Solutions Framework</linkText>
-            <linkAlternateText>Grid Solutions Framework</linkAlternateText>
-            <linkUri>https://github.com/GridProtectionAlliance/gsf/</linkUri>
-            <linkTarget>_blank</linkTarget>
-          </externalLink>
-          (GSF), which has long been in use by various open source projects and electric power utilities worldwide.
-        </para>
-        <para>
-          The Gemstone Library contains a large variety of code useful for any .NET project with of hundreds of class libraries that extend or expand the functionality included in .NET,
-          including many tools and protocol parsers that are useful for the electric power industry. For example:
-        </para>
-        <list class="bullet">
-          <listItem>
-            <para>
-              <legacyBold>
-                <externalLink>
-                  <linkText>gemstone.threading</linkText>
-                  <linkAlternateText>gemstone.threading</linkAlternateText>
-                  <linkUri>https://gemstone.github.io/threading/</linkUri>
-                  <linkTarget>_blank</linkTarget>
-                </externalLink>               
-              </legacyBold>
-              The Gemstone Threading Library organizes all Gemstone functionality related to threading.
-            </para>
-          </listItem>
-          <listItem>
-            <para>
-              <legacyBold>
-                <externalLink>
-                  <linkText>gemstone.expressions</linkText>
-                  <linkAlternateText>gemstone.expressions</linkAlternateText>
-                  <linkUri>https://gemstone.github.io/expressions/</linkUri>
-                  <linkTarget>_blank</linkTarget>
-                </externalLink>
-              </legacyBold>
-              The Gemstone Expressions Library organizes all Gemstone functionality related to expression parsing.
-            </para>
-          </listItem>
-        </list>
-      </content>
-    </section>
+    <token>AboutGemstoneSection</token>
   </developerConceptualDocument>
 </topic>

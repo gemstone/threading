@@ -15,11 +15,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{1B73EDFB-2
 		..\docs\README.md = ..\docs\README.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_layouts", "_layouts", "{FEF7BADA-DA2C-46CB-A6AC-CD02B6E5FB42}"
-	ProjectSection(SolutionItems) = preProject
-		..\docs\_layouts\default.html = ..\docs\_layouts\default.html
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "help", "help", "{A4BCD348-D68F-4516-8555-CD60C904B420}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{DFC219B4-2CF1-49CC-B203-A0E1FF73E20A}"
@@ -51,7 +46,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E0CCFF2A-C2DF-436C-B34C-A20215DA227A} = {A4BCD348-D68F-4516-8555-CD60C904B420}
-		{FEF7BADA-DA2C-46CB-A6AC-CD02B6E5FB42} = {1B73EDFB-2410-4828-9835-FE353FC1C2BF}
 		{A4BCD348-D68F-4516-8555-CD60C904B420} = {1B73EDFB-2410-4828-9835-FE353FC1C2BF}
 		{DFC219B4-2CF1-49CC-B203-A0E1FF73E20A} = {1B73EDFB-2410-4828-9835-FE353FC1C2BF}
 	EndGlobalSection
