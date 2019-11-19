@@ -131,7 +131,7 @@ namespace gemstone.threading
             // the pool at this point exceeds the value of doing so;
             // it is both adequate and much simpler to let the pool reduce
             // size automatically via TryActivateCurrentTaskProcessor()
-            // and MustRetireCurrentTaskProcessor() methods
+            // and TryDeactivate() methods
         }
 
         /// <summary>
@@ -171,9 +171,6 @@ namespace gemstone.threading
 
             bool result = TryExecuteTask(task);
 
-            if (MustRetireCurrentTaskProcessor())
-                return result;
-
             if (TryDeactivate(taskProcessor))
                 return result;
 
@@ -209,9 +206,6 @@ namespace gemstone.threading
                 if (TryExecuteTask(task))
                     break;
             }
-
-            if (MustRetireCurrentTaskProcessor())
-                return;
 
             if (TryDeactivate(taskProcessor))
                 return;
@@ -261,28 +255,31 @@ namespace gemstone.threading
             }
         }
 
-        // Returns true only if the task processor needs to be retired and false otherwise.
-        private bool MustRetireCurrentTaskProcessor()
-        {
-            // The current thread has a reference to a task processor and would
-            // nearly always waste time attempting to decrement the counter;
-            // the only exception is when the MaximumConcurrencyLevel changes
-            if (CurrentConcurrencyLevel <= MaximumConcurrencyLevel)
-                return false;
-
-            while (true)
-            {
-                if (Interlocked.Decrement(ref m_currentConcurrencyLevel) > MaximumConcurrencyLevel)
-                    return true;
-
-                if (Interlocked.Increment(ref m_currentConcurrencyLevel) < MaximumConcurrencyLevel)
-                    return false;
-            }
-        }
-
         // Returns false if the task processor has more work to do; otherwise returns true.
         private bool TryDeactivate(ISynchronizedOperation taskProcessor)
         {
+            // Returns true only if the task processor needs to be retired and false otherwise.
+            bool MustRetireTaskProcessor()
+            {
+                // The current thread has a reference to a task processor and would
+                // nearly always waste time attempting to decrement the counter;
+                // the only exception is when the MaximumConcurrencyLevel changes
+                if (CurrentConcurrencyLevel <= MaximumConcurrencyLevel)
+                    return false;
+
+                while (true)
+                {
+                    if (Interlocked.Decrement(ref m_currentConcurrencyLevel) > MaximumConcurrencyLevel)
+                        return true;
+
+                    if (Interlocked.Increment(ref m_currentConcurrencyLevel) < MaximumConcurrencyLevel)
+                        return false;
+                }
+            }
+
+            if (MustRetireTaskProcessor())
+                return true;
+
             if (!Queue.IsEmpty)
                 return false;
 
