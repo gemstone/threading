@@ -21,7 +21,6 @@
 //
 //******************************************************************************************************
 
-using gemstone.threading.extensions;
 using System;
 using System.ComponentModel;
 using System.Threading;
