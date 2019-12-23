@@ -21,13 +21,13 @@
 //
 //******************************************************************************************************
 
-using gemstone.threading.synchronizedoperations;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Gemstone.Threading.SynchronizedOperations;
 
-namespace gemstone.threading.strands
+namespace Gemstone.Threading.Strands
 {
     /// <summary>
     /// Schedules tasks in a FIFO queue and executes them in a synchronized asynchronous loop.

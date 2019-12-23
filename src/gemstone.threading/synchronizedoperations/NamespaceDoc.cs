@@ -23,10 +23,10 @@
 
 using System.Runtime.CompilerServices;
 
-namespace gemstone.threading.synchronizedoperations
+namespace Gemstone.Threading.SynchronizedOperations
 {
     /// <summary>
-    /// The <see cref="gemstone.threading.synchronizedoperations"/> namespace provides classes and interfaces for
+    /// The <see cref="Gemstone.Threading.SynchronizedOperations"/> namespace provides classes and interfaces for
     /// synchronized operations, which are operations that cannot run while another is already in progress, e.g.,
     /// <see cref="ShortSynchronizedOperation"/> and <see cref="LongSynchronizedOperation"/>.
     /// </summary>

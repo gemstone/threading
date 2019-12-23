@@ -23,10 +23,10 @@
 
 using System.Runtime.CompilerServices;
 
-namespace gemstone.threading.collections
+namespace Gemstone.Threading.Collections
 {
     /// <summary>
-    /// The <see cref="gemstone.threading.collections"/> namespace provides classes for collections related
+    /// The <see cref="Gemstone.Threading.Collections"/> namespace provides classes for collections related
     /// to threading functionality, e.g., <see cref="PriorityQueue{T}"/>.
     /// </summary>
     [CompilerGenerated]

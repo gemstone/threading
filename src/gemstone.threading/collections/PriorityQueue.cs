@@ -28,7 +28,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-namespace gemstone.threading.collections
+namespace Gemstone.Threading.Collections
 {
     /// <summary>
     /// Represents a thread-safe prioritized first in-first out (FIFO) collection.

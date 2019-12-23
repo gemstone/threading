@@ -24,8 +24,9 @@
 using System;
 using System.ComponentModel;
 using System.Threading;
+using Gemstone.ActionExtensions;
 
-namespace gemstone.threading.synchronizedoperations
+namespace Gemstone.Threading.SynchronizedOperations
 {
     /// <summary>
     /// Represents a short-running synchronized operation that cannot run while it is already

@@ -23,7 +23,7 @@
 
 using System;
 
-namespace gemstone.threading.synchronizedoperations
+namespace Gemstone.Threading.SynchronizedOperations
 {
     /// <summary>
     /// Event arguments for the <see cref="SynchronizedOperationBase.UnhandledException"/> event.

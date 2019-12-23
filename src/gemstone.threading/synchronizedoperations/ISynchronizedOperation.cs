@@ -26,7 +26,7 @@
 using System;
 using System.Threading;
 
-namespace gemstone.threading.synchronizedoperations
+namespace Gemstone.Threading.SynchronizedOperations
 {
     /// <summary>
     /// Factory method for creating synchronized operations.

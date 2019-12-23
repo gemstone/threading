@@ -26,10 +26,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using gemstone.threading.collections;
-using gemstone.threading.synchronizedoperations;
+using Gemstone.Threading.Collections;
+using Gemstone.Threading.SynchronizedOperations;
 
-namespace gemstone.threading.strands
+namespace Gemstone.Threading.Strands
 {
     /// <summary>
     /// Schedules tasks in a collection of FIFO queues and executes them in priority order.

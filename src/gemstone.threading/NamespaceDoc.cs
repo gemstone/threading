@@ -23,10 +23,10 @@
 
 using System.Runtime.CompilerServices;
 
-namespace gemstone.threading
+namespace Gemstone.Threading
 {
     /// <summary>
-    /// The <see cref="gemstone.threading"/> namespace organizes all Gemstone library functionality
+    /// The <see cref="Gemstone.Threading"/> namespace organizes all Gemstone library functionality
     /// related to threading. The root threading namespace also includes common threading classes,
     /// e.g., <see cref="ConcurrencyLimiter"/>.
     /// </summary>

@@ -26,9 +26,9 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using gemstone.threading.synchronizedoperations;
+using Gemstone.Threading.SynchronizedOperations;
 
-namespace gemstone.threading
+namespace Gemstone.Threading
 {
     /// <summary>
     /// Task scheduler that limits the number of tasks that can execute in parallel at any given time.
