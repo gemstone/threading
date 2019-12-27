@@ -28,8 +28,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-#pragma warning disable CS8618 // m_queues is initialized in constructors via InitializeFrom function 
-
 namespace Gemstone.Threading.Collections
 {
     /// <summary>
@@ -58,7 +56,7 @@ namespace Gemstone.Threading.Collections
         /// Creates a new instance of the <see cref="PriorityQueue{T}"/> class.
         /// </summary>
         /// <param name="priorityLevels">The number of priority levels to preallocate in the queue.</param>
-        /// <exception cref="ArgumentException"><paramref name="priorityLevels"/> is less than or equal to 0</exception>
+        /// <exception cref="ArgumentException"><paramref name="priorityLevels"/> is less than or equal to 0.</exception>
         public PriorityQueue(int priorityLevels)
         {
             if (priorityLevels <= 0)
@@ -74,13 +72,21 @@ namespace Gemstone.Threading.Collections
         /// Creates a new instance of the <see cref="PriorityQueue{T}"/> class.
         /// </summary>
         /// <param name="priorityQueue">Another priority queue of items to be enqueued in this queue at the same priority.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="priorityQueue"/> is null</exception>
-        public PriorityQueue(PriorityQueue<T> priorityQueue)
+        /// <exception cref="ArgumentException"><paramref name="priorityQueue"/> queue length is less than or equal to 0.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="priorityQueue"/> is <c>null</c>.</exception>
+        public PriorityQueue(PriorityQueue<T> priorityQueue) : this(priorityQueue?.Queues.Length ?? 0)
         {
             if (priorityQueue == null)
                 throw new ArgumentNullException(nameof(priorityQueue));
 
-            InitializeFrom(priorityQueue);
+            for (int i = 0; i < m_queues.Length; i++)
+            {
+                ConcurrentQueue<T> source = priorityQueue.Queues[i];
+                ConcurrentQueue<T> destination = m_queues[i];
+
+                foreach (T item in source)
+                    destination.Enqueue(item);
+            }
         }
 
         #endregion
@@ -97,7 +103,7 @@ namespace Gemstone.Threading.Collections
         /// </summary>
         public bool IsEmpty => Queues.All(queue => queue.IsEmpty);
 
-        private ConcurrentQueue<T>[] Queues => Interlocked.CompareExchange(ref m_queues, null!, null!);
+        private ConcurrentQueue<T>[] Queues => Interlocked.CompareExchange(ref m_queues, default!, default!);
 
         bool ICollection.IsSynchronized => false;
 
@@ -288,20 +294,6 @@ namespace Gemstone.Threading.Collections
                 // If another thread updates the member variable while this thread was in the process of resizing,
                 // there will be additional queues in the new array that must not be overwritten
                 Array.Copy(queues, length, resizedQueues, length, queues.Length - length);
-            }
-        }
-
-        private void InitializeFrom(PriorityQueue<T> priorityQueue)
-        {
-            int priorityLevels = priorityQueue.Queues.Length;
-            m_queues = new ConcurrentQueue<T>[priorityLevels];
-
-            for (int i = 0; i < priorityLevels; i++)
-            {
-                m_queues[i] = new ConcurrentQueue<T>();
-
-                foreach (T item in priorityQueue.Queues[i])
-                    m_queues[i].Enqueue(item);
             }
         }
 

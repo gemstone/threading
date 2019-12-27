@@ -302,7 +302,7 @@ namespace Gemstone.Threading.SynchronizedOperations
         {
             if (m_exceptionAction == null)
             {
-                LibraryEvents.OnSuppressedException(this, ex);
+                LibraryEvents.OnSuppressedException(this, new Exception($"Synchronized operation exception: {ex.Message}", ex));
             }
             else
             {
@@ -312,7 +312,7 @@ namespace Gemstone.Threading.SynchronizedOperations
                 }
                 catch (Exception handlerEx)
                 {
-                    LibraryEvents.OnSuppressedException(this, new AggregateException(handlerEx, ex));
+                    LibraryEvents.OnSuppressedException(this, new Exception($"Synchronized operation exception action exception: {handlerEx.Message}", new AggregateException(handlerEx, ex)));
                 }
             }
         }

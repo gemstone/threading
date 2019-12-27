@@ -218,7 +218,7 @@ namespace Gemstone.Threading
         {
             for (int i = 0; i < count; i++)
             {
-                ISynchronizedOperation taskProcessor = null!;
+                ISynchronizedOperation taskProcessor = default!;
 
                 // ReSharper disable once AccessToModifiedClosure
                 taskProcessor = SynchronizedOperationFactory(() => ProcessTask(taskProcessor));

@@ -28,8 +28,7 @@ using System.Threading.Tasks;
 namespace Gemstone.Threading.SynchronizedOperations
 {
     /// <summary>
-    /// Represents a short-running synchronized operation
-    /// that cannot run while it is already in progress.
+    /// Represents a short-running synchronized operation that cannot run while it is already in progress.
     /// </summary>
     /// <remarks>
     /// By default, the action performed by the <see cref="ShortSynchronizedOperation"/>
@@ -50,8 +49,7 @@ namespace Gemstone.Threading.SynchronizedOperations
         /// Creates a new instance of the <see cref="ShortSynchronizedOperation"/> class.
         /// </summary>
         /// <param name="action">The action to be performed during this operation.</param>
-        public ShortSynchronizedOperation(Action action)
-            : base(action)
+        public ShortSynchronizedOperation(Action action) : base(action)
         {
         }
 
@@ -60,8 +58,7 @@ namespace Gemstone.Threading.SynchronizedOperations
         /// </summary>
         /// <param name="action">The action to be performed during this operation.</param>
         /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
-        public ShortSynchronizedOperation(Action action, Action<Exception> exceptionAction)
-            : base(action, exceptionAction)
+        public ShortSynchronizedOperation(Action action, Action<Exception>? exceptionAction) : base(action, exceptionAction)
         {
         }
 
@@ -93,8 +90,7 @@ namespace Gemstone.Threading.SynchronizedOperations
         /// </summary>
         /// <param name="action">The action to be performed by the <see cref="ShortSynchronizedOperation"/>.</param>
         /// <returns>A new instance of <see cref="ShortSynchronizedOperation"/>.</returns>
-        public static ISynchronizedOperation Factory(Action action) =>
-            new ShortSynchronizedOperation(action);
+        public static ISynchronizedOperation Factory(Action action) => new ShortSynchronizedOperation(action);
 
         #endregion
     }

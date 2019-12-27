@@ -28,8 +28,7 @@ using System.Threading.Tasks;
 namespace Gemstone.Threading.SynchronizedOperations
 {
     /// <summary>
-    /// Represents a long-running synchronized operation
-    /// that cannot run while it is already in progress.
+    /// Represents a long-running synchronized operation that cannot run while it is already in progress.
     /// </summary>
     /// <remarks>
     /// <para>
@@ -55,8 +54,7 @@ namespace Gemstone.Threading.SynchronizedOperations
         /// Creates a new instance of the <see cref="LongSynchronizedOperation"/> class.
         /// </summary>
         /// <param name="action">The action to be performed during this operation.</param>
-        public LongSynchronizedOperation(Action action)
-            : base(action)
+        public LongSynchronizedOperation(Action action) : base(action)
         {
         }
 
@@ -68,8 +66,7 @@ namespace Gemstone.Threading.SynchronizedOperations
         /// Cancellable synchronized operation is useful in cases where actions should be terminated
         /// during dispose and/or shutdown operations.
         /// </remarks>
-        public LongSynchronizedOperation(Action<CancellationToken> action)
-            : base(action)
+        public LongSynchronizedOperation(Action<CancellationToken> action) : base(action)
         {
         }
 
@@ -78,8 +75,7 @@ namespace Gemstone.Threading.SynchronizedOperations
         /// </summary>
         /// <param name="action">The action to be performed during this operation.</param>
         /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
-        public LongSynchronizedOperation(Action action, Action<Exception> exceptionAction)
-            : base(action, exceptionAction)
+        public LongSynchronizedOperation(Action action, Action<Exception>? exceptionAction) : base(action, exceptionAction)
         {
         }
 
@@ -92,8 +88,7 @@ namespace Gemstone.Threading.SynchronizedOperations
         /// Cancellable synchronized operation is useful in cases where actions should be terminated
         /// during dispose and/or shutdown operations.
         /// </remarks>
-        public LongSynchronizedOperation(Action<CancellationToken> action, Action<Exception> exceptionAction)
-            : base(action, exceptionAction)
+        public LongSynchronizedOperation(Action<CancellationToken> action, Action<Exception>? exceptionAction) : base(action, exceptionAction)
         {
         }
 
@@ -161,8 +156,7 @@ namespace Gemstone.Threading.SynchronizedOperations
         /// </summary>
         /// <param name="action">The action to be performed by the <see cref="LongSynchronizedOperation"/>.</param>
         /// <returns>A new instance of <see cref="LongSynchronizedOperation"/>.</returns>
-        public static ISynchronizedOperation Factory(Action action) =>
-            new LongSynchronizedOperation(action);
+        public static ISynchronizedOperation Factory(Action action) => new LongSynchronizedOperation(action);
 
         #endregion
     }
