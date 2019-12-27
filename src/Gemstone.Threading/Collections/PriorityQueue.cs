@@ -28,6 +28,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
+#pragma warning disable CS8618 // m_queues is initialized in constructors via InitializeFrom function 
+
 namespace Gemstone.Threading.Collections
 {
     /// <summary>
@@ -48,8 +50,7 @@ namespace Gemstone.Threading.Collections
         /// <summary>
         /// Creates a new instance of the <see cref="PriorityQueue{T}"/> class.
         /// </summary>
-        public PriorityQueue()
-            : this(1)
+        public PriorityQueue() : this(1)
         {
         }
 
@@ -67,29 +68,6 @@ namespace Gemstone.Threading.Collections
 
             for (int i = 0; i < priorityLevels; i++)
                 m_queues[i] = new ConcurrentQueue<T>();
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="PriorityQueue{T}"/> class.
-        /// </summary>
-        /// <param name="collection">A collection of items to be enqueued at the lowest priority.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="collection"/> is null</exception>
-        public PriorityQueue(IEnumerable<T> collection)
-        {
-            if (collection == null)
-                throw new ArgumentNullException(nameof(collection));
-
-            if (collection is PriorityQueue<T> priorityQueue)
-            {
-                InitializeFrom(priorityQueue);
-                return;
-            }
-
-            m_queues = new ConcurrentQueue<T>[1];
-            m_queues[0] = new ConcurrentQueue<T>();
-
-            foreach (T item in collection)
-                Enqueue(item, 0);
         }
 
         /// <summary>
@@ -119,7 +97,7 @@ namespace Gemstone.Threading.Collections
         /// </summary>
         public bool IsEmpty => Queues.All(queue => queue.IsEmpty);
 
-        private ConcurrentQueue<T>[] Queues => Interlocked.CompareExchange(ref m_queues, null, null);
+        private ConcurrentQueue<T>[] Queues => Interlocked.CompareExchange(ref m_queues, null!, null!);
 
         bool ICollection.IsSynchronized => false;
 
@@ -161,11 +139,13 @@ namespace Gemstone.Threading.Collections
 
             if (priority < 0 || priority >= queues.Length)
             {
-                result = default;
+                result = default!;
+
                 return false;
             }
 
             ConcurrentQueue<T> queue = queues[priority];
+
             return queue.TryDequeue(out result);
         }
 
@@ -182,7 +162,8 @@ namespace Gemstone.Threading.Collections
                     return true;
             }
 
-            result = default;
+            result = default!;
+
             return false;
         }
 
@@ -201,11 +182,13 @@ namespace Gemstone.Threading.Collections
 
             if (priority < 0 || priority >= queues.Length)
             {
-                result = default;
+                result = default!;
+
                 return false;
             }
 
             ConcurrentQueue<T> queue = queues[priority];
+
             return queue.TryPeek(out result);
         }
 
@@ -225,7 +208,8 @@ namespace Gemstone.Threading.Collections
                     return true;
             }
 
-            result = default;
+            result = default!;
+
             return false;
         }
 
@@ -246,22 +230,19 @@ namespace Gemstone.Threading.Collections
         /// elements in the source <see cref="PriorityQueue{T}"/> is greater
         /// than the available space from index to the end of the destination array.
         /// </exception>
-        public void CopyTo(T[] array, int index) =>
-            ToArray().CopyTo(array, index);
+        public void CopyTo(T[] array, int index) => ToArray().CopyTo(array, index);
 
         /// <summary>
         /// Returns an enumerator that iterates through the <see cref="PriorityQueue{T}"/>.
         /// </summary>
         /// <returns>An enumerator for the contents of the <see cref="PriorityQueue{T}"/>.</returns>
-        public IEnumerator<T> GetEnumerator() =>
-            Queues.Reverse().SelectMany(queue => queue).GetEnumerator();
+        public IEnumerator<T> GetEnumerator() => Queues.Reverse().SelectMany(queue => queue).GetEnumerator();
 
         /// <summary>
         /// Copies the elements stored in the <see cref="PriorityQueue{T}"/> to a new array.
         /// </summary>
         /// <returns>A new array containing a snapshot of elements copied from the <see cref="PriorityQueue{T}"/>.</returns>
-        public T[] ToArray() =>
-            Queues.Reverse().SelectMany(queue => queue).ToArray();
+        public T[] ToArray() => Queues.Reverse().SelectMany(queue => queue).ToArray();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
@@ -270,13 +251,13 @@ namespace Gemstone.Threading.Collections
             // The IProducerConsumerCollection interface doesn't provide
             // priority so we just queue it at the lowest priority
             Enqueue(item, 0);
+
             return true;
         }
 
         bool IProducerConsumerCollection<T>.TryTake(out T item) => TryDequeue(out item);
 
-        void ICollection.CopyTo(Array array, int index) =>
-            ToArray().CopyTo(array, index);
+        void ICollection.CopyTo(Array array, int index) => ToArray().CopyTo(array, index);
 
         private void ResizeQueues(int minSize)
         {
