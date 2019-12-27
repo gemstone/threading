@@ -87,7 +87,7 @@ namespace Gemstone.Threading.SynchronizedOperations
         /// </summary>
         /// <param name="action">The action to be performed during this operation.</param>
         /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
-        public DelayedSynchronizedOperation(Action action, Action<Exception> exceptionAction) : this(_ => action(), exceptionAction)
+        public DelayedSynchronizedOperation(Action action, Action<Exception>? exceptionAction) : this(_ => action(), exceptionAction)
         {
         }
 
@@ -100,7 +100,7 @@ namespace Gemstone.Threading.SynchronizedOperations
         /// Cancellable synchronized operation is useful in cases where actions should be terminated
         /// during dispose and/or shutdown operations.
         /// </remarks>
-        public DelayedSynchronizedOperation(Action<CancellationToken> action, Action<Exception> exceptionAction) : base(action, exceptionAction)
+        public DelayedSynchronizedOperation(Action<CancellationToken> action, Action<Exception>? exceptionAction) : base(action, exceptionAction)
         {
             m_delayedAction = _ =>
             {
