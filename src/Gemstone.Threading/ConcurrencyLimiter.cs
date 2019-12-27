@@ -53,8 +53,7 @@ namespace Gemstone.Threading
         /// with a <see cref="ShortSynchronizedOperation"/> and a maximum concurrency
         /// level equal to the number of processors on the current machine.
         /// </summary>
-        public ConcurrencyLimiter()
-            : this(ShortSynchronizedOperation.Factory, Environment.ProcessorCount)
+        public ConcurrencyLimiter() : this(ShortSynchronizedOperation.Factory, Environment.ProcessorCount)
         {
         }
 
@@ -63,8 +62,7 @@ namespace Gemstone.Threading
         /// maximum concurrency level equal to the number of processors on the current machine.
         /// </summary>
         /// <param name="synchronizedOperationFactory">Factory function for creating the synchronized operations to be used for processing tasks.</param>
-        public ConcurrencyLimiter(SynchronizedOperationFactory synchronizedOperationFactory)
-            : this(synchronizedOperationFactory, Environment.ProcessorCount)
+        public ConcurrencyLimiter(SynchronizedOperationFactory synchronizedOperationFactory) : this(synchronizedOperationFactory, Environment.ProcessorCount)
         {
         }
 
@@ -73,8 +71,7 @@ namespace Gemstone.Threading
         /// with a <see cref="ShortSynchronizedOperation"/>.
         /// </summary>
         /// <param name="maximumConcurrencyLevel">The initial value for <see cref="MaximumConcurrencyLevel"/>.</param>
-        public ConcurrencyLimiter(int maximumConcurrencyLevel)
-            : this(ShortSynchronizedOperation.Factory, maximumConcurrencyLevel)
+        public ConcurrencyLimiter(int maximumConcurrencyLevel) : this(ShortSynchronizedOperation.Factory, maximumConcurrencyLevel)
         {
         }
 
@@ -106,7 +103,9 @@ namespace Gemstone.Threading
         public override int MaximumConcurrencyLevel => Interlocked.CompareExchange(ref m_maximumConcurrencyLevel, 0, 0);
 
         private SynchronizedOperationFactory SynchronizedOperationFactory { get; }
+
         private ConcurrentBag<ISynchronizedOperation> TaskProcessors { get; }
+
         private ConcurrentQueue<Task> Queue { get; }
 
         #endregion
@@ -175,6 +174,7 @@ namespace Gemstone.Threading
                 return result;
 
             taskProcessor.RunAsync();
+
             return result;
         }
 
@@ -183,16 +183,16 @@ namespace Gemstone.Threading
         /// instances currently queued to the scheduler waiting to be executed.
         /// </summary>
         /// <returns>An enumerable that allows a debugger to traverse the tasks currently queued to this scheduler.</returns>
-        protected override IEnumerable<Task> GetScheduledTasks() =>
-            Queue.ToArray();
+        protected override IEnumerable<Task> GetScheduledTasks() => Queue.ToArray();
 
         private void ProcessTask(ISynchronizedOperation taskProcessor)
         {
-            bool TryExecuteTask(Task task)
+            bool tryExecuteTask(Task task)
             {
                 m_currentlyExecutingTask = true;
-                bool result = base.TryExecuteTask(task);
+                bool result = TryExecuteTask(task);
                 m_currentlyExecutingTask = false;
+
                 return result;
             }
 
@@ -203,7 +203,7 @@ namespace Gemstone.Threading
                 if (!Queue.TryDequeue(out Task task))
                     break;
 
-                if (TryExecuteTask(task))
+                if (tryExecuteTask(task))
                     break;
             }
 
@@ -218,8 +218,11 @@ namespace Gemstone.Threading
         {
             for (int i = 0; i < count; i++)
             {
-                ISynchronizedOperation taskProcessor = null;
+                ISynchronizedOperation taskProcessor = null!;
+
+                // ReSharper disable once AccessToModifiedClosure
                 taskProcessor = SynchronizedOperationFactory(() => ProcessTask(taskProcessor));
+
                 TaskProcessors.Add(taskProcessor);
             }
 
@@ -259,7 +262,7 @@ namespace Gemstone.Threading
         private bool TryDeactivate(ISynchronizedOperation taskProcessor)
         {
             // Returns true only if the task processor needs to be retired and false otherwise.
-            bool MustRetireTaskProcessor()
+            bool mustRetireTaskProcessor()
             {
                 // The current thread has a reference to a task processor and would
                 // nearly always waste time attempting to decrement the counter;
@@ -277,7 +280,7 @@ namespace Gemstone.Threading
                 }
             }
 
-            if (MustRetireTaskProcessor())
+            if (mustRetireTaskProcessor())
                 return true;
 
             if (!Queue.IsEmpty)
@@ -292,6 +295,7 @@ namespace Gemstone.Threading
             if (Queue.IsEmpty)
             {
                 TaskProcessors.Add(taskProcessor);
+
                 return true;
             }
 

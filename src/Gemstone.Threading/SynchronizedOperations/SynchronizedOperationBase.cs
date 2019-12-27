@@ -38,8 +38,8 @@ namespace Gemstone.Threading.SynchronizedOperations
     /// mechanism for executing the action on a separate thread.
     /// </para>
     /// <para>
-    /// If subclass implementations get constructed without an exception handler, applications should attach to the
-    /// static <see cref="UnhandledException"/> event so that any unhandled exceptions can be exposed to a log.
+    /// If subclass implementations get constructed without an exception handler, applications should attach to the static
+    /// <see cref="LibraryEvents.SuppressedException"/> event so that any unhandled exceptions can be exposed to a log.
     /// </para>
     /// </remarks>
     public abstract class SynchronizedOperationBase : ISynchronizedOperation
@@ -53,7 +53,7 @@ namespace Gemstone.Threading.SynchronizedOperations
 
         // Fields
         private readonly Action<CancellationToken> m_action;
-        private readonly Action<Exception> m_exceptionAction;
+        private readonly Action<Exception>? m_exceptionAction;
         private int m_state;
 
         #endregion
@@ -64,8 +64,7 @@ namespace Gemstone.Threading.SynchronizedOperations
         /// Creates a new instance of the <see cref="SynchronizedOperationBase"/> class.
         /// </summary>
         /// <param name="action">The action to be performed during this operation.</param>
-        protected SynchronizedOperationBase(Action action)
-            : this(action, null)
+        protected SynchronizedOperationBase(Action action) : this(action, null)
         {
         }
 
@@ -77,8 +76,7 @@ namespace Gemstone.Threading.SynchronizedOperations
         /// Cancellable synchronized operation is useful in cases where actions should be terminated
         /// during dispose and/or shutdown operations.
         /// </remarks>
-        protected SynchronizedOperationBase(Action<CancellationToken> action)
-            : this(action, null)
+        protected SynchronizedOperationBase(Action<CancellationToken> action) : this(action, null)
         {
         }
 
@@ -87,8 +85,7 @@ namespace Gemstone.Threading.SynchronizedOperations
         /// </summary>
         /// <param name="action">The action to be performed during this operation.</param>
         /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
-        protected SynchronizedOperationBase(Action action, Action<Exception> exceptionAction)
-            : this(_ => action(), exceptionAction)
+        protected SynchronizedOperationBase(Action action, Action<Exception>? exceptionAction) : this(_ => action(), exceptionAction)
         {
         }
 
@@ -101,12 +98,9 @@ namespace Gemstone.Threading.SynchronizedOperations
         /// Cancellable synchronized operation is useful in cases where actions should be terminated
         /// during dispose and/or shutdown operations.
         /// </remarks>
-        protected SynchronizedOperationBase(Action<CancellationToken> action, Action<Exception> exceptionAction)
+        protected SynchronizedOperationBase(Action<CancellationToken> action, Action<Exception>? exceptionAction)
         {
-            if ((object)action == null)
-                throw new ArgumentNullException(nameof(action));
-
-            m_action = action;
+            m_action = action ?? throw new ArgumentNullException(nameof(action));
             m_exceptionAction = exceptionAction;
         }
 
@@ -270,6 +264,7 @@ namespace Gemstone.Threading.SynchronizedOperations
                 // There is no race condition here because if m_state is Pending,
                 // then it cannot be changed by any other line of code except this one
                 Interlocked.Exchange(ref m_state, Running);
+
                 return true;
             }
 
@@ -307,7 +302,7 @@ namespace Gemstone.Threading.SynchronizedOperations
         {
             if (m_exceptionAction == null)
             {
-                OnUnhandledException(this, ex);
+                LibraryEvents.OnSuppressedException(this, ex);
             }
             else
             {
@@ -317,29 +312,10 @@ namespace Gemstone.Threading.SynchronizedOperations
                 }
                 catch (Exception handlerEx)
                 {
-                    OnUnhandledException(this, new AggregateException(handlerEx, ex));
+                    LibraryEvents.OnSuppressedException(this, new AggregateException(handlerEx, ex));
                 }
             }
         }
-
-        #endregion
-
-        #region [ Static ]
-
-        // Static Events
-
-        /// <summary>
-        /// Exposes exceptions that were suppressed but otherwise unhandled by a synchronized operation.
-        /// </summary>
-        /// <remarks>
-        /// End users should attach to this event so that unhandled exceptions can be exposed to a log.
-        /// </remarks>
-        public static event EventHandler<UnhandledExceptionEventArgs> UnhandledException;
-
-        // Static Methods
-
-        private static void OnUnhandledException(object sender, Exception ex) =>
-            UnhandledException?.Invoke(sender, new UnhandledExceptionEventArgs(ex));
 
         #endregion
     }

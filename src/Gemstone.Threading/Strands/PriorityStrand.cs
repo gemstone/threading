@@ -49,6 +49,7 @@ namespace Gemstone.Threading.Strands
             }
 
             public Task Task { get; }
+
             public Scheduler Scheduler { get; }
         }
 
@@ -65,23 +66,20 @@ namespace Gemstone.Threading.Strands
             }
 
             public int Priority { get; }
+
             public override int MaximumConcurrencyLevel => 1;
+
             private PriorityStrand PriorityStrand { get; }
 
-            public new bool TryExecuteTask(Task task) =>
-                base.TryExecuteTask(task);
+            public new bool TryExecuteTask(Task task) => base.TryExecuteTask(task);
 
-            protected override void QueueTask(Task task) =>
-                PriorityStrand.QueueTask(task, this);
+            protected override void QueueTask(Task task) => PriorityStrand.QueueTask(task, this);
 
-            protected override bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued) =>
-                PriorityStrand.TryExecuteTaskInline(task, this, taskWasPreviouslyQueued);
+            protected override bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued) => PriorityStrand.TryExecuteTaskInline(task, this, taskWasPreviouslyQueued);
 
-            protected override bool TryDequeue(Task task) =>
-                PriorityStrand.TryDequeue(task, this);
+            protected override bool TryDequeue(Task task) => PriorityStrand.TryDequeue(task, this);
 
-            protected override IEnumerable<Task> GetScheduledTasks() =>
-                PriorityStrand.GetScheduledTasks(this);
+            protected override IEnumerable<Task> GetScheduledTasks() => PriorityStrand.GetScheduledTasks(this);
         }
 
         #endregion
@@ -91,8 +89,7 @@ namespace Gemstone.Threading.Strands
         /// <summary>
         /// Creates a new instance of the <see cref="PriorityStrand"/> class with a <see cref="ShortSynchronizedOperation"/>.
         /// </summary>
-        public PriorityStrand()
-            : this(ShortSynchronizedOperation.Factory)
+        public PriorityStrand() : this(ShortSynchronizedOperation.Factory)
         {
         }
 
@@ -100,8 +97,7 @@ namespace Gemstone.Threading.Strands
         /// Creates a new instance of the <see cref="PriorityStrand"/> class with a <see cref="ShortSynchronizedOperation"/>.
         /// </summary>
         /// <param name="priorityLevels">The number of priority levels to be preallocated by the priority queue.</param>
-        public PriorityStrand(int priorityLevels)
-            : this(ShortSynchronizedOperation.Factory, priorityLevels)
+        public PriorityStrand(int priorityLevels) : this(ShortSynchronizedOperation.Factory, priorityLevels)
         {
         }
 
@@ -109,8 +105,7 @@ namespace Gemstone.Threading.Strands
         /// Creates a new instance of the <see cref="PriorityStrand"/> class.
         /// </summary>
         /// <param name="synchronizedOperationFactory">Factory function for creating the synchronized operation to be used for processing tasks.</param>
-        public PriorityStrand(SynchronizedOperationFactory synchronizedOperationFactory)
-            : this(synchronizedOperationFactory, 1)
+        public PriorityStrand(SynchronizedOperationFactory synchronizedOperationFactory) : this(synchronizedOperationFactory, 1)
         {
         }
 
@@ -130,8 +125,10 @@ namespace Gemstone.Threading.Strands
         #region [ Properties ]
 
         private ISynchronizedOperation SynchronizedOperation { get; }
+
         private PriorityQueue<QueuedTask> Queue { get; }
-        private Thread ProcessingThread { get; set; }
+
+        private Thread? ProcessingThread { get; set; }
 
         #endregion
 

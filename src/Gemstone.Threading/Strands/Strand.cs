@@ -39,8 +39,7 @@ namespace Gemstone.Threading.Strands
         /// <summary>
         /// Creates a new instance of the <see cref="Strand"/> class with a <see cref="ShortSynchronizedOperation"/>.
         /// </summary>
-        public Strand()
-            : this(ShortSynchronizedOperation.Factory)
+        public Strand() : this(ShortSynchronizedOperation.Factory)
         {
         }
 
@@ -64,8 +63,10 @@ namespace Gemstone.Threading.Strands
         public override int MaximumConcurrencyLevel => 1;
 
         private ISynchronizedOperation SynchronizedOperation { get; }
+
         private ConcurrentQueue<Task> Queue { get; }
-        private Thread ProcessingThread { get; set; }
+
+        private Thread? ProcessingThread { get; set; }
 
         #endregion
 
@@ -140,8 +141,7 @@ namespace Gemstone.Threading.Strands
         /// instances currently queued to the scheduler waiting to be executed.
         /// </summary>
         /// <returns>An enumerable that allows a debugger to traverse the tasks currently queued to this scheduler.</returns>
-        protected override IEnumerable<Task> GetScheduledTasks() =>
-            Queue.ToArray();
+        protected override IEnumerable<Task> GetScheduledTasks() => Queue.ToArray();
 
         // This method is called by the synchronized operation to
         // ensure that items are never processed in parallel.

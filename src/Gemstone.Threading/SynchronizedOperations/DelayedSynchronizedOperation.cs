@@ -66,8 +66,7 @@ namespace Gemstone.Threading.SynchronizedOperations
         /// Creates a new instance of the <see cref="DelayedSynchronizedOperation"/> class.
         /// </summary>
         /// <param name="action">The action to be performed during this operation.</param>
-        public DelayedSynchronizedOperation(Action action)
-            : this(action, null)
+        public DelayedSynchronizedOperation(Action action) : this(action, null)
         {
         }
 
@@ -79,8 +78,7 @@ namespace Gemstone.Threading.SynchronizedOperations
         /// Cancellable synchronized operation is useful in cases where actions should be terminated
         /// during dispose and/or shutdown operations.
         /// </remarks>
-        public DelayedSynchronizedOperation(Action<CancellationToken> action)
-            : this(action, null)
+        public DelayedSynchronizedOperation(Action<CancellationToken> action) : this(action, null)
         {
         }
 
@@ -89,8 +87,7 @@ namespace Gemstone.Threading.SynchronizedOperations
         /// </summary>
         /// <param name="action">The action to be performed during this operation.</param>
         /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
-        public DelayedSynchronizedOperation(Action action, Action<Exception> exceptionAction)
-            : this(_ => action(), exceptionAction)
+        public DelayedSynchronizedOperation(Action action, Action<Exception> exceptionAction) : this(_ => action(), exceptionAction)
         {
         }
 
@@ -103,8 +100,7 @@ namespace Gemstone.Threading.SynchronizedOperations
         /// Cancellable synchronized operation is useful in cases where actions should be terminated
         /// during dispose and/or shutdown operations.
         /// </remarks>
-        public DelayedSynchronizedOperation(Action<CancellationToken> action, Action<Exception> exceptionAction)
-            : base(action, exceptionAction)
+        public DelayedSynchronizedOperation(Action<CancellationToken> action, Action<Exception> exceptionAction) : base(action, exceptionAction)
         {
             m_delayedAction = _ =>
             {
@@ -200,21 +196,18 @@ namespace Gemstone.Threading.SynchronizedOperations
         /// completed. This is useful if an update has invalidated the operation that is currently running and will
         /// therefore need to be run again.
         /// </remarks>
-        public new void RunAsync() => // Method shadowed to provide updated documentation
-            base.RunAsync();
+        public new void RunAsync() => base.RunAsync(); // Method shadowed to provide updated documentation
 
         /// <summary>
         /// Attempts to execute the action on another thread after the specified <see cref="Delay"/> in milliseconds.
         /// Does nothing if the operation is already running.
         /// </summary>
-        public new void TryRunAsync() => // Method shadowed to provide updated documentation
-            base.TryRunAsync();
+        public new void TryRunAsync() => base.TryRunAsync(); // Method shadowed to provide updated documentation
 
         /// <summary>
         /// Executes the action on a separate thread after the specified <see cref="Delay"/>.
         /// </summary>
-        protected override void ExecuteActionAsync() =>
-            m_delayedAction.DelayAndExecute(Delay, CancellationToken, ProcessException);
+        protected override void ExecuteActionAsync() => m_delayedAction.DelayAndExecute(Delay, CancellationToken, ProcessException);
 
         #endregion
 
@@ -227,8 +220,7 @@ namespace Gemstone.Threading.SynchronizedOperations
         /// </summary>
         /// <param name="action">The action to be performed by the <see cref="DelayedSynchronizedOperation"/>.</param>
         /// <returns>A new instance of <see cref="DelayedSynchronizedOperation"/> with <see cref="DefaultDelay"/> of 1000 milliseconds.</returns>
-        public static ISynchronizedOperation Factory(Action action) =>
-            new DelayedSynchronizedOperation(action);
+        public static ISynchronizedOperation Factory(Action action) => new DelayedSynchronizedOperation(action);
 
         #endregion
     }
