@@ -35,6 +35,10 @@
     <DocumentationFile>..\..\build\$(Configuration)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)' == 'Development'">
+    <DebugType>Full</DebugType>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Include="..\..\docs\img\gemstone-square-128.png" Link="gemstone-square-128.png" Visible="false">
       <Pack>True</Pack>
