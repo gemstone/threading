@@ -47,10 +47,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Threading.AccessControl" Version="4.7.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\common\src\Gemstone\Gemstone.Common.csproj" Condition="'$(Configuration)'=='Development'" />
     <PackageReference Include="Gemstone.Common" Version="1.0.0" Condition="'$(Configuration)'!='Development'" />
   </ItemGroup>

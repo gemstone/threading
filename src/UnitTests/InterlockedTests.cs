@@ -21,17 +21,27 @@
 //
 //******************************************************************************************************
 
+using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Gemstone.Threading.UnitTests
 {
     [TestClass]
-    public class Tests
+    public class InterlockedTests
     {
         [TestMethod]
-        public void FunctionalityTests()
+        public void AssemblyGuidAttributeValue()
         {
-            Assert.IsTrue(true);
+            // Validate that GuidAttribute
+            Assembly entryAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
+            GuidAttribute attribute = entryAssembly.GetCustomAttributes(typeof(GuidAttribute), true).FirstOrDefault() as GuidAttribute;
+            string name = attribute?.Value ?? entryAssembly.GetName().Name;
+
+            System.Console.WriteLine(name);
+
+            Assert.IsTrue(!string.IsNullOrWhiteSpace(name));
         }
     }
 }
