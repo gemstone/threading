@@ -26,6 +26,8 @@
 using System;
 using System.Threading;
 
+#pragma warning disable CA1031 // Do not catch general exception types
+
 namespace Gemstone.Threading.SynchronizedOperations
 {
     /// <summary>
@@ -312,7 +314,7 @@ namespace Gemstone.Threading.SynchronizedOperations
                 }
                 catch (Exception handlerEx)
                 {
-                    LibraryEvents.OnSuppressedException(this, new Exception($"Synchronized operation exception action exception: {handlerEx.Message}", new AggregateException(handlerEx, ex)));
+                    LibraryEvents.OnSuppressedException(this, new Exception($"Synchronized operation exception handler exception: {handlerEx.Message}", new AggregateException(handlerEx, ex)));
                 }
             }
         }
