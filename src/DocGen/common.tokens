@@ -46,8 +46,73 @@
             <ddue:para>
               <ddue:legacyBold>
                 <ddue:externalLink>
-                  <ddue:linkText>gemstone.threading</ddue:linkText>
-                  <ddue:linkAlternateText>gemstone.threading</ddue:linkAlternateText>
+                  <ddue:linkText>Gemstone.Common</ddue:linkText>
+                  <ddue:linkAlternateText>Gemstone.Common</ddue:linkAlternateText>
+                  <ddue:linkUri>https://gemstone.github.io/common/</ddue:linkUri>
+                  <ddue:linkTarget>_blank</ddue:linkTarget>
+                </ddue:externalLink>               
+              </ddue:legacyBold>
+              organizes all Gemstone functionality for most any .NET coding.
+            </ddue:para>
+          </ddue:listItem>
+          <ddue:listItem>
+            <ddue:para>
+              <ddue:legacyBold>
+                <ddue:externalLink>
+                  <ddue:linkText>Gemstone.Numeric</ddue:linkText>
+                  <ddue:linkAlternateText>Gemstone.Numeric</ddue:linkAlternateText>
+                  <ddue:linkUri>https://gemstone.github.io/numeric/</ddue:linkUri>
+                  <ddue:linkTarget>_blank</ddue:linkTarget>
+                </ddue:externalLink>               
+              </ddue:legacyBold>
+              organizes all Gemstone functionality related to numeric functionality.
+            </ddue:para>
+          </ddue:listItem>
+          <ddue:listItem>
+            <ddue:para>
+              <ddue:legacyBold>
+                <ddue:externalLink>
+                  <ddue:linkText>Gemstone.IO</ddue:linkText>
+                  <ddue:linkAlternateText>Gemstone.IO</ddue:linkAlternateText>
+                  <ddue:linkUri>https://gemstone.github.io/io/</ddue:linkUri>
+                  <ddue:linkTarget>_blank</ddue:linkTarget>
+                </ddue:externalLink>               
+              </ddue:legacyBold>
+              organizes all Gemstone functionality related to input and output (IO).
+            </ddue:para>
+          </ddue:listItem>          
+            <ddue:listItem>
+            <ddue:para>
+              <ddue:legacyBold>
+                <ddue:externalLink>
+                  <ddue:linkText>Gemstone.Data</ddue:linkText>
+                  <ddue:linkAlternateText>Gemstone.Data</ddue:linkAlternateText>
+                  <ddue:linkUri>https://gemstone.github.io/data/</ddue:linkUri>
+                  <ddue:linkTarget>_blank</ddue:linkTarget>
+                </ddue:externalLink>               
+              </ddue:legacyBold>
+              organizes all Gemstone functionality related to data.
+            </ddue:para>
+          </ddue:listItem>
+          <ddue:listItem>
+            <ddue:para>
+              <ddue:legacyBold>
+                <ddue:externalLink>
+                  <ddue:linkText>Gemstone.Expressions</ddue:linkText>
+                  <ddue:linkAlternateText>Gemstone.Expressions</ddue:linkAlternateText>
+                  <ddue:linkUri>https://gemstone.github.io/expressions/</ddue:linkUri>
+                  <ddue:linkTarget>_blank</ddue:linkTarget>
+                </ddue:externalLink>
+              </ddue:legacyBold>
+              organizes all Gemstone functionality related to expressions and expression parsing.
+            </ddue:para>
+          </ddue:listItem>
+          <ddue:listItem>
+            <ddue:para>
+              <ddue:legacyBold>
+                <ddue:externalLink>
+                  <ddue:linkText>Gemstone.Threading</ddue:linkText>
+                  <ddue:linkAlternateText>Gemstone.Threading</ddue:linkAlternateText>
                   <ddue:linkUri>https://gemstone.github.io/threading/</ddue:linkUri>
                   <ddue:linkTarget>_blank</ddue:linkTarget>
                 </ddue:externalLink>               
@@ -59,13 +124,13 @@
             <ddue:para>
               <ddue:legacyBold>
                 <ddue:externalLink>
-                  <ddue:linkText>gemstone.expressions</ddue:linkText>
-                  <ddue:linkAlternateText>gemstone.expressions</ddue:linkAlternateText>
-                  <ddue:linkUri>https://gemstone.github.io/expressions/</ddue:linkUri>
+                  <ddue:linkText>Gemstone.Security</ddue:linkText>
+                  <ddue:linkAlternateText>Gemstone.Security</ddue:linkAlternateText>
+                  <ddue:linkUri>https://gemstone.github.io/security/</ddue:linkUri>
                   <ddue:linkTarget>_blank</ddue:linkTarget>
-                </ddue:externalLink>
+                </ddue:externalLink>               
               </ddue:legacyBold>
-              organizes all Gemstone functionality related to expressions and expression parsing.
+              organizes all Gemstone functionality related to security.
             </ddue:para>
           </ddue:listItem>
         </ddue:list>
