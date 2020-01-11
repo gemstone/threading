@@ -12,7 +12,7 @@
     <Copyright>Copyright © 2019</Copyright>
     <PackageProjectUrl>https://github.com/gemstone</PackageProjectUrl>
     <PackageIcon>gemstone-square-128.png</PackageIcon>
-    <RepositoryUrl>https://github.com/gemstone/gemstone.threading</RepositoryUrl>
+    <RepositoryUrl>https://github.com/gemstone/threading</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
