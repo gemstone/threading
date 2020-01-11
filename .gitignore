@@ -190,6 +190,9 @@ PublishScripts/
 *.nuget.props
 *.nuget.targets
 
+# GitHub package access requires personal access token in nuget.config, so exclude
+[Nn]uget.config
+
 # Microsoft Azure Build Output
 csx/
 *.build.csdef
