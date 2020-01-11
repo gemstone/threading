@@ -21,9 +21,9 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <Nullable>enable</Nullable>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <Version>1.0.1-beta</Version>
-    <InformationalVersion Condition="'$(Configuration)'=='Release'">1.0.1-beta -- Release Build</InformationalVersion>
-    <InformationalVersion Condition="'$(Configuration)'!='Release'">1.0.1-beta -- Debug Build</InformationalVersion>
+    <Version>1.0.2-beta</Version>
+    <InformationalVersion Condition="'$(Configuration)'=='Release'">1.0.2-beta -- Release Build</InformationalVersion>
+    <InformationalVersion Condition="'$(Configuration)'!='Release'">1.0.2-beta -- Debug Build</InformationalVersion>
     <Configurations>Debug;Release;Development</Configurations>
   </PropertyGroup>
 
@@ -48,7 +48,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\common\src\Gemstone\Gemstone.Common.csproj" Condition="'$(Configuration)'=='Development'" />
-    <PackageReference Include="Gemstone.Common" Version="1.0.1" Condition="'$(Configuration)'!='Development'" />
+    <PackageReference Include="Gemstone.Common" Version="1.0.2" Condition="'$(Configuration)'!='Development'" />
   </ItemGroup>
 
   <Target Name="AfterBuild">
