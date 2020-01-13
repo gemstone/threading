@@ -1,4 +1,6 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project>
+
+  <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.props" />
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
@@ -51,12 +53,10 @@
     <PackageReference Include="Gemstone.Common" Version="1.0.8" Condition="'$(Configuration)'!='Development'" />
   </ItemGroup>
 
-  <Target Name="AfterBuild">
-    <CallTarget Targets="SignBuild" />
-  </Target>
+  <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.targets" />
 
-  <Target Name="SignBuild" Condition="'$(SIGNTOOL)' != ''">
-    <Exec Command="$(SIGNTOOL) $(TargetPath)" />
-  </Target>
+  <PropertyGroup Condition="'$(SIGNTOOL)' != ''">
+    <PostBuildEvent>$(SIGNTOOL) $(TargetPath)</PostBuildEvent>
+  </PropertyGroup>
 
 </Project>
