@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topics>
+  <topic id="N:Gemstone.Threading" project="_Namespaces" file="N_Gemstone_Threading" sortOrder="1">
+    <topic id="T:Gemstone.Threading.ConcurrencyLimiter" project="Gemstone.Threading" file="T_Gemstone_Threading_ConcurrencyLimiter">
+      <topic id="Overload:Gemstone.Threading.ConcurrencyLimiter.#ctor" project="Gemstone.Threading" file="Overload_Gemstone_Threading_ConcurrencyLimiter__ctor">
+        <topic id="M:Gemstone.Threading.ConcurrencyLimiter.#ctor" project="Gemstone.Threading" file="M_Gemstone_Threading_ConcurrencyLimiter__ctor" />
+        <topic id="M:Gemstone.Threading.ConcurrencyLimiter.#ctor(System.Int32)" project="Gemstone.Threading" file="M_Gemstone_Threading_ConcurrencyLimiter__ctor_3" />
+        <topic id="M:Gemstone.Threading.ConcurrencyLimiter.#ctor(Gemstone.Threading.SynchronizedOperations.SynchronizedOperationFactory)" project="Gemstone.Threading" file="M_Gemstone_Threading_ConcurrencyLimiter__ctor_1" />
+        <topic id="M:Gemstone.Threading.ConcurrencyLimiter.#ctor(Gemstone.Threading.SynchronizedOperations.SynchronizedOperationFactory,System.Int32)" project="Gemstone.Threading" file="M_Gemstone_Threading_ConcurrencyLimiter__ctor_2" />
+      </topic>
+      <topic id="Properties.T:Gemstone.Threading.ConcurrencyLimiter" project="Gemstone.Threading" file="Properties_T_Gemstone_Threading_ConcurrencyLimiter">
+        <topic id="P:Gemstone.Threading.ConcurrencyLimiter.CurrentConcurrencyLevel" project="Gemstone.Threading" file="P_Gemstone_Threading_ConcurrencyLimiter_CurrentConcurrencyLevel" />
+        <topic id="P:Gemstone.Threading.ConcurrencyLimiter.MaximumConcurrencyLevel" project="Gemstone.Threading" file="P_Gemstone_Threading_ConcurrencyLimiter_MaximumConcurrencyLevel" />
+      </topic>
+      <topic id="Methods.T:Gemstone.Threading.ConcurrencyLimiter" project="Gemstone.Threading" file="Methods_T_Gemstone_Threading_ConcurrencyLimiter">
+        <topic id="M:Gemstone.Threading.ConcurrencyLimiter.GetScheduledTasks" project="Gemstone.Threading" file="M_Gemstone_Threading_ConcurrencyLimiter_GetScheduledTasks" />
+        <topic id="M:Gemstone.Threading.ConcurrencyLimiter.QueueTask(System.Threading.Tasks.Task)" project="Gemstone.Threading" file="M_Gemstone_Threading_ConcurrencyLimiter_QueueTask" />
+        <topic id="M:Gemstone.Threading.ConcurrencyLimiter.SetMaximumConcurrencyLevel(System.Int32)" project="Gemstone.Threading" file="M_Gemstone_Threading_ConcurrencyLimiter_SetMaximumConcurrencyLevel" />
+        <topic id="M:Gemstone.Threading.ConcurrencyLimiter.TryExecuteTaskInline(System.Threading.Tasks.Task,System.Boolean)" project="Gemstone.Threading" file="M_Gemstone_Threading_ConcurrencyLimiter_TryExecuteTaskInline" />
+      </topic>
+    </topic>
+    <topic id="T:Gemstone.Threading.InterprocessLock" project="Gemstone.Threading" file="T_Gemstone_Threading_InterprocessLock">
+      <topic id="Methods.T:Gemstone.Threading.InterprocessLock" project="Gemstone.Threading" file="Methods_T_Gemstone_Threading_InterprocessLock">
+        <topic id="Overload:Gemstone.Threading.InterprocessLock.GetNamedMutex" project="Gemstone.Threading" file="Overload_Gemstone_Threading_InterprocessLock_GetNamedMutex">
+          <topic id="M:Gemstone.Threading.InterprocessLock.GetNamedMutex(System.Boolean)" project="Gemstone.Threading" file="M_Gemstone_Threading_InterprocessLock_GetNamedMutex" />
+          <topic id="M:Gemstone.Threading.InterprocessLock.GetNamedMutex(System.String,System.Boolean)" project="Gemstone.Threading" file="M_Gemstone_Threading_InterprocessLock_GetNamedMutex_1" />
+        </topic>
+        <topic id="Overload:Gemstone.Threading.InterprocessLock.GetNamedSemaphore" project="Gemstone.Threading" file="Overload_Gemstone_Threading_InterprocessLock_GetNamedSemaphore">
+          <topic id="M:Gemstone.Threading.InterprocessLock.GetNamedSemaphore(System.Boolean,System.Int32,System.Int32)" project="Gemstone.Threading" file="M_Gemstone_Threading_InterprocessLock_GetNamedSemaphore" />
+          <topic id="M:Gemstone.Threading.InterprocessLock.GetNamedSemaphore(System.String,System.Int32,System.Int32,System.Boolean)" project="Gemstone.Threading" file="M_Gemstone_Threading_InterprocessLock_GetNamedSemaphore_1" />
+        </topic>
+      </topic>
+    </topic>
+    <topic id="T:Gemstone.Threading.InterprocessReaderWriterLock" project="Gemstone.Threading" file="T_Gemstone_Threading_InterprocessReaderWriterLock">
+      <topic id="Overload:Gemstone.Threading.InterprocessReaderWriterLock.#ctor" project="Gemstone.Threading" file="Overload_Gemstone_Threading_InterprocessReaderWriterLock__ctor">
+        <topic id="M:Gemstone.Threading.InterprocessReaderWriterLock.#ctor(System.String,System.Boolean)" project="Gemstone.Threading" file="M_Gemstone_Threading_InterprocessReaderWriterLock__ctor" />
+        <topic id="M:Gemstone.Threading.InterprocessReaderWriterLock.#ctor(System.String,System.Int32,System.Boolean)" project="Gemstone.Threading" file="M_Gemstone_Threading_InterprocessReaderWriterLock__ctor_1" />
+      </topic>
+      <topic id="Properties.T:Gemstone.Threading.InterprocessReaderWriterLock" project="Gemstone.Threading" file="Properties_T_Gemstone_Threading_InterprocessReaderWriterLock">
+        <topic id="P:Gemstone.Threading.InterprocessReaderWriterLock.MaximumConcurrentLocks" project="Gemstone.Threading" file="P_Gemstone_Threading_InterprocessReaderWriterLock_MaximumConcurrentLocks" />
+      </topic>
+      <topic id="Methods.T:Gemstone.Threading.InterprocessReaderWriterLock" project="Gemstone.Threading" file="Methods_T_Gemstone_Threading_InterprocessReaderWriterLock">
+        <topic id="Overload:Gemstone.Threading.InterprocessReaderWriterLock.Dispose" project="Gemstone.Threading" file="Overload_Gemstone_Threading_InterprocessReaderWriterLock_Dispose">
+          <topic id="M:Gemstone.Threading.InterprocessReaderWriterLock.Dispose" project="Gemstone.Threading" file="M_Gemstone_Threading_InterprocessReaderWriterLock_Dispose" />
+          <topic id="M:Gemstone.Threading.InterprocessReaderWriterLock.Dispose(System.Boolean)" project="Gemstone.Threading" file="M_Gemstone_Threading_InterprocessReaderWriterLock_Dispose_1" />
+        </topic>
+        <topic id="M:Gemstone.Threading.InterprocessReaderWriterLock.EnterReadLock" project="Gemstone.Threading" file="M_Gemstone_Threading_InterprocessReaderWriterLock_EnterReadLock" />
+        <topic id="M:Gemstone.Threading.InterprocessReaderWriterLock.EnterWriteLock" project="Gemstone.Threading" file="M_Gemstone_Threading_InterprocessReaderWriterLock_EnterWriteLock" />
+        <topic id="M:Gemstone.Threading.InterprocessReaderWriterLock.ExitReadLock" project="Gemstone.Threading" file="M_Gemstone_Threading_InterprocessReaderWriterLock_ExitReadLock" />
+        <topic id="M:Gemstone.Threading.InterprocessReaderWriterLock.ExitWriteLock" project="Gemstone.Threading" file="M_Gemstone_Threading_InterprocessReaderWriterLock_ExitWriteLock" />
+        <topic id="M:Gemstone.Threading.InterprocessReaderWriterLock.Finalize" project="Gemstone.Threading" file="M_Gemstone_Threading_InterprocessReaderWriterLock_Finalize" />
+        <topic id="M:Gemstone.Threading.InterprocessReaderWriterLock.TryEnterReadLock(System.Int32)" project="Gemstone.Threading" file="M_Gemstone_Threading_InterprocessReaderWriterLock_TryEnterReadLock" />
+        <topic id="M:Gemstone.Threading.InterprocessReaderWriterLock.TryEnterWriteLock(System.Int32)" project="Gemstone.Threading" file="M_Gemstone_Threading_InterprocessReaderWriterLock_TryEnterWriteLock" />
+      </topic>
+      <topic id="Fields.T:Gemstone.Threading.InterprocessReaderWriterLock" project="Gemstone.Threading" file="Fields_T_Gemstone_Threading_InterprocessReaderWriterLock">
+        <topic id="F:Gemstone.Threading.InterprocessReaderWriterLock.DefaultMaximumConcurrentLocks" project="Gemstone.Threading" file="F_Gemstone_Threading_InterprocessReaderWriterLock_DefaultMaximumConcurrentLocks" />
+      </topic>
+    </topic>
+  </topic>
+  <topic id="N:Gemstone.Threading.Collections" project="_Namespaces" file="N_Gemstone_Threading_Collections">
+    <topic id="T:Gemstone.Threading.Collections.PriorityQueue`1" project="Gemstone.Threading" file="T_Gemstone_Threading_Collections_PriorityQueue_1">
+      <topic id="Overload:Gemstone.Threading.Collections.PriorityQueue`1.#ctor" project="Gemstone.Threading" file="Overload_Gemstone_Threading_Collections_PriorityQueue_1__ctor">
+        <topic id="M:Gemstone.Threading.Collections.PriorityQueue`1.#ctor" project="Gemstone.Threading" file="M_Gemstone_Threading_Collections_PriorityQueue_1__ctor" />
+        <topic id="M:Gemstone.Threading.Collections.PriorityQueue`1.#ctor(System.Int32)" project="Gemstone.Threading" file="M_Gemstone_Threading_Collections_PriorityQueue_1__ctor_2" />
+        <topic id="M:Gemstone.Threading.Collections.PriorityQueue`1.#ctor(Gemstone.Threading.Collections.PriorityQueue{`0})" project="Gemstone.Threading" file="M_Gemstone_Threading_Collections_PriorityQueue_1__ctor_1" />
+      </topic>
+      <topic id="Properties.T:Gemstone.Threading.Collections.PriorityQueue`1" project="Gemstone.Threading" file="Properties_T_Gemstone_Threading_Collections_PriorityQueue_1">
+        <topic id="P:Gemstone.Threading.Collections.PriorityQueue`1.Count" project="Gemstone.Threading" file="P_Gemstone_Threading_Collections_PriorityQueue_1_Count" />
+        <topic id="P:Gemstone.Threading.Collections.PriorityQueue`1.IsEmpty" project="Gemstone.Threading" file="P_Gemstone_Threading_Collections_PriorityQueue_1_IsEmpty" />
+      </topic>
+      <topic id="Methods.T:Gemstone.Threading.Collections.PriorityQueue`1" project="Gemstone.Threading" file="Methods_T_Gemstone_Threading_Collections_PriorityQueue_1">
+        <topic id="M:Gemstone.Threading.Collections.PriorityQueue`1.CopyTo(`0[],System.Int32)" project="Gemstone.Threading" file="M_Gemstone_Threading_Collections_PriorityQueue_1_CopyTo" />
+        <topic id="M:Gemstone.Threading.Collections.PriorityQueue`1.Enqueue(`0,System.Int32)" project="Gemstone.Threading" file="M_Gemstone_Threading_Collections_PriorityQueue_1_Enqueue" />
+        <topic id="M:Gemstone.Threading.Collections.PriorityQueue`1.GetEnumerator" project="Gemstone.Threading" file="M_Gemstone_Threading_Collections_PriorityQueue_1_GetEnumerator" />
+        <topic id="M:Gemstone.Threading.Collections.PriorityQueue`1.ToArray" project="Gemstone.Threading" file="M_Gemstone_Threading_Collections_PriorityQueue_1_ToArray" />
+        <topic id="Overload:Gemstone.Threading.Collections.PriorityQueue`1.TryDequeue" project="Gemstone.Threading" file="Overload_Gemstone_Threading_Collections_PriorityQueue_1_TryDequeue">
+          <topic id="M:Gemstone.Threading.Collections.PriorityQueue`1.TryDequeue(`0@)" project="Gemstone.Threading" file="M_Gemstone_Threading_Collections_PriorityQueue_1_TryDequeue_1" />
+          <topic id="M:Gemstone.Threading.Collections.PriorityQueue`1.TryDequeue(System.Int32,`0@)" project="Gemstone.Threading" file="M_Gemstone_Threading_Collections_PriorityQueue_1_TryDequeue" />
+        </topic>
+        <topic id="Overload:Gemstone.Threading.Collections.PriorityQueue`1.TryPeek" project="Gemstone.Threading" file="Overload_Gemstone_Threading_Collections_PriorityQueue_1_TryPeek">
+          <topic id="M:Gemstone.Threading.Collections.PriorityQueue`1.TryPeek(`0@)" project="Gemstone.Threading" file="M_Gemstone_Threading_Collections_PriorityQueue_1_TryPeek_1" />
+          <topic id="M:Gemstone.Threading.Collections.PriorityQueue`1.TryPeek(System.Int32,`0@)" project="Gemstone.Threading" file="M_Gemstone_Threading_Collections_PriorityQueue_1_TryPeek" />
+        </topic>
+      </topic>
+    </topic>
+  </topic>
+  <topic id="N:Gemstone.Threading.Strands" project="_Namespaces" file="N_Gemstone_Threading_Strands">
+    <topic id="T:Gemstone.Threading.Strands.PriorityStrand" project="Gemstone.Threading" file="T_Gemstone_Threading_Strands_PriorityStrand">
+      <topic id="Overload:Gemstone.Threading.Strands.PriorityStrand.#ctor" project="Gemstone.Threading" file="Overload_Gemstone_Threading_Strands_PriorityStrand__ctor">
+        <topic id="M:Gemstone.Threading.Strands.PriorityStrand.#ctor" project="Gemstone.Threading" file="M_Gemstone_Threading_Strands_PriorityStrand__ctor" />
+        <topic id="M:Gemstone.Threading.Strands.PriorityStrand.#ctor(System.Int32)" project="Gemstone.Threading" file="M_Gemstone_Threading_Strands_PriorityStrand__ctor_3" />
+        <topic id="M:Gemstone.Threading.Strands.PriorityStrand.#ctor(Gemstone.Threading.SynchronizedOperations.SynchronizedOperationFactory)" project="Gemstone.Threading" file="M_Gemstone_Threading_Strands_PriorityStrand__ctor_1" />
+        <topic id="M:Gemstone.Threading.Strands.PriorityStrand.#ctor(Gemstone.Threading.SynchronizedOperations.SynchronizedOperationFactory,System.Int32)" project="Gemstone.Threading" file="M_Gemstone_Threading_Strands_PriorityStrand__ctor_2" />
+      </topic>
+      <topic id="Methods.T:Gemstone.Threading.Strands.PriorityStrand" project="Gemstone.Threading" file="Methods_T_Gemstone_Threading_Strands_PriorityStrand">
+        <topic id="M:Gemstone.Threading.Strands.PriorityStrand.GetScheduler(System.Int32)" project="Gemstone.Threading" file="M_Gemstone_Threading_Strands_PriorityStrand_GetScheduler" />
+      </topic>
+    </topic>
+    <topic id="T:Gemstone.Threading.Strands.Strand" project="Gemstone.Threading" file="T_Gemstone_Threading_Strands_Strand">
+      <topic id="Overload:Gemstone.Threading.Strands.Strand.#ctor" project="Gemstone.Threading" file="Overload_Gemstone_Threading_Strands_Strand__ctor">
+        <topic id="M:Gemstone.Threading.Strands.Strand.#ctor" project="Gemstone.Threading" file="M_Gemstone_Threading_Strands_Strand__ctor" />
+        <topic id="M:Gemstone.Threading.Strands.Strand.#ctor(Gemstone.Threading.SynchronizedOperations.SynchronizedOperationFactory)" project="Gemstone.Threading" file="M_Gemstone_Threading_Strands_Strand__ctor_1" />
+      </topic>
+      <topic id="Properties.T:Gemstone.Threading.Strands.Strand" project="Gemstone.Threading" file="Properties_T_Gemstone_Threading_Strands_Strand">
+        <topic id="P:Gemstone.Threading.Strands.Strand.MaximumConcurrencyLevel" project="Gemstone.Threading" file="P_Gemstone_Threading_Strands_Strand_MaximumConcurrencyLevel" />
+      </topic>
+      <topic id="Methods.T:Gemstone.Threading.Strands.Strand" project="Gemstone.Threading" file="Methods_T_Gemstone_Threading_Strands_Strand">
+        <topic id="M:Gemstone.Threading.Strands.Strand.GetScheduledTasks" project="Gemstone.Threading" file="M_Gemstone_Threading_Strands_Strand_GetScheduledTasks" />
+        <topic id="M:Gemstone.Threading.Strands.Strand.QueueTask(System.Threading.Tasks.Task)" project="Gemstone.Threading" file="M_Gemstone_Threading_Strands_Strand_QueueTask" />
+        <topic id="M:Gemstone.Threading.Strands.Strand.TryDequeue(System.Threading.Tasks.Task)" project="Gemstone.Threading" file="M_Gemstone_Threading_Strands_Strand_TryDequeue" />
+        <topic id="M:Gemstone.Threading.Strands.Strand.TryExecuteTaskInline(System.Threading.Tasks.Task,System.Boolean)" project="Gemstone.Threading" file="M_Gemstone_Threading_Strands_Strand_TryExecuteTaskInline" />
+      </topic>
+    </topic>
+  </topic>
+  <topic id="N:Gemstone.Threading.SynchronizedOperations" project="_Namespaces" file="N_Gemstone_Threading_SynchronizedOperations">
+    <topic id="T:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation" project="Gemstone.Threading" file="T_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation">
+      <topic id="Overload:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.#ctor" project="Gemstone.Threading" file="Overload_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation__ctor">
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.#ctor(System.Action)" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation__ctor" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.#ctor(System.Action{System.Threading.CancellationToken})" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation__ctor_2" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.#ctor(System.Action,System.Action{System.Exception})" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation__ctor_1" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.#ctor(System.Action{System.Threading.CancellationToken},System.Action{System.Exception})" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation__ctor_3" />
+      </topic>
+      <topic id="Properties.T:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation" project="Gemstone.Threading" file="Properties_T_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation">
+        <topic id="P:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.Delay" project="Gemstone.Threading" file="P_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation_Delay" />
+      </topic>
+      <topic id="Methods.T:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation" project="Gemstone.Threading" file="Methods_T_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation">
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.ExecuteActionAsync" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation_ExecuteActionAsync" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.Factory(System.Action)" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation_Factory" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.Run(System.Boolean)" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation_Run" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.RunAsync" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation_RunAsync" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.TryRun(System.Boolean)" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation_TryRun" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.TryRunAsync" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation_TryRunAsync" />
+      </topic>
+      <topic id="Fields.T:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation" project="Gemstone.Threading" file="Fields_T_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation">
+        <topic id="F:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.DefaultDelay" project="Gemstone.Threading" file="F_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation_DefaultDelay" />
+      </topic>
+    </topic>
+    <topic id="T:Gemstone.Threading.SynchronizedOperations.ISynchronizedOperation" project="Gemstone.Threading" file="T_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation">
+      <topic id="Properties.T:Gemstone.Threading.SynchronizedOperations.ISynchronizedOperation" project="Gemstone.Threading" file="Properties_T_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation">
+        <topic id="P:Gemstone.Threading.SynchronizedOperations.ISynchronizedOperation.CancellationToken" project="Gemstone.Threading" file="P_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation_CancellationToken" />
+        <topic id="P:Gemstone.Threading.SynchronizedOperations.ISynchronizedOperation.IsPending" project="Gemstone.Threading" file="P_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation_IsPending" />
+        <topic id="P:Gemstone.Threading.SynchronizedOperations.ISynchronizedOperation.IsRunning" project="Gemstone.Threading" file="P_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation_IsRunning" />
+      </topic>
+      <topic id="Methods.T:Gemstone.Threading.SynchronizedOperations.ISynchronizedOperation" project="Gemstone.Threading" file="Methods_T_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation">
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.ISynchronizedOperation.Run(System.Boolean)" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation_Run" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.ISynchronizedOperation.RunAsync" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation_RunAsync" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.ISynchronizedOperation.TryRun(System.Boolean)" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation_TryRun" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.ISynchronizedOperation.TryRunAsync" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation_TryRunAsync" />
+      </topic>
+    </topic>
+    <topic id="T:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation" project="Gemstone.Threading" file="T_Gemstone_Threading_SynchronizedOperations_LongSynchronizedOperation">
+      <topic id="Overload:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation.#ctor" project="Gemstone.Threading" file="Overload_Gemstone_Threading_SynchronizedOperations_LongSynchronizedOperation__ctor">
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation.#ctor(System.Action)" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_LongSynchronizedOperation__ctor" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation.#ctor(System.Action{System.Threading.CancellationToken})" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_LongSynchronizedOperation__ctor_2" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation.#ctor(System.Action,System.Action{System.Exception})" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_LongSynchronizedOperation__ctor_1" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation.#ctor(System.Action{System.Threading.CancellationToken},System.Action{System.Exception})" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_LongSynchronizedOperation__ctor_3" />
+      </topic>
+      <topic id="Properties.T:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation" project="Gemstone.Threading" file="Properties_T_Gemstone_Threading_SynchronizedOperations_LongSynchronizedOperation">
+        <topic id="P:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation.IsBackground" project="Gemstone.Threading" file="P_Gemstone_Threading_SynchronizedOperations_LongSynchronizedOperation_IsBackground" />
+      </topic>
+      <topic id="Methods.T:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation" project="Gemstone.Threading" file="Methods_T_Gemstone_Threading_SynchronizedOperations_LongSynchronizedOperation">
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation.ExecuteActionAsync" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_LongSynchronizedOperation_ExecuteActionAsync" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation.Factory(System.Action)" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_LongSynchronizedOperation_Factory" />
+      </topic>
+    </topic>
+    <topic id="T:Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation" project="Gemstone.Threading" file="T_Gemstone_Threading_SynchronizedOperations_ShortSynchronizedOperation">
+      <topic id="Overload:Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation.#ctor" project="Gemstone.Threading" file="Overload_Gemstone_Threading_SynchronizedOperations_ShortSynchronizedOperation__ctor">
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation.#ctor(System.Action)" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_ShortSynchronizedOperation__ctor" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation.#ctor(System.Action,System.Action{System.Exception})" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_ShortSynchronizedOperation__ctor_1" />
+      </topic>
+      <topic id="Properties.T:Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation" project="Gemstone.Threading" file="Properties_T_Gemstone_Threading_SynchronizedOperations_ShortSynchronizedOperation" />
+      <topic id="Methods.T:Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation" project="Gemstone.Threading" file="Methods_T_Gemstone_Threading_SynchronizedOperations_ShortSynchronizedOperation">
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation.ExecuteActionAsync" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_ShortSynchronizedOperation_ExecuteActionAsync" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation.Factory(System.Action)" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_ShortSynchronizedOperation_Factory" />
+      </topic>
+    </topic>
+    <topic id="T:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase" project="Gemstone.Threading" file="T_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase">
+      <topic id="Overload:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.#ctor" project="Gemstone.Threading" file="Overload_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase__ctor">
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.#ctor(System.Action)" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase__ctor" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.#ctor(System.Action{System.Threading.CancellationToken})" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase__ctor_2" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.#ctor(System.Action,System.Action{System.Exception})" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase__ctor_1" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.#ctor(System.Action{System.Threading.CancellationToken},System.Action{System.Exception})" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase__ctor_3" />
+      </topic>
+      <topic id="Properties.T:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase" project="Gemstone.Threading" file="Properties_T_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase">
+        <topic id="P:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.CancellationToken" project="Gemstone.Threading" file="P_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_CancellationToken" />
+        <topic id="P:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.IsPending" project="Gemstone.Threading" file="P_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_IsPending" />
+        <topic id="P:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.IsRunning" project="Gemstone.Threading" file="P_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_IsRunning" />
+      </topic>
+      <topic id="Methods.T:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase" project="Gemstone.Threading" file="Methods_T_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase">
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.ExecuteAction" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_ExecuteAction" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.ExecuteActionAsync" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_ExecuteActionAsync" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.ProcessException(System.Exception)" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_ProcessException" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.Run(System.Boolean)" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_Run" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.RunAsync" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_RunAsync" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.TryRun(System.Boolean)" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_TryRun" />
+        <topic id="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.TryRunAsync" project="Gemstone.Threading" file="M_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_TryRunAsync" />
+      </topic>
+    </topic>
+    <topic id="T:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationFactory" project="Gemstone.Threading" file="T_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationFactory" />
+  </topic>
+</topics>
