@@ -1,0 +1,746 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>Gemstone.Threading</name>
+  </assembly>
+  <members>
+    <member name="T:Gemstone.Threading.ConcurrencyLimiter">
+      <summary>
+            Task scheduler that limits the number of tasks that can execute in parallel at any given time.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.ConcurrencyLimiter.#ctor">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.ConcurrencyLimiter" /> class
+            with a <see cref="T:Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation" /> and a maximum concurrency
+            level equal to the number of processors on the current machine.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.ConcurrencyLimiter.#ctor(Gemstone.Threading.SynchronizedOperations.SynchronizedOperationFactory)">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.ConcurrencyLimiter" /> class with a
+            maximum concurrency level equal to the number of processors on the current machine.
+            </summary>
+      <param name="synchronizedOperationFactory">Factory function for creating the synchronized operations to be used for processing tasks.</param>
+    </member>
+    <member name="M:Gemstone.Threading.ConcurrencyLimiter.#ctor(Gemstone.Threading.SynchronizedOperations.SynchronizedOperationFactory,System.Int32)">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.ConcurrencyLimiter" /> class.
+            </summary>
+      <param name="synchronizedOperationFactory">Factory function for creating the synchronized operations to be used for processing tasks.</param>
+      <param name="maximumConcurrencyLevel">The initial value for <see cref="P:Gemstone.Threading.ConcurrencyLimiter.MaximumConcurrencyLevel" />.</param>
+    </member>
+    <member name="M:Gemstone.Threading.ConcurrencyLimiter.#ctor(System.Int32)">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.ConcurrencyLimiter" /> class
+            with a <see cref="T:Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation" />.
+            </summary>
+      <param name="maximumConcurrencyLevel">The initial value for <see cref="P:Gemstone.Threading.ConcurrencyLimiter.MaximumConcurrencyLevel" />.</param>
+    </member>
+    <member name="P:Gemstone.Threading.ConcurrencyLimiter.CurrentConcurrencyLevel">
+      <summary>
+            Gets the number of threads that are currently executing tasks concurrently.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.ConcurrencyLimiter.GetScheduledTasks">
+      <summary>
+            For debugger support only, generates an enumerable of <see cref="T:System.Threading.Tasks.Task" />
+            instances currently queued to the scheduler waiting to be executed.
+            </summary>
+      <returns>An enumerable that allows a debugger to traverse the tasks currently queued to this scheduler.</returns>
+    </member>
+    <member name="P:Gemstone.Threading.ConcurrencyLimiter.MaximumConcurrencyLevel">
+      <summary>
+            Gets the maximum number of threads that can be executing tasks concurrently.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.ConcurrencyLimiter.QueueTask(System.Threading.Tasks.Task)">
+      <summary>
+            Queues a <see cref="T:System.Threading.Tasks.Task" /> to the scheduler.
+            </summary>
+      <param name="task">The <see cref="T:System.Threading.Tasks.Task" /> to be queued.</param>
+    </member>
+    <member name="M:Gemstone.Threading.ConcurrencyLimiter.SetMaximumConcurrencyLevel(System.Int32)">
+      <summary>
+            Sets the maximum number of threads that can be executing tasks concurrently.
+            </summary>
+      <param name="maximumConcurrencyLevel">The maximum concurrency level.</param>
+    </member>
+    <member name="M:Gemstone.Threading.ConcurrencyLimiter.TryExecuteTaskInline(System.Threading.Tasks.Task,System.Boolean)">
+      <summary>
+            Determines whether the provided <see cref="T:System.Threading.Tasks.Task" /> can be executed synchronously
+            in this call, and if it can, executes it.
+            </summary>
+      <param name="task">The <see cref="T:System.Threading.Tasks.Task" /> to be executed.</param>
+      <param name="taskWasPreviouslyQueued">
+            A <see cref="T:System.Boolean" /> denoting whether or not task has previously been queued.
+            If this parameter is True, then the task may have been previously queued (scheduled);
+            if False, then the task is known not to have been queued,
+            and this call is being made in order to execute the task inline without queuing it.
+            </param>
+      <returns>A <see cref="T:System.Boolean" /> value indicating whether the task was executed inline.</returns>
+    </member>
+    <member name="T:Gemstone.Threading.InterprocessLock">
+      <summary>
+            Defines helper methods related to inter-process locking.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.InterprocessLock.GetNamedMutex(System.Boolean)">
+      <summary>
+            Gets a uniquely named inter-process <see cref="T:System.Threading.Mutex" /> associated with the running application, typically used to detect whether an instance
+            of the application is already running.
+            </summary>
+      <param name="perUser">Indicates whether to generate a different name for the <see cref="T:System.Threading.Mutex" /> dependent upon the user running the application.</param>
+      <returns>A uniquely named inter-process <see cref="T:System.Threading.Mutex" /> specific to the application; <see cref="T:System.Threading.Mutex" /> is created if it does not exist.</returns>
+      <exception cref="T:System.UnauthorizedAccessException">The named mutex exists, but the user does not have the minimum needed security access rights to use it.</exception>
+    </member>
+    <member name="M:Gemstone.Threading.InterprocessLock.GetNamedMutex(System.String,System.Boolean)">
+      <summary>
+            Gets a uniquely named inter-process <see cref="T:System.Threading.Mutex" /> associated with the specified <paramref name="name" /> that identifies a source object
+            needing concurrency locking.
+            </summary>
+      <param name="name">Identifying name of source object needing concurrency locking (e.g., a path and file name).</param>
+      <param name="global">Determines if mutex should be marked as global; set value to <c>false</c> for local.</param>
+      <returns>A uniquely named inter-process <see cref="T:System.Threading.Mutex" /> specific to <paramref name="name" />; <see cref="T:System.Threading.Mutex" /> is created if it does not exist.</returns>
+      <exception cref="T:System.ArgumentNullException">Argument <paramref name="name" /> cannot be empty, null or white space.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">The named mutex exists, but the user does not have the minimum needed security access rights to use it.</exception>
+    </member>
+    <member name="M:Gemstone.Threading.InterprocessLock.GetNamedSemaphore(System.Boolean,System.Int32,System.Int32)">
+      <summary>
+            Gets a uniquely named inter-process <see cref="T:System.Threading.Semaphore" /> associated with the running application, typically used to detect whether some number of
+            instances of the application are already running.
+            </summary>
+      <param name="perUser">Indicates whether to generate a different name for the <see cref="T:System.Threading.Semaphore" /> dependent upon the user running the application.</param>
+      <param name="maximumCount">The maximum number of requests for the semaphore that can be granted concurrently.</param>
+      <param name="initialCount">The initial number of requests for the semaphore that can be granted concurrently, or -1 to default to <paramref name="maximumCount" />.</param>
+      <returns>A uniquely named inter-process <see cref="T:System.Threading.Semaphore" /> specific to entry assembly; <see cref="T:System.Threading.Semaphore" /> is created if it does not exist.</returns>
+      <exception cref="T:System.UnauthorizedAccessException">The named semaphore exists, but the user does not have the minimum needed security access rights to use it.</exception>
+    </member>
+    <member name="M:Gemstone.Threading.InterprocessLock.GetNamedSemaphore(System.String,System.Int32,System.Int32,System.Boolean)">
+      <summary>
+            Gets a uniquely named inter-process <see cref="T:System.Threading.Semaphore" /> associated with the specified <paramref name="name" /> that identifies a source object
+            needing concurrency locking.
+            </summary>
+      <param name="name">Identifying name of source object needing concurrency locking (e.g., a path and file name).</param>
+      <param name="maximumCount">The maximum number of requests for the semaphore that can be granted concurrently.</param>
+      <param name="initialCount">The initial number of requests for the semaphore that can be granted concurrently, or -1 to default to <paramref name="maximumCount" />.</param>
+      <param name="global">Determines if semaphore should be marked as global; set value to <c>false</c> for local.</param>
+      <returns>A uniquely named inter-process <see cref="T:System.Threading.Semaphore" /> specific to <paramref name="name" />; <see cref="T:System.Threading.Semaphore" /> is created if it does not exist.</returns>
+      <exception cref="T:System.ArgumentNullException">Argument <paramref name="name" /> cannot be empty, null or white space.</exception>
+      <exception cref="T:System.UnauthorizedAccessException">The named semaphore exists, but the user does not have the minimum needed security access rights to use it.</exception>
+    </member>
+    <member name="T:Gemstone.Threading.InterprocessReaderWriterLock">
+      <summary>
+            Represents an inter-process reader/writer lock using <see cref="T:System.Threading.Semaphore" /> and <see cref="T:System.Threading.Mutex" /> native locking mechanisms.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.InterprocessReaderWriterLock.#ctor(System.String,System.Boolean)">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.InterprocessReaderWriterLock" /> associated with the specified
+            <paramref name="name" /> that identifies a source object needing concurrency locking.
+            </summary>
+      <param name="name">Identifying name of source object needing concurrency locking (e.g., a path and file name).</param>
+      <param name="global">Determines if semaphore and mutex used by <see cref="T:Gemstone.Threading.InterprocessReaderWriterLock" /> should be marked as global; set value to <c>false</c> for local.</param>
+    </member>
+    <member name="M:Gemstone.Threading.InterprocessReaderWriterLock.#ctor(System.String,System.Int32,System.Boolean)">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.InterprocessReaderWriterLock" /> associated with the specified
+            <paramref name="name" /> that identifies a source object needing concurrency locking.
+            </summary>
+      <param name="name">Identifying name of source object needing concurrency locking (e.g., a path and file name).</param>
+      <param name="maximumConcurrentLocks">Maximum concurrent reader locks to allow.</param>
+      <param name="global">Determines if semaphore and mutex used by <see cref="T:Gemstone.Threading.InterprocessReaderWriterLock" /> should be marked as global; set value to <c>false</c> for local.</param>
+    </member>
+    <member name="F:Gemstone.Threading.InterprocessReaderWriterLock.DefaultMaximumConcurrentLocks">
+      <summary>
+            Default maximum concurrent locks allowed for <see cref="T:Gemstone.Threading.InterprocessReaderWriterLock" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.InterprocessReaderWriterLock.Dispose">
+      <summary>
+            Releases all the resources used by the <see cref="T:Gemstone.Threading.InterprocessReaderWriterLock" /> object.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.InterprocessReaderWriterLock.Dispose(System.Boolean)">
+      <summary>
+            Releases the unmanaged resources used by the <see cref="T:Gemstone.Threading.InterprocessReaderWriterLock" /> object and optionally releases the managed resources.
+            </summary>
+      <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
+    </member>
+    <member name="M:Gemstone.Threading.InterprocessReaderWriterLock.EnterReadLock">
+      <summary>
+            Tries to enter the lock in read mode.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.InterprocessReaderWriterLock.EnterWriteLock">
+      <summary>
+            Tries to enter the lock in write mode.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.InterprocessReaderWriterLock.ExitReadLock">
+      <summary>
+            Exits read mode and returns the prior read lock count.
+            </summary>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.Threading.InterprocessReaderWriterLock.ExitReadLock</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.Threading.InterprocessReaderWriterLock.ExitWriteLock">
+      <summary>
+            Exits write mode.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.InterprocessReaderWriterLock.Finalize">
+      <summary>
+            Releases the unmanaged resources before the <see cref="T:Gemstone.Threading.InterprocessReaderWriterLock" /> object is reclaimed by <see cref="T:System.GC" />.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Threading.InterprocessReaderWriterLock.MaximumConcurrentLocks">
+      <summary>
+            Gets the maximum concurrent reader locks allowed.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.InterprocessReaderWriterLock.TryEnterReadLock(System.Int32)">
+      <summary>
+            Tries to enter the lock in read mode, with an optional time-out.
+            </summary>
+      <param name="millisecondsTimeout">The number of milliseconds to wait, or -1 (<see cref="F:System.Threading.Timeout.Infinite" />) to wait indefinitely.</param>
+      <returns>
+        <c>true</c> if the calling thread entered read mode, otherwise, <c>false</c>.</returns>
+    </member>
+    <member name="M:Gemstone.Threading.InterprocessReaderWriterLock.TryEnterWriteLock(System.Int32)">
+      <summary>
+            Tries to enter the lock in write mode, with an optional time-out.
+            </summary>
+      <param name="millisecondsTimeout">The number of milliseconds to wait, or -1 (<see cref="F:System.Threading.Timeout.Infinite" />) to wait indefinitely.</param>
+      <returns>
+        <c>true</c> if the calling thread entered write mode, otherwise, <c>false</c>.</returns>
+    </member>
+    <member name="T:Gemstone.Threading.Collections.PriorityQueue`1">
+      <summary>
+            Represents a thread-safe prioritized first in-first out (FIFO) collection.
+            </summary>
+      <typeparam name="T">The type of elements contained in the queue.</typeparam>
+    </member>
+    <member name="M:Gemstone.Threading.Collections.PriorityQueue`1.#ctor">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.Collections.PriorityQueue`1" /> class.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.Collections.PriorityQueue`1.#ctor(Gemstone.Threading.Collections.PriorityQueue{`0})">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.Collections.PriorityQueue`1" /> class.
+            </summary>
+      <param name="priorityQueue">Another priority queue of items to be enqueued in this queue at the same priority.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="priorityQueue" /> queue length is less than or equal to 0.</exception>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="priorityQueue" /> is <c>null</c>.</exception>
+    </member>
+    <member name="M:Gemstone.Threading.Collections.PriorityQueue`1.#ctor(System.Int32)">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.Collections.PriorityQueue`1" /> class.
+            </summary>
+      <param name="priorityLevels">The number of priority levels to preallocate in the queue.</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="priorityLevels" /> is less than or equal to 0.</exception>
+    </member>
+    <member name="M:Gemstone.Threading.Collections.PriorityQueue`1.CopyTo(`0[],System.Int32)">
+      <summary>
+            Copies the <see cref="T:Gemstone.Threading.Collections.PriorityQueue`1" /> elements to an existing
+            one-dimensional <see cref="T:System.Array" />, starting at the specified array index.
+            </summary>
+      <param name="array">
+            The one-dimensional <see cref="T:System.Array" /> that is the destination of the elements copied
+            from the <see cref="T:Gemstone.Threading.Collections.PriorityQueue`1" />. The <see cref="T:System.Array" /> must
+            have zero-based indexing.
+            </param>
+      <param name="index">The zero-based index in array at which copying begins.</param>
+      <exception cref="T:System.ArgumentNullException">array is a null reference (Nothing in Visual Basic).</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">index is less than zero.</exception>
+      <exception cref="T:System.ArgumentException">
+            index is equal to or greater than the length of the array -or- The number of
+            elements in the source <see cref="T:Gemstone.Threading.Collections.PriorityQueue`1" /> is greater
+            than the available space from index to the end of the destination array.
+            </exception>
+    </member>
+    <member name="P:Gemstone.Threading.Collections.PriorityQueue`1.Count">
+      <summary>
+            Gets the number of items in the queue.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.Collections.PriorityQueue`1.Enqueue(`0,System.Int32)">
+      <summary>
+            Enqueues an item into the priority queue.
+            </summary>
+      <param name="item">The item to be enqueued.</param>
+      <param name="priority">The priority at which the item should be queued. Larger numbers have higher priority!</param>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="priority" /> is negative</exception>
+    </member>
+    <member name="M:Gemstone.Threading.Collections.PriorityQueue`1.GetEnumerator">
+      <summary>
+            Returns an enumerator that iterates through the <see cref="T:Gemstone.Threading.Collections.PriorityQueue`1" />.
+            </summary>
+      <returns>An enumerator for the contents of the <see cref="T:Gemstone.Threading.Collections.PriorityQueue`1" />.</returns>
+    </member>
+    <member name="P:Gemstone.Threading.Collections.PriorityQueue`1.IsEmpty">
+      <summary>
+            Indicates whether the <see cref="T:Gemstone.Threading.Collections.PriorityQueue`1" /> is empty.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.Collections.PriorityQueue`1.ToArray">
+      <summary>
+            Copies the elements stored in the <see cref="T:Gemstone.Threading.Collections.PriorityQueue`1" /> to a new array.
+            </summary>
+      <returns>A new array containing a snapshot of elements copied from the <see cref="T:Gemstone.Threading.Collections.PriorityQueue`1" />.</returns>
+    </member>
+    <member name="M:Gemstone.Threading.Collections.PriorityQueue`1.TryDequeue(System.Int32,`0@)">
+      <summary>
+            Dequeues an item from the priority queue.
+            </summary>
+      <param name="priority">The priority at which the item should be dequeued.</param>
+      <param name="result">The item that was dequeued, or the default value if no item was dequeued.</param>
+      <returns>True if an item was dequeued; false if the queue is empty.</returns>
+    </member>
+    <member name="M:Gemstone.Threading.Collections.PriorityQueue`1.TryDequeue(`0@)">
+      <summary>
+            Dequeues an item from the priority queue.
+            </summary>
+      <param name="result">The item that was dequeued, or the default value if no item was dequeued.</param>
+      <returns>True if an item was dequeued; false if the queue is empty.</returns>
+    </member>
+    <member name="M:Gemstone.Threading.Collections.PriorityQueue`1.TryPeek(System.Int32,`0@)">
+      <summary>
+            Tries to return an object from the beginning of the <see cref="T:Gemstone.Threading.Collections.PriorityQueue`1" /> without removing it.
+            </summary>
+      <param name="priority">The priority at which to peek into the queue.</param>
+      <param name="result">
+            When this method returns, result contains an object from the beginning of the
+            <see cref="T:Gemstone.Threading.Collections.PriorityQueue`1" /> or an unspecified value if the operation failed.
+            </param>
+      <returns>true if an object was returned successfully; otherwise, false.</returns>
+    </member>
+    <member name="M:Gemstone.Threading.Collections.PriorityQueue`1.TryPeek(`0@)">
+      <summary>
+            Tries to return an object from the beginning of the <see cref="T:Gemstone.Threading.Collections.PriorityQueue`1" /> without removing it.
+            </summary>
+      <param name="result">
+            When this method returns, result contains an object from the beginning of the
+            <see cref="T:Gemstone.Threading.Collections.PriorityQueue`1" /> or an unspecified value if the operation failed.
+            </param>
+      <returns>true if an object was returned successfully; otherwise, false.</returns>
+    </member>
+    <member name="T:Gemstone.Threading.Strands.PriorityStrand">
+      <summary>
+            Schedules tasks in a collection of FIFO queues and executes them in priority order.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.Strands.PriorityStrand.#ctor">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.Strands.PriorityStrand" /> class with a <see cref="T:Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.Strands.PriorityStrand.#ctor(Gemstone.Threading.SynchronizedOperations.SynchronizedOperationFactory)">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.Strands.PriorityStrand" /> class.
+            </summary>
+      <param name="synchronizedOperationFactory">Factory function for creating the synchronized operation to be used for processing tasks.</param>
+    </member>
+    <member name="M:Gemstone.Threading.Strands.PriorityStrand.#ctor(Gemstone.Threading.SynchronizedOperations.SynchronizedOperationFactory,System.Int32)">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.Strands.PriorityStrand" /> class.
+            </summary>
+      <param name="synchronizedOperationFactory">Factory function for creating the synchronized operation to be used for processing tasks.</param>
+      <param name="priorityLevels">The number of priority levels to be preallocated by the priority queue.</param>
+    </member>
+    <member name="M:Gemstone.Threading.Strands.PriorityStrand.#ctor(System.Int32)">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.Strands.PriorityStrand" /> class with a <see cref="T:Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation" />.
+            </summary>
+      <param name="priorityLevels">The number of priority levels to be preallocated by the priority queue.</param>
+    </member>
+    <member name="M:Gemstone.Threading.Strands.PriorityStrand.GetScheduler(System.Int32)">
+      <summary>
+            Gets a <see cref="T:System.Threading.Tasks.TaskScheduler" /> used to queue tasks at a specific priority.
+            </summary>
+      <param name="priority">The priority at which tasks should be queued by the returned <see cref="T:System.Threading.Tasks.TaskScheduler" />. Higher numbers are higher in priority!</param>
+      <returns>A <see cref="T:System.Threading.Tasks.TaskScheduler" /> that queues tasks into the strand at the given priority.</returns>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="priority" /> is less than zero</exception>
+    </member>
+    <member name="T:Gemstone.Threading.Strands.Strand">
+      <summary>
+            Schedules tasks in a FIFO queue and executes them in a synchronized asynchronous loop.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.Strands.Strand.#ctor">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.Strands.Strand" /> class with a <see cref="T:Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.Strands.Strand.#ctor(Gemstone.Threading.SynchronizedOperations.SynchronizedOperationFactory)">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.Strands.Strand" /> class.
+            </summary>
+      <param name="synchronizedOperationFactory">Factory function for creating the synchronized operation to be used for processing tasks.</param>
+    </member>
+    <member name="M:Gemstone.Threading.Strands.Strand.GetScheduledTasks">
+      <summary>
+            For debugger support only, generates an enumerable of <see cref="T:System.Threading.Tasks.Task" />
+            instances currently queued to the scheduler waiting to be executed.
+            </summary>
+      <returns>An enumerable that allows a debugger to traverse the tasks currently queued to this scheduler.</returns>
+    </member>
+    <member name="P:Gemstone.Threading.Strands.Strand.MaximumConcurrencyLevel">
+      <summary>
+            Indicates the maximum concurrency level this <see cref="T:System.Threading.Tasks.TaskScheduler" /> is able to support.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.Strands.Strand.QueueTask(System.Threading.Tasks.Task)">
+      <summary>
+            Queues a <see cref="T:System.Threading.Tasks.Task" /> to the scheduler.
+            </summary>
+      <param name="task">The <see cref="T:System.Threading.Tasks.Task" /> to be queued.</param>
+    </member>
+    <member name="M:Gemstone.Threading.Strands.Strand.TryDequeue(System.Threading.Tasks.Task)">
+      <summary>
+            Attempts to dequeue a <see cref="T:System.Threading.Tasks.Task" /> that was previously queued to this scheduler.
+            </summary>
+      <param name="task">The <see cref="T:System.Threading.Tasks.Task" /> to be dequeued.</param>
+      <returns>A Boolean denoting whether the task argument was successfully dequeued.</returns>
+    </member>
+    <member name="M:Gemstone.Threading.Strands.Strand.TryExecuteTaskInline(System.Threading.Tasks.Task,System.Boolean)">
+      <summary>
+            Attempts to executes a task inline, but only if this method is
+            called on the processing thread to avoid parallel execution of tasks.
+            </summary>
+      <param name="task">The <see cref="T:System.Threading.Tasks.Task" /> to be executed.</param>
+      <param name="taskWasPreviouslyQueued">
+            A Boolean denoting whether or not task has previously been queued.
+            If this parameter is True, then the task may have been previously queued (scheduled);
+            if False, then the task is known not to have been queued,
+            and this call is being made in order to execute the task inline without queuing it.
+            </param>
+      <returns>A Boolean value indicating whether the task was executed inline.</returns>
+    </member>
+    <member name="T:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation">
+      <summary>
+            Represents a short-running synchronized operation that cannot run while it is already
+            in progress. Async operations will execute on the thread-pool after the specified
+            <see cref="P:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.Delay" /> in milliseconds.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.#ctor(System.Action)">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation" /> class.
+            </summary>
+      <param name="action">The action to be performed during this operation.</param>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.#ctor(System.Action,System.Action{System.Exception})">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation" /> class.
+            </summary>
+      <param name="action">The action to be performed during this operation.</param>
+      <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.#ctor(System.Action{System.Threading.CancellationToken})">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation" /> class.
+            </summary>
+      <param name="action">The cancellable action to be performed during this operation.</param>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.#ctor(System.Action{System.Threading.CancellationToken},System.Action{System.Exception})">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation" /> class.
+            </summary>
+      <param name="action">The cancellable action to be performed during this operation.</param>
+      <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
+    </member>
+    <member name="F:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.DefaultDelay">
+      <summary>
+            Defines the default value for the <see cref="P:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.Delay" /> property.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.Delay">
+      <summary>
+            Gets or sets the amount of time to wait before execution, in milliseconds,
+            for any asynchronous calls. Zero value will execute immediately.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.ExecuteActionAsync">
+      <summary>
+            Executes the action on a separate thread after the specified <see cref="P:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.Delay" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.Factory(System.Action)">
+      <summary>
+            Factory method to match the <see cref="T:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationFactory" /> signature.
+            </summary>
+      <param name="action">The action to be performed by the <see cref="T:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation" />.</param>
+      <returns>A new instance of <see cref="T:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation" /> with <see cref="F:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.DefaultDelay" /> of 1000 milliseconds.</returns>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.Run(System.Boolean)">
+      <summary>
+            Executes the action on another thread after the specified <see cref="P:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.Delay" /> in milliseconds or marks
+            the operation as pending if the operation is already running. Method same as <see cref="M:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.RunAsync" /> for
+            <see cref="T:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation" />.
+            </summary>
+      <param name="runPendingSynchronously">
+            Defines synchronization mode for running any pending operation; must be <c>false</c> for
+            <see cref="T:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation" />.
+            </param>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="runPendingSynchronously" /> must be <c>false</c> for <see cref="T:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation" />.
+            </exception>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.RunAsync">
+      <summary>
+            Executes the action on another thread after the specified <see cref="P:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.Delay" /> in milliseconds or marks
+            the operation as pending if the operation is already running
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.TryRun(System.Boolean)">
+      <summary>
+            Attempts to execute the action on another thread after the specified <see cref="P:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.Delay" /> in milliseconds.
+            Does nothing if the operation is already running. Method same as <see cref="M:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.TryRunAsync" /> for
+            <see cref="T:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation" />.
+            </summary>
+      <param name="runPendingSynchronously">
+            Defines synchronization mode for running any pending operation; must be <c>false</c> for
+            <see cref="T:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation" />.
+            </param>
+      <exception cref="T:System.InvalidOperationException">
+        <paramref name="runPendingSynchronously" /> must be <c>false</c> for <see cref="T:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation" />.
+            </exception>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.TryRunAsync">
+      <summary>
+            Attempts to execute the action on another thread after the specified <see cref="P:Gemstone.Threading.SynchronizedOperations.DelayedSynchronizedOperation.Delay" /> in milliseconds.
+            Does nothing if the operation is already running.
+            </summary>
+    </member>
+    <member name="T:Gemstone.Threading.SynchronizedOperations.ISynchronizedOperation">
+      <summary>
+            Represents an operation that cannot run while it is already in progress.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Threading.SynchronizedOperations.ISynchronizedOperation.CancellationToken">
+      <summary>
+            Gets or sets <see cref="T:System.Threading.CancellationToken" /> to use for cancelling actions.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Threading.SynchronizedOperations.ISynchronizedOperation.IsPending">
+      <summary>
+            Gets flag indicating if the synchronized operation has an additional operation that is pending
+            execution after the currently running action has completed.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Threading.SynchronizedOperations.ISynchronizedOperation.IsRunning">
+      <summary>
+            Gets flag indicating if the synchronized operation is currently executing its action.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.ISynchronizedOperation.Run(System.Boolean)">
+      <summary>
+            Executes the action on current thread or marks the operation as pending if the operation is already running.
+            </summary>
+      <param name="runPendingSynchronously">Defines synchronization mode for running any pending operation.</param>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.ISynchronizedOperation.RunAsync">
+      <summary>
+            Executes the action on another thread or marks the operation as pending if the operation is already running.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.ISynchronizedOperation.TryRun(System.Boolean)">
+      <summary>
+            Attempts to execute the action on current thread. Does nothing if the operation is already running.
+            </summary>
+      <param name="runPendingSynchronously">Defines synchronization mode for running any pending operation.</param>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.ISynchronizedOperation.TryRunAsync">
+      <summary>
+            Attempts to execute the action on another thread. Does nothing if the operation is already running.
+            </summary>
+    </member>
+    <member name="T:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation">
+      <summary>
+            Represents a long-running synchronized operation that cannot run while it is already in progress.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation.#ctor(System.Action)">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation" /> class.
+            </summary>
+      <param name="action">The action to be performed during this operation.</param>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation.#ctor(System.Action,System.Action{System.Exception})">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation" /> class.
+            </summary>
+      <param name="action">The action to be performed during this operation.</param>
+      <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation.#ctor(System.Action{System.Threading.CancellationToken})">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation" /> class.
+            </summary>
+      <param name="action">The cancellable action to be performed during this operation.</param>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation.#ctor(System.Action{System.Threading.CancellationToken},System.Action{System.Exception})">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation" /> class.
+            </summary>
+      <param name="action">The action to be performed during this operation.</param>
+      <param name="exceptionAction">The cancellable action to be performed if an exception is thrown from the action.</param>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation.ExecuteActionAsync">
+      <summary>
+            Executes the action on a separate thread.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation.Factory(System.Action)">
+      <summary>
+            Factory method to match the <see cref="T:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationFactory" /> signature.
+            </summary>
+      <param name="action">The action to be performed by the <see cref="T:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation" />.</param>
+      <returns>A new instance of <see cref="T:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation" />.</returns>
+    </member>
+    <member name="P:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation.IsBackground">
+      <summary>
+            Gets or sets whether or not the thread executing the action is a background thread.
+            </summary>
+    </member>
+    <member name="T:Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation">
+      <summary>
+            Represents a short-running synchronized operation that cannot run while it is already in progress.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation.#ctor(System.Action)">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation" /> class.
+            </summary>
+      <param name="action">The action to be performed during this operation.</param>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation.#ctor(System.Action,System.Action{System.Exception})">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation" /> class.
+            </summary>
+      <param name="action">The action to be performed during this operation.</param>
+      <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation.ExecuteActionAsync">
+      <summary>
+            Executes the action in an asynchronous loop on
+            the thread pool, as long as the operation is pending.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation.Factory(System.Action)">
+      <summary>
+            Factory method to match the <see cref="T:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationFactory" /> signature.
+            </summary>
+      <param name="action">The action to be performed by the <see cref="T:Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation" />.</param>
+      <returns>A new instance of <see cref="T:Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation" />.</returns>
+    </member>
+    <member name="T:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase">
+      <summary>
+            Base class for operations that cannot run while they is already in progress.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.#ctor(System.Action)">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase" /> class.
+            </summary>
+      <param name="action">The action to be performed during this operation.</param>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.#ctor(System.Action,System.Action{System.Exception})">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase" /> class.
+            </summary>
+      <param name="action">The action to be performed during this operation.</param>
+      <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.#ctor(System.Action{System.Threading.CancellationToken})">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase" /> class.
+            </summary>
+      <param name="action">The cancellable action to be performed during this operation.</param>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.#ctor(System.Action{System.Threading.CancellationToken},System.Action{System.Exception})">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase" /> class.
+            </summary>
+      <param name="action">The cancellable action to be performed during this operation.</param>
+      <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
+    </member>
+    <member name="P:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.CancellationToken">
+      <summary>
+            Gets or sets <see cref="T:System.Threading.CancellationToken" /> to use for cancelling actions.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.ExecuteAction">
+      <summary>
+            Executes the action once on the current thread.
+            </summary>
+      <returns>
+        <c>true</c> if the action was pending and needs to run again; otherwise, <c>false</c>.</returns>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.ExecuteActionAsync">
+      <summary>
+             Executes the action on a separate thread.
+             </summary>
+    </member>
+    <member name="P:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.IsPending">
+      <summary>
+            Gets flag indicating if the synchronized operation has an additional operation that is pending
+            execution after the currently running action has completed.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.IsRunning">
+      <summary>
+            Gets flag indicating if the synchronized operation is currently executing its action.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.ProcessException(System.Exception)">
+      <summary>
+            Processes an exception thrown by an operation.
+            </summary>
+      <param name="ex">
+        <see cref="T:System.Exception" /> to be processed.</param>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.Run(System.Boolean)">
+      <summary>
+            Executes the action on current thread or marks the operation as pending if the operation is already running.
+            </summary>
+      <param name="runPendingSynchronously">Defines synchronization mode for running any pending operation.</param>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.RunAsync">
+      <summary>
+            Executes the action on another thread or marks the operation as pending if the operation is already running.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.TryRun(System.Boolean)">
+      <summary>
+            Attempts to execute the action on current thread. Does nothing if the operation is already running.
+            </summary>
+      <param name="runPendingSynchronously">Defines synchronization mode for running any pending operation.</param>
+    </member>
+    <member name="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.TryRunAsync">
+      <summary>
+            Attempts to execute the action on another thread. Does nothing if the operation is already running.
+            </summary>
+    </member>
+    <member name="T:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationFactory">
+      <summary>
+            Factory method for creating synchronized operations.
+            </summary>
+      <param name="action">The action to be synchronized by the operation.</param>
+      <returns>The operation that synchronizes the given action.</returns>
+    </member>
+  </members>
+</doc>
