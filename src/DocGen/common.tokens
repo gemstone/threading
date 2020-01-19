@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <content xml:space="preserve" xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
   <item id="AboutGemstoneSection"><!-- Do not make changes to this file in Gemstone Library projects, the content source is shared. -->
 <!-- The source for this file exists here: https://github.com/gemstone/shared-content  -->
@@ -167,4 +167,3 @@
     <ddue:linkUri>https://GitHub.com/EWSoftware/SHFB</ddue:linkUri>
     </ddue:externalLink></item>
 </content>
-

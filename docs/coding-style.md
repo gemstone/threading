@@ -24,4 +24,3 @@ The general rule we follow is "_use Visual Studio defaults_".
 16. When using #region sections or labels (for goto), indent the item one less than the current indentation.
 
 An [EditorConfig](https://editorconfig.org "EditorConfig homepage") file (`.editorconfig`) has been provided at the root of the repository, enabling C# auto-formatting.
-

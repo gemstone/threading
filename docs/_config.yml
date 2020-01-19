@@ -1,10 +1,9 @@
 theme: jekyll-theme-cayman
-title: Gemstone.Threading
-description: GPA Gemstone Threading Library
+title: Gemstone.{sc:ProjectName}
+description: GPA Gemstone {sc:ProjectName} Library
 github:
-  repository_name: gemstone/threading
+  repository_name: gemstone/{sc:repo-name}
   owner_url: https://www.gridprotectionalliance.org
   owner_name: Grid Protection Alliance
 plugins:
   - jemoji
-

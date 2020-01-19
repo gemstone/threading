@@ -1,4 +1,4 @@
-version: AppVeyor Gemstone Threading Build {build}
+version: AppVeyor Gemstone {sc:ProjectName} Build {build}
 branches:
   only:
   - master
@@ -12,7 +12,7 @@ before_build:
 - cmd: >-
     choco install sandcastle
 
-    nuget restore src\Gemstone.Threading.sln
+    nuget restore src\Gemstone.{sc:ProjectName}.sln
 build:
   parallel: true
   verbosity: minimal
