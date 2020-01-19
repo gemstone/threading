@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <content xml:space="preserve" xmlns:ddue="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
   <item id="AboutGemstoneSection"><!-- Do not make changes to this file in Gemstone Library projects, the content source is shared. -->
 <!-- The source for this file exists here: https://github.com/gemstone/shared-content  -->
@@ -28,7 +28,7 @@
           </ddue:externalLink>.
         </ddue:para>
         <ddue:para>
-          These packages represent a focused re-envisioning of the best libraries, i.e., the "gems", from the
+          These libraries represent a focused re-envisioning of the best code, i.e., the "gems", from the
           <ddue:externalLink>
             <ddue:linkText>Grid Solutions Framework</ddue:linkText>
             <ddue:linkAlternateText>Grid Solutions Framework</ddue:linkAlternateText>
@@ -53,6 +53,19 @@
                 </ddue:externalLink>               
               </ddue:legacyBold>
               organizes all Gemstone functionality for most any .NET coding.
+            </ddue:para>
+          </ddue:listItem>
+          <ddue:listItem>
+            <ddue:para>
+              <ddue:legacyBold>
+                <ddue:externalLink>
+                  <ddue:linkText>Gemstone.Communication</ddue:linkText>
+                  <ddue:linkAlternateText>Gemstone.Communication</ddue:linkAlternateText>
+                  <ddue:linkUri>https://gemstone.github.io/communication/</ddue:linkUri>
+                  <ddue:linkTarget>_blank</ddue:linkTarget>
+                </ddue:externalLink>               
+              </ddue:legacyBold>
+              organizes all Gemstone functionality related to communication functionality, e.g., sockets and serial ports.
             </ddue:para>
           </ddue:listItem>
           <ddue:listItem>
@@ -154,3 +167,4 @@
     <ddue:linkUri>https://GitHub.com/EWSoftware/SHFB</ddue:linkUri>
     </ddue:externalLink></item>
 </content>
+
