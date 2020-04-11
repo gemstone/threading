@@ -34,6 +34,27 @@ namespace Gemstone.Threading.SynchronizedOperations
     /// <param name="action">The action to be synchronized by the operation.</param>
     /// <returns>The operation that synchronizes the given action.</returns>
     public delegate ISynchronizedOperation SynchronizedOperationFactory(Action action);
+    
+    /// <summary>
+    /// Represents the available types of synchronized operations.
+    /// </summary>
+    public enum SynchronizedOperationType
+    {
+        /// <summary>
+        /// <see cref="ShortSynchronizedOperation"/>
+        /// </summary>
+        Short,
+
+        /// <summary>
+        /// <see cref="LongSynchronizedOperation"/>
+        /// </summary>
+        Long,
+
+        /// <summary>
+        /// <see cref="LongSynchronizedOperation"/> with IsBackground set to <c>true</c>
+        /// </summary>
+        LongBackground
+    }
 
     /// <summary>
     /// Represents an operation that cannot run while it is already in progress.
@@ -52,7 +73,7 @@ namespace Gemstone.Threading.SynchronizedOperations
         bool IsPending { get; }
 
         /// <summary>
-        /// Gets or sets <see cref="System.Threading.CancellationToken"/> to use for cancelling actions.
+        /// Gets or sets <see cref="System.Threading.CancellationToken"/> to use for canceling actions.
         /// </summary>
         CancellationToken CancellationToken { get; set; }
 
