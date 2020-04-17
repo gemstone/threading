@@ -23,6 +23,7 @@
 
 using System;
 using System.Collections.Generic;
+using Gemstone.EventHandlerExtensions;
 
 namespace Gemstone.Threading.Collections
 {
@@ -63,8 +64,8 @@ namespace Gemstone.Threading.Collections
             m_doubleBufferedQueue = new DoubleBufferedQueue<T>();
 
             m_asyncQueue.ProcessItemFunction = item => m_doubleBufferedQueue.Enqueue(item);
-            m_asyncQueue.ProcessException += (sender, args) => ProcessException?.Invoke(sender ?? this, args);
-            m_doubleBufferedQueue.ProcessException += (sender, args) => ProcessException?.Invoke(sender ?? this, args);
+            m_asyncQueue.ProcessException += (sender, args) => ProcessException?.SafeInvoke(sender ?? this, args);
+            m_doubleBufferedQueue.ProcessException += (sender, args) => ProcessException?.SafeInvoke(sender ?? this, args);
         }
 
         #endregion

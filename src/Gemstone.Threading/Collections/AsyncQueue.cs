@@ -26,6 +26,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Threading;
+using Gemstone.EventHandlerExtensions;
 using Gemstone.Threading.SynchronizedOperations;
 
 namespace Gemstone.Threading.Collections
@@ -148,7 +149,7 @@ namespace Gemstone.Threading.Collections
         }
 
         // Raises the ProcessException event.
-        private void OnProcessException(Exception ex) => ProcessException?.Invoke(this, new EventArgs<Exception>(ex));
+        private void OnProcessException(Exception ex) => ProcessException?.SafeInvoke(this, new EventArgs<Exception>(ex));
 
         #endregion
     }
