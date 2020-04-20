@@ -1,9 +1,66 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <HelpKI>
+  <HelpKINode Title="AsyncDoubleBufferedQueue(Of T) class">
+    <HelpKINode Title="AsyncDoubleBufferedQueue(T) Class" Url="html/T_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1__ctor.htm" />
+    <HelpKINode Title="events" Url="html/Events_T_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="AsyncDoubleBufferedQueue(Of T).AsyncDoubleBufferedQueue constructor" Url="html/M_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1__ctor.htm" />
+  <HelpKINode Title="AsyncDoubleBufferedQueue(Of T).Count property" Url="html/P_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1_Count.htm" />
+  <HelpKINode Title="AsyncDoubleBufferedQueue(Of T).Enqueue method" Url="html/M_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1_Enqueue.htm" />
+  <HelpKINode Title="AsyncDoubleBufferedQueue(Of T).ProcessException event" Url="html/E_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1_ProcessException.htm" />
+  <HelpKINode Title="AsyncDoubleBufferedQueue(Of T).ProcessItemsFunction property" Url="html/P_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1_ProcessItemsFunction.htm" />
+  <HelpKINode Title="AsyncDoubleBufferedQueue&lt;T&gt; class">
+    <HelpKINode Title="AsyncDoubleBufferedQueue(T) Class" Url="html/T_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1__ctor.htm" />
+    <HelpKINode Title="events" Url="html/Events_T_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="AsyncDoubleBufferedQueue&lt;T&gt;.AsyncDoubleBufferedQueue constructor" Url="html/M_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1__ctor.htm" />
+  <HelpKINode Title="AsyncDoubleBufferedQueue&lt;T&gt;.Count property" Url="html/P_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1_Count.htm" />
+  <HelpKINode Title="AsyncDoubleBufferedQueue&lt;T&gt;.Enqueue method" Url="html/M_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1_Enqueue.htm" />
+  <HelpKINode Title="AsyncDoubleBufferedQueue&lt;T&gt;.ProcessException event" Url="html/E_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1_ProcessException.htm" />
+  <HelpKINode Title="AsyncDoubleBufferedQueue&lt;T&gt;.ProcessItemsFunction property" Url="html/P_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1_ProcessItemsFunction.htm" />
+  <HelpKINode Title="AsyncQueue(Of T) class">
+    <HelpKINode Title="AsyncQueue(T) Class" Url="html/T_Gemstone_Threading_Collections_AsyncQueue_1.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Gemstone_Threading_Collections_AsyncQueue_1__ctor.htm" />
+    <HelpKINode Title="events" Url="html/Events_T_Gemstone_Threading_Collections_AsyncQueue_1.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Threading_Collections_AsyncQueue_1.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_Threading_Collections_AsyncQueue_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="AsyncQueue(Of T).AsyncQueue constructor" Url="html/Overload_Gemstone_Threading_Collections_AsyncQueue_1__ctor.htm" />
+  <HelpKINode Title="AsyncQueue(Of T).Count property" Url="html/P_Gemstone_Threading_Collections_AsyncQueue_1_Count.htm" />
+  <HelpKINode Title="AsyncQueue(Of T).Enabled property" Url="html/P_Gemstone_Threading_Collections_AsyncQueue_1_Enabled.htm" />
+  <HelpKINode Title="AsyncQueue(Of T).Enqueue method" Url="html/M_Gemstone_Threading_Collections_AsyncQueue_1_Enqueue.htm" />
+  <HelpKINode Title="AsyncQueue(Of T).ProcessException event" Url="html/E_Gemstone_Threading_Collections_AsyncQueue_1_ProcessException.htm" />
+  <HelpKINode Title="AsyncQueue(Of T).ProcessItemFunction property" Url="html/P_Gemstone_Threading_Collections_AsyncQueue_1_ProcessItemFunction.htm" />
+  <HelpKINode Title="AsyncQueue&lt;T&gt; class">
+    <HelpKINode Title="AsyncQueue(T) Class" Url="html/T_Gemstone_Threading_Collections_AsyncQueue_1.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Gemstone_Threading_Collections_AsyncQueue_1__ctor.htm" />
+    <HelpKINode Title="events" Url="html/Events_T_Gemstone_Threading_Collections_AsyncQueue_1.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Threading_Collections_AsyncQueue_1.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_Threading_Collections_AsyncQueue_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="AsyncQueue&lt;T&gt;.AsyncQueue constructor" Url="html/Overload_Gemstone_Threading_Collections_AsyncQueue_1__ctor.htm" />
+  <HelpKINode Title="AsyncQueue&lt;T&gt;.Count property" Url="html/P_Gemstone_Threading_Collections_AsyncQueue_1_Count.htm" />
+  <HelpKINode Title="AsyncQueue&lt;T&gt;.Enabled property" Url="html/P_Gemstone_Threading_Collections_AsyncQueue_1_Enabled.htm" />
+  <HelpKINode Title="AsyncQueue&lt;T&gt;.Enqueue method" Url="html/M_Gemstone_Threading_Collections_AsyncQueue_1_Enqueue.htm" />
+  <HelpKINode Title="AsyncQueue&lt;T&gt;.ProcessException event" Url="html/E_Gemstone_Threading_Collections_AsyncQueue_1_ProcessException.htm" />
+  <HelpKINode Title="AsyncQueue&lt;T&gt;.ProcessItemFunction property" Url="html/P_Gemstone_Threading_Collections_AsyncQueue_1_ProcessItemFunction.htm" />
+  <HelpKINode Title="AutoReset property" Url="html/P_Gemstone_Threading_SharedTimer_AutoReset.htm" />
   <HelpKINode Title="CancellationToken property">
     <HelpKINode Title="ISynchronizedOperation.CancellationToken Property " Url="html/P_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation_CancellationToken.htm" />
     <HelpKINode Title="SynchronizedOperationBase.CancellationToken Property " Url="html/P_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_CancellationToken.htm" />
   </HelpKINode>
+  <HelpKINode Title="Clear method">
+    <HelpKINode Title="DoubleBufferedQueue(T).Clear Method " Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_Clear.htm" />
+    <HelpKINode Title="WeakAction(T).Clear Method " Url="html/M_Gemstone_Threading_WeakAction_1_Clear.htm" />
+    <HelpKINode Title="WeakAction.Clear Method " Url="html/M_Gemstone_Threading_WeakAction_Clear.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Close method" Url="html/M_Gemstone_Threading_SharedTimer_Close.htm" />
   <HelpKINode Title="ConcurrencyLimiter class">
     <HelpKINode Title="ConcurrencyLimiter Class" Url="html/T_Gemstone_Threading_ConcurrencyLimiter.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_Gemstone_Threading_ConcurrencyLimiter__ctor.htm" />
@@ -18,7 +75,13 @@
   <HelpKINode Title="ConcurrencyLimiter.SetMaximumConcurrencyLevel method" Url="html/M_Gemstone_Threading_ConcurrencyLimiter_SetMaximumConcurrencyLevel.htm" />
   <HelpKINode Title="ConcurrencyLimiter.TryExecuteTaskInline method" Url="html/M_Gemstone_Threading_ConcurrencyLimiter_TryExecuteTaskInline.htm" />
   <HelpKINode Title="CopyTo method" Url="html/M_Gemstone_Threading_Collections_PriorityQueue_1_CopyTo.htm" />
-  <HelpKINode Title="Count property" Url="html/P_Gemstone_Threading_Collections_PriorityQueue_1_Count.htm" />
+  <HelpKINode Title="Count property">
+    <HelpKINode Title="AsyncDoubleBufferedQueue(T).Count Property " Url="html/P_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1_Count.htm" />
+    <HelpKINode Title="AsyncQueue(T).Count Property " Url="html/P_Gemstone_Threading_Collections_AsyncQueue_1_Count.htm" />
+    <HelpKINode Title="DoubleBufferedQueue(T).Count Property " Url="html/P_Gemstone_Threading_Collections_DoubleBufferedQueue_1_Count.htm" />
+    <HelpKINode Title="PriorityQueue(T).Count Property " Url="html/P_Gemstone_Threading_Collections_PriorityQueue_1_Count.htm" />
+  </HelpKINode>
+  <HelpKINode Title="CreateTimer method" Url="html/M_Gemstone_Threading_SharedTimerScheduler_CreateTimer.htm" />
   <HelpKINode Title="CurrentConcurrencyLevel property" Url="html/P_Gemstone_Threading_ConcurrencyLimiter_CurrentConcurrencyLevel.htm" />
   <HelpKINode Title="DefaultDelay field" Url="html/F_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation_DefaultDelay.htm" />
   <HelpKINode Title="DefaultMaximumConcurrentLocks field" Url="html/F_Gemstone_Threading_InterprocessReaderWriterLock_DefaultMaximumConcurrentLocks.htm" />
@@ -39,8 +102,95 @@
   <HelpKINode Title="DelayedSynchronizedOperation.RunAsync method" Url="html/M_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation_RunAsync.htm" />
   <HelpKINode Title="DelayedSynchronizedOperation.TryRun method" Url="html/M_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation_TryRun.htm" />
   <HelpKINode Title="DelayedSynchronizedOperation.TryRunAsync method" Url="html/M_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation_TryRunAsync.htm" />
-  <HelpKINode Title="Dispose method" Url="html/Overload_Gemstone_Threading_InterprocessReaderWriterLock_Dispose.htm" />
-  <HelpKINode Title="Enqueue method" Url="html/M_Gemstone_Threading_Collections_PriorityQueue_1_Enqueue.htm" />
+  <HelpKINode Title="Dequeue method">
+    <HelpKINode Title="DoubleBufferedQueue(T).Dequeue Method " Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_Dequeue.htm" />
+    <HelpKINode Title="DoubleBufferedQueueManager(T).Dequeue Method " Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueueManager_1_Dequeue.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Dispose method">
+    <HelpKINode Title="DoubleBufferedQueueProducer(T).Dispose Method " Url="html/Overload_Gemstone_Threading_Collections_DoubleBufferedQueueProducer_1_Dispose.htm" />
+    <HelpKINode Title="InterprocessReaderWriterLock.Dispose Method " Url="html/Overload_Gemstone_Threading_InterprocessReaderWriterLock_Dispose.htm" />
+    <HelpKINode Title="SharedTimer.Dispose Method " Url="html/M_Gemstone_Threading_SharedTimer_Dispose.htm" />
+    <HelpKINode Title="SharedTimerScheduler.Dispose Method " Url="html/M_Gemstone_Threading_SharedTimerScheduler_Dispose.htm" />
+  </HelpKINode>
+  <HelpKINode Title="DoubleBufferedQueue(Of T) class">
+    <HelpKINode Title="DoubleBufferedQueue(T) Class" Url="html/T_Gemstone_Threading_Collections_DoubleBufferedQueue_1.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1__ctor.htm" />
+    <HelpKINode Title="events" Url="html/Events_T_Gemstone_Threading_Collections_DoubleBufferedQueue_1.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Threading_Collections_DoubleBufferedQueue_1.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_Threading_Collections_DoubleBufferedQueue_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="DoubleBufferedQueue(Of T).Clear method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_Clear.htm" />
+  <HelpKINode Title="DoubleBufferedQueue(Of T).Count property" Url="html/P_Gemstone_Threading_Collections_DoubleBufferedQueue_1_Count.htm" />
+  <HelpKINode Title="DoubleBufferedQueue(Of T).Dequeue method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_Dequeue.htm" />
+  <HelpKINode Title="DoubleBufferedQueue(Of T).DoubleBufferedQueue constructor" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1__ctor.htm" />
+  <HelpKINode Title="DoubleBufferedQueue(Of T).Enqueue method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_Enqueue.htm" />
+  <HelpKINode Title="DoubleBufferedQueue(Of T).ProcessException event" Url="html/E_Gemstone_Threading_Collections_DoubleBufferedQueue_1_ProcessException.htm" />
+  <HelpKINode Title="DoubleBufferedQueue(Of T).ProcessItemsFunction property" Url="html/P_Gemstone_Threading_Collections_DoubleBufferedQueue_1_ProcessItemsFunction.htm" />
+  <HelpKINode Title="DoubleBufferedQueue(Of T).TryClear method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_TryClear.htm" />
+  <HelpKINode Title="DoubleBufferedQueue(Of T).TryDequeue method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_TryDequeue.htm" />
+  <HelpKINode Title="DoubleBufferedQueue(Of T).TryEnqueue method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_TryEnqueue.htm" />
+  <HelpKINode Title="DoubleBufferedQueue&lt;T&gt; class">
+    <HelpKINode Title="DoubleBufferedQueue(T) Class" Url="html/T_Gemstone_Threading_Collections_DoubleBufferedQueue_1.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1__ctor.htm" />
+    <HelpKINode Title="events" Url="html/Events_T_Gemstone_Threading_Collections_DoubleBufferedQueue_1.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Threading_Collections_DoubleBufferedQueue_1.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_Threading_Collections_DoubleBufferedQueue_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="DoubleBufferedQueue&lt;T&gt;.Clear method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_Clear.htm" />
+  <HelpKINode Title="DoubleBufferedQueue&lt;T&gt;.Count property" Url="html/P_Gemstone_Threading_Collections_DoubleBufferedQueue_1_Count.htm" />
+  <HelpKINode Title="DoubleBufferedQueue&lt;T&gt;.Dequeue method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_Dequeue.htm" />
+  <HelpKINode Title="DoubleBufferedQueue&lt;T&gt;.DoubleBufferedQueue constructor" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1__ctor.htm" />
+  <HelpKINode Title="DoubleBufferedQueue&lt;T&gt;.Enqueue method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_Enqueue.htm" />
+  <HelpKINode Title="DoubleBufferedQueue&lt;T&gt;.ProcessException event" Url="html/E_Gemstone_Threading_Collections_DoubleBufferedQueue_1_ProcessException.htm" />
+  <HelpKINode Title="DoubleBufferedQueue&lt;T&gt;.ProcessItemsFunction property" Url="html/P_Gemstone_Threading_Collections_DoubleBufferedQueue_1_ProcessItemsFunction.htm" />
+  <HelpKINode Title="DoubleBufferedQueue&lt;T&gt;.TryClear method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_TryClear.htm" />
+  <HelpKINode Title="DoubleBufferedQueue&lt;T&gt;.TryDequeue method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_TryDequeue.htm" />
+  <HelpKINode Title="DoubleBufferedQueue&lt;T&gt;.TryEnqueue method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_TryEnqueue.htm" />
+  <HelpKINode Title="DoubleBufferedQueueManager(Of T) class">
+    <HelpKINode Title="DoubleBufferedQueueManager(T) Class" Url="html/T_Gemstone_Threading_Collections_DoubleBufferedQueueManager_1.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Gemstone_Threading_Collections_DoubleBufferedQueueManager_1__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Threading_Collections_DoubleBufferedQueueManager_1.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_Threading_Collections_DoubleBufferedQueueManager_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="DoubleBufferedQueueManager(Of T).Dequeue method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueueManager_1_Dequeue.htm" />
+  <HelpKINode Title="DoubleBufferedQueueManager(Of T).DoubleBufferedQueueManager constructor" Url="html/Overload_Gemstone_Threading_Collections_DoubleBufferedQueueManager_1__ctor.htm" />
+  <HelpKINode Title="DoubleBufferedQueueManager(Of T).GetProducer method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueueManager_1_GetProducer.htm" />
+  <HelpKINode Title="DoubleBufferedQueueManager(Of T).ItemsLeft property" Url="html/P_Gemstone_Threading_Collections_DoubleBufferedQueueManager_1_ItemsLeft.htm" />
+  <HelpKINode Title="DoubleBufferedQueueManager&lt;T&gt; class">
+    <HelpKINode Title="DoubleBufferedQueueManager(T) Class" Url="html/T_Gemstone_Threading_Collections_DoubleBufferedQueueManager_1.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Gemstone_Threading_Collections_DoubleBufferedQueueManager_1__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Threading_Collections_DoubleBufferedQueueManager_1.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_Threading_Collections_DoubleBufferedQueueManager_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="DoubleBufferedQueueManager&lt;T&gt;.Dequeue method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueueManager_1_Dequeue.htm" />
+  <HelpKINode Title="DoubleBufferedQueueManager&lt;T&gt;.DoubleBufferedQueueManager constructor" Url="html/Overload_Gemstone_Threading_Collections_DoubleBufferedQueueManager_1__ctor.htm" />
+  <HelpKINode Title="DoubleBufferedQueueManager&lt;T&gt;.GetProducer method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueueManager_1_GetProducer.htm" />
+  <HelpKINode Title="DoubleBufferedQueueManager&lt;T&gt;.ItemsLeft property" Url="html/P_Gemstone_Threading_Collections_DoubleBufferedQueueManager_1_ItemsLeft.htm" />
+  <HelpKINode Title="DoubleBufferedQueueProducer(Of T) class">
+    <HelpKINode Title="DoubleBufferedQueueProducer(T) Class" Url="html/T_Gemstone_Threading_Collections_DoubleBufferedQueueProducer_1.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Threading_Collections_DoubleBufferedQueueProducer_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="DoubleBufferedQueueProducer(Of T).Dispose method" Url="html/Overload_Gemstone_Threading_Collections_DoubleBufferedQueueProducer_1_Dispose.htm" />
+  <HelpKINode Title="DoubleBufferedQueueProducer(Of T).Finalize method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueueProducer_1_Finalize.htm" />
+  <HelpKINode Title="DoubleBufferedQueueProducer(Of T).Produce method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueueProducer_1_Produce.htm" />
+  <HelpKINode Title="DoubleBufferedQueueProducer&lt;T&gt; class">
+    <HelpKINode Title="DoubleBufferedQueueProducer(T) Class" Url="html/T_Gemstone_Threading_Collections_DoubleBufferedQueueProducer_1.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Threading_Collections_DoubleBufferedQueueProducer_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="DoubleBufferedQueueProducer&lt;T&gt;.Dispose method" Url="html/Overload_Gemstone_Threading_Collections_DoubleBufferedQueueProducer_1_Dispose.htm" />
+  <HelpKINode Title="DoubleBufferedQueueProducer&lt;T&gt;.Finalize method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueueProducer_1_Finalize.htm" />
+  <HelpKINode Title="DoubleBufferedQueueProducer&lt;T&gt;.Produce method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueueProducer_1_Produce.htm" />
+  <HelpKINode Title="Elapsed event" Url="html/E_Gemstone_Threading_SharedTimer_Elapsed.htm" />
+  <HelpKINode Title="Enabled property">
+    <HelpKINode Title="AsyncQueue(T).Enabled Property " Url="html/P_Gemstone_Threading_Collections_AsyncQueue_1_Enabled.htm" />
+    <HelpKINode Title="SharedTimer.Enabled Property " Url="html/P_Gemstone_Threading_SharedTimer_Enabled.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Enqueue method">
+    <HelpKINode Title="AsyncDoubleBufferedQueue(T).Enqueue Method " Url="html/M_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1_Enqueue.htm" />
+    <HelpKINode Title="AsyncQueue(T).Enqueue Method " Url="html/M_Gemstone_Threading_Collections_AsyncQueue_1_Enqueue.htm" />
+    <HelpKINode Title="DoubleBufferedQueue(T).Enqueue Method " Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_Enqueue.htm" />
+    <HelpKINode Title="PriorityQueue(T).Enqueue Method " Url="html/M_Gemstone_Threading_Collections_PriorityQueue_1_Enqueue.htm" />
+  </HelpKINode>
   <HelpKINode Title="EnterReadLock method" Url="html/M_Gemstone_Threading_InterprocessReaderWriterLock_EnterReadLock.htm" />
   <HelpKINode Title="EnterWriteLock method" Url="html/M_Gemstone_Threading_InterprocessReaderWriterLock_EnterWriteLock.htm" />
   <HelpKINode Title="ExecuteAction method" Url="html/M_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_ExecuteAction.htm" />
@@ -57,14 +207,29 @@
     <HelpKINode Title="LongSynchronizedOperation.Factory Method " Url="html/M_Gemstone_Threading_SynchronizedOperations_LongSynchronizedOperation_Factory.htm" />
     <HelpKINode Title="ShortSynchronizedOperation.Factory Method " Url="html/M_Gemstone_Threading_SynchronizedOperations_ShortSynchronizedOperation_Factory.htm" />
   </HelpKINode>
-  <HelpKINode Title="Finalize method" Url="html/M_Gemstone_Threading_InterprocessReaderWriterLock_Finalize.htm" />
+  <HelpKINode Title="Finalize method">
+    <HelpKINode Title="DoubleBufferedQueueProducer(T).Finalize Method " Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueueProducer_1_Finalize.htm" />
+    <HelpKINode Title="InterprocessReaderWriterLock.Finalize Method " Url="html/M_Gemstone_Threading_InterprocessReaderWriterLock_Finalize.htm" />
+  </HelpKINode>
   <HelpKINode Title="Gemstone.Threading namespace" Url="html/N_Gemstone_Threading.htm" />
   <HelpKINode Title="Gemstone.Threading.Collections namespace" Url="html/N_Gemstone_Threading_Collections.htm" />
+  <HelpKINode Title="Gemstone.Threading.Collections.AsyncDoubleBufferedQueue(Of T) class" Url="html/T_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1.htm" />
+  <HelpKINode Title="Gemstone.Threading.Collections.AsyncDoubleBufferedQueue&lt;T&gt; class" Url="html/T_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1.htm" />
+  <HelpKINode Title="Gemstone.Threading.Collections.AsyncQueue(Of T) class" Url="html/T_Gemstone_Threading_Collections_AsyncQueue_1.htm" />
+  <HelpKINode Title="Gemstone.Threading.Collections.AsyncQueue&lt;T&gt; class" Url="html/T_Gemstone_Threading_Collections_AsyncQueue_1.htm" />
+  <HelpKINode Title="Gemstone.Threading.Collections.DoubleBufferedQueue(Of T) class" Url="html/T_Gemstone_Threading_Collections_DoubleBufferedQueue_1.htm" />
+  <HelpKINode Title="Gemstone.Threading.Collections.DoubleBufferedQueue&lt;T&gt; class" Url="html/T_Gemstone_Threading_Collections_DoubleBufferedQueue_1.htm" />
+  <HelpKINode Title="Gemstone.Threading.Collections.DoubleBufferedQueueManager(Of T) class" Url="html/T_Gemstone_Threading_Collections_DoubleBufferedQueueManager_1.htm" />
+  <HelpKINode Title="Gemstone.Threading.Collections.DoubleBufferedQueueManager&lt;T&gt; class" Url="html/T_Gemstone_Threading_Collections_DoubleBufferedQueueManager_1.htm" />
+  <HelpKINode Title="Gemstone.Threading.Collections.DoubleBufferedQueueProducer(Of T) class" Url="html/T_Gemstone_Threading_Collections_DoubleBufferedQueueProducer_1.htm" />
+  <HelpKINode Title="Gemstone.Threading.Collections.DoubleBufferedQueueProducer&lt;T&gt; class" Url="html/T_Gemstone_Threading_Collections_DoubleBufferedQueueProducer_1.htm" />
   <HelpKINode Title="Gemstone.Threading.Collections.PriorityQueue(Of T) class" Url="html/T_Gemstone_Threading_Collections_PriorityQueue_1.htm" />
   <HelpKINode Title="Gemstone.Threading.Collections.PriorityQueue&lt;T&gt; class" Url="html/T_Gemstone_Threading_Collections_PriorityQueue_1.htm" />
   <HelpKINode Title="Gemstone.Threading.ConcurrencyLimiter class" Url="html/T_Gemstone_Threading_ConcurrencyLimiter.htm" />
   <HelpKINode Title="Gemstone.Threading.InterprocessLock class" Url="html/T_Gemstone_Threading_InterprocessLock.htm" />
   <HelpKINode Title="Gemstone.Threading.InterprocessReaderWriterLock class" Url="html/T_Gemstone_Threading_InterprocessReaderWriterLock.htm" />
+  <HelpKINode Title="Gemstone.Threading.SharedTimer class" Url="html/T_Gemstone_Threading_SharedTimer.htm" />
+  <HelpKINode Title="Gemstone.Threading.SharedTimerScheduler class" Url="html/T_Gemstone_Threading_SharedTimerScheduler.htm" />
   <HelpKINode Title="Gemstone.Threading.Strands namespace" Url="html/N_Gemstone_Threading_Strands.htm" />
   <HelpKINode Title="Gemstone.Threading.Strands.PriorityStrand class" Url="html/T_Gemstone_Threading_Strands_PriorityStrand.htm" />
   <HelpKINode Title="Gemstone.Threading.Strands.Strand class" Url="html/T_Gemstone_Threading_Strands_Strand.htm" />
@@ -75,9 +240,14 @@
   <HelpKINode Title="Gemstone.Threading.SynchronizedOperations.ShortSynchronizedOperation class" Url="html/T_Gemstone_Threading_SynchronizedOperations_ShortSynchronizedOperation.htm" />
   <HelpKINode Title="Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase class" Url="html/T_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase.htm" />
   <HelpKINode Title="Gemstone.Threading.SynchronizedOperations.SynchronizedOperationFactory delegate" Url="html/T_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationFactory.htm" />
+  <HelpKINode Title="Gemstone.Threading.SynchronizedOperations.SynchronizedOperationType enumeration" Url="html/T_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationType.htm" />
+  <HelpKINode Title="Gemstone.Threading.WeakAction class" Url="html/T_Gemstone_Threading_WeakAction.htm" />
+  <HelpKINode Title="Gemstone.Threading.WeakAction(Of T) class" Url="html/T_Gemstone_Threading_WeakAction_1.htm" />
+  <HelpKINode Title="Gemstone.Threading.WeakAction&lt;T&gt; class" Url="html/T_Gemstone_Threading_WeakAction_1.htm" />
   <HelpKINode Title="GetEnumerator method" Url="html/M_Gemstone_Threading_Collections_PriorityQueue_1_GetEnumerator.htm" />
   <HelpKINode Title="GetNamedMutex method" Url="html/Overload_Gemstone_Threading_InterprocessLock_GetNamedMutex.htm" />
   <HelpKINode Title="GetNamedSemaphore method" Url="html/Overload_Gemstone_Threading_InterprocessLock_GetNamedSemaphore.htm" />
+  <HelpKINode Title="GetProducer method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueueManager_1_GetProducer.htm" />
   <HelpKINode Title="GetScheduledTasks method">
     <HelpKINode Title="ConcurrencyLimiter.GetScheduledTasks Method " Url="html/M_Gemstone_Threading_ConcurrencyLimiter_GetScheduledTasks.htm" />
     <HelpKINode Title="Strand.GetScheduledTasks Method " Url="html/M_Gemstone_Threading_Strands_Strand_GetScheduledTasks.htm" />
@@ -107,7 +277,9 @@
   <HelpKINode Title="InterprocessReaderWriterLock.MaximumConcurrentLocks property" Url="html/P_Gemstone_Threading_InterprocessReaderWriterLock_MaximumConcurrentLocks.htm" />
   <HelpKINode Title="InterprocessReaderWriterLock.TryEnterReadLock method" Url="html/M_Gemstone_Threading_InterprocessReaderWriterLock_TryEnterReadLock.htm" />
   <HelpKINode Title="InterprocessReaderWriterLock.TryEnterWriteLock method" Url="html/M_Gemstone_Threading_InterprocessReaderWriterLock_TryEnterWriteLock.htm" />
+  <HelpKINode Title="Interval property" Url="html/P_Gemstone_Threading_SharedTimer_Interval.htm" />
   <HelpKINode Title="IsBackground property" Url="html/P_Gemstone_Threading_SynchronizedOperations_LongSynchronizedOperation_IsBackground.htm" />
+  <HelpKINode Title="IsDisposed property" Url="html/P_Gemstone_Threading_SharedTimerScheduler_IsDisposed.htm" />
   <HelpKINode Title="IsEmpty property" Url="html/P_Gemstone_Threading_Collections_PriorityQueue_1_IsEmpty.htm" />
   <HelpKINode Title="IsPending property">
     <HelpKINode Title="ISynchronizedOperation.IsPending Property " Url="html/P_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation_IsPending.htm" />
@@ -129,6 +301,9 @@
   <HelpKINode Title="ISynchronizedOperation.RunAsync method" Url="html/M_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation_RunAsync.htm" />
   <HelpKINode Title="ISynchronizedOperation.TryRun method" Url="html/M_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation_TryRun.htm" />
   <HelpKINode Title="ISynchronizedOperation.TryRunAsync method" Url="html/M_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation_TryRunAsync.htm" />
+  <HelpKINode Title="ItemsLeft property" Url="html/P_Gemstone_Threading_Collections_DoubleBufferedQueueManager_1_ItemsLeft.htm" />
+  <HelpKINode Title="Long enumeration member" Url="html/T_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationType.htm" />
+  <HelpKINode Title="LongBackground enumeration member" Url="html/T_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationType.htm" />
   <HelpKINode Title="LongSynchronizedOperation class">
     <HelpKINode Title="LongSynchronizedOperation Class" Url="html/T_Gemstone_Threading_SynchronizedOperations_LongSynchronizedOperation.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_Gemstone_Threading_SynchronizedOperations_LongSynchronizedOperation__ctor.htm" />
@@ -181,7 +356,18 @@
   </HelpKINode>
   <HelpKINode Title="PriorityStrand.GetScheduler method" Url="html/M_Gemstone_Threading_Strands_PriorityStrand_GetScheduler.htm" />
   <HelpKINode Title="PriorityStrand.PriorityStrand constructor" Url="html/Overload_Gemstone_Threading_Strands_PriorityStrand__ctor.htm" />
+  <HelpKINode Title="ProcessException event">
+    <HelpKINode Title="AsyncDoubleBufferedQueue(T).ProcessException Event" Url="html/E_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1_ProcessException.htm" />
+    <HelpKINode Title="AsyncQueue(T).ProcessException Event" Url="html/E_Gemstone_Threading_Collections_AsyncQueue_1_ProcessException.htm" />
+    <HelpKINode Title="DoubleBufferedQueue(T).ProcessException Event" Url="html/E_Gemstone_Threading_Collections_DoubleBufferedQueue_1_ProcessException.htm" />
+  </HelpKINode>
   <HelpKINode Title="ProcessException method" Url="html/M_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_ProcessException.htm" />
+  <HelpKINode Title="ProcessItemFunction property" Url="html/P_Gemstone_Threading_Collections_AsyncQueue_1_ProcessItemFunction.htm" />
+  <HelpKINode Title="ProcessItemsFunction property">
+    <HelpKINode Title="AsyncDoubleBufferedQueue(T).ProcessItemsFunction Property " Url="html/P_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1_ProcessItemsFunction.htm" />
+    <HelpKINode Title="DoubleBufferedQueue(T).ProcessItemsFunction Property " Url="html/P_Gemstone_Threading_Collections_DoubleBufferedQueue_1_ProcessItemsFunction.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Produce method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueueProducer_1_Produce.htm" />
   <HelpKINode Title="QueueTask method">
     <HelpKINode Title="ConcurrencyLimiter.QueueTask Method " Url="html/M_Gemstone_Threading_ConcurrencyLimiter_QueueTask.htm" />
     <HelpKINode Title="Strand.QueueTask Method " Url="html/M_Gemstone_Threading_Strands_Strand_QueueTask.htm" />
@@ -197,6 +383,32 @@
     <HelpKINode Title="SynchronizedOperationBase.RunAsync Method " Url="html/M_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_RunAsync.htm" />
   </HelpKINode>
   <HelpKINode Title="SetMaximumConcurrencyLevel method" Url="html/M_Gemstone_Threading_ConcurrencyLimiter_SetMaximumConcurrencyLevel.htm" />
+  <HelpKINode Title="SharedTimer class">
+    <HelpKINode Title="SharedTimer Class" Url="html/T_Gemstone_Threading_SharedTimer.htm" />
+    <HelpKINode Title="events" Url="html/Events_T_Gemstone_Threading_SharedTimer.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Threading_SharedTimer.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_Threading_SharedTimer.htm" />
+  </HelpKINode>
+  <HelpKINode Title="SharedTimer.AutoReset property" Url="html/P_Gemstone_Threading_SharedTimer_AutoReset.htm" />
+  <HelpKINode Title="SharedTimer.Close method" Url="html/M_Gemstone_Threading_SharedTimer_Close.htm" />
+  <HelpKINode Title="SharedTimer.Dispose method" Url="html/M_Gemstone_Threading_SharedTimer_Dispose.htm" />
+  <HelpKINode Title="SharedTimer.Elapsed event" Url="html/E_Gemstone_Threading_SharedTimer_Elapsed.htm" />
+  <HelpKINode Title="SharedTimer.Enabled property" Url="html/P_Gemstone_Threading_SharedTimer_Enabled.htm" />
+  <HelpKINode Title="SharedTimer.Interval property" Url="html/P_Gemstone_Threading_SharedTimer_Interval.htm" />
+  <HelpKINode Title="SharedTimer.Start method" Url="html/M_Gemstone_Threading_SharedTimer_Start.htm" />
+  <HelpKINode Title="SharedTimer.Status property" Url="html/P_Gemstone_Threading_SharedTimer_Status.htm" />
+  <HelpKINode Title="SharedTimer.Stop method" Url="html/M_Gemstone_Threading_SharedTimer_Stop.htm" />
+  <HelpKINode Title="SharedTimerScheduler class">
+    <HelpKINode Title="SharedTimerScheduler Class" Url="html/T_Gemstone_Threading_SharedTimerScheduler.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Gemstone_Threading_SharedTimerScheduler__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Threading_SharedTimerScheduler.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_Threading_SharedTimerScheduler.htm" />
+  </HelpKINode>
+  <HelpKINode Title="SharedTimerScheduler.CreateTimer method" Url="html/M_Gemstone_Threading_SharedTimerScheduler_CreateTimer.htm" />
+  <HelpKINode Title="SharedTimerScheduler.Dispose method" Url="html/M_Gemstone_Threading_SharedTimerScheduler_Dispose.htm" />
+  <HelpKINode Title="SharedTimerScheduler.IsDisposed property" Url="html/P_Gemstone_Threading_SharedTimerScheduler_IsDisposed.htm" />
+  <HelpKINode Title="SharedTimerScheduler.SharedTimerScheduler constructor" Url="html/M_Gemstone_Threading_SharedTimerScheduler__ctor.htm" />
+  <HelpKINode Title="Short enumeration member" Url="html/T_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationType.htm" />
   <HelpKINode Title="ShortSynchronizedOperation class">
     <HelpKINode Title="ShortSynchronizedOperation Class" Url="html/T_Gemstone_Threading_SynchronizedOperations_ShortSynchronizedOperation.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_Gemstone_Threading_SynchronizedOperations_ShortSynchronizedOperation__ctor.htm" />
@@ -206,6 +418,9 @@
   <HelpKINode Title="ShortSynchronizedOperation.ExecuteActionAsync method" Url="html/M_Gemstone_Threading_SynchronizedOperations_ShortSynchronizedOperation_ExecuteActionAsync.htm" />
   <HelpKINode Title="ShortSynchronizedOperation.Factory method" Url="html/M_Gemstone_Threading_SynchronizedOperations_ShortSynchronizedOperation_Factory.htm" />
   <HelpKINode Title="ShortSynchronizedOperation.ShortSynchronizedOperation constructor" Url="html/Overload_Gemstone_Threading_SynchronizedOperations_ShortSynchronizedOperation__ctor.htm" />
+  <HelpKINode Title="Start method" Url="html/M_Gemstone_Threading_SharedTimer_Start.htm" />
+  <HelpKINode Title="Status property" Url="html/P_Gemstone_Threading_SharedTimer_Status.htm" />
+  <HelpKINode Title="Stop method" Url="html/M_Gemstone_Threading_SharedTimer_Stop.htm" />
   <HelpKINode Title="Strand class">
     <HelpKINode Title="Strand Class" Url="html/T_Gemstone_Threading_Strands_Strand.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_Gemstone_Threading_Strands_Strand__ctor.htm" />
@@ -236,16 +451,24 @@
   <HelpKINode Title="SynchronizedOperationBase.TryRun method" Url="html/M_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_TryRun.htm" />
   <HelpKINode Title="SynchronizedOperationBase.TryRunAsync method" Url="html/M_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_TryRunAsync.htm" />
   <HelpKINode Title="SynchronizedOperationFactory delegate" Url="html/T_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationFactory.htm" />
+  <HelpKINode Title="SynchronizedOperationType enumeration" Url="html/T_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationType.htm" />
   <HelpKINode Title="ToArray method" Url="html/M_Gemstone_Threading_Collections_PriorityQueue_1_ToArray.htm" />
+  <HelpKINode Title="TryClear method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_TryClear.htm" />
   <HelpKINode Title="TryDequeue method">
+    <HelpKINode Title="DoubleBufferedQueue(T).TryDequeue Method " Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_TryDequeue.htm" />
     <HelpKINode Title="PriorityQueue(T).TryDequeue Method " Url="html/Overload_Gemstone_Threading_Collections_PriorityQueue_1_TryDequeue.htm" />
     <HelpKINode Title="Strand.TryDequeue Method " Url="html/M_Gemstone_Threading_Strands_Strand_TryDequeue.htm" />
   </HelpKINode>
+  <HelpKINode Title="TryEnqueue method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_TryEnqueue.htm" />
   <HelpKINode Title="TryEnterReadLock method" Url="html/M_Gemstone_Threading_InterprocessReaderWriterLock_TryEnterReadLock.htm" />
   <HelpKINode Title="TryEnterWriteLock method" Url="html/M_Gemstone_Threading_InterprocessReaderWriterLock_TryEnterWriteLock.htm" />
   <HelpKINode Title="TryExecuteTaskInline method">
     <HelpKINode Title="ConcurrencyLimiter.TryExecuteTaskInline Method " Url="html/M_Gemstone_Threading_ConcurrencyLimiter_TryExecuteTaskInline.htm" />
     <HelpKINode Title="Strand.TryExecuteTaskInline Method " Url="html/M_Gemstone_Threading_Strands_Strand_TryExecuteTaskInline.htm" />
+  </HelpKINode>
+  <HelpKINode Title="TryInvoke method">
+    <HelpKINode Title="WeakAction(T).TryInvoke Method " Url="html/M_Gemstone_Threading_WeakAction_1_TryInvoke.htm" />
+    <HelpKINode Title="WeakAction.TryInvoke Method " Url="html/M_Gemstone_Threading_WeakAction_TryInvoke.htm" />
   </HelpKINode>
   <HelpKINode Title="TryPeek method" Url="html/Overload_Gemstone_Threading_Collections_PriorityQueue_1_TryPeek.htm" />
   <HelpKINode Title="TryRun method">
@@ -258,6 +481,33 @@
     <HelpKINode Title="ISynchronizedOperation.TryRunAsync Method " Url="html/M_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation_TryRunAsync.htm" />
     <HelpKINode Title="SynchronizedOperationBase.TryRunAsync Method " Url="html/M_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_TryRunAsync.htm" />
   </HelpKINode>
+  <HelpKINode Title="WeakAction class">
+    <HelpKINode Title="WeakAction Class" Url="html/T_Gemstone_Threading_WeakAction.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Gemstone_Threading_WeakAction__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Threading_WeakAction.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_Threading_WeakAction.htm" />
+  </HelpKINode>
+  <HelpKINode Title="WeakAction(Of T) class">
+    <HelpKINode Title="WeakAction(T) Class" Url="html/T_Gemstone_Threading_WeakAction_1.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Gemstone_Threading_WeakAction_1__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Threading_WeakAction_1.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_Threading_WeakAction_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="WeakAction(Of T).Clear method" Url="html/M_Gemstone_Threading_WeakAction_1_Clear.htm" />
+  <HelpKINode Title="WeakAction(Of T).TryInvoke method" Url="html/M_Gemstone_Threading_WeakAction_1_TryInvoke.htm" />
+  <HelpKINode Title="WeakAction(Of T).WeakAction constructor" Url="html/M_Gemstone_Threading_WeakAction_1__ctor.htm" />
+  <HelpKINode Title="WeakAction.Clear method" Url="html/M_Gemstone_Threading_WeakAction_Clear.htm" />
+  <HelpKINode Title="WeakAction.TryInvoke method" Url="html/M_Gemstone_Threading_WeakAction_TryInvoke.htm" />
+  <HelpKINode Title="WeakAction.WeakAction constructor" Url="html/M_Gemstone_Threading_WeakAction__ctor.htm" />
+  <HelpKINode Title="WeakAction&lt;T&gt; class">
+    <HelpKINode Title="WeakAction(T) Class" Url="html/T_Gemstone_Threading_WeakAction_1.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Gemstone_Threading_WeakAction_1__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Threading_WeakAction_1.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_Threading_WeakAction_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="WeakAction&lt;T&gt;.Clear method" Url="html/M_Gemstone_Threading_WeakAction_1_Clear.htm" />
+  <HelpKINode Title="WeakAction&lt;T&gt;.TryInvoke method" Url="html/M_Gemstone_Threading_WeakAction_1_TryInvoke.htm" />
+  <HelpKINode Title="WeakAction&lt;T&gt;.WeakAction constructor" Url="html/M_Gemstone_Threading_WeakAction_1__ctor.htm" />
   <HelpKINode Title="welcome">
     <HelpKINode Title="getting started, root, gemstone" Url="html/About.htm" />
   </HelpKINode>
