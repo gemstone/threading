@@ -105,10 +105,7 @@ namespace Gemstone.Threading
         /// </returns>
         public bool AutoReset
         {
-            get
-            {
-                return m_autoReset;
-            }
+            get => m_autoReset;
             set
             {
                 if (m_autoReset == value)
@@ -116,11 +113,11 @@ namespace Gemstone.Threading
 
                 m_autoReset = value;
 
-                if (value && m_enabled)
-                {
-                    m_registeredCallback?.Clear();
-                    m_registeredCallback = m_scheduler.RegisterCallback(m_interval, m_callback);
-                }
+                if (!value || !m_enabled)
+                    return;
+
+                m_registeredCallback?.Clear();
+                m_registeredCallback = m_scheduler.RegisterCallback(m_interval, m_callback);
             }
         }
 
@@ -133,17 +130,14 @@ namespace Gemstone.Threading
         /// </returns>
         public bool Enabled
         {
-            get
-            {
-                return m_enabled;
-            }
+            get => m_enabled;
             set
             {
-                if (m_disposed)
-                    throw new ObjectDisposedException(GetType().FullName);
-
                 if (m_enabled == value)
                     return;
+
+                if (m_disposed)
+                    throw new ObjectDisposedException(GetType().FullName);
 
                 m_enabled = value;
 
@@ -164,10 +158,7 @@ namespace Gemstone.Threading
         /// </remarks>
         public int Interval
         {
-            get
-            {
-                return m_interval;
-            }
+            get => m_interval;
             set
             {
                 if (value <= 0)
@@ -178,11 +169,11 @@ namespace Gemstone.Threading
 
                 m_interval = value;
 
-                if (m_enabled)
-                {
-                    m_registeredCallback?.Clear();
-                    m_registeredCallback = m_scheduler.RegisterCallback(m_interval, m_callback);
-                }
+                if (!m_enabled)
+                    return;
+
+                m_registeredCallback?.Clear();
+                m_registeredCallback = m_scheduler.RegisterCallback(m_interval, m_callback);
             }
         }
 
