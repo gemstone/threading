@@ -21,8 +21,8 @@
 //
 //******************************************************************************************************
 
-using System.Diagnostics;
 using System;
+using System.Diagnostics;
 
 namespace Gemstone.Threading
 {
@@ -31,50 +31,50 @@ namespace Gemstone.Threading
         private const long TicksPerMillisecond = 10000;
         private const long TicksPerSecond = TicksPerMillisecond * 1000;
 
-        private static readonly double SecondsPerCount;
-        private static readonly double MillisecondsPerCount;
-        private static readonly double MicrosecondsPerCount;
-        private static readonly double TicksPerCount;
+        private static readonly double s_secondsPerCount;
+        private static readonly double s_millisecondsPerCount;
+        private static readonly double s_microsecondsPerCount;
+        private static readonly double s_ticksPerCount;
 
-        private static readonly double CountsPerSecond;
-        private static readonly double CountsPerMillisecond;
-        private static readonly double CountsPerMicrosecond;
-        private static readonly double CountsPerTick;
+        private static readonly double s_countsPerSecond;
+        private static readonly double s_countsPerMillisecond;
+        private static readonly double s_countsPerMicrosecond;
+        private static readonly double s_countsPerTick;
 
         static ShortTimeFunctions()
         {
             decimal frequency = Stopwatch.Frequency;
 
             decimal countsPerSecond = frequency;
-            CountsPerSecond = (double)countsPerSecond;
-            CountsPerMillisecond = (double)(countsPerSecond / 1000);
-            CountsPerMicrosecond = (double)(countsPerSecond / 1000000);
-            CountsPerTick = (double)(countsPerSecond / 10000000);
+            s_countsPerSecond = (double)countsPerSecond;
+            s_countsPerMillisecond = (double)(countsPerSecond / 1000);
+            s_countsPerMicrosecond = (double)(countsPerSecond / 1000000);
+            s_countsPerTick = (double)(countsPerSecond / 10000000);
 
-            decimal secondsPerCount = (decimal)1 / (decimal)frequency;
-            SecondsPerCount = (double)secondsPerCount;
-            MillisecondsPerCount = (double)(secondsPerCount * 1000);
-            MicrosecondsPerCount = (double)(secondsPerCount * 1000000);
-            TicksPerCount = (double)(secondsPerCount * 10000000);
+            decimal secondsPerCount = 1 / frequency;
+            s_secondsPerCount = (double)secondsPerCount;
+            s_millisecondsPerCount = (double)(secondsPerCount * 1000);
+            s_microsecondsPerCount = (double)(secondsPerCount * 1000000);
+            s_ticksPerCount = (double)(secondsPerCount * 10000000);
         }
 
         public static long Now() => Stopwatch.GetTimestamp();
 
-        public static long AddSeconds(long time, double value) => time + (long)(CountsPerSecond * value);
+        public static long AddSeconds(long time, double value) => time + (long)(s_countsPerSecond * value);
 
-        public static long AddMilliseconds(long time, double value) => time + (long)(CountsPerMillisecond * value);
+        public static long AddMilliseconds(long time, double value) => time + (long)(s_countsPerMillisecond * value);
 
-        public static long AddMicroseconds(long time, double value) => time + (long)(CountsPerMicrosecond * value);
+        public static long AddMicroseconds(long time, double value) => time + (long)(s_countsPerMicrosecond * value);
 
-        public static long AddTicks(long time, double value) => time + (long)(CountsPerTick * value);
+        public static long AddTicks(long time, double value) => time + (long)(s_countsPerTick * value);
 
-        public static double ElapsedSeconds(long a, long b) => (b - a) * SecondsPerCount;
+        public static double ElapsedSeconds(long a, long b) => (b - a) * s_secondsPerCount;
 
-        public static double ElapsedMilliseconds(long a, long b) => (b - a) * MillisecondsPerCount;
+        public static double ElapsedMilliseconds(long a, long b) => (b - a) * s_millisecondsPerCount;
 
-        public static double ElapsedMicroseconds(long a, long b) => (b - a) * MicrosecondsPerCount;
+        public static double ElapsedMicroseconds(long a, long b) => (b - a) * s_microsecondsPerCount;
 
-        public static double ElapsedTicks(long a, long b) => (b - a) * TicksPerCount;
+        public static double ElapsedTicks(long a, long b) => (b - a) * s_ticksPerCount;
     }
 
     /// <summary>
@@ -87,7 +87,7 @@ namespace Gemstone.Threading
     /// <remarks>
     /// Call times are about 40+ million calls per second.
     /// </remarks>
-    internal struct ShortTime : IEquatable<ShortTime>
+    internal readonly struct ShortTime : IEquatable<ShortTime>
     {
         private readonly long m_time;
 
@@ -221,7 +221,7 @@ namespace Gemstone.Threading
         /// <returns>true if <paramref name="obj" /> and this instance are the same type and represent the same value; otherwise, false. </returns>
         /// <param name="obj">The object to compare with the current instance. </param>
         /// <filterpriority>2</filterpriority>
-        public override bool Equals(object obj) => obj is ShortTime time ? Equals(time) : false;
+        public override bool Equals(object obj) => obj is ShortTime time && Equals(time);
 
         /// <summary>Indicates whether the current object is equal to another object of the same type.</summary>
         /// <returns>true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.</returns>

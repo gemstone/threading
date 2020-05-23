@@ -26,6 +26,7 @@
 using System;
 using System.Threading;
 
+// ReSharper disable UnusedMemberInSuper.Global
 namespace Gemstone.Threading.SynchronizedOperations
 {
     /// <summary>

@@ -52,7 +52,7 @@ namespace Gemstone.Threading.Collections
         // Fields
         private readonly ConcurrentQueue<T> m_asyncQueue;
         private Action<T>? m_processItemFunction;
-        private ISynchronizedOperation m_processItemOperation;
+        private readonly ISynchronizedOperation m_processItemOperation;
         private int m_enabled;
 
         #endregion

@@ -24,7 +24,6 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Text;
 using System.Threading;
 
@@ -350,6 +349,7 @@ namespace Gemstone.Threading
             }
         }
 
+        // ReSharper disable once UnusedMethodReturnValue.Local
         private WeakAction<DateTime> RegisterCallback(int interval, WeakAction<DateTime> weakAction)
         {
             if (weakAction == null)

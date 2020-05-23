@@ -42,7 +42,7 @@ namespace Gemstone.Threading
         private int m_maximumConcurrencyLevel;
 
         [ThreadStatic]
-        private static bool m_currentlyExecutingTask;
+        private static bool s_currentlyExecutingTask;
 
         #endregion
 
@@ -159,7 +159,7 @@ namespace Gemstone.Threading
         /// <returns>A <see cref="bool"/> value indicating whether the task was executed inline.</returns>
         protected override bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued)
         {
-            if (m_currentlyExecutingTask)
+            if (s_currentlyExecutingTask)
                 return TryExecuteTask(task);
 
             if (!TaskProcessors.TryTake(out ISynchronizedOperation taskProcessor))
@@ -189,9 +189,9 @@ namespace Gemstone.Threading
         {
             bool tryExecuteTask(Task task)
             {
-                m_currentlyExecutingTask = true;
+                s_currentlyExecutingTask = true;
                 bool result = TryExecuteTask(task);
-                m_currentlyExecutingTask = false;
+                s_currentlyExecutingTask = false;
 
                 return result;
             }

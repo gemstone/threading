@@ -76,7 +76,7 @@ namespace Gemstone.Threading
             string name = attribute?.Value ?? entryAssembly.GetName().Name;
 
             if (perUser)
-                name += UserInfo.CurrentUserID;
+                name += UserInfo.CurrentUserID ?? string.Empty;
 
             return GetNamedMutex(name, !perUser);
         }
@@ -148,7 +148,7 @@ namespace Gemstone.Threading
             string name = attribute?.Value ?? entryAssembly.GetName().Name;
 
             if (perUser)
-                name += UserInfo.CurrentUserID;
+                name += UserInfo.CurrentUserID ?? string.Empty;
 
             return GetNamedSemaphore(name, maximumCount, initialCount, !perUser);
         }
