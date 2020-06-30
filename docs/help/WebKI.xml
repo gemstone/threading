@@ -24,6 +24,14 @@
   <HelpKINode Title="AsyncDoubleBufferedQueue&lt;T&gt;.Enqueue method" Url="html/M_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1_Enqueue.htm" />
   <HelpKINode Title="AsyncDoubleBufferedQueue&lt;T&gt;.ProcessException event" Url="html/E_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1_ProcessException.htm" />
   <HelpKINode Title="AsyncDoubleBufferedQueue&lt;T&gt;.ProcessItemsFunction property" Url="html/P_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1_ProcessItemsFunction.htm" />
+  <HelpKINode Title="AsyncLock class">
+    <HelpKINode Title="AsyncLock Class" Url="html/T_Gemstone_Threading_AsyncLock.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Gemstone_Threading_AsyncLock__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Threading_AsyncLock.htm" />
+  </HelpKINode>
+  <HelpKINode Title="AsyncLock.AsyncLock constructor" Url="html/M_Gemstone_Threading_AsyncLock__ctor.htm" />
+  <HelpKINode Title="AsyncLock.EnterAsync method" Url="html/M_Gemstone_Threading_AsyncLock_EnterAsync.htm" />
+  <HelpKINode Title="AsyncLock.TryEnterAsync method" Url="html/Overload_Gemstone_Threading_AsyncLock_TryEnterAsync.htm" />
   <HelpKINode Title="AsyncQueue(Of T) class">
     <HelpKINode Title="AsyncQueue(T) Class" Url="html/T_Gemstone_Threading_Collections_AsyncQueue_1.htm" />
     <HelpKINode Title="constructor" Url="html/Overload_Gemstone_Threading_Collections_AsyncQueue_1__ctor.htm" />
@@ -50,6 +58,16 @@
   <HelpKINode Title="AsyncQueue&lt;T&gt;.Enqueue method" Url="html/M_Gemstone_Threading_Collections_AsyncQueue_1_Enqueue.htm" />
   <HelpKINode Title="AsyncQueue&lt;T&gt;.ProcessException event" Url="html/E_Gemstone_Threading_Collections_AsyncQueue_1_ProcessException.htm" />
   <HelpKINode Title="AsyncQueue&lt;T&gt;.ProcessItemFunction property" Url="html/P_Gemstone_Threading_Collections_AsyncQueue_1_ProcessItemFunction.htm" />
+  <HelpKINode Title="AsyncReaderWriterLock class">
+    <HelpKINode Title="AsyncReaderWriterLock Class" Url="html/T_Gemstone_Threading_AsyncReaderWriterLock.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Gemstone_Threading_AsyncReaderWriterLock__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Threading_AsyncReaderWriterLock.htm" />
+  </HelpKINode>
+  <HelpKINode Title="AsyncReaderWriterLock.AsyncReaderWriterLock constructor" Url="html/M_Gemstone_Threading_AsyncReaderWriterLock__ctor.htm" />
+  <HelpKINode Title="AsyncReaderWriterLock.EnterReadAsync method" Url="html/M_Gemstone_Threading_AsyncReaderWriterLock_EnterReadAsync.htm" />
+  <HelpKINode Title="AsyncReaderWriterLock.EnterWriteAsync method" Url="html/M_Gemstone_Threading_AsyncReaderWriterLock_EnterWriteAsync.htm" />
+  <HelpKINode Title="AsyncReaderWriterLock.TryEnterReadLockAsync method" Url="html/Overload_Gemstone_Threading_AsyncReaderWriterLock_TryEnterReadLockAsync.htm" />
+  <HelpKINode Title="AsyncReaderWriterLock.TryEnterWriteLockAsync method" Url="html/Overload_Gemstone_Threading_AsyncReaderWriterLock_TryEnterWriteLockAsync.htm" />
   <HelpKINode Title="AutoReset property" Url="html/P_Gemstone_Threading_SharedTimer_AutoReset.htm" />
   <HelpKINode Title="CancellationToken property">
     <HelpKINode Title="ISynchronizedOperation.CancellationToken Property " Url="html/P_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation_CancellationToken.htm" />
@@ -81,10 +99,12 @@
     <HelpKINode Title="DoubleBufferedQueue(T).Count Property " Url="html/P_Gemstone_Threading_Collections_DoubleBufferedQueue_1_Count.htm" />
     <HelpKINode Title="PriorityQueue(T).Count Property " Url="html/P_Gemstone_Threading_Collections_PriorityQueue_1_Count.htm" />
   </HelpKINode>
+  <HelpKINode Title="CreateNew method" Url="html/Overload_Gemstone_Threading_TaskCompletionSourceFactory_CreateNew.htm" />
   <HelpKINode Title="CreateTimer method" Url="html/M_Gemstone_Threading_SharedTimerScheduler_CreateTimer.htm" />
   <HelpKINode Title="CurrentConcurrencyLevel property" Url="html/P_Gemstone_Threading_ConcurrencyLimiter_CurrentConcurrencyLevel.htm" />
   <HelpKINode Title="DefaultDelay field" Url="html/F_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation_DefaultDelay.htm" />
   <HelpKINode Title="DefaultMaximumConcurrentLocks field" Url="html/F_Gemstone_Threading_InterprocessReaderWriterLock_DefaultMaximumConcurrentLocks.htm" />
+  <HelpKINode Title="DefaultTaskCreationOptions field" Url="html/F_Gemstone_Threading_TaskCompletionSourceFactory_DefaultTaskCreationOptions.htm" />
   <HelpKINode Title="Delay property" Url="html/P_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation_Delay.htm" />
   <HelpKINode Title="DelayedSynchronizedOperation class">
     <HelpKINode Title="DelayedSynchronizedOperation Class" Url="html/T_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation.htm" />
@@ -191,7 +211,10 @@
     <HelpKINode Title="DoubleBufferedQueue(T).Enqueue Method " Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_Enqueue.htm" />
     <HelpKINode Title="PriorityQueue(T).Enqueue Method " Url="html/M_Gemstone_Threading_Collections_PriorityQueue_1_Enqueue.htm" />
   </HelpKINode>
+  <HelpKINode Title="EnterAsync method" Url="html/M_Gemstone_Threading_AsyncLock_EnterAsync.htm" />
+  <HelpKINode Title="EnterReadAsync method" Url="html/M_Gemstone_Threading_AsyncReaderWriterLock_EnterReadAsync.htm" />
   <HelpKINode Title="EnterReadLock method" Url="html/M_Gemstone_Threading_InterprocessReaderWriterLock_EnterReadLock.htm" />
+  <HelpKINode Title="EnterWriteAsync method" Url="html/M_Gemstone_Threading_AsyncReaderWriterLock_EnterWriteAsync.htm" />
   <HelpKINode Title="EnterWriteLock method" Url="html/M_Gemstone_Threading_InterprocessReaderWriterLock_EnterWriteLock.htm" />
   <HelpKINode Title="ExecuteAction method" Url="html/M_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_ExecuteAction.htm" />
   <HelpKINode Title="ExecuteActionAsync method">
@@ -212,6 +235,8 @@
     <HelpKINode Title="InterprocessReaderWriterLock.Finalize Method " Url="html/M_Gemstone_Threading_InterprocessReaderWriterLock_Finalize.htm" />
   </HelpKINode>
   <HelpKINode Title="Gemstone.Threading namespace" Url="html/N_Gemstone_Threading.htm" />
+  <HelpKINode Title="Gemstone.Threading.AsyncLock class" Url="html/T_Gemstone_Threading_AsyncLock.htm" />
+  <HelpKINode Title="Gemstone.Threading.AsyncReaderWriterLock class" Url="html/T_Gemstone_Threading_AsyncReaderWriterLock.htm" />
   <HelpKINode Title="Gemstone.Threading.Collections namespace" Url="html/N_Gemstone_Threading_Collections.htm" />
   <HelpKINode Title="Gemstone.Threading.Collections.AsyncDoubleBufferedQueue(Of T) class" Url="html/T_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1.htm" />
   <HelpKINode Title="Gemstone.Threading.Collections.AsyncDoubleBufferedQueue&lt;T&gt; class" Url="html/T_Gemstone_Threading_Collections_AsyncDoubleBufferedQueue_1.htm" />
@@ -241,6 +266,7 @@
   <HelpKINode Title="Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase class" Url="html/T_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase.htm" />
   <HelpKINode Title="Gemstone.Threading.SynchronizedOperations.SynchronizedOperationFactory delegate" Url="html/T_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationFactory.htm" />
   <HelpKINode Title="Gemstone.Threading.SynchronizedOperations.SynchronizedOperationType enumeration" Url="html/T_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationType.htm" />
+  <HelpKINode Title="Gemstone.Threading.TaskCompletionSourceFactory class" Url="html/T_Gemstone_Threading_TaskCompletionSourceFactory.htm" />
   <HelpKINode Title="Gemstone.Threading.WeakAction class" Url="html/T_Gemstone_Threading_WeakAction.htm" />
   <HelpKINode Title="Gemstone.Threading.WeakAction(Of T) class" Url="html/T_Gemstone_Threading_WeakAction_1.htm" />
   <HelpKINode Title="Gemstone.Threading.WeakAction&lt;T&gt; class" Url="html/T_Gemstone_Threading_WeakAction_1.htm" />
@@ -452,6 +478,13 @@
   <HelpKINode Title="SynchronizedOperationBase.TryRunAsync method" Url="html/M_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_TryRunAsync.htm" />
   <HelpKINode Title="SynchronizedOperationFactory delegate" Url="html/T_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationFactory.htm" />
   <HelpKINode Title="SynchronizedOperationType enumeration" Url="html/T_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationType.htm" />
+  <HelpKINode Title="TaskCompletionSourceFactory class">
+    <HelpKINode Title="TaskCompletionSourceFactory Class" Url="html/T_Gemstone_Threading_TaskCompletionSourceFactory.htm" />
+    <HelpKINode Title="fields" Url="html/Fields_T_Gemstone_Threading_TaskCompletionSourceFactory.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Threading_TaskCompletionSourceFactory.htm" />
+  </HelpKINode>
+  <HelpKINode Title="TaskCompletionSourceFactory.CreateNew method" Url="html/Overload_Gemstone_Threading_TaskCompletionSourceFactory_CreateNew.htm" />
+  <HelpKINode Title="TaskCompletionSourceFactory.DefaultTaskCreationOptions field" Url="html/F_Gemstone_Threading_TaskCompletionSourceFactory_DefaultTaskCreationOptions.htm" />
   <HelpKINode Title="ToArray method" Url="html/M_Gemstone_Threading_Collections_PriorityQueue_1_ToArray.htm" />
   <HelpKINode Title="TryClear method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_TryClear.htm" />
   <HelpKINode Title="TryDequeue method">
@@ -460,8 +493,11 @@
     <HelpKINode Title="Strand.TryDequeue Method " Url="html/M_Gemstone_Threading_Strands_Strand_TryDequeue.htm" />
   </HelpKINode>
   <HelpKINode Title="TryEnqueue method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_TryEnqueue.htm" />
+  <HelpKINode Title="TryEnterAsync method" Url="html/Overload_Gemstone_Threading_AsyncLock_TryEnterAsync.htm" />
   <HelpKINode Title="TryEnterReadLock method" Url="html/M_Gemstone_Threading_InterprocessReaderWriterLock_TryEnterReadLock.htm" />
+  <HelpKINode Title="TryEnterReadLockAsync method" Url="html/Overload_Gemstone_Threading_AsyncReaderWriterLock_TryEnterReadLockAsync.htm" />
   <HelpKINode Title="TryEnterWriteLock method" Url="html/M_Gemstone_Threading_InterprocessReaderWriterLock_TryEnterWriteLock.htm" />
+  <HelpKINode Title="TryEnterWriteLockAsync method" Url="html/Overload_Gemstone_Threading_AsyncReaderWriterLock_TryEnterWriteLockAsync.htm" />
   <HelpKINode Title="TryExecuteTaskInline method">
     <HelpKINode Title="ConcurrencyLimiter.TryExecuteTaskInline Method " Url="html/M_Gemstone_Threading_ConcurrencyLimiter_TryExecuteTaskInline.htm" />
     <HelpKINode Title="Strand.TryExecuteTaskInline Method " Url="html/M_Gemstone_Threading_Strands_Strand_TryExecuteTaskInline.htm" />

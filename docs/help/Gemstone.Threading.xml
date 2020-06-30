@@ -4,6 +4,129 @@
     <name>Gemstone.Threading</name>
   </assembly>
   <members>
+    <member name="T:Gemstone.Threading.AsyncLock">
+      <summary>
+            Represents a lock that can be awaited to obtain exclusive
+            access to resources within a critical region of code.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.AsyncLock.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Gemstone.Threading.AsyncLock</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:Gemstone.Threading.AsyncLock.EnterAsync">
+      <summary>
+            Obtains exclusive access to the lock.
+            </summary>
+      <returns>
+            A task that must be awaited to obtain the token that will
+            release the lock on <see cref="M:System.IDisposable.Dispose" />.
+            </returns>
+    </member>
+    <member name="M:Gemstone.Threading.AsyncLock.TryEnterAsync">
+      <summary>
+            Attempts to obtain exclusive access to the lock.
+            </summary>
+      <returns>
+            A task that, if cancelled, indicates the lock was not taken,
+            and must be awaited to obtain the token that will release the
+            lock on <see cref="M:System.IDisposable.Dispose" />.
+            </returns>
+      <exception cref="T:System.Threading.Tasks.TaskCanceledException">The lock could not be taken.</exception>
+    </member>
+    <member name="M:Gemstone.Threading.AsyncLock.TryEnterAsync(System.Int32)">
+      <summary>
+            Attempts to obtain exclusive access to the lock.
+            </summary>
+      <param name="milliseconds">The number of milliseconds to wait before failing to take the lock.</param>
+      <returns>
+            A task that, if cancelled, indicates the lock was not taken,
+            and must be awaited to obtain the token that will release the
+            lock on <see cref="M:System.IDisposable.Dispose" />.
+            </returns>
+      <exception cref="T:System.Threading.Tasks.TaskCanceledException">The timeout expires before the lock could be taken.</exception>
+    </member>
+    <member name="M:Gemstone.Threading.AsyncLock.TryEnterAsync(System.TimeSpan)">
+      <summary>
+            Attempts to obtain exclusive access to the lock.
+            </summary>
+      <param name="timeout">The amount of time to wait before failing to take the lock.</param>
+      <returns>
+            A task that, if cancelled, indicates the lock was not taken,
+            and must be awaited to obtain the token that will release the
+            lock on <see cref="M:System.IDisposable.Dispose" />.
+            </returns>
+      <exception cref="T:System.Threading.Tasks.TaskCanceledException">The <paramref name="timeout" /> expires before the lock could be taken.</exception>
+    </member>
+    <member name="T:Gemstone.Threading.AsyncReaderWriterLock">
+      <summary>
+            Represents an asynchronous implementation of a reader/writer lock.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.AsyncReaderWriterLock.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Gemstone.Threading.AsyncReaderWriterLock</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:Gemstone.Threading.AsyncReaderWriterLock.EnterReadAsync">
+      <summary>
+            Enters the lock with concurrent access where all readers
+            can execute concurrently with respect to each other.
+            </summary>
+      <returns>The token used to control the duration of entry.</returns>
+    </member>
+    <member name="M:Gemstone.Threading.AsyncReaderWriterLock.EnterWriteAsync">
+      <summary>
+            Enters the lock with exclusive access where no other
+            readers or writers can execute concurrently with the writer.
+            </summary>
+      <returns>The token used to control the duration of entry.</returns>
+    </member>
+    <member name="M:Gemstone.Threading.AsyncReaderWriterLock.TryEnterReadLockAsync(System.Int32)">
+      <summary>
+            Attempts to enter the lock with concurrent access where all
+            readers can execute concurrently with respect to each other.
+            </summary>
+      <param name="milliseconds">The number of milliseconds to wait before timing out.</param>
+      <returns>The token used to control the duration of entry.</returns>
+      <exception cref="T:System.TimeoutException">The lock could not be entered before the timeout expired.</exception>
+    </member>
+    <member name="M:Gemstone.Threading.AsyncReaderWriterLock.TryEnterReadLockAsync(System.TimeSpan)">
+      <summary>
+            Attempts to enter the lock with concurrent access where all
+            readers can execute concurrently with respect to each other.
+            </summary>
+      <param name="timeout">The amount of time to wait before timing out.</param>
+      <returns>The token used to control the duration of entry.</returns>
+      <exception cref="T:System.TimeoutException">The lock could not be entered before the <paramref name="timeout" /> expired.</exception>
+    </member>
+    <member name="M:Gemstone.Threading.AsyncReaderWriterLock.TryEnterWriteLockAsync(System.Int32)">
+      <summary>
+            Attempts to enter the lock with exclusive access where no other
+            readers or writers can execute concurrently with the writer.
+            </summary>
+      <param name="milliseconds">The number of milliseconds to wait before timing out.</param>
+      <returns>The token used to control the duration of entry.</returns>
+      <exception cref="T:System.TimeoutException">The lock could not be entered before the timeout expired.</exception>
+    </member>
+    <member name="M:Gemstone.Threading.AsyncReaderWriterLock.TryEnterWriteLockAsync(System.TimeSpan)">
+      <summary>
+            Attempts to enter the lock with exclusive access where no other
+            readers or writers can execute concurrently with the writer.
+            </summary>
+      <param name="timeout">The amount of time to wait before timing out.</param>
+      <returns>The token used to control the duration of entry.</returns>
+      <exception cref="T:System.TimeoutException">The lock could not be entered before the <paramref name="timeout" /> expired.</exception>
+    </member>
     <member name="T:Gemstone.Threading.ConcurrencyLimiter">
       <summary>
             Task scheduler that limits the number of tasks that can execute in parallel at any given time.
@@ -308,6 +431,33 @@
     <member name="P:Gemstone.Threading.SharedTimerScheduler.IsDisposed">
       <summary>
             Gets flag that determines if this <see cref="T:Gemstone.Threading.SharedTimerScheduler" /> instance has been disposed.
+            </summary>
+    </member>
+    <member name="T:Gemstone.Threading.TaskCompletionSourceFactory">
+      <summary>
+            Provides factory functions for creating new
+            <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" /> objects.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.TaskCompletionSourceFactory.CreateNew``1">
+      <summary>
+            Creates a new instance of the <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" /> class.
+            </summary>
+      <typeparam name="T">The type of the result value associated with the <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" />.</typeparam>
+      <returns>A new object of type <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" />.</returns>
+    </member>
+    <member name="M:Gemstone.Threading.TaskCompletionSourceFactory.CreateNew``1(System.Object)">
+      <summary>
+            Creates a new instance of the <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" /> class.
+            </summary>
+      <param name="state">The state to use as the underlying <see cref="T:System.Threading.Tasks.Task" />'s <see cref="P:System.Threading.Tasks.Task.AsyncState" />.</param>
+      <typeparam name="T">The type of the result value associated with the <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" />.</typeparam>
+      <returns>A new object of type <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" />.</returns>
+    </member>
+    <member name="F:Gemstone.Threading.TaskCompletionSourceFactory.DefaultTaskCreationOptions">
+      <summary>
+            The default <see cref="T:System.Threading.Tasks.TaskCreationOptions" /> used by this factory
+            for creating new <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" /> objects.
             </summary>
     </member>
     <member name="T:Gemstone.Threading.WeakAction">
