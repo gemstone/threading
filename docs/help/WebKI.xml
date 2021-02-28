@@ -72,6 +72,7 @@
   <HelpKINode Title="CancellationToken property">
     <HelpKINode Title="ISynchronizedOperation.CancellationToken Property " Url="html/P_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation_CancellationToken.htm" />
     <HelpKINode Title="SynchronizedOperationBase.CancellationToken Property " Url="html/P_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_CancellationToken.htm" />
+    <HelpKINode Title="TaskSynchronizedOperation.CancellationToken Property " Url="html/P_Gemstone_Threading_SynchronizedOperations_TaskSynchronizedOperation_CancellationToken.htm" />
   </HelpKINode>
   <HelpKINode Title="Clear method">
     <HelpKINode Title="DoubleBufferedQueue(T).Clear Method " Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_Clear.htm" />
@@ -266,6 +267,7 @@
   <HelpKINode Title="Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase class" Url="html/T_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase.htm" />
   <HelpKINode Title="Gemstone.Threading.SynchronizedOperations.SynchronizedOperationFactory delegate" Url="html/T_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationFactory.htm" />
   <HelpKINode Title="Gemstone.Threading.SynchronizedOperations.SynchronizedOperationType enumeration" Url="html/T_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationType.htm" />
+  <HelpKINode Title="Gemstone.Threading.SynchronizedOperations.TaskSynchronizedOperation class" Url="html/T_Gemstone_Threading_SynchronizedOperations_TaskSynchronizedOperation.htm" />
   <HelpKINode Title="Gemstone.Threading.TaskCompletionSourceFactory class" Url="html/T_Gemstone_Threading_TaskCompletionSourceFactory.htm" />
   <HelpKINode Title="Gemstone.Threading.WeakAction class" Url="html/T_Gemstone_Threading_WeakAction.htm" />
   <HelpKINode Title="Gemstone.Threading.WeakAction(Of T) class" Url="html/T_Gemstone_Threading_WeakAction_1.htm" />
@@ -310,10 +312,12 @@
   <HelpKINode Title="IsPending property">
     <HelpKINode Title="ISynchronizedOperation.IsPending Property " Url="html/P_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation_IsPending.htm" />
     <HelpKINode Title="SynchronizedOperationBase.IsPending Property " Url="html/P_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_IsPending.htm" />
+    <HelpKINode Title="TaskSynchronizedOperation.IsPending Property " Url="html/P_Gemstone_Threading_SynchronizedOperations_TaskSynchronizedOperation_IsPending.htm" />
   </HelpKINode>
   <HelpKINode Title="IsRunning property">
     <HelpKINode Title="ISynchronizedOperation.IsRunning Property " Url="html/P_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation_IsRunning.htm" />
     <HelpKINode Title="SynchronizedOperationBase.IsRunning Property " Url="html/P_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_IsRunning.htm" />
+    <HelpKINode Title="TaskSynchronizedOperation.IsRunning Property " Url="html/P_Gemstone_Threading_SynchronizedOperations_TaskSynchronizedOperation_IsRunning.htm" />
   </HelpKINode>
   <HelpKINode Title="ISynchronizedOperation interface">
     <HelpKINode Title="ISynchronizedOperation Interface" Url="html/T_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation.htm" />
@@ -407,6 +411,7 @@
     <HelpKINode Title="DelayedSynchronizedOperation.RunAsync Method " Url="html/M_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation_RunAsync.htm" />
     <HelpKINode Title="ISynchronizedOperation.RunAsync Method " Url="html/M_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation_RunAsync.htm" />
     <HelpKINode Title="SynchronizedOperationBase.RunAsync Method " Url="html/M_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_RunAsync.htm" />
+    <HelpKINode Title="TaskSynchronizedOperation.RunAsync Method " Url="html/M_Gemstone_Threading_SynchronizedOperations_TaskSynchronizedOperation_RunAsync.htm" />
   </HelpKINode>
   <HelpKINode Title="SetMaximumConcurrencyLevel method" Url="html/M_Gemstone_Threading_ConcurrencyLimiter_SetMaximumConcurrencyLevel.htm" />
   <HelpKINode Title="SharedTimer class">
@@ -485,6 +490,18 @@
   </HelpKINode>
   <HelpKINode Title="TaskCompletionSourceFactory.CreateNew method" Url="html/Overload_Gemstone_Threading_TaskCompletionSourceFactory_CreateNew.htm" />
   <HelpKINode Title="TaskCompletionSourceFactory.DefaultTaskCreationOptions field" Url="html/F_Gemstone_Threading_TaskCompletionSourceFactory_DefaultTaskCreationOptions.htm" />
+  <HelpKINode Title="TaskSynchronizedOperation class">
+    <HelpKINode Title="TaskSynchronizedOperation Class" Url="html/T_Gemstone_Threading_SynchronizedOperations_TaskSynchronizedOperation.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Gemstone_Threading_SynchronizedOperations_TaskSynchronizedOperation__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Threading_SynchronizedOperations_TaskSynchronizedOperation.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_Threading_SynchronizedOperations_TaskSynchronizedOperation.htm" />
+  </HelpKINode>
+  <HelpKINode Title="TaskSynchronizedOperation.CancellationToken property" Url="html/P_Gemstone_Threading_SynchronizedOperations_TaskSynchronizedOperation_CancellationToken.htm" />
+  <HelpKINode Title="TaskSynchronizedOperation.IsPending property" Url="html/P_Gemstone_Threading_SynchronizedOperations_TaskSynchronizedOperation_IsPending.htm" />
+  <HelpKINode Title="TaskSynchronizedOperation.IsRunning property" Url="html/P_Gemstone_Threading_SynchronizedOperations_TaskSynchronizedOperation_IsRunning.htm" />
+  <HelpKINode Title="TaskSynchronizedOperation.RunAsync method" Url="html/M_Gemstone_Threading_SynchronizedOperations_TaskSynchronizedOperation_RunAsync.htm" />
+  <HelpKINode Title="TaskSynchronizedOperation.TaskSynchronizedOperation constructor" Url="html/Overload_Gemstone_Threading_SynchronizedOperations_TaskSynchronizedOperation__ctor.htm" />
+  <HelpKINode Title="TaskSynchronizedOperation.TryRunAsync method" Url="html/M_Gemstone_Threading_SynchronizedOperations_TaskSynchronizedOperation_TryRunAsync.htm" />
   <HelpKINode Title="ToArray method" Url="html/M_Gemstone_Threading_Collections_PriorityQueue_1_ToArray.htm" />
   <HelpKINode Title="TryClear method" Url="html/M_Gemstone_Threading_Collections_DoubleBufferedQueue_1_TryClear.htm" />
   <HelpKINode Title="TryDequeue method">
@@ -516,6 +533,7 @@
     <HelpKINode Title="DelayedSynchronizedOperation.TryRunAsync Method " Url="html/M_Gemstone_Threading_SynchronizedOperations_DelayedSynchronizedOperation_TryRunAsync.htm" />
     <HelpKINode Title="ISynchronizedOperation.TryRunAsync Method " Url="html/M_Gemstone_Threading_SynchronizedOperations_ISynchronizedOperation_TryRunAsync.htm" />
     <HelpKINode Title="SynchronizedOperationBase.TryRunAsync Method " Url="html/M_Gemstone_Threading_SynchronizedOperations_SynchronizedOperationBase_TryRunAsync.htm" />
+    <HelpKINode Title="TaskSynchronizedOperation.TryRunAsync Method " Url="html/M_Gemstone_Threading_SynchronizedOperations_TaskSynchronizedOperation_TryRunAsync.htm" />
   </HelpKINode>
   <HelpKINode Title="WeakAction class">
     <HelpKINode Title="WeakAction Class" Url="html/T_Gemstone_Threading_WeakAction.htm" />
