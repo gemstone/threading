@@ -11,7 +11,7 @@
     <Product>Gemstone</Product>
     <PackageDescription>GPA Gemstone Threading Library</PackageDescription>
     <Description>GPA Gemstone Threading Library</Description>
-    <Copyright>Copyright © 2020</Copyright>
+    <Copyright>Copyright © 2022</Copyright>
     <PackageProjectUrl>https://github.com/gemstone</PackageProjectUrl>
     <PackageIcon>gemstone-square-128.png</PackageIcon>
     <RepositoryUrl>https://github.com/gemstone/threading</RepositoryUrl>
