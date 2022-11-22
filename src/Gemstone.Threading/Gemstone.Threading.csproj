@@ -19,7 +19,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>GPA;Gemstone;library;threading</PackageTags>
-    <LangVersion>9</LangVersion>
+    <LangVersion>latest</LangVersion>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <Nullable>enable</Nullable>
     <PlatformTarget>AnyCPU</PlatformTarget>
