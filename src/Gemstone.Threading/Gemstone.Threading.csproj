@@ -3,7 +3,7 @@
   <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net7.0</TargetFrameworks>
     <RootNamespace>Gemstone.Threading</RootNamespace>
     <PackageId>Gemstone.Threading</PackageId>
     <Authors>Grid Protection Alliance</Authors>
