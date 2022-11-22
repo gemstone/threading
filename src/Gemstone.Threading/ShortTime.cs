@@ -152,32 +152,32 @@ namespace Gemstone.Threading
         /// <summary>
         /// The elapsed time
         /// </summary>
-        public TimeSpan Elapsed(ShortTime futureTime) => new TimeSpan((long)ShortTimeFunctions.ElapsedTicks(m_time, futureTime.m_time));
+        public TimeSpan Elapsed(ShortTime futureTime) => new((long)ShortTimeFunctions.ElapsedTicks(m_time, futureTime.m_time));
 
         /// <summary>
         /// Adds milliseconds to this struct
         /// </summary>
-        public ShortTime AddMilliseconds(double duration) => new ShortTime(ShortTimeFunctions.AddMilliseconds(m_time, duration));
+        public ShortTime AddMilliseconds(double duration) => new(ShortTimeFunctions.AddMilliseconds(m_time, duration));
 
         /// <summary>
         /// Adds seconds to this struct
         /// </summary>
-        public ShortTime AddSeconds(double duration) => new ShortTime(ShortTimeFunctions.AddSeconds(m_time, duration));
+        public ShortTime AddSeconds(double duration) => new(ShortTimeFunctions.AddSeconds(m_time, duration));
 
         /// <summary>
         /// Adds ticks to this struct
         /// </summary>
-        public ShortTime AddTicks(double duration) => new ShortTime(ShortTimeFunctions.AddTicks(m_time, duration));
+        public ShortTime AddTicks(double duration) => new(ShortTimeFunctions.AddTicks(m_time, duration));
 
         /// <summary>
         /// Adds timespan to this struct
         /// </summary>
-        public ShortTime Add(TimeSpan duration) => new ShortTime(ShortTimeFunctions.AddTicks(m_time, duration.Ticks));
+        public ShortTime Add(TimeSpan duration) => new(ShortTimeFunctions.AddTicks(m_time, duration.Ticks));
 
         /// <summary>
         /// The current time in <see cref="ShortTime"/>
         /// </summary>
-        public static ShortTime Now => new ShortTime(ShortTimeFunctions.Now());
+        public static ShortTime Now => new(ShortTimeFunctions.Now());
 
         /// <summary>
         /// Tests Less Than
@@ -221,7 +221,7 @@ namespace Gemstone.Threading
         /// <returns>true if <paramref name="obj" /> and this instance are the same type and represent the same value; otherwise, false. </returns>
         /// <param name="obj">The object to compare with the current instance. </param>
         /// <filterpriority>2</filterpriority>
-        public override bool Equals(object obj) => obj is ShortTime time && Equals(time);
+        public override bool Equals(object? obj) => obj is ShortTime time && Equals(time);
 
         /// <summary>Indicates whether the current object is equal to another object of the same type.</summary>
         /// <returns>true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.</returns>

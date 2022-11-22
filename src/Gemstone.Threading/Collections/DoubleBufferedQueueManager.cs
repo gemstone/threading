@@ -232,7 +232,7 @@ namespace Gemstone.Threading.Collections
         /// <returns>A <see cref="DoubleBufferedQueueProducer{T}"/> used to produce items to the consumer.</returns>
         public DoubleBufferedQueueProducer<T> GetProducer()
         {
-            DoubleBufferedQueue<T> queue = new DoubleBufferedQueue<T>();
+            DoubleBufferedQueue<T> queue = new();
 
             lock (m_queuesLock)
                 m_queues.Add(queue);

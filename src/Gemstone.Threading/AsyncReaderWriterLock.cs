@@ -32,8 +32,8 @@ namespace Gemstone.Threading
     /// </summary>
     public class AsyncReaderWriterLock
     {
-        private AsyncLock ReaderListLock { get; } = new AsyncLock();
-        private List<Task> ReaderList { get; } = new List<Task>();
+        private AsyncLock ReaderListLock { get; } = new();
+        private List<Task> ReaderList { get; } = new();
 
         /// <summary>
         /// Attempts to enter the lock with concurrent access where all
@@ -54,7 +54,7 @@ namespace Gemstone.Threading
         /// <exception cref="TimeoutException">The lock could not be entered before the <paramref name="timeout"/> expired.</exception>
         public async Task<IDisposable> TryEnterReadLockAsync(TimeSpan timeout)
         {
-            LockEntry lockEntry = new LockEntry();
+            LockEntry lockEntry = new();
 
             try
             {
@@ -103,7 +103,7 @@ namespace Gemstone.Threading
         /// <exception cref="TimeoutException">The lock could not be entered before the <paramref name="timeout"/> expired.</exception>
         public async Task<IDisposable> TryEnterWriteLockAsync(TimeSpan timeout)
         {
-            LockEntry lockEntry = new LockEntry();
+            LockEntry lockEntry = new();
 
             try
             {
@@ -139,7 +139,7 @@ namespace Gemstone.Threading
         /// <returns>The token used to control the duration of entry.</returns>
         public async Task<IDisposable> EnterReadAsync()
         {
-            LockEntry lockEntry = new LockEntry();
+            LockEntry lockEntry = new();
             Task readerTask = lockEntry.WhenReleased();
 
             // The exclusive lock must be obtained to update the reader list,
@@ -165,7 +165,7 @@ namespace Gemstone.Threading
         /// <returns>The token used to control the duration of entry.</returns>
         public async Task<IDisposable> EnterWriteAsync()
         {
-            LockEntry lockEntry = new LockEntry();
+            LockEntry lockEntry = new();
 
             // The writer must maintain exclusive access until the write operation is complete
             IDisposable readerListToken = await ReaderListLock.EnterAsync().ConfigureAwait(false);

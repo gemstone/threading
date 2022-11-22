@@ -97,7 +97,7 @@ namespace Gemstone.Threading.SynchronizedOperations
                 void SuppressException(Exception suppressedException)
                 {
                     string message = $"Synchronized operation exception handler exception: {suppressedException.Message}";
-                    AggregateException aggregateException = new AggregateException(message, suppressedException, ex);
+                    AggregateException aggregateException = new(message, suppressedException, ex);
                     LibraryEvents.OnSuppressedException(this, aggregateException);
                 }
 

@@ -43,7 +43,7 @@ namespace Gemstone.Threading
         /// <typeparam name="T">The type of the result value associated with the <see cref="TaskCompletionSource{TResult}"/>.</typeparam>
         /// <returns>A new object of type <see cref="TaskCompletionSource{TResult}"/>.</returns>
         public static TaskCompletionSource<T> CreateNew<T>() =>
-            new TaskCompletionSource<T>(DefaultTaskCreationOptions);
+            new(DefaultTaskCreationOptions);
 
         /// <summary>
         /// Creates a new instance of the <see cref="TaskCompletionSource{TResult}"/> class.
@@ -52,6 +52,6 @@ namespace Gemstone.Threading
         /// <param name="state">The state to use as the underlying <see cref="Task"/>'s <see cref="Task.AsyncState"/>.</param>
         /// <returns>A new object of type <see cref="TaskCompletionSource{TResult}"/>.</returns>
         public static TaskCompletionSource<T> CreateNew<T>(object state) =>
-            new TaskCompletionSource<T>(state, DefaultTaskCreationOptions);
+            new(state, DefaultTaskCreationOptions);
     }
 }

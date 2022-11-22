@@ -112,7 +112,7 @@ namespace Gemstone.Threading
         /// </remarks>
         public async Task<IDisposable> TryEnterAsync(TimeSpan timeout)
         {
-            LockEntry lockEntry = new LockEntry();
+            LockEntry lockEntry = new();
 
             try
             {
@@ -143,7 +143,7 @@ namespace Gemstone.Threading
         /// </returns>
         public async Task<IDisposable> EnterAsync()
         {
-            LockEntry lockEntry = new LockEntry();
+            LockEntry lockEntry = new();
             await Interlocked.Exchange(ref m_task, lockEntry.WhenReleased()).ConfigureAwait(false);
             return lockEntry;
         }

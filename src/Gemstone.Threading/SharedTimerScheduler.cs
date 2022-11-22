@@ -102,7 +102,7 @@ namespace Gemstone.Threading
                 if (m_disposed)
                     throw new ObjectDisposedException(GetType().FullName);
 
-                WeakAction<DateTime> weakAction = new WeakAction<DateTime>(callback);
+                WeakAction<DateTime> weakAction = new(callback);
                 m_additionalQueueItems.Enqueue(weakAction);
 
                 return weakAction;
@@ -226,7 +226,7 @@ namespace Gemstone.Threading
                     {
                         lock (m_syncStats)
                         {
-                            StringBuilder status = new StringBuilder();
+                            StringBuilder status = new();
                             double averageCpuTime = 0.0D;
 
                             if (m_elapsedIntervals > 0)
@@ -290,7 +290,7 @@ namespace Gemstone.Threading
         /// </summary>
         /// <param name="interval">The interval of the timer, default is 100.</param>
         /// <returns>A shared timer instance that fires at the given interval.</returns>
-        public SharedTimer CreateTimer(int interval = 100) => new SharedTimer(this, interval);
+        public SharedTimer CreateTimer(int interval = 100) => new(this, interval);
 
         /// <summary>
         /// Attempts to get status of <see cref="SharedTimerInstance"/> for specified <paramref name="interval"/>.

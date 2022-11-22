@@ -152,7 +152,7 @@ namespace Gemstone.Threading.Strands
         private void QueueTask(Task task, Scheduler scheduler)
         {
             int priority = scheduler.Priority;
-            QueuedTask queuedTask = new QueuedTask(task, scheduler);
+            QueuedTask queuedTask = new(task, scheduler);
             Queue.Enqueue(queuedTask, priority);
             SynchronizedOperation.RunAsync();
         }
