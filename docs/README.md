@@ -8,6 +8,7 @@ The Gemstone Threading Library organizes all Gemstone functionality related to t
 [![GitHub license](https://img.shields.io/github/license/gemstone/threading?color=4CC61E)](https://github.com/gemstone/threading/blob/master/LICENSE)
 [![Build status](https://ci.appveyor.com/api/projects/status/0eiilt0ki2s260yw?svg=true)](https://ci.appveyor.com/project/ritchiecarroll/threading)
 ![CodeQL](https://github.com/gemstone/threading/workflows/CodeQL/badge.svg)
+[![NuGet](https://buildstats.info/nuget/Gemstone.Threading)](https://www.nuget.org/packages/Gemstone.Threading#readme-body-tab)
 
 This library includes helpful threading classes like the following:
 
