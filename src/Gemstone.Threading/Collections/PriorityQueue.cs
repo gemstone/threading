@@ -76,7 +76,7 @@ namespace Gemstone.Threading.Collections
         /// <exception cref="ArgumentNullException"><paramref name="priorityQueue"/> is <c>null</c>.</exception>
         public PriorityQueue(PriorityQueue<T> priorityQueue) : this(priorityQueue?.Queues.Length ?? 0)
         {
-            if (priorityQueue == null)
+            if (priorityQueue is null)
                 throw new ArgumentNullException(nameof(priorityQueue));
 
             for (int i = 0; i < m_queues.Length; i++)

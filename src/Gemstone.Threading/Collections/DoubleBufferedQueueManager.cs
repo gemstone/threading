@@ -77,7 +77,7 @@ namespace Gemstone.Threading.Collections
         {
             DoubleBufferedQueue<T>? queue = m_queue;
 
-            if (queue != null)
+            if (queue is not null)
             {
                 queue.Enqueue(items);
                 m_manager.SignalItemHandler();
@@ -105,7 +105,7 @@ namespace Gemstone.Threading.Collections
                 {
                     DoubleBufferedQueue<T>? queue = Interlocked.Exchange(ref m_queue, null);
 
-                    if (queue != null)
+                    if (queue is not null)
                         m_manager.ReturnQueue(queue);
                 }
                 finally

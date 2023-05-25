@@ -73,7 +73,7 @@ namespace Gemstone.Threading
         /// <param name="interval">The interval of the timer, default is 100.</param>
         internal SharedTimer(SharedTimerScheduler scheduler, int interval = 100)
         {
-            if (scheduler == null)
+            if (scheduler is null)
                 throw new ArgumentNullException(nameof(scheduler));
 
             if (scheduler.IsDisposed)

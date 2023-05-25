@@ -71,7 +71,7 @@ namespace Gemstone.Threading
 
             object? target = Target;
 
-            if (target == null)
+            if (target is null)
                 return false;
 
             m_compiledMethod(target);
@@ -131,7 +131,7 @@ namespace Gemstone.Threading
 
             object? target = Target;
 
-            if (target == null)
+            if (target is null)
                 return false;
 
             m_compiledMethod(target, param1);

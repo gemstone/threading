@@ -302,7 +302,7 @@ namespace Gemstone.Threading.SynchronizedOperations
         /// <param name="ex"><see cref="Exception"/> to be processed.</param>
         protected void ProcessException(Exception ex)
         {
-            if (m_exceptionAction == null)
+            if (m_exceptionAction is null)
             {
                 LibraryEvents.OnSuppressedException(this, new Exception($"Synchronized operation exception: {ex.Message}", ex));
             }

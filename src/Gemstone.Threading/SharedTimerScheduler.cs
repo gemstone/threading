@@ -143,7 +143,7 @@ namespace Gemstone.Threading
 
                     LinkedListNode<WeakAction<DateTime>> timerAction = m_callbacks.First;
 
-                    while (timerAction != null)
+                    while (timerAction is not null)
                     {
                         if (m_disposed)
                             return;
@@ -325,7 +325,7 @@ namespace Gemstone.Threading
         /// </returns>
         internal WeakAction<DateTime> RegisterCallback(int interval, Action<DateTime> callback)
         {
-            if (callback == null)
+            if (callback is null)
                 throw new ArgumentNullException(nameof(callback));
 
             if (interval <= 0)
@@ -352,7 +352,7 @@ namespace Gemstone.Threading
         // ReSharper disable once UnusedMethodReturnValue.Local
         private WeakAction<DateTime> RegisterCallback(int interval, WeakAction<DateTime> weakAction)
         {
-            if (weakAction == null)
+            if (weakAction is null)
                 throw new ArgumentNullException(nameof(weakAction));
 
             if (interval <= 0)
