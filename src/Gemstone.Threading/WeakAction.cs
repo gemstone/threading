@@ -25,7 +25,6 @@
 //******************************************************************************************************
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using Gemstone.Reflection.MethodInfoExtensions;
 
@@ -39,7 +38,6 @@ namespace Gemstone.Threading
     /// object will have a weak reference to it. This information is compiled
     /// an can be quickly executed without the overhead of using reflection.
     /// </remarks>
-    [SuppressMessage("Microsoft.Usage", "CA2237:MarkISerializableTypesWithSerializable")]
     public class WeakAction : NullableWeakReference
     {
         private bool m_isStatic;
@@ -100,7 +98,6 @@ namespace Gemstone.Threading
     /// object will have a weak reference to it. This information is compiled
     /// an can be quickly executed without the overhead of using reflection.
     /// </remarks>
-    [SuppressMessage("Microsoft.Usage", "CA2237:MarkISerializableTypesWithSerializable")]
     public class WeakAction<T> : NullableWeakReference
     {
         private bool m_isStatic;

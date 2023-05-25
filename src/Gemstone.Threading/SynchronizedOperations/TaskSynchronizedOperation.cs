@@ -34,7 +34,7 @@ namespace Gemstone.Threading.SynchronizedOperations
     /// <remarks>
     /// <para>
     /// The action performed by the <see cref="TaskSynchronizedOperation"/> is executed using
-    /// <see cref="Task.Run(Func{Task})"/>. Pending actions run when the task returned by the
+    /// <see cref="Task.Run(System.Func{System.Threading.Tasks.Task}())"/>. Pending actions run when the task returned by the
     /// asynchronous action is completed. This synchronized operation only supports the async
     /// methods on the <see cref="ISynchronizedOperation"/> interface because the async action
     /// cannot be executed synchronously.
