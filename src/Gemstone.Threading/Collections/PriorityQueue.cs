@@ -139,7 +139,7 @@ namespace Gemstone.Threading.Collections
         /// <param name="priority">The priority at which the item should be dequeued.</param>
         /// <param name="result">The item that was dequeued, or the default value if no item was dequeued.</param>
         /// <returns>True if an item was dequeued; false if the queue is empty.</returns>
-        public bool TryDequeue(int priority, out T result)
+        public bool TryDequeue(int priority, out T? result)
         {
             ConcurrentQueue<T>[] queues = Queues;
 
@@ -160,7 +160,7 @@ namespace Gemstone.Threading.Collections
         /// </summary>
         /// <param name="result">The item that was dequeued, or the default value if no item was dequeued.</param>
         /// <returns>True if an item was dequeued; false if the queue is empty.</returns>
-        public bool TryDequeue(out T result)
+        public bool TryDequeue(out T? result)
         {
             foreach (ConcurrentQueue<T> queue in Queues.Reverse())
             {
@@ -182,7 +182,7 @@ namespace Gemstone.Threading.Collections
         /// <see cref="PriorityQueue{T}"/> or an unspecified value if the operation failed.
         /// </param>
         /// <returns>true if an object was returned successfully; otherwise, false.</returns>
-        public bool TryPeek(int priority, out T result)
+        public bool TryPeek(int priority, out T? result)
         {
             ConcurrentQueue<T>[] queues = Queues;
 
@@ -206,7 +206,7 @@ namespace Gemstone.Threading.Collections
         /// <see cref="PriorityQueue{T}"/> or an unspecified value if the operation failed.
         /// </param>
         /// <returns>true if an object was returned successfully; otherwise, false.</returns>
-        public bool TryPeek(out T result)
+        public bool TryPeek(out T? result)
         {
             foreach (ConcurrentQueue<T> queue in Queues.Reverse())
             {
@@ -261,7 +261,7 @@ namespace Gemstone.Threading.Collections
             return true;
         }
 
-        bool IProducerConsumerCollection<T>.TryTake(out T item) => TryDequeue(out item);
+        bool IProducerConsumerCollection<T>.TryTake(out T item) => TryDequeue(out item!);
 
         void ICollection.CopyTo(Array array, int index) => ToArray().CopyTo(array, index);
 
@@ -297,6 +297,6 @@ namespace Gemstone.Threading.Collections
             }
         }
 
-        #endregion
+#endregion
     }
 }

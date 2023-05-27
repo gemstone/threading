@@ -90,7 +90,7 @@ namespace Gemstone.Threading
                 m_syncStats = new object();
                 m_interval = interval;
                 m_callbacks = new LinkedList<WeakAction<DateTime>>();
-                m_timer = new Timer(Callback, null, interval, interval);
+                m_timer = new Timer(Callback!, null, interval, interval);
             }
 
             #endregion
@@ -141,7 +141,7 @@ namespace Gemstone.Threading
                     DateTime fireTimeDatetime = fireTime.UtcTime;
                     int loopCount = 0;
 
-                    LinkedListNode<WeakAction<DateTime>> timerAction = m_callbacks.First;
+                    LinkedListNode<WeakAction<DateTime>>? timerAction = m_callbacks.First;
 
                     while (timerAction is not null)
                     {
@@ -149,7 +149,7 @@ namespace Gemstone.Threading
                             return;
 
                         // Removing the linked list item will invalidate the "Next" property, so we store it
-                        LinkedListNode<WeakAction<DateTime>> nextNode = timerAction.Next;
+                        LinkedListNode<WeakAction<DateTime>>? nextNode = timerAction.Next;
 
                         try
                         {
@@ -173,7 +173,7 @@ namespace Gemstone.Threading
                         m_elapsedWorkerTime += fireTime.ElapsedMilliseconds();
                     }
 
-                    WeakAction<DateTime> newCallbacks;
+                    WeakAction<DateTime>? newCallbacks;
 
                     while (m_additionalQueueItems.TryDequeue(out newCallbacks))
                         m_callbacks.AddLast(newCallbacks);
@@ -307,7 +307,7 @@ namespace Gemstone.Threading
                 if (m_disposed)
                     return "";
 
-                if (m_schedulesByInterval.TryGetValue(interval, out SharedTimerInstance instance))
+                if (m_schedulesByInterval.TryGetValue(interval, out SharedTimerInstance? instance))
                     return instance?.Status ?? "";
             }
 
@@ -339,7 +339,7 @@ namespace Gemstone.Threading
                 if (m_disposed)
                     throw new ObjectDisposedException(GetType().FullName);
 
-                if (!m_schedulesByInterval.TryGetValue(interval, out SharedTimerInstance instance))
+                if (!m_schedulesByInterval.TryGetValue(interval, out SharedTimerInstance? instance))
                 {
                     instance = new SharedTimerInstance(this, interval);
                     m_schedulesByInterval.Add(interval, instance);
@@ -366,7 +366,7 @@ namespace Gemstone.Threading
                 if (m_disposed)
                     throw new ObjectDisposedException(GetType().FullName);
 
-                if (!m_schedulesByInterval.TryGetValue(interval, out SharedTimerInstance instance))
+                if (!m_schedulesByInterval.TryGetValue(interval, out SharedTimerInstance? instance))
                 {
                     instance = new SharedTimerInstance(this, interval);
                     m_schedulesByInterval.Add(interval, instance);

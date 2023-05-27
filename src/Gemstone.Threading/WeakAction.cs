@@ -48,7 +48,7 @@ namespace Gemstone.Threading
         /// </summary>
         /// <param name="callback">The callback.</param>
         public WeakAction(Action callback)
-            : base(callback.Target)
+            : base(callback.Target!)
         {
             m_isStatic = callback.Method.IsStatic;
             m_compiledMethod = callback.Method.CreateAction();
@@ -107,7 +107,7 @@ namespace Gemstone.Threading
         /// </summary>
         /// <param name="callback">The callback.</param>
         public WeakAction(Action<T> callback)
-            : base(callback.Target)
+            : base(callback.Target!)
         {
             m_isStatic = callback.Method.IsStatic;
             m_compiledMethod = callback.Method.CreateAction<T>();

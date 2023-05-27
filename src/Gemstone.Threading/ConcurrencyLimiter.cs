@@ -141,7 +141,7 @@ namespace Gemstone.Threading
         {
             Queue.Enqueue(task);
 
-            if (TaskProcessors.TryTake(out ISynchronizedOperation taskProcessor) && TryActivateCurrentTaskProcessor())
+            if (TaskProcessors.TryTake(out ISynchronizedOperation? taskProcessor) && TryActivateCurrentTaskProcessor())
                 taskProcessor.RunAsync();
         }
 
@@ -162,7 +162,7 @@ namespace Gemstone.Threading
             if (s_currentlyExecutingTask)
                 return TryExecuteTask(task);
 
-            if (!TaskProcessors.TryTake(out ISynchronizedOperation taskProcessor))
+            if (!TaskProcessors.TryTake(out ISynchronizedOperation? taskProcessor))
                 return false;
 
             if (!TryActivateCurrentTaskProcessor())
@@ -200,7 +200,7 @@ namespace Gemstone.Threading
             // one task unless there are no tasks to execute
             while (true)
             {
-                if (!Queue.TryDequeue(out Task task))
+                if (!Queue.TryDequeue(out Task? task))
                     break;
 
                 if (tryExecuteTask(task))
@@ -231,7 +231,7 @@ namespace Gemstone.Threading
             // level to process queued tasks more efficiently
             for (int i = 0; i < Queue.Count; i++)
             {
-                if (!TaskProcessors.TryTake(out ISynchronizedOperation taskProcessor))
+                if (!TaskProcessors.TryTake(out ISynchronizedOperation? taskProcessor))
                     return;
 
                 if (!TryActivateCurrentTaskProcessor())

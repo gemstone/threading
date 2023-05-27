@@ -138,7 +138,7 @@ namespace Gemstone.Threading.Collections
         // Attempts to dequeue and process an item from the queue.
         private void TryProcessItem()
         {
-            if (m_asyncQueue.TryDequeue(out T item))
+            if (m_asyncQueue.TryDequeue(out T? item))
             {
                 if (Enabled)
                     m_processItemFunction?.Invoke(item);

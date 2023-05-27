@@ -130,7 +130,7 @@ namespace Gemstone.Threading.Strands
 
             // We can only dequeue tasks from the head of the queue,
             // so this is really just a minimal-effort approach
-            if (Queue.TryPeek(out Task head) && task == head)
+            if (Queue.TryPeek(out Task? head) && task == head)
                 return Queue.TryDequeue(out _);
 
             return false;
@@ -156,7 +156,7 @@ namespace Gemstone.Threading.Strands
                 // unnecessary iterations of the async loop
                 while (true)
                 {
-                    if (!Queue.TryDequeue(out Task task))
+                    if (!Queue.TryDequeue(out Task? task))
                         return;
 
                     // A task could be cancelled or inlined after it was queued,

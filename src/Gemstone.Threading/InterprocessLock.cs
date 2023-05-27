@@ -37,6 +37,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 using System.Security.Cryptography;
 using System.Threading;
 using Gemstone.Identity;
@@ -73,12 +74,12 @@ namespace Gemstone.Threading
         {
             Assembly entryAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
             GuidAttribute? attribute = entryAssembly.GetCustomAttributes(typeof(GuidAttribute), true).FirstOrDefault() as GuidAttribute;
-            string name = attribute?.Value ?? entryAssembly.GetName().Name;
+            string? name = attribute?.Value ?? entryAssembly.GetName().Name;
 
             if (perUser)
                 name += UserInfo.CurrentUserID ?? string.Empty;
 
-            return GetNamedMutex(name, !perUser);
+            return GetNamedMutex(name!, !perUser);
         }
 
         /// <summary>
@@ -117,7 +118,7 @@ namespace Gemstone.Threading
             SHA256 hash = new Cipher().CreateSHA256();
             string mutexName = $"{(global ? "Global" : "Local")}\\{hash.GetStringHash($"{name.ToLowerInvariant()}{MutexHash}").Replace('\\', '-')}";
 
-            if (!Mutex.TryOpenExisting(mutexName, out Mutex namedMutex))
+            if (!Mutex.TryOpenExisting(mutexName, out Mutex? namedMutex))
                 namedMutex = new Mutex(false, mutexName);
 
             return namedMutex;
@@ -141,16 +142,19 @@ namespace Gemstone.Threading
         /// </remarks>
         /// <exception cref="UnauthorizedAccessException">The named semaphore exists, but the user does not have the minimum needed security access rights to use it.</exception>
         [MethodImpl(MethodImplOptions.Synchronized)]
+    #if NET
+        [SupportedOSPlatform("Windows")]
+    #endif
         public static Semaphore GetNamedSemaphore(bool perUser, int maximumCount = 10, int initialCount = -1)
         {
             Assembly entryAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
             GuidAttribute? attribute = entryAssembly.GetCustomAttributes(typeof(GuidAttribute), true).FirstOrDefault() as GuidAttribute;
-            string name = attribute?.Value ?? entryAssembly.GetName().Name;
+            string? name = attribute?.Value ?? entryAssembly.GetName().Name;
 
             if (perUser)
                 name += UserInfo.CurrentUserID ?? string.Empty;
 
-            return GetNamedSemaphore(name, maximumCount, initialCount, !perUser);
+            return GetNamedSemaphore(name!, maximumCount, initialCount, !perUser);
         }
 
         /// <summary>
@@ -176,6 +180,9 @@ namespace Gemstone.Threading
         /// <exception cref="ArgumentNullException">Argument <paramref name="name"/> cannot be empty, null or white space.</exception>
         /// <exception cref="UnauthorizedAccessException">The named semaphore exists, but the user does not have the minimum needed security access rights to use it.</exception>
         [MethodImpl(MethodImplOptions.Synchronized)]
+    #if NET
+        [SupportedOSPlatform("Windows")]
+    #endif
         public static Semaphore GetNamedSemaphore(string name, int maximumCount = 10, int initialCount = -1, bool global = true)
         {
             if (string.IsNullOrWhiteSpace(name))
@@ -194,10 +201,11 @@ namespace Gemstone.Threading
             SHA256 hash = new Cipher().CreateSHA256();
             string semaphoreName = $"{(global ? "Global" : "Local")}\\{hash.GetStringHash($"{name.ToLowerInvariant()}{SemaphoreHash}").Replace('\\', '-')}";
 
-            if (!Semaphore.TryOpenExisting(semaphoreName, out Semaphore namedSemaphore))
+            if (!Semaphore.TryOpenExisting(semaphoreName, out Semaphore? namedSemaphore))
                 namedSemaphore = new Semaphore(initialCount, maximumCount, semaphoreName);
 
             return namedSemaphore;
         }
+
     }
 }

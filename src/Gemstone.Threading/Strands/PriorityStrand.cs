@@ -187,7 +187,7 @@ namespace Gemstone.Threading.Strands
 
             // We can only dequeue tasks from the head of the queue at a given
             // priority, so this is really just a minimal-effort approach
-            if (Queue.TryPeek(priority, out QueuedTask head) && task == head.Task)
+            if (Queue.TryPeek(priority, out QueuedTask? head) && task == head!.Task)
                 return Queue.TryDequeue(priority, out _);
 
             return false;
@@ -210,10 +210,10 @@ namespace Gemstone.Threading.Strands
 
                 while (true)
                 {
-                    if (!Queue.TryDequeue(out QueuedTask queuedTask))
+                    if (!Queue.TryDequeue(out QueuedTask? queuedTask))
                         break;
 
-                    Task task = queuedTask.Task;
+                    Task task = queuedTask!.Task;
                     Scheduler scheduler = queuedTask.Scheduler;
 
                     if (scheduler.TryExecuteTask(task))
