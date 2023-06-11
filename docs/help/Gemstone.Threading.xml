@@ -65,7 +65,7 @@
         <para>
             The following illustrates an example of using try-catch to detect a failure to take the lock.
             </para>
-        <code language="cs">
+        <code>
             AsyncLock asyncLock = new AsyncLock();
             
             try
@@ -1729,7 +1729,7 @@
              Implementers should call <see cref="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.ExecuteAction" /> on a separate thread and check the return value.
              If it returns true, that means it needs to run again. The following is a sample implementation using
              a regular dedicated thread:
-             <code language="cs">
+             <code>
              protected override void ExecuteActionAsync()
              {
                  Thread actionThread = new Thread(() =&gt;
