@@ -65,7 +65,7 @@
         <para>
             The following illustrates an example of using try-catch to detect a failure to take the lock.
             </para>
-        <code>
+        <code language="cs">
             AsyncLock asyncLock = new AsyncLock();
             
             try
@@ -459,6 +459,171 @@
             </para>
       </remarks>
     </member>
+    <member name="T:Gemstone.Threading.RateLimiter">
+      <summary>
+            A rate limiting system based on tokes.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.RateLimiter.#ctor(System.Double,System.Int32)">
+      <summary>
+            Creates a <see cref="T:Gemstone.Threading.RateLimiter" /></summary>
+      <param name="tokensPerSecond">The number of tokens per second that can be generated. Must be greater than zero and less than 1 billion</param>
+      <param name="maxTokensQueue">The maximum number of tokens in the queue. Must be at least 1</param>
+    </member>
+    <member name="M:Gemstone.Threading.RateLimiter.TryTakeToken">
+      <summary>
+            Attempts to take a token from the rate limiter.
+            </summary>
+      <returns>true if token was successfully taken, False if all tokens were consumed.</returns>
+    </member>
+    <member name="M:Gemstone.Threading.RateLimiter.UpdateLimits(System.Double,System.Int32)">
+      <summary>
+            Updates the limits associated with this rate limiter. Note, after this update, the tokens will be completely resupplied.
+            </summary>
+      <param name="tokensPerSecond">The number of tokens per second that can be generated. Must be greater than zero and less than 1 billion</param>
+      <param name="maxTokensQueue">The maximum number of tokens in the queue. Must be at least 1</param>
+    </member>
+    <member name="T:Gemstone.Threading.ReaderWriterSpinLock">
+      <summary>
+            Represents a fast, lightweight reader/writer lock that uses spinning to perform locking. No recursive acquires or
+            upgradable locks are allowed (i.e., all entered locks must be exited before entering another lock).
+            </summary>
+      <remarks>
+            This reader/writer lock uses <see cref="T:System.Threading.SpinWait" /> to spin the CPU instead of engaging event based locking. As a result it
+            should only be used in cases where lock times are expected to be very small, reads are very frequent and writes are rare.
+            If hold times for write locks can be lengthy, it will be better to use <see cref="T:System.Threading.ReaderWriterLockSlim" /> instead to avoid
+            unnecessary CPU utilization due to spinning incurred by waiting reads.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Threading.ReaderWriterSpinLock.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Gemstone.Threading.ReaderWriterSpinLock</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:Gemstone.Threading.ReaderWriterSpinLock.EnterReadLock">
+      <summary>
+            Enters the lock in read mode.
+            </summary>
+      <remarks>
+            Upon successful acquisition of a read lock, use the <c>finally</c> block of a <c>try/finally</c> statement to call <see cref="M:Gemstone.Threading.ReaderWriterSpinLock.ExitReadLock" />.
+            One <see cref="M:Gemstone.Threading.ReaderWriterSpinLock.ExitReadLock" /> should be called for each <see cref="M:Gemstone.Threading.ReaderWriterSpinLock.EnterReadLock" />.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Threading.ReaderWriterSpinLock.EnterWriteLock">
+      <summary>
+            Enters the lock in write mode.
+            </summary>
+      <remarks>
+            Upon successful acquisition of a write lock, use the <c>finally</c> block of a <c>try/finally</c> statement to call <see cref="M:Gemstone.Threading.ReaderWriterSpinLock.ExitWriteLock" />.
+            One <see cref="M:Gemstone.Threading.ReaderWriterSpinLock.ExitWriteLock" /> should be called for each <see cref="M:Gemstone.Threading.ReaderWriterSpinLock.EnterWriteLock" />.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Threading.ReaderWriterSpinLock.ExitReadLock">
+      <summary>
+            Exits read mode.
+            </summary>
+      <exception cref="T:System.InvalidOperationException">Cannot exit read lock when there are no readers.</exception>
+    </member>
+    <member name="M:Gemstone.Threading.ReaderWriterSpinLock.ExitWriteLock">
+      <summary>
+            Exits write mode.
+            </summary>
+    </member>
+    <member name="T:Gemstone.Threading.ScheduledTask">
+      <summary>
+            Represents a way to schedule a task to be executed on a separate thread immediately or after a given time delay.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.ScheduledTask.#ctor(Gemstone.Threading.ThreadingMode,System.Threading.ThreadPriority,System.Boolean)">
+      <summary>
+            Creates a <see cref="T:Gemstone.Threading.ScheduledTask" />.
+            </summary>
+      <param name="threadMode">The manner in which the scheduled task executes.</param>
+      <param name="priority">The thread priority to assign if a dedicated thread is used. This is ignored if using the thread-pool.</param>
+      <param name="disposeOnShutdown">Adds a handler to <see cref="T:Gemstone.Threading.ShutdownHandler" /> that requires this class to be disposed
+            when the application is shutdown. Note: If this object has been garbage collected, this will have no effect.</param>
+    </member>
+    <member name="M:Gemstone.Threading.ScheduledTask.Dispose">
+      <summary>
+            Starts the disposing process of exiting the worker thread. 
+            </summary>
+      <remarks>
+        <para>Callback will be invoked one more time. Duplicate calls are ignored.</para>
+        <para>
+            Unless called from the worker thread, this method will block until the dispose
+            has successfully completed.
+            </para>
+      </remarks>
+    </member>
+    <member name="E:Gemstone.Threading.ScheduledTask.Disposing">
+      <summary>
+            Occurs right before this task is disposed.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.ScheduledTask.Finalize">
+      <summary>
+            Cleans up the <see cref="T:Gemstone.Threading.ThreadContainerBase" /> thread since that class likely will never be garbage collected.
+            </summary>
+    </member>
+    <member name="E:Gemstone.Threading.ScheduledTask.Running">
+      <summary>
+            Occurs every time the task should run.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.ScheduledTask.Start">
+      <summary>
+            Starts the task immediately, or if one was scheduled, starts the scheduled task immediately
+            </summary>
+      <remarks>
+        <para>
+            If this is called after a <see cref="M:Gemstone.Threading.ScheduledTask.Start(System.Int32)" /> the timer will be canceled
+            and the process will still start immediately. 
+            </para>
+        <para>
+            This method is safe to call from any thread, including the worker thread.
+            If disposed, this method will no nothing.
+            </para>
+      </remarks>
+    </member>
+    <member name="M:Gemstone.Threading.ScheduledTask.Start(System.Int32)">
+      <summary>
+            Starts a timer to run the task after a provided interval. 
+            </summary>
+      <param name="delay">the delay in milliseconds before the task should run</param>
+      <remarks>
+        <para>
+            If a timer is currently pending, this function will do nothing. Do not use this
+            function to reset or restart an existing timer.
+            </para>
+        <para>
+            If called while working, a subsequent timer will be scheduled, but delay will not
+            start until after the worker has completed.
+            </para>
+        <para>
+            This method is safe to call from any thread, including the worker thread.
+            If disposed, this method will no nothing.
+            </para>
+      </remarks>
+    </member>
+    <member name="T:Gemstone.Threading.ScheduledTaskRunningReason">
+      <summary>
+            Metadata about why this worker was called.
+            </summary>
+    </member>
+    <member name="F:Gemstone.Threading.ScheduledTaskRunningReason.Running">
+      <summary>
+            A normal run was scheduled.
+            </summary>
+    </member>
+    <member name="F:Gemstone.Threading.ScheduledTaskRunningReason.Disposing">
+      <summary>
+            Dispose was called and execution will terminate after this function call.
+            </summary>
+    </member>
     <member name="T:Gemstone.Threading.SharedTimer">
       <summary>
             Represents a timer class that will group registered timer event callbacks that operate on the same
@@ -594,6 +759,25 @@
       <summary>
             The default <see cref="T:System.Threading.Tasks.TaskCreationOptions" /> used by this factory
             for creating new <see cref="T:System.Threading.Tasks.TaskCompletionSource`1" /> objects.
+            </summary>
+    </member>
+    <member name="T:Gemstone.Threading.ThreadingMode">
+      <summary>
+            Specifies the threading mode to use for the <see cref="T:Gemstone.Threading.ScheduledTask" /></summary>
+    </member>
+    <member name="F:Gemstone.Threading.ThreadingMode.DedicatedForeground">
+      <summary>
+            A dedicated thread that is a foreground thread.
+            </summary>
+    </member>
+    <member name="F:Gemstone.Threading.ThreadingMode.DedicatedBackground">
+      <summary>
+            A dedicated thread that is a background thread.
+            </summary>
+    </member>
+    <member name="F:Gemstone.Threading.ThreadingMode.ThreadPool">
+      <summary>
+            A background thread from the thread pool.
             </summary>
     </member>
     <member name="T:Gemstone.Threading.WeakAction">
@@ -1665,7 +1849,7 @@
             implement a notifier that receives notification requests ad-hoc but sends notifications
             no more than once every 15 seconds.
             </para>
-        <code language="cs">
+        <code>
             public ExampleClass() =&gt;
                 SynchronizedOperation = new TaskSynchronizedOperation(NotifyAsync);
                 
