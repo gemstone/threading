@@ -25,73 +25,72 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Gemstone.Threading.SynchronizedOperations
+namespace Gemstone.Threading.SynchronizedOperations;
+
+/// <summary>
+/// Represents a short-running synchronized operation that cannot run while it is already in progress.
+/// </summary>
+/// <remarks>
+/// By default, the action performed by the <see cref="ShortSynchronizedOperation"/>
+/// is executed on the <see cref="ThreadPool"/> when running the operation asynchronously.
+/// When the operation is set to pending, the action is executed in an asynchronous loop
+/// on the thread pool until all pending operations have been completed. Since the action
+/// is executed on the thread pool, it is best if it can be executed quickly, without
+/// blocking the thread or putting it to sleep. If completion of the operation is
+/// critical, such as when saving data to a file, this type of operation should not
+/// be used since thread pool threads are background threads and will not prevent the
+/// program from ending before the operation is complete.
+/// </remarks>
+public class ShortSynchronizedOperation : SynchronizedOperationBase
 {
+    #region [ Constructors ]
+
     /// <summary>
-    /// Represents a short-running synchronized operation that cannot run while it is already in progress.
+    /// Creates a new instance of the <see cref="ShortSynchronizedOperation"/> class.
     /// </summary>
-    /// <remarks>
-    /// By default, the action performed by the <see cref="ShortSynchronizedOperation"/>
-    /// is executed on the <see cref="ThreadPool"/> when running the operation asynchronously.
-    /// When the operation is set to pending, the action is executed in an asynchronous loop
-    /// on the thread pool until all pending operations have been completed. Since the action
-    /// is executed on the thread pool, it is best if it can be executed quickly, without
-    /// blocking the thread or putting it to sleep. If completion of the operation is
-    /// critical, such as when saving data to a file, this type of operation should not
-    /// be used since thread pool threads are background threads and will not prevent the
-    /// program from ending before the operation is complete.
-    /// </remarks>
-    public class ShortSynchronizedOperation : SynchronizedOperationBase
+    /// <param name="action">The action to be performed during this operation.</param>
+    public ShortSynchronizedOperation(Action action) : base(action)
     {
-        #region [ Constructors ]
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="ShortSynchronizedOperation"/> class.
-        /// </summary>
-        /// <param name="action">The action to be performed during this operation.</param>
-        public ShortSynchronizedOperation(Action action) : base(action)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="ShortSynchronizedOperation"/> class.
-        /// </summary>
-        /// <param name="action">The action to be performed during this operation.</param>
-        /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
-        public ShortSynchronizedOperation(Action action, Action<Exception>? exceptionAction) : base(action, exceptionAction)
-        {
-        }
-
-        #endregion
-
-        #region [ Methods ]
-
-        /// <summary>
-        /// Executes the action in an asynchronous loop on
-        /// the thread pool, as long as the operation is pending.
-        /// </summary>
-        protected override void ExecuteActionAsync()
-        {
-            Task.Run(() =>
-            {
-                if (ExecuteAction())
-                    ExecuteActionAsync();
-            });
-        }
-
-        #endregion
-
-        #region [ Static ]
-
-        // Static Methods
-
-        /// <summary>
-        /// Factory method to match the <see cref="SynchronizedOperationFactory"/> signature.
-        /// </summary>
-        /// <param name="action">The action to be performed by the <see cref="ShortSynchronizedOperation"/>.</param>
-        /// <returns>A new instance of <see cref="ShortSynchronizedOperation"/>.</returns>
-        public static ISynchronizedOperation Factory(Action action) => new ShortSynchronizedOperation(action);
-
-        #endregion
     }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="ShortSynchronizedOperation"/> class.
+    /// </summary>
+    /// <param name="action">The action to be performed during this operation.</param>
+    /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
+    public ShortSynchronizedOperation(Action action, Action<Exception>? exceptionAction) : base(action, exceptionAction)
+    {
+    }
+
+    #endregion
+
+    #region [ Methods ]
+
+    /// <summary>
+    /// Executes the action in an asynchronous loop on
+    /// the thread pool, as long as the operation is pending.
+    /// </summary>
+    protected override void ExecuteActionAsync()
+    {
+        Task.Run(() =>
+        {
+            if (ExecuteAction())
+                ExecuteActionAsync();
+        });
+    }
+
+    #endregion
+
+    #region [ Static ]
+
+    // Static Methods
+
+    /// <summary>
+    /// Factory method to match the <see cref="SynchronizedOperationFactory"/> signature.
+    /// </summary>
+    /// <param name="action">The action to be performed by the <see cref="ShortSynchronizedOperation"/>.</param>
+    /// <returns>A new instance of <see cref="ShortSynchronizedOperation"/>.</returns>
+    public static ISynchronizedOperation Factory(Action action) => new ShortSynchronizedOperation(action);
+
+    #endregion
 }

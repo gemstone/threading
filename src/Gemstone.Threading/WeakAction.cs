@@ -28,122 +28,121 @@ using System;
 using System.Runtime.CompilerServices;
 using Gemstone.Reflection.MethodInfoExtensions;
 
-namespace Gemstone.Threading
+namespace Gemstone.Threading;
+
+/// <summary>
+/// Provides a weak referenced <see cref="Action"/> delegate.
+/// </summary>
+/// <remarks>
+/// This class will store the information necessary so the callback
+/// object will have a weak reference to it. This information is compiled
+/// an can be quickly executed without the overhead of using reflection.
+/// </remarks>
+public class WeakAction : NullableWeakReference
 {
+    private bool m_isStatic;
+    private readonly Action<object> m_compiledMethod;
+
     /// <summary>
-    /// Provides a weak referenced <see cref="Action"/> delegate.
+    /// Creates a WeakAction.
     /// </summary>
-    /// <remarks>
-    /// This class will store the information necessary so the callback
-    /// object will have a weak reference to it. This information is compiled
-    /// an can be quickly executed without the overhead of using reflection.
-    /// </remarks>
-    public class WeakAction : NullableWeakReference
+    /// <param name="callback">The callback.</param>
+    public WeakAction(Action callback)
+        : base(callback.Target!)
     {
-        private bool m_isStatic;
-        private readonly Action<object> m_compiledMethod;
-
-        /// <summary>
-        /// Creates a WeakAction.
-        /// </summary>
-        /// <param name="callback">The callback.</param>
-        public WeakAction(Action callback)
-            : base(callback.Target!)
-        {
-            m_isStatic = callback.Method.IsStatic;
-            m_compiledMethod = callback.Method.CreateAction();
-        }
-
-        /// <summary>
-        /// Attempts to invoke the delegate to a weak reference object.
-        /// </summary>
-        /// <returns><c>true</c> if successful; otherwise, <c>false</c>.</returns>
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        public bool TryInvoke()
-        {
-            if (m_isStatic)
-            {
-                m_compiledMethod(null!);
-                return true;
-            }
-
-            object? target = Target;
-
-            if (target is null)
-                return false;
-
-            m_compiledMethod(target);
-
-            return true;
-        }
-
-        /// <summary>
-        /// Clears <see cref="Action"/> callback target.
-        /// </summary>
-        public override void Clear()
-        {
-            //Note, the race condition that exists here would simply cause
-            //A static method exit anyway since Target is always null for static 
-            //methods.
-            m_isStatic = false;
-            base.Clear();
-        }
+        m_isStatic = callback.Method.IsStatic;
+        m_compiledMethod = callback.Method.CreateAction();
     }
 
     /// <summary>
-    /// Provides a weak referenced <see cref="Action"/> delegate.
+    /// Attempts to invoke the delegate to a weak reference object.
     /// </summary>
-    /// <remarks>
-    /// This class will store the information necessary so the callback
-    /// object will have a weak reference to it. This information is compiled
-    /// an can be quickly executed without the overhead of using reflection.
-    /// </remarks>
-    public class WeakAction<T> : NullableWeakReference
+    /// <returns><c>true</c> if successful; otherwise, <c>false</c>.</returns>
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public bool TryInvoke()
     {
-        private bool m_isStatic;
-        private readonly Action<object,T> m_compiledMethod;
-        /// <summary>
-        /// Creates a WeakAction.
-        /// </summary>
-        /// <param name="callback">The callback.</param>
-        public WeakAction(Action<T> callback)
-            : base(callback.Target!)
+        if (m_isStatic)
         {
-            m_isStatic = callback.Method.IsStatic;
-            m_compiledMethod = callback.Method.CreateAction<T>();
-        }
-
-        /// <summary>
-        /// Attempts to invoke the delegate to a weak reference object.
-        /// </summary>
-        /// <returns><c>true</c> if successful; otherwise, <c>false</c>.</returns>
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        public bool TryInvoke(T param1)
-        {
-            if (m_isStatic)
-            {
-                m_compiledMethod(null!, param1);
-                return true;
-            }
-
-            object? target = Target;
-
-            if (target is null)
-                return false;
-
-            m_compiledMethod(target, param1);
+            m_compiledMethod(null!);
             return true;
         }
 
-        /// <summary>
-        /// Clears <see cref="Action"/> callback target.
-        /// </summary>
-        public override void Clear()
+        object? target = Target;
+
+        if (target is null)
+            return false;
+
+        m_compiledMethod(target);
+
+        return true;
+    }
+
+    /// <summary>
+    /// Clears <see cref="Action"/> callback target.
+    /// </summary>
+    public override void Clear()
+    {
+        //Note, the race condition that exists here would simply cause
+        //A static method exit anyway since Target is always null for static 
+        //methods.
+        m_isStatic = false;
+        base.Clear();
+    }
+}
+
+/// <summary>
+/// Provides a weak referenced <see cref="Action"/> delegate.
+/// </summary>
+/// <remarks>
+/// This class will store the information necessary so the callback
+/// object will have a weak reference to it. This information is compiled
+/// an can be quickly executed without the overhead of using reflection.
+/// </remarks>
+public class WeakAction<T> : NullableWeakReference
+{
+    private bool m_isStatic;
+    private readonly Action<object,T> m_compiledMethod;
+    /// <summary>
+    /// Creates a WeakAction.
+    /// </summary>
+    /// <param name="callback">The callback.</param>
+    public WeakAction(Action<T> callback)
+        : base(callback.Target!)
+    {
+        m_isStatic = callback.Method.IsStatic;
+        m_compiledMethod = callback.Method.CreateAction<T>();
+    }
+
+    /// <summary>
+    /// Attempts to invoke the delegate to a weak reference object.
+    /// </summary>
+    /// <returns><c>true</c> if successful; otherwise, <c>false</c>.</returns>
+    [MethodImpl(MethodImplOptions.NoInlining)]
+    public bool TryInvoke(T param1)
+    {
+        if (m_isStatic)
         {
-            // Note, the race condition that exists here would simply cause a static
-            // method exit anyway since Target is always null for static methods.
-            m_isStatic = false;
-            base.Clear();
+            m_compiledMethod(null!, param1);
+            return true;
         }
+
+        object? target = Target;
+
+        if (target is null)
+            return false;
+
+        m_compiledMethod(target, param1);
+        return true;
+    }
+
+    /// <summary>
+    /// Clears <see cref="Action"/> callback target.
+    /// </summary>
+    public override void Clear()
+    {
+        // Note, the race condition that exists here would simply cause a static
+        // method exit anyway since Target is always null for static methods.
+        m_isStatic = false;
+        base.Clear();
     }
 }

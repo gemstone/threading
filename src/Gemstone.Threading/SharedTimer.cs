@@ -24,212 +24,211 @@
 using System;
 using Gemstone.EventHandlerExtensions;
 
-namespace Gemstone.Threading
+namespace Gemstone.Threading;
+
+/// <summary>
+/// Represents a timer class that will group registered timer event callbacks that operate on the same
+/// interval in order to optimize thread pool queuing.
+/// </summary>
+/// <remarks>
+/// <para>
+/// Externally the <see cref="SharedTimer"/> operations similar to the <see cref="System.Timers.Timer"/>.
+/// Internally the timer pools callbacks with the same <see cref="Interval"/> into a single timer where
+/// each callback is executed on the same thread, per instance of the <see cref="SharedTimerScheduler"/>. 
+/// </para>
+/// <para>
+/// Any long running callbacks that have a risk of long delays should not use <see cref="SharedTimer"/>
+/// as this will effect the reliability of all of the other <see cref="SharedTimer"/> instances for a
+/// given <see cref="SharedTimerScheduler"/>.
+/// </para>
+/// </remarks>
+public sealed class SharedTimer : IDisposable, IProvideStatus
 {
+    #region [ Members ]
+
+    // Events
+
     /// <summary>
-    /// Represents a timer class that will group registered timer event callbacks that operate on the same
-    /// interval in order to optimize thread pool queuing.
+    /// Occurs when the timer interval elapses.
     /// </summary>
-    /// <remarks>
-    /// <para>
-    /// Externally the <see cref="SharedTimer"/> operations similar to the <see cref="System.Timers.Timer"/>.
-    /// Internally the timer pools callbacks with the same <see cref="Interval"/> into a single timer where
-    /// each callback is executed on the same thread, per instance of the <see cref="SharedTimerScheduler"/>. 
-    /// </para>
-    /// <para>
-    /// Any long running callbacks that have a risk of long delays should not use <see cref="SharedTimer"/>
-    /// as this will effect the reliability of all of the other <see cref="SharedTimer"/> instances for a
-    /// given <see cref="SharedTimerScheduler"/>.
-    /// </para>
-    /// </remarks>
-    public sealed class SharedTimer : IDisposable, IProvideStatus
+    public event EventHandler<EventArgs<DateTime>>? Elapsed;
+
+    // Fields
+    private int m_interval;
+    private bool m_enabled;
+    private bool m_autoReset;
+    private bool m_disposed;
+    private readonly Action<DateTime> m_callback;
+    private readonly SharedTimerScheduler m_scheduler;
+    private WeakAction<DateTime>? m_registeredCallback;
+
+    #endregion
+
+    #region [ Constructors ]
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SharedTimer"/>.
+    /// </summary>
+    /// <param name="scheduler">The scheduler to use.</param>
+    /// <param name="interval">The interval of the timer, default is 100.</param>
+    internal SharedTimer(SharedTimerScheduler scheduler, int interval = 100)
     {
-        #region [ Members ]
+        if (scheduler is null)
+            throw new ArgumentNullException(nameof(scheduler));
 
-        // Events
+        if (scheduler.IsDisposed)
+            throw new ArgumentException("Scheduler has been disposed", nameof(scheduler));
 
-        /// <summary>
-        /// Occurs when the timer interval elapses.
-        /// </summary>
-        public event EventHandler<EventArgs<DateTime>>? Elapsed;
+        if (interval <= 0)
+            throw new ArgumentOutOfRangeException(nameof(interval));
 
-        // Fields
-        private int m_interval;
-        private bool m_enabled;
-        private bool m_autoReset;
-        private bool m_disposed;
-        private readonly Action<DateTime> m_callback;
-        private readonly SharedTimerScheduler m_scheduler;
-        private WeakAction<DateTime>? m_registeredCallback;
+        m_scheduler = scheduler;
+        m_interval = interval;
+        m_enabled = false;
+        m_autoReset = true;
+        m_callback = TimerCallback;
+        m_scheduler = scheduler;
+    }
 
-        #endregion
+    #endregion
 
-        #region [ Constructors ]
+    #region [ Properties ]
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SharedTimer"/>.
-        /// </summary>
-        /// <param name="scheduler">The scheduler to use.</param>
-        /// <param name="interval">The interval of the timer, default is 100.</param>
-        internal SharedTimer(SharedTimerScheduler scheduler, int interval = 100)
+    /// <summary>
+    /// Gets or sets flag that indicates whether the <see cref="SharedTimer" /> should raise the <see cref="Elapsed" /> event only
+    /// once <c>false</c> or repeatedly <c>true</c>.
+    /// </summary>
+    /// <returns>
+    /// <c>true</c> the <see cref="SharedTimer" /> should raise the <see cref="Elapsed" /> event each time the interval elapses; otherwise,
+    /// <c>false</c> if it should raise the <see cref="Elapsed" /> event only once, after the first time the interval elapses.
+    /// The default is <c>true</c>.
+    /// </returns>
+    public bool AutoReset
+    {
+        get => m_autoReset;
+        set
         {
-            if (scheduler is null)
-                throw new ArgumentNullException(nameof(scheduler));
+            if (m_autoReset == value)
+                return;
 
-            if (scheduler.IsDisposed)
-                throw new ArgumentException("Scheduler has been disposed", nameof(scheduler));
+            m_autoReset = value;
 
-            if (interval <= 0)
-                throw new ArgumentOutOfRangeException(nameof(interval));
+            if (!value || !m_enabled)
+                return;
 
-            m_scheduler = scheduler;
-            m_interval = interval;
-            m_enabled = false;
-            m_autoReset = true;
-            m_callback = TimerCallback;
-            m_scheduler = scheduler;
+            m_registeredCallback?.Clear();
+            m_registeredCallback = m_scheduler.RegisterCallback(m_interval, m_callback);
         }
+    }
 
-        #endregion
-
-        #region [ Properties ]
-
-        /// <summary>
-        /// Gets or sets flag that indicates whether the <see cref="SharedTimer" /> should raise the <see cref="Elapsed" /> event only
-        /// once <c>false</c> or repeatedly <c>true</c>.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> the <see cref="SharedTimer" /> should raise the <see cref="Elapsed" /> event each time the interval elapses; otherwise,
-        /// <c>false</c> if it should raise the <see cref="Elapsed" /> event only once, after the first time the interval elapses.
-        /// The default is <c>true</c>.
-        /// </returns>
-        public bool AutoReset
+    /// <summary>
+    /// Gets or sets flag that indicates whether the <see cref="SharedTimer" /> should raise the <see cref="Elapsed" /> event.
+    /// </summary>
+    /// <returns>
+    /// <c>true</c> if the <see cref="SharedTimer" /> should raise the <see cref="Elapsed" /> event; otherwise, <c>false</c>.
+    /// The default is <c>false</c>.
+    /// </returns>
+    public bool Enabled
+    {
+        get => m_enabled;
+        set
         {
-            get => m_autoReset;
-            set
-            {
-                if (m_autoReset == value)
-                    return;
+            if (m_enabled == value)
+                return;
 
-                m_autoReset = value;
+            if (m_disposed)
+                throw new ObjectDisposedException(GetType().FullName);
 
-                if (!value || !m_enabled)
-                    return;
+            m_enabled = value;
 
+            if (!m_enabled)
                 m_registeredCallback?.Clear();
+            else
                 m_registeredCallback = m_scheduler.RegisterCallback(m_interval, m_callback);
-            }
         }
+    }
 
-        /// <summary>
-        /// Gets or sets flag that indicates whether the <see cref="SharedTimer" /> should raise the <see cref="Elapsed" /> event.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> if the <see cref="SharedTimer" /> should raise the <see cref="Elapsed" /> event; otherwise, <c>false</c>.
-        /// The default is <c>false</c>.
-        /// </returns>
-        public bool Enabled
+    /// <summary>
+    /// Gets or sets the interval at which to raise the <see cref="Elapsed" /> event.
+    /// </summary>
+    /// <returns>The time, in milliseconds, between <see cref="Elapsed" /> events.</returns>
+    /// <remarks>
+    /// The value must be greater than zero, and less than or equal to <see cref="Int32.MaxValue" />.
+    /// The default is 100 milliseconds.
+    /// </remarks>
+    public int Interval
+    {
+        get => m_interval;
+        set
         {
-            get => m_enabled;
-            set
-            {
-                if (m_enabled == value)
-                    return;
+            if (value <= 0)
+                throw new ArgumentOutOfRangeException(nameof(value));
 
-                if (m_disposed)
-                    throw new ObjectDisposedException(GetType().FullName);
+            if (value == m_interval)
+                return;
 
-                m_enabled = value;
+            m_interval = value;
 
-                if (!m_enabled)
-                    m_registeredCallback?.Clear();
-                else
-                    m_registeredCallback = m_scheduler.RegisterCallback(m_interval, m_callback);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the interval at which to raise the <see cref="Elapsed" /> event.
-        /// </summary>
-        /// <returns>The time, in milliseconds, between <see cref="Elapsed" /> events.</returns>
-        /// <remarks>
-        /// The value must be greater than zero, and less than or equal to <see cref="Int32.MaxValue" />.
-        /// The default is 100 milliseconds.
-        /// </remarks>
-        public int Interval
-        {
-            get => m_interval;
-            set
-            {
-                if (value <= 0)
-                    throw new ArgumentOutOfRangeException(nameof(value));
-
-                if (value == m_interval)
-                    return;
-
-                m_interval = value;
-
-                if (!m_enabled)
-                    return;
-
-                m_registeredCallback?.Clear();
-                m_registeredCallback = m_scheduler.RegisterCallback(m_interval, m_callback);
-            }
-        }
-
-        string IProvideStatus.Name => $"{GetType()?.Name ?? nameof(SharedTimer)}@{m_interval}ms";
-
-        /// <summary>
-        /// Gets the current status details about object providing status information.
-        /// </summary>
-        public string Status => m_scheduler?.GetStatus(m_interval) ?? "";
-
-        #endregion
-
-        #region [ Methods ]
-
-        /// <summary>
-        /// Stops the timer.
-        /// </summary>
-        public void Close() => Enabled = false;
-
-        /// <summary>
-        /// Stops the timer and prevents reuse of the class.
-        /// </summary>
-        public void Dispose()
-        {
-            Close();
-            m_disposed = true;
-        }
-
-        /// <summary>
-        /// Starts raising the <see cref="Elapsed" /> event by setting <see cref="Enabled" /> to <c>true</c>.
-        /// </summary>
-        public void Start() => Enabled = true;
-
-        /// <summary>
-        /// Stops raising the <see cref="Elapsed"/> event by setting <see cref="Enabled" /> to <c>false</c>.
-        /// </summary>
-        public void Stop() => Enabled = false;
-
-        /// <summary>
-        /// Callback from <see cref="SharedTimerScheduler"/>.
-        /// </summary>
-        /// <param name="state">The time that the callback was signaled.</param>
-        private void TimerCallback(DateTime state)
-        {
             if (!m_enabled)
                 return;
 
-            if (!m_autoReset)
-            {
-                m_enabled = false;
-                m_registeredCallback?.Clear();
-            }
+            m_registeredCallback?.Clear();
+            m_registeredCallback = m_scheduler.RegisterCallback(m_interval, m_callback);
+        }
+    }
 
-            Elapsed?.SafeInvoke(this, new EventArgs<DateTime>(state));
+    string IProvideStatus.Name => $"{GetType()?.Name ?? nameof(SharedTimer)}@{m_interval}ms";
+
+    /// <summary>
+    /// Gets the current status details about object providing status information.
+    /// </summary>
+    public string Status => m_scheduler?.GetStatus(m_interval) ?? "";
+
+    #endregion
+
+    #region [ Methods ]
+
+    /// <summary>
+    /// Stops the timer.
+    /// </summary>
+    public void Close() => Enabled = false;
+
+    /// <summary>
+    /// Stops the timer and prevents reuse of the class.
+    /// </summary>
+    public void Dispose()
+    {
+        Close();
+        m_disposed = true;
+    }
+
+    /// <summary>
+    /// Starts raising the <see cref="Elapsed" /> event by setting <see cref="Enabled" /> to <c>true</c>.
+    /// </summary>
+    public void Start() => Enabled = true;
+
+    /// <summary>
+    /// Stops raising the <see cref="Elapsed"/> event by setting <see cref="Enabled" /> to <c>false</c>.
+    /// </summary>
+    public void Stop() => Enabled = false;
+
+    /// <summary>
+    /// Callback from <see cref="SharedTimerScheduler"/>.
+    /// </summary>
+    /// <param name="state">The time that the callback was signaled.</param>
+    private void TimerCallback(DateTime state)
+    {
+        if (!m_enabled)
+            return;
+
+        if (!m_autoReset)
+        {
+            m_enabled = false;
+            m_registeredCallback?.Clear();
         }
 
-        #endregion
+        Elapsed?.SafeInvoke(this, new EventArgs<DateTime>(state));
     }
+
+    #endregion
 }

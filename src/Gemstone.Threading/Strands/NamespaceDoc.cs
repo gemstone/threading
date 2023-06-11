@@ -23,14 +23,13 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.Threading.Strands
+namespace Gemstone.Threading.Strands;
+
+/// <summary>
+/// The <see cref="Gemstone.Threading.Strands"/> namespace provides classes for strands, which are FIFO based
+/// synchronized task queues, e.g., <see cref="Strand"/> and <see cref="PriorityStrand"/>.
+/// </summary>
+[CompilerGenerated]
+internal class NamespaceDoc
 {
-    /// <summary>
-    /// The <see cref="Gemstone.Threading.Strands"/> namespace provides classes for strands, which are FIFO based
-    /// synchronized task queues, e.g., <see cref="Strand"/> and <see cref="PriorityStrand"/>.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

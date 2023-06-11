@@ -27,99 +27,98 @@ using System;
 using System.Threading;
 
 // ReSharper disable UnusedMemberInSuper.Global
-namespace Gemstone.Threading.SynchronizedOperations
+namespace Gemstone.Threading.SynchronizedOperations;
+
+/// <summary>
+/// Factory method for creating synchronized operations.
+/// </summary>
+/// <param name="action">The action to be synchronized by the operation.</param>
+/// <returns>The operation that synchronizes the given action.</returns>
+public delegate ISynchronizedOperation SynchronizedOperationFactory(Action action);
+    
+/// <summary>
+/// Represents the available types of synchronized operations.
+/// </summary>
+public enum SynchronizedOperationType
 {
     /// <summary>
-    /// Factory method for creating synchronized operations.
+    /// <see cref="ShortSynchronizedOperation"/>
     /// </summary>
-    /// <param name="action">The action to be synchronized by the operation.</param>
-    /// <returns>The operation that synchronizes the given action.</returns>
-    public delegate ISynchronizedOperation SynchronizedOperationFactory(Action action);
-    
-    /// <summary>
-    /// Represents the available types of synchronized operations.
-    /// </summary>
-    public enum SynchronizedOperationType
-    {
-        /// <summary>
-        /// <see cref="ShortSynchronizedOperation"/>
-        /// </summary>
-        Short,
-
-        /// <summary>
-        /// <see cref="LongSynchronizedOperation"/>
-        /// </summary>
-        Long,
-
-        /// <summary>
-        /// <see cref="LongSynchronizedOperation"/> with IsBackground set to <c>true</c>
-        /// </summary>
-        LongBackground
-    }
+    Short,
 
     /// <summary>
-    /// Represents an operation that cannot run while it is already in progress.
+    /// <see cref="LongSynchronizedOperation"/>
     /// </summary>
-    public interface ISynchronizedOperation
-    {
-        /// <summary>
-        /// Gets flag indicating if the synchronized operation is currently executing its action.
-        /// </summary>
-        bool IsRunning { get; }
+    Long,
 
-        /// <summary>
-        /// Gets flag indicating if the synchronized operation has an additional operation that is pending
-        /// execution after the currently running action has completed.
-        /// </summary>
-        bool IsPending { get; }
+    /// <summary>
+    /// <see cref="LongSynchronizedOperation"/> with IsBackground set to <c>true</c>
+    /// </summary>
+    LongBackground
+}
 
-        /// <summary>
-        /// Gets or sets <see cref="System.Threading.CancellationToken"/> to use for canceling actions.
-        /// </summary>
-        CancellationToken CancellationToken { get; set; }
+/// <summary>
+/// Represents an operation that cannot run while it is already in progress.
+/// </summary>
+public interface ISynchronizedOperation
+{
+    /// <summary>
+    /// Gets flag indicating if the synchronized operation is currently executing its action.
+    /// </summary>
+    bool IsRunning { get; }
 
-        /// <summary>
-        /// Executes the action on current thread or marks the operation as pending if the operation is already running.
-        /// </summary>
-        /// <param name="runPendingSynchronously">Defines synchronization mode for running any pending operation.</param>
-        /// <remarks>
-        /// <para>
-        /// When the operation is marked as pending, operation will run again after currently running operation has
-        /// completed. This is useful if an update has invalidated the operation that is currently running and will
-        /// therefore need to be run again.
-        /// </para>
-        /// <para>
-        /// When <paramref name="runPendingSynchronously"/> is <c>true</c>, this method will not guarantee that control
-        /// will be returned to the thread that called it; if other threads continuously mark the operation as pending,
-        /// this thread will continue to run the operation indefinitely on the calling thread.
-        /// </para>
-        /// </remarks>
-        void Run(bool runPendingSynchronously = false);
+    /// <summary>
+    /// Gets flag indicating if the synchronized operation has an additional operation that is pending
+    /// execution after the currently running action has completed.
+    /// </summary>
+    bool IsPending { get; }
 
-        /// <summary>
-        /// Attempts to execute the action on current thread. Does nothing if the operation is already running.
-        /// </summary>
-        /// <param name="runPendingSynchronously">Defines synchronization mode for running any pending operation.</param>
-        /// <remarks>
-        /// When <paramref name="runPendingSynchronously"/> is <c>true</c>, this method will not guarantee that control
-        /// will be returned to the thread that called it; if other threads continuously mark the operation as pending,
-        /// this thread will continue to run the operation indefinitely on the calling thread.
-        /// </remarks>
-        void TryRun(bool runPendingSynchronously = false);
+    /// <summary>
+    /// Gets or sets <see cref="System.Threading.CancellationToken"/> to use for canceling actions.
+    /// </summary>
+    CancellationToken CancellationToken { get; set; }
 
-        /// <summary>
-        /// Executes the action on another thread or marks the operation as pending if the operation is already running.
-        /// </summary>
-        /// <remarks>
-        /// When the operation is marked as pending, it will run again after the operation that is currently running
-        /// has completed. This is useful if an update has invalidated the operation that is currently running and
-        /// will therefore need to be run again.
-        /// </remarks>
-        void RunAsync();
+    /// <summary>
+    /// Executes the action on current thread or marks the operation as pending if the operation is already running.
+    /// </summary>
+    /// <param name="runPendingSynchronously">Defines synchronization mode for running any pending operation.</param>
+    /// <remarks>
+    /// <para>
+    /// When the operation is marked as pending, operation will run again after currently running operation has
+    /// completed. This is useful if an update has invalidated the operation that is currently running and will
+    /// therefore need to be run again.
+    /// </para>
+    /// <para>
+    /// When <paramref name="runPendingSynchronously"/> is <c>true</c>, this method will not guarantee that control
+    /// will be returned to the thread that called it; if other threads continuously mark the operation as pending,
+    /// this thread will continue to run the operation indefinitely on the calling thread.
+    /// </para>
+    /// </remarks>
+    void Run(bool runPendingSynchronously = false);
 
-        /// <summary>
-        /// Attempts to execute the action on another thread. Does nothing if the operation is already running.
-        /// </summary>
-        void TryRunAsync();
-    }
+    /// <summary>
+    /// Attempts to execute the action on current thread. Does nothing if the operation is already running.
+    /// </summary>
+    /// <param name="runPendingSynchronously">Defines synchronization mode for running any pending operation.</param>
+    /// <remarks>
+    /// When <paramref name="runPendingSynchronously"/> is <c>true</c>, this method will not guarantee that control
+    /// will be returned to the thread that called it; if other threads continuously mark the operation as pending,
+    /// this thread will continue to run the operation indefinitely on the calling thread.
+    /// </remarks>
+    void TryRun(bool runPendingSynchronously = false);
+
+    /// <summary>
+    /// Executes the action on another thread or marks the operation as pending if the operation is already running.
+    /// </summary>
+    /// <remarks>
+    /// When the operation is marked as pending, it will run again after the operation that is currently running
+    /// has completed. This is useful if an update has invalidated the operation that is currently running and
+    /// will therefore need to be run again.
+    /// </remarks>
+    void RunAsync();
+
+    /// <summary>
+    /// Attempts to execute the action on another thread. Does nothing if the operation is already running.
+    /// </summary>
+    void TryRunAsync();
 }

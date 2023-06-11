@@ -23,35 +23,34 @@
 
 using System.Threading.Tasks;
 
-namespace Gemstone.Threading
+namespace Gemstone.Threading;
+
+/// <summary>
+/// Provides factory functions for creating new
+/// <see cref="TaskCompletionSource{TResult}"/> objects.
+/// </summary>
+public static class TaskCompletionSourceFactory
 {
     /// <summary>
-    /// Provides factory functions for creating new
-    /// <see cref="TaskCompletionSource{TResult}"/> objects.
+    /// The default <see cref="TaskCreationOptions"/> used by this factory
+    /// for creating new <see cref="TaskCompletionSource{TResult}"/> objects.
     /// </summary>
-    public static class TaskCompletionSourceFactory
-    {
-        /// <summary>
-        /// The default <see cref="TaskCreationOptions"/> used by this factory
-        /// for creating new <see cref="TaskCompletionSource{TResult}"/> objects.
-        /// </summary>
-        public const TaskCreationOptions DefaultTaskCreationOptions = TaskCreationOptions.RunContinuationsAsynchronously;
+    public const TaskCreationOptions DefaultTaskCreationOptions = TaskCreationOptions.RunContinuationsAsynchronously;
 
-        /// <summary>
-        /// Creates a new instance of the <see cref="TaskCompletionSource{TResult}"/> class.
-        /// </summary>
-        /// <typeparam name="T">The type of the result value associated with the <see cref="TaskCompletionSource{TResult}"/>.</typeparam>
-        /// <returns>A new object of type <see cref="TaskCompletionSource{TResult}"/>.</returns>
-        public static TaskCompletionSource<T> CreateNew<T>() =>
-            new(DefaultTaskCreationOptions);
+    /// <summary>
+    /// Creates a new instance of the <see cref="TaskCompletionSource{TResult}"/> class.
+    /// </summary>
+    /// <typeparam name="T">The type of the result value associated with the <see cref="TaskCompletionSource{TResult}"/>.</typeparam>
+    /// <returns>A new object of type <see cref="TaskCompletionSource{TResult}"/>.</returns>
+    public static TaskCompletionSource<T> CreateNew<T>() =>
+        new(DefaultTaskCreationOptions);
 
-        /// <summary>
-        /// Creates a new instance of the <see cref="TaskCompletionSource{TResult}"/> class.
-        /// </summary>
-        /// <typeparam name="T">The type of the result value associated with the <see cref="TaskCompletionSource{TResult}"/>.</typeparam>
-        /// <param name="state">The state to use as the underlying <see cref="Task"/>'s <see cref="Task.AsyncState"/>.</param>
-        /// <returns>A new object of type <see cref="TaskCompletionSource{TResult}"/>.</returns>
-        public static TaskCompletionSource<T> CreateNew<T>(object state) =>
-            new(state, DefaultTaskCreationOptions);
-    }
+    /// <summary>
+    /// Creates a new instance of the <see cref="TaskCompletionSource{TResult}"/> class.
+    /// </summary>
+    /// <typeparam name="T">The type of the result value associated with the <see cref="TaskCompletionSource{TResult}"/>.</typeparam>
+    /// <param name="state">The state to use as the underlying <see cref="Task"/>'s <see cref="Task.AsyncState"/>.</param>
+    /// <returns>A new object of type <see cref="TaskCompletionSource{TResult}"/>.</returns>
+    public static TaskCompletionSource<T> CreateNew<T>(object state) =>
+        new(state, DefaultTaskCreationOptions);
 }

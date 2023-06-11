@@ -23,14 +23,13 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.Threading.Collections
+namespace Gemstone.Threading.Collections;
+
+/// <summary>
+/// The <see cref="Gemstone.Threading.Collections"/> namespace provides classes for collections related
+/// to threading functionality, e.g., <see cref="PriorityQueue{T}"/>.
+/// </summary>
+[CompilerGenerated]
+internal class NamespaceDoc
 {
-    /// <summary>
-    /// The <see cref="Gemstone.Threading.Collections"/> namespace provides classes for collections related
-    /// to threading functionality, e.g., <see cref="PriorityQueue{T}"/>.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

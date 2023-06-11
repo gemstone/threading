@@ -28,280 +28,279 @@ using System.Threading;
 using System.Threading.Tasks;
 using Gemstone.Threading.SynchronizedOperations;
 
-namespace Gemstone.Threading
+namespace Gemstone.Threading;
+
+/// <summary>
+/// Task scheduler that limits the number of tasks that can execute in parallel at any given time.
+/// </summary>
+public class ConcurrencyLimiter : TaskScheduler
 {
+    #region [ Members ]
+
+    // Fields
+    private int m_currentConcurrencyLevel;
+    private int m_maximumConcurrencyLevel;
+
+    [ThreadStatic]
+    private static bool s_currentlyExecutingTask;
+
+    #endregion
+
+    #region [ Constructors ]
+
     /// <summary>
-    /// Task scheduler that limits the number of tasks that can execute in parallel at any given time.
+    /// Creates a new instance of the <see cref="ConcurrencyLimiter"/> class
+    /// with a <see cref="ShortSynchronizedOperation"/> and a maximum concurrency
+    /// level equal to the number of processors on the current machine.
     /// </summary>
-    public class ConcurrencyLimiter : TaskScheduler
+    public ConcurrencyLimiter() : this(ShortSynchronizedOperation.Factory, Environment.ProcessorCount)
     {
-        #region [ Members ]
+    }
 
-        // Fields
-        private int m_currentConcurrencyLevel;
-        private int m_maximumConcurrencyLevel;
+    /// <summary>
+    /// Creates a new instance of the <see cref="ConcurrencyLimiter"/> class with a
+    /// maximum concurrency level equal to the number of processors on the current machine.
+    /// </summary>
+    /// <param name="synchronizedOperationFactory">Factory function for creating the synchronized operations to be used for processing tasks.</param>
+    public ConcurrencyLimiter(SynchronizedOperationFactory synchronizedOperationFactory) : this(synchronizedOperationFactory, Environment.ProcessorCount)
+    {
+    }
 
-        [ThreadStatic]
-        private static bool s_currentlyExecutingTask;
+    /// <summary>
+    /// Creates a new instance of the <see cref="ConcurrencyLimiter"/> class
+    /// with a <see cref="ShortSynchronizedOperation"/>.
+    /// </summary>
+    /// <param name="maximumConcurrencyLevel">The initial value for <see cref="MaximumConcurrencyLevel"/>.</param>
+    public ConcurrencyLimiter(int maximumConcurrencyLevel) : this(ShortSynchronizedOperation.Factory, maximumConcurrencyLevel)
+    {
+    }
 
-        #endregion
+    /// <summary>
+    /// Creates a new instance of the <see cref="ConcurrencyLimiter"/> class.
+    /// </summary>
+    /// <param name="synchronizedOperationFactory">Factory function for creating the synchronized operations to be used for processing tasks.</param>
+    /// <param name="maximumConcurrencyLevel">The initial value for <see cref="MaximumConcurrencyLevel"/>.</param>
+    public ConcurrencyLimiter(SynchronizedOperationFactory synchronizedOperationFactory, int maximumConcurrencyLevel)
+    {
+        SynchronizedOperationFactory = synchronizedOperationFactory;
+        TaskProcessors = new ConcurrentBag<ISynchronizedOperation>();
+        Queue = new ConcurrentQueue<Task>();
+        SetMaximumConcurrencyLevel(maximumConcurrencyLevel);
+    }
 
-        #region [ Constructors ]
+    #endregion
 
-        /// <summary>
-        /// Creates a new instance of the <see cref="ConcurrencyLimiter"/> class
-        /// with a <see cref="ShortSynchronizedOperation"/> and a maximum concurrency
-        /// level equal to the number of processors on the current machine.
-        /// </summary>
-        public ConcurrencyLimiter() : this(ShortSynchronizedOperation.Factory, Environment.ProcessorCount)
-        {
-        }
+    #region [ Properties ]
 
-        /// <summary>
-        /// Creates a new instance of the <see cref="ConcurrencyLimiter"/> class with a
-        /// maximum concurrency level equal to the number of processors on the current machine.
-        /// </summary>
-        /// <param name="synchronizedOperationFactory">Factory function for creating the synchronized operations to be used for processing tasks.</param>
-        public ConcurrencyLimiter(SynchronizedOperationFactory synchronizedOperationFactory) : this(synchronizedOperationFactory, Environment.ProcessorCount)
-        {
-        }
+    /// <summary>
+    /// Gets the number of threads that are currently executing tasks concurrently.
+    /// </summary>
+    public int CurrentConcurrencyLevel => Interlocked.CompareExchange(ref m_currentConcurrencyLevel, 0, 0);
 
-        /// <summary>
-        /// Creates a new instance of the <see cref="ConcurrencyLimiter"/> class
-        /// with a <see cref="ShortSynchronizedOperation"/>.
-        /// </summary>
-        /// <param name="maximumConcurrencyLevel">The initial value for <see cref="MaximumConcurrencyLevel"/>.</param>
-        public ConcurrencyLimiter(int maximumConcurrencyLevel) : this(ShortSynchronizedOperation.Factory, maximumConcurrencyLevel)
-        {
-        }
+    /// <summary>
+    /// Gets the maximum number of threads that can be executing tasks concurrently.
+    /// </summary>
+    public override int MaximumConcurrencyLevel => Interlocked.CompareExchange(ref m_maximumConcurrencyLevel, 0, 0);
 
-        /// <summary>
-        /// Creates a new instance of the <see cref="ConcurrencyLimiter"/> class.
-        /// </summary>
-        /// <param name="synchronizedOperationFactory">Factory function for creating the synchronized operations to be used for processing tasks.</param>
-        /// <param name="maximumConcurrencyLevel">The initial value for <see cref="MaximumConcurrencyLevel"/>.</param>
-        public ConcurrencyLimiter(SynchronizedOperationFactory synchronizedOperationFactory, int maximumConcurrencyLevel)
-        {
-            SynchronizedOperationFactory = synchronizedOperationFactory;
-            TaskProcessors = new ConcurrentBag<ISynchronizedOperation>();
-            Queue = new ConcurrentQueue<Task>();
-            SetMaximumConcurrencyLevel(maximumConcurrencyLevel);
-        }
+    private SynchronizedOperationFactory SynchronizedOperationFactory { get; }
 
-        #endregion
+    private ConcurrentBag<ISynchronizedOperation> TaskProcessors { get; }
 
-        #region [ Properties ]
+    private ConcurrentQueue<Task> Queue { get; }
 
-        /// <summary>
-        /// Gets the number of threads that are currently executing tasks concurrently.
-        /// </summary>
-        public int CurrentConcurrencyLevel => Interlocked.CompareExchange(ref m_currentConcurrencyLevel, 0, 0);
+    #endregion
 
-        /// <summary>
-        /// Gets the maximum number of threads that can be executing tasks concurrently.
-        /// </summary>
-        public override int MaximumConcurrencyLevel => Interlocked.CompareExchange(ref m_maximumConcurrencyLevel, 0, 0);
+    #region [ Methods ]
 
-        private SynchronizedOperationFactory SynchronizedOperationFactory { get; }
+    /// <summary>
+    /// Sets the maximum number of threads that can be executing tasks concurrently.
+    /// </summary>
+    /// <param name="maximumConcurrencyLevel">The maximum concurrency level.</param>
+    public void SetMaximumConcurrencyLevel(int maximumConcurrencyLevel)
+    {
+        if (maximumConcurrencyLevel <= 0)
+            throw new ArgumentException("Maximum concurrency level must be greater than zero.", nameof(maximumConcurrencyLevel));
 
-        private ConcurrentBag<ISynchronizedOperation> TaskProcessors { get; }
+        int oldMaximumConcurrencyLevel = Interlocked.Exchange(ref m_maximumConcurrencyLevel, maximumConcurrencyLevel);
 
-        private ConcurrentQueue<Task> Queue { get; }
+        if (maximumConcurrencyLevel > oldMaximumConcurrencyLevel)
+            CreateNewTaskProcessors(maximumConcurrencyLevel - oldMaximumConcurrencyLevel);
 
-        #endregion
+        // The complexity required to remove task processors from
+        // the pool at this point exceeds the value of doing so;
+        // it is both adequate and much simpler to let the pool reduce
+        // size automatically via TryActivateCurrentTaskProcessor()
+        // and TryDeactivate() methods
+    }
 
-        #region [ Methods ]
+    /// <summary>
+    /// Queues a <see cref="Task"/> to the scheduler.
+    /// </summary>
+    /// <param name="task">The <see cref="Task"/> to be queued.</param>
+    protected override void QueueTask(Task task)
+    {
+        Queue.Enqueue(task);
 
-        /// <summary>
-        /// Sets the maximum number of threads that can be executing tasks concurrently.
-        /// </summary>
-        /// <param name="maximumConcurrencyLevel">The maximum concurrency level.</param>
-        public void SetMaximumConcurrencyLevel(int maximumConcurrencyLevel)
-        {
-            if (maximumConcurrencyLevel <= 0)
-                throw new ArgumentException("Maximum concurrency level must be greater than zero.", nameof(maximumConcurrencyLevel));
-
-            int oldMaximumConcurrencyLevel = Interlocked.Exchange(ref m_maximumConcurrencyLevel, maximumConcurrencyLevel);
-
-            if (maximumConcurrencyLevel > oldMaximumConcurrencyLevel)
-                CreateNewTaskProcessors(maximumConcurrencyLevel - oldMaximumConcurrencyLevel);
-
-            // The complexity required to remove task processors from
-            // the pool at this point exceeds the value of doing so;
-            // it is both adequate and much simpler to let the pool reduce
-            // size automatically via TryActivateCurrentTaskProcessor()
-            // and TryDeactivate() methods
-        }
-
-        /// <summary>
-        /// Queues a <see cref="Task"/> to the scheduler.
-        /// </summary>
-        /// <param name="task">The <see cref="Task"/> to be queued.</param>
-        protected override void QueueTask(Task task)
-        {
-            Queue.Enqueue(task);
-
-            if (TaskProcessors.TryTake(out ISynchronizedOperation? taskProcessor) && TryActivateCurrentTaskProcessor())
-                taskProcessor.RunAsync();
-        }
-
-        /// <summary>
-        /// Determines whether the provided <see cref="Task"/> can be executed synchronously
-        /// in this call, and if it can, executes it.
-        /// </summary>
-        /// <param name="task">The <see cref="Task"/> to be executed.</param>
-        /// <param name="taskWasPreviouslyQueued">
-        /// A <see cref="bool"/> denoting whether or not task has previously been queued.
-        /// If this parameter is True, then the task may have been previously queued (scheduled);
-        /// if False, then the task is known not to have been queued,
-        /// and this call is being made in order to execute the task inline without queuing it.
-        /// </param>
-        /// <returns>A <see cref="bool"/> value indicating whether the task was executed inline.</returns>
-        protected override bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued)
-        {
-            if (s_currentlyExecutingTask)
-                return TryExecuteTask(task);
-
-            if (!TaskProcessors.TryTake(out ISynchronizedOperation? taskProcessor))
-                return false;
-
-            if (!TryActivateCurrentTaskProcessor())
-                return false;
-
-            bool result = TryExecuteTask(task);
-
-            if (TryDeactivate(taskProcessor))
-                return result;
-
+        if (TaskProcessors.TryTake(out ISynchronizedOperation? taskProcessor) && TryActivateCurrentTaskProcessor())
             taskProcessor.RunAsync();
+    }
+
+    /// <summary>
+    /// Determines whether the provided <see cref="Task"/> can be executed synchronously
+    /// in this call, and if it can, executes it.
+    /// </summary>
+    /// <param name="task">The <see cref="Task"/> to be executed.</param>
+    /// <param name="taskWasPreviouslyQueued">
+    /// A <see cref="bool"/> denoting whether or not task has previously been queued.
+    /// If this parameter is True, then the task may have been previously queued (scheduled);
+    /// if False, then the task is known not to have been queued,
+    /// and this call is being made in order to execute the task inline without queuing it.
+    /// </param>
+    /// <returns>A <see cref="bool"/> value indicating whether the task was executed inline.</returns>
+    protected override bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued)
+    {
+        if (s_currentlyExecutingTask)
+            return TryExecuteTask(task);
+
+        if (!TaskProcessors.TryTake(out ISynchronizedOperation? taskProcessor))
+            return false;
+
+        if (!TryActivateCurrentTaskProcessor())
+            return false;
+
+        bool result = TryExecuteTask(task);
+
+        if (TryDeactivate(taskProcessor))
+            return result;
+
+        taskProcessor.RunAsync();
+
+        return result;
+    }
+
+    /// <summary>
+    /// For debugger support only, generates an enumerable of <see cref="Task"/>
+    /// instances currently queued to the scheduler waiting to be executed.
+    /// </summary>
+    /// <returns>An enumerable that allows a debugger to traverse the tasks currently queued to this scheduler.</returns>
+    protected override IEnumerable<Task> GetScheduledTasks() => Queue.ToArray();
+
+    private void ProcessTask(ISynchronizedOperation taskProcessor)
+    {
+        bool tryExecuteTask(Task task)
+        {
+            s_currentlyExecutingTask = true;
+            bool result = TryExecuteTask(task);
+            s_currentlyExecutingTask = false;
 
             return result;
         }
 
-        /// <summary>
-        /// For debugger support only, generates an enumerable of <see cref="Task"/>
-        /// instances currently queued to the scheduler waiting to be executed.
-        /// </summary>
-        /// <returns>An enumerable that allows a debugger to traverse the tasks currently queued to this scheduler.</returns>
-        protected override IEnumerable<Task> GetScheduledTasks() => Queue.ToArray();
-
-        private void ProcessTask(ISynchronizedOperation taskProcessor)
+        // This loop ensures that we execute exactly
+        // one task unless there are no tasks to execute
+        while (true)
         {
-            bool tryExecuteTask(Task task)
-            {
-                s_currentlyExecutingTask = true;
-                bool result = TryExecuteTask(task);
-                s_currentlyExecutingTask = false;
+            if (!Queue.TryDequeue(out Task? task))
+                break;
 
-                return result;
-            }
+            if (tryExecuteTask(task))
+                break;
+        }
 
-            // This loop ensures that we execute exactly
-            // one task unless there are no tasks to execute
-            while (true)
-            {
-                if (!Queue.TryDequeue(out Task? task))
-                    break;
+        if (TryDeactivate(taskProcessor))
+            return;
 
-                if (tryExecuteTask(task))
-                    break;
-            }
+        taskProcessor.RunAsync();
+    }
 
-            if (TryDeactivate(taskProcessor))
+    // Instantiates new task processors and puts them in the pool.
+    private void CreateNewTaskProcessors(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            ISynchronizedOperation taskProcessor = default!;
+
+            // ReSharper disable once AccessToModifiedClosure
+            taskProcessor = SynchronizedOperationFactory(() => ProcessTask(taskProcessor));
+
+            TaskProcessors.Add(taskProcessor);
+        }
+
+        // Since we just increased the number of task processors,
+        // we may also need to increase the current concurrency
+        // level to process queued tasks more efficiently
+        for (int i = 0; i < Queue.Count; i++)
+        {
+            if (!TaskProcessors.TryTake(out ISynchronizedOperation? taskProcessor))
+                return;
+
+            if (!TryActivateCurrentTaskProcessor())
                 return;
 
             taskProcessor.RunAsync();
         }
+    }
 
-        // Instantiates new task processors and puts them in the pool.
-        private void CreateNewTaskProcessors(int count)
+    // Returns true if the current task processor was successfully activated
+    // or false if the current task processor must be retired.
+    private bool TryActivateCurrentTaskProcessor()
+    {
+        while (true)
         {
-            for (int i = 0; i < count; i++)
-            {
-                ISynchronizedOperation taskProcessor = default!;
-
-                // ReSharper disable once AccessToModifiedClosure
-                taskProcessor = SynchronizedOperationFactory(() => ProcessTask(taskProcessor));
-
-                TaskProcessors.Add(taskProcessor);
-            }
-
-            // Since we just increased the number of task processors,
-            // we may also need to increase the current concurrency
-            // level to process queued tasks more efficiently
-            for (int i = 0; i < Queue.Count; i++)
-            {
-                if (!TaskProcessors.TryTake(out ISynchronizedOperation? taskProcessor))
-                    return;
-
-                if (!TryActivateCurrentTaskProcessor())
-                    return;
-
-                taskProcessor.RunAsync();
-            }
-        }
-
-        // Returns true if the current task processor was successfully activated
-        // or false if the current task processor must be retired.
-        private bool TryActivateCurrentTaskProcessor()
-        {
-            while (true)
-            {
-                // The current thread has a reference to a task processor and therefore
-                // can nearly always safely increment the counter and return true;
-                // the only exception is when the MaximumConcurrencyLevel changes
-                if (Interlocked.Increment(ref m_currentConcurrencyLevel) < MaximumConcurrencyLevel)
-                    return true;
-
-                if (Interlocked.Decrement(ref m_currentConcurrencyLevel) > MaximumConcurrencyLevel)
-                    return false;
-            }
-        }
-
-        // Returns false if the task processor has more work to do; otherwise returns true.
-        private bool TryDeactivate(ISynchronizedOperation taskProcessor)
-        {
-            // Returns true only if the task processor needs to be retired and false otherwise.
-            bool mustRetireTaskProcessor()
-            {
-                // The current thread has a reference to a task processor and would
-                // nearly always waste time attempting to decrement the counter;
-                // the only exception is when the MaximumConcurrencyLevel changes
-                if (CurrentConcurrencyLevel <= MaximumConcurrencyLevel)
-                    return false;
-
-                while (true)
-                {
-                    if (Interlocked.Decrement(ref m_currentConcurrencyLevel) > MaximumConcurrencyLevel)
-                        return true;
-
-                    if (Interlocked.Increment(ref m_currentConcurrencyLevel) < MaximumConcurrencyLevel)
-                        return false;
-                }
-            }
-
-            if (mustRetireTaskProcessor())
+            // The current thread has a reference to a task processor and therefore
+            // can nearly always safely increment the counter and return true;
+            // the only exception is when the MaximumConcurrencyLevel changes
+            if (Interlocked.Increment(ref m_currentConcurrencyLevel) < MaximumConcurrencyLevel)
                 return true;
 
-            if (!Queue.IsEmpty)
+            if (Interlocked.Decrement(ref m_currentConcurrencyLevel) > MaximumConcurrencyLevel)
+                return false;
+        }
+    }
+
+    // Returns false if the task processor has more work to do; otherwise returns true.
+    private bool TryDeactivate(ISynchronizedOperation taskProcessor)
+    {
+        // Returns true only if the task processor needs to be retired and false otherwise.
+        bool mustRetireTaskProcessor()
+        {
+            // The current thread has a reference to a task processor and would
+            // nearly always waste time attempting to decrement the counter;
+            // the only exception is when the MaximumConcurrencyLevel changes
+            if (CurrentConcurrencyLevel <= MaximumConcurrencyLevel)
                 return false;
 
-            // It's always safe to decrement the counter here because it was
-            // previously incremented when the task processor was activated
-            Interlocked.Decrement(ref m_currentConcurrencyLevel);
-
-            // Check again because of race conditions;
-            // don't want to leave tasks dangling in the queue
-            if (Queue.IsEmpty)
+            while (true)
             {
-                TaskProcessors.Add(taskProcessor);
+                if (Interlocked.Decrement(ref m_currentConcurrencyLevel) > MaximumConcurrencyLevel)
+                    return true;
 
-                return true;
+                if (Interlocked.Increment(ref m_currentConcurrencyLevel) < MaximumConcurrencyLevel)
+                    return false;
             }
-
-            return !TryActivateCurrentTaskProcessor();
         }
 
-        #endregion
+        if (mustRetireTaskProcessor())
+            return true;
+
+        if (!Queue.IsEmpty)
+            return false;
+
+        // It's always safe to decrement the counter here because it was
+        // previously incremented when the task processor was activated
+        Interlocked.Decrement(ref m_currentConcurrencyLevel);
+
+        // Check again because of race conditions;
+        // don't want to leave tasks dangling in the queue
+        if (Queue.IsEmpty)
+        {
+            TaskProcessors.Add(taskProcessor);
+
+            return true;
+        }
+
+        return !TryActivateCurrentTaskProcessor();
     }
+
+    #endregion
 }

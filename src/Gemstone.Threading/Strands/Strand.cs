@@ -27,153 +27,152 @@ using System.Threading;
 using System.Threading.Tasks;
 using Gemstone.Threading.SynchronizedOperations;
 
-namespace Gemstone.Threading.Strands
+namespace Gemstone.Threading.Strands;
+
+/// <summary>
+/// Schedules tasks in a FIFO queue and executes them in a synchronized asynchronous loop.
+/// </summary>
+public class Strand : TaskScheduler
 {
+    #region [ Constructors ]
+
     /// <summary>
-    /// Schedules tasks in a FIFO queue and executes them in a synchronized asynchronous loop.
+    /// Creates a new instance of the <see cref="Strand"/> class with a <see cref="ShortSynchronizedOperation"/>.
     /// </summary>
-    public class Strand : TaskScheduler
+    public Strand() : this(ShortSynchronizedOperation.Factory)
     {
-        #region [ Constructors ]
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="Strand"/> class with a <see cref="ShortSynchronizedOperation"/>.
-        /// </summary>
-        public Strand() : this(ShortSynchronizedOperation.Factory)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="Strand"/> class.
-        /// </summary>
-        /// <param name="synchronizedOperationFactory">Factory function for creating the synchronized operation to be used for processing tasks.</param>
-        public Strand(SynchronizedOperationFactory synchronizedOperationFactory)
-        {
-            SynchronizedOperation = synchronizedOperationFactory(Execute);
-            Queue = new ConcurrentQueue<Task>();
-        }
-
-        #endregion
-
-        #region [ Properties ]
-
-        /// <summary>
-        /// Indicates the maximum concurrency level this <see cref="TaskScheduler"/> is able to support.
-        /// </summary>
-        public override int MaximumConcurrencyLevel => 1;
-
-        private ISynchronizedOperation SynchronizedOperation { get; }
-
-        private ConcurrentQueue<Task> Queue { get; }
-
-        private Thread? ProcessingThread { get; set; }
-
-        #endregion
-
-        #region [ Methods ]
-
-        /// <summary>
-        /// Queues a <see cref="Task"/> to the scheduler.
-        /// </summary>
-        /// <param name="task">The <see cref="Task"/> to be queued.</param>
-        protected override void QueueTask(Task task)
-        {
-            Queue.Enqueue(task);
-            SynchronizedOperation.RunAsync();
-        }
-
-        /// <summary>
-        /// Attempts to executes a task inline, but only if this method is
-        /// called on the processing thread to avoid parallel execution of tasks.
-        /// </summary>
-        /// <param name="task">The <see cref="Task"/> to be executed.</param>
-        /// <param name="taskWasPreviouslyQueued">
-        /// A Boolean denoting whether or not task has previously been queued.
-        /// If this parameter is True, then the task may have been previously queued (scheduled);
-        /// if False, then the task is known not to have been queued,
-        /// and this call is being made in order to execute the task inline without queuing it.
-        /// </param>
-        /// <returns>A Boolean value indicating whether the task was executed inline.</returns>
-        /// <remarks>
-        /// Inline execution allows tasks to skip the line and run out of order.
-        /// The only reason inline execution is supported at all is to avoid a common
-        /// case of deadlocking where a task is queued in advance of another task that it
-        /// depends on (via <see cref="Task.Wait()"/>, for instance). However, deadlocks can
-        /// still occur when waiting on tasks scheduled by a different strand. To avoid
-        /// out-of-order execution and deadlocks, be very careful about using API calls
-        /// that wait on tasks.
-        /// </remarks>
-        protected override bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued)
-        {
-            if (ProcessingThread != Thread.CurrentThread)
-                return false;
-
-            // We don't need to dequeue the task in order
-            // to execute it, but we may as well try it
-            if (taskWasPreviouslyQueued)
-                TryDequeue(task);
-
-            return TryExecuteTask(task);
-        }
-
-        /// <summary>
-        /// Attempts to dequeue a <see cref="Task"/> that was previously queued to this scheduler.
-        /// </summary>
-        /// <param name="task">The <see cref="Task"/> to be dequeued.</param>
-        /// <returns>A Boolean denoting whether the task argument was successfully dequeued.</returns>
-        protected override bool TryDequeue(Task task)
-        {
-            // On any other thread other than the processing thread,
-            // there would be a race condition between TryPeek and TryDequeue
-            if (ProcessingThread != Thread.CurrentThread)
-                return false;
-
-            // We can only dequeue tasks from the head of the queue,
-            // so this is really just a minimal-effort approach
-            if (Queue.TryPeek(out Task? head) && task == head)
-                return Queue.TryDequeue(out _);
-
-            return false;
-        }
-
-        /// <summary>
-        /// For debugger support only, generates an enumerable of <see cref="Task"/>
-        /// instances currently queued to the scheduler waiting to be executed.
-        /// </summary>
-        /// <returns>An enumerable that allows a debugger to traverse the tasks currently queued to this scheduler.</returns>
-        protected override IEnumerable<Task> GetScheduledTasks() => Queue.ToArray();
-
-        // This method is called by the synchronized operation to
-        // ensure that items are never processed in parallel.
-        private void Execute()
-        {
-            try
-            {
-                ProcessingThread = Thread.CurrentThread;
-
-                // This while loop ensures that this method does its
-                // best to execute a task before exiting, thus reducing
-                // unnecessary iterations of the async loop
-                while (true)
-                {
-                    if (!Queue.TryDequeue(out Task? task))
-                        return;
-
-                    // A task could be cancelled or inlined after it was queued,
-                    // causing this to return false without doing anything
-                    if (TryExecuteTask(task))
-                        break;
-                }
-            }
-            finally
-            {
-                ProcessingThread = null;
-
-                if (!Queue.IsEmpty)
-                    SynchronizedOperation.RunAsync();
-            }
-        }
-
-        #endregion
     }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="Strand"/> class.
+    /// </summary>
+    /// <param name="synchronizedOperationFactory">Factory function for creating the synchronized operation to be used for processing tasks.</param>
+    public Strand(SynchronizedOperationFactory synchronizedOperationFactory)
+    {
+        SynchronizedOperation = synchronizedOperationFactory(Execute);
+        Queue = new ConcurrentQueue<Task>();
+    }
+
+    #endregion
+
+    #region [ Properties ]
+
+    /// <summary>
+    /// Indicates the maximum concurrency level this <see cref="TaskScheduler"/> is able to support.
+    /// </summary>
+    public override int MaximumConcurrencyLevel => 1;
+
+    private ISynchronizedOperation SynchronizedOperation { get; }
+
+    private ConcurrentQueue<Task> Queue { get; }
+
+    private Thread? ProcessingThread { get; set; }
+
+    #endregion
+
+    #region [ Methods ]
+
+    /// <summary>
+    /// Queues a <see cref="Task"/> to the scheduler.
+    /// </summary>
+    /// <param name="task">The <see cref="Task"/> to be queued.</param>
+    protected override void QueueTask(Task task)
+    {
+        Queue.Enqueue(task);
+        SynchronizedOperation.RunAsync();
+    }
+
+    /// <summary>
+    /// Attempts to executes a task inline, but only if this method is
+    /// called on the processing thread to avoid parallel execution of tasks.
+    /// </summary>
+    /// <param name="task">The <see cref="Task"/> to be executed.</param>
+    /// <param name="taskWasPreviouslyQueued">
+    /// A Boolean denoting whether or not task has previously been queued.
+    /// If this parameter is True, then the task may have been previously queued (scheduled);
+    /// if False, then the task is known not to have been queued,
+    /// and this call is being made in order to execute the task inline without queuing it.
+    /// </param>
+    /// <returns>A Boolean value indicating whether the task was executed inline.</returns>
+    /// <remarks>
+    /// Inline execution allows tasks to skip the line and run out of order.
+    /// The only reason inline execution is supported at all is to avoid a common
+    /// case of deadlocking where a task is queued in advance of another task that it
+    /// depends on (via <see cref="Task.Wait()"/>, for instance). However, deadlocks can
+    /// still occur when waiting on tasks scheduled by a different strand. To avoid
+    /// out-of-order execution and deadlocks, be very careful about using API calls
+    /// that wait on tasks.
+    /// </remarks>
+    protected override bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued)
+    {
+        if (ProcessingThread != Thread.CurrentThread)
+            return false;
+
+        // We don't need to dequeue the task in order
+        // to execute it, but we may as well try it
+        if (taskWasPreviouslyQueued)
+            TryDequeue(task);
+
+        return TryExecuteTask(task);
+    }
+
+    /// <summary>
+    /// Attempts to dequeue a <see cref="Task"/> that was previously queued to this scheduler.
+    /// </summary>
+    /// <param name="task">The <see cref="Task"/> to be dequeued.</param>
+    /// <returns>A Boolean denoting whether the task argument was successfully dequeued.</returns>
+    protected override bool TryDequeue(Task task)
+    {
+        // On any other thread other than the processing thread,
+        // there would be a race condition between TryPeek and TryDequeue
+        if (ProcessingThread != Thread.CurrentThread)
+            return false;
+
+        // We can only dequeue tasks from the head of the queue,
+        // so this is really just a minimal-effort approach
+        if (Queue.TryPeek(out Task? head) && task == head)
+            return Queue.TryDequeue(out _);
+
+        return false;
+    }
+
+    /// <summary>
+    /// For debugger support only, generates an enumerable of <see cref="Task"/>
+    /// instances currently queued to the scheduler waiting to be executed.
+    /// </summary>
+    /// <returns>An enumerable that allows a debugger to traverse the tasks currently queued to this scheduler.</returns>
+    protected override IEnumerable<Task> GetScheduledTasks() => Queue.ToArray();
+
+    // This method is called by the synchronized operation to
+    // ensure that items are never processed in parallel.
+    private void Execute()
+    {
+        try
+        {
+            ProcessingThread = Thread.CurrentThread;
+
+            // This while loop ensures that this method does its
+            // best to execute a task before exiting, thus reducing
+            // unnecessary iterations of the async loop
+            while (true)
+            {
+                if (!Queue.TryDequeue(out Task? task))
+                    return;
+
+                // A task could be cancelled or inlined after it was queued,
+                // causing this to return false without doing anything
+                if (TryExecuteTask(task))
+                    break;
+            }
+        }
+        finally
+        {
+            ProcessingThread = null;
+
+            if (!Queue.IsEmpty)
+                SynchronizedOperation.RunAsync();
+        }
+    }
+
+    #endregion
 }
