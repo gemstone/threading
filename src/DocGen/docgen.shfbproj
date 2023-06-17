@@ -61,7 +61,7 @@
               <!-- Add Gemstone root namespace last because it has the widest match criteria -->
               <!-- Pattern excludes target namespace so local memmbers are not redirected to common -->
               <formattedProvider title="Gemstone Common URL Provider">
-                <targetMatcher pattern=".:Gemstone\.(?!Threading\.)..+" fullyQualifiedMemberName="false" />
+                <targetMatcher pattern=".:Gemstone\.(?!Threading(\.|$)).*" fullyQualifiedMemberName="false" />
                 <targetFormatter>
                   <steps>
                     <replace pattern=":|\.|`" with="_" />
