@@ -32,9 +32,6 @@ namespace Gemstone.Threading;
 /// <summary>
 /// Represents an inter-process reader/writer lock using <see cref="Semaphore"/> and <see cref="Mutex"/> native locking mechanisms.
 /// </summary>
-#if NET
-[SupportedOSPlatform("Windows")]
-#endif
 public class InterprocessReaderWriterLock : IDisposable
 {
     #region [ Members ]

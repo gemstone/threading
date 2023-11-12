@@ -143,7 +143,7 @@ public static class InterprocessLock
     /// <exception cref="UnauthorizedAccessException">The named semaphore exists, but the user does not have the minimum needed security access rights to use it.</exception>
     [MethodImpl(MethodImplOptions.Synchronized)]
 #if NET
-        [SupportedOSPlatform("Windows")]
+    [SupportedOSPlatform("Windows")]
 #endif
     public static Semaphore GetNamedSemaphore(bool perUser, int maximumCount = 10, int initialCount = -1)
     {
@@ -181,7 +181,7 @@ public static class InterprocessLock
     /// <exception cref="UnauthorizedAccessException">The named semaphore exists, but the user does not have the minimum needed security access rights to use it.</exception>
     [MethodImpl(MethodImplOptions.Synchronized)]
 #if NET
-        [SupportedOSPlatform("Windows")]
+    [SupportedOSPlatform("Windows")]
 #endif
     public static Semaphore GetNamedSemaphore(string name, int maximumCount = 10, int initialCount = -1, bool global = true)
     {
