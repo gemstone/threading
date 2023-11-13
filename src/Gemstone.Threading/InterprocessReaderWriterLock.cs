@@ -24,13 +24,13 @@
 //******************************************************************************************************
 
 using System;
-using System.Runtime.Versioning;
 using System.Threading;
 
 namespace Gemstone.Threading;
 
 /// <summary>
-/// Represents an inter-process reader/writer lock using <see cref="Semaphore"/> and <see cref="Mutex"/> native locking mechanisms.
+/// Represents an inter-process reader/writer lock using <see cref="NamedSemaphore"/> and <see cref="Mutex"/>
+/// native locking mechanisms.
 /// </summary>
 public class InterprocessReaderWriterLock : IDisposable
 {
@@ -44,8 +44,8 @@ public class InterprocessReaderWriterLock : IDisposable
     public const int DefaultMaximumConcurrentLocks = 10;
 
     // Fields
-    private readonly Mutex m_semaphoreLock;         // Mutex used to synchronize access to Semaphore
-    private readonly Semaphore m_concurrencyLock;   // Semaphore used for reader/writer lock on consumer object
+    private readonly Mutex m_semaphoreLock;             // Mutex used to synchronize access to Semaphore
+    private readonly NamedSemaphore m_concurrencyLock;  // Semaphore used for reader/writer lock on consumer object
     private bool m_disposed;
 
     #endregion
@@ -119,8 +119,8 @@ public class InterprocessReaderWriterLock : IDisposable
             if (!disposing)
                 return;
 
-            m_concurrencyLock?.Close();
-            m_semaphoreLock?.Close();
+            m_concurrencyLock.Close();
+            m_semaphoreLock.Close();
         }
         finally
         {
