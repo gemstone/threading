@@ -20,9 +20,9 @@
 //       Generated original version of source code.
 //
 //******************************************************************************************************
+// ReSharper disable UnusedMember.Global
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using Microsoft.Win32.SafeHandles;
 
 namespace Gemstone.Threading
@@ -38,8 +38,7 @@ namespace Gemstone.Threading
 
     internal interface INamedSemaphore : IDisposable
     {
-        [AllowNull]
-        SafeWaitHandle SafeWaitHandle { get; set; }
+        SafeWaitHandle? SafeWaitHandle { get; set; }
 
         void CreateSemaphoreCore(int initialCount, int maximumCount, string name, out bool createdNew);
 
@@ -58,5 +57,7 @@ namespace Gemstone.Threading
         bool WaitOne(int millisecondsTimeout, bool exitContext);
 
         static OpenExistingResult OpenExistingWorker(string name, out INamedSemaphore? semaphore) => throw new NotImplementedException();
+
+        static void Unlink(string name) => throw new NotImplementedException();
     }
 }

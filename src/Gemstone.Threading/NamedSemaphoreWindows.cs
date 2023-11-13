@@ -20,9 +20,9 @@
 //       Generated original version of source code.
 //
 //******************************************************************************************************
+// ReSharper disable UnusedMember.Global
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.Versioning;
 using System.Threading;
@@ -34,10 +34,9 @@ namespace Gemstone.Threading
     {
         private Semaphore? m_semaphore;
 
-        [AllowNull]
-        public SafeWaitHandle SafeWaitHandle
+        public SafeWaitHandle? SafeWaitHandle
         {
-            get => m_semaphore?.SafeWaitHandle ?? new SafeWaitHandle(NamedSemaphore.InvalidHandle, false);
+            get => m_semaphore?.SafeWaitHandle;
             set
             {
                 if (m_semaphore is null)
@@ -57,7 +56,9 @@ namespace Gemstone.Threading
             m_semaphore?.Dispose();
         }
 
+    #if NET
         [SupportedOSPlatform("windows")]
+    #endif
         public static OpenExistingResult OpenExistingWorker(string name, out INamedSemaphore? semaphore)
         {
             semaphore = null;
@@ -125,6 +126,11 @@ namespace Gemstone.Threading
         public bool WaitOne(int millisecondsTimeout, bool exitContext)
         {
             return m_semaphore?.WaitOne(millisecondsTimeout, exitContext) ?? false;
+        }
+
+        public static void Unlink(string _)
+        {
+            // This function does nothing on Windows
         }
     }
 }

@@ -20,6 +20,9 @@
 //       Generated original version of source code.
 //
 //******************************************************************************************************
+// ReSharper disable IdentifierTypo
+// ReSharper disable InconsistentNaming
+#pragma warning disable VSSpell001
 
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -29,44 +32,6 @@ using System.Threading;
 using Microsoft.Win32.SafeHandles;
 
 namespace Gemstone.Threading;
-
-/*
-   TODO: Implement strategy for cleaning up named semaphores that are no longer in use.
-
-   Since POSIX named semaphores have kernel persistence and must be removed by removed by "sem_unlink" when no longer needed.
-
-   > Note the following challenges:
-
-   1) Kernel Persistence: POSIX named semaphores are persisted in the kernel, meaning they outlive the process that created them. This is
-      useful for inter-process communication, but tricky to manage.
-   
-   2) sem_unlink Responsibility: Deciding which application or part of the application should call sem_unlink is indeed a critical design
-      decision. If the semaphore is intended for use by multiple applications, you typically want the last process to exit to perform the
-      cleanup. However, identifying the "last" process can be complex, especially in dynamic environments.
-   
-   3) Resource Leaks Due to Crashes: If an application crashes before it can call sem_unlink, the semaphore remains in the system, leading
-      to potential resource leaks. This is a risk in any system where cleanup is the responsibility of the process.
-
-   > Thoughts on how to handle these challenges
-
-   Use reference counting for named semaphore instances and track last access time with an app ID using a persisted file:
-
-   Reference Counting and App ID: Each time a process accesses a semaphore, it increments the count in a shared file and records its app ID.
-   When it's done, it decrements the count. This helps track how many processes are currently using the semaphore.
-   
-   Last Access Time: Recording the last access time of the semaphore can be useful for determining if the semaphore has been abandoned.
-   For example, if the last access time is significantly old, and the reference count is not zero (which might indicate an abnormal termination
-   of a process), a cleanup routine can be triggered.
-   
-   Cleanup Strategy: You could implement a cleanup strategy that kicks in based on certain conditions – for instance, if the semaphore hasn't
-   been accessed for a predefined timeout period, or if the application that last incremented the reference count has terminated unexpectedly.
-   
-   Robustness and Error Handling: It's important to ensure that the file operations are robust and handle concurrency well. File locking
-   mechanisms might be necessary to prevent race conditions when multiple processes are reading and writing to the file.
-   
-   Fallback and Recovery: Implement a recovery mechanism in case the file tracking system fails or becomes corrupt. This could be a separate
-   monitoring process or part of the application startup routine.
- */
 
 internal partial class NamedSemaphoreUnix : INamedSemaphore
 {
@@ -100,21 +65,23 @@ internal partial class NamedSemaphoreUnix : INamedSemaphore
             return CloseSemaphore(handle) == 0;
         }
 
+    #if NET
+        [LibraryImport(ImportFileName)]
+        private static partial int CloseSemaphore(nint semaphore);
+    #else
         [DllImport(ImportFileName)]
         private static extern int CloseSemaphore(nint semaphore);
+    #endif
     }
 
     private SemaphorePtr? m_semaphore;
-    private SafeWaitHandle? m_safeWaitHandle;
     private string? m_namespace;
     private int m_maximumCount;
 
-    [AllowNull]
-    public SafeWaitHandle SafeWaitHandle
-    {
-        get => m_safeWaitHandle ?? new SafeWaitHandle(NamedSemaphore.InvalidHandle, false);
-        set => m_safeWaitHandle = value;
-    }
+    // We can ignore any user assigned SafeWaitHandle since we are using a custom SafeHandle implementation. Internal to
+    // this class we assign a new new SafeWaitHandle around our semaphore pointer that the parent class then passes to
+    // the WaitHandle base class so that the parent class can be used by standard WaitHandle class methods.
+    public SafeWaitHandle? SafeWaitHandle { get; set; }
 
     public void CreateSemaphoreCore(int initialCount, int maximumCount, string name, out bool createdNew)
     {
@@ -129,28 +96,14 @@ internal partial class NamedSemaphoreUnix : INamedSemaphore
 
         m_maximumCount = maximumCount;
 
-        int namespaceSeparatorIndex = name.IndexOf('\\');
+        (bool result, ArgumentException? ex) = ParseSemaphoreName(name, out m_namespace, out string? semaphoreName);
 
-        if (namespaceSeparatorIndex > 0)
-        {
-            string namespaceName = name[..namespaceSeparatorIndex];
+        if (!result)
+            throw ex!;
 
-            if (namespaceName != "Global" && namespaceName != "Local")
-                throw new ArgumentException("When using a namespace, the name of the semaphore must be prefixed with either \"Global\\\" or \"Local\\\".");
+        int retVal = CreateSemaphore(semaphoreName!, initialCount, out createdNew, out nint semaphoreHandle);
 
-            m_namespace = namespaceName;
-            name = name[(namespaceSeparatorIndex + 1)..];
-        }
-
-        if (name.Length > 250)
-            throw new ArgumentException("The name of the semaphore must be less than 251 characters.");
-
-        if (name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
-            throw new ArgumentException("The name of the semaphore contains invalid characters.");
-
-        int retval = CreateSemaphore(name, initialCount, out createdNew, out nint semaphoreHandle);
-
-        switch (retval)
+        switch (retVal)
         {
             case 0 when semaphoreHandle > 0:
                 m_semaphore = new SemaphorePtr(semaphoreHandle);
@@ -174,7 +127,7 @@ internal partial class NamedSemaphoreUnix : INamedSemaphore
                 if (semaphoreHandle == 0)
                     throw new WaitHandleCannotBeOpenedException("The semaphore handle is invalid.");
 
-                throw new InvalidOperationException($"An unknown error occurred while creating the named semaphore. Error code: {retval}");
+                throw new InvalidOperationException($"An unknown error occurred while creating the named semaphore. Error code: {retVal}");
         }
     }
 
@@ -188,27 +141,12 @@ internal partial class NamedSemaphoreUnix : INamedSemaphore
     {
         semaphore = null;
 
-        int namespaceSeparatorIndex = name.IndexOf('\\');
-
-        if (namespaceSeparatorIndex > 0)
-        {
-            string namespaceName = name[..namespaceSeparatorIndex];
-
-            if (namespaceName != "Global" && namespaceName != "Local")
-                return OpenExistingResult.NameInvalid;
-
-            name = name[(namespaceSeparatorIndex + 1)..];
-        }
-
-        if (name.Length > 250)
+        if (!ParseSemaphoreName(name, out string? semaphoreName))
             return OpenExistingResult.NameInvalid;
 
-        if (name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
-            return OpenExistingResult.NameInvalid;
+        int retVal = OpenExistingSemaphore(semaphoreName, out nint semaphoreHandle);
 
-        int retval = OpenExistingSemaphore(name, out nint semaphoreHandle);
-
-        switch (retval)
+        switch (retVal)
         {
             case 0 when semaphoreHandle > 0:
                 semaphore = new NamedSemaphoreUnix
@@ -226,6 +164,44 @@ internal partial class NamedSemaphoreUnix : INamedSemaphore
         }
     }
 
+    private static bool ParseSemaphoreName(string name, [NotNullWhen(true)] out string? semaphoreName)
+    {
+        return ParseSemaphoreName(name, out _, out semaphoreName).result;
+    }
+
+    private static (bool result, ArgumentException? ex) ParseSemaphoreName(string name, out string? namespaceName, out string? semaphoreName)
+    {
+        namespaceName = null;
+        semaphoreName = null;
+
+        int namespaceSeparatorIndex = name.IndexOf('\\');
+
+        if (namespaceSeparatorIndex > 0)
+        {
+            namespaceName = name[..namespaceSeparatorIndex];
+
+            if (namespaceName != "Global" && namespaceName != "Local")
+                return (false, new ArgumentException("""When using a namespace, the name of the semaphore must be prefixed with either "Global\" or "Local\"."""));
+
+            semaphoreName = name[(namespaceSeparatorIndex + 1)..];
+        }
+        else
+        {
+            semaphoreName = name;
+        }
+
+        if (semaphoreName.Length > 250)
+            return (false, new ArgumentException("The name of the semaphore must be less than 251 characters."));
+
+        if (semaphoreName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
+            return (false, new ArgumentException("The name of the semaphore contains invalid characters."));
+
+        // Linux named semaphores must start with a forward slash
+        semaphoreName = $"/{semaphoreName}";
+
+        return (true, null);
+    }
+
     public int ReleaseCore(int releaseCount)
     {
         if (m_semaphore is null)
@@ -238,22 +214,22 @@ internal partial class NamedSemaphoreUnix : INamedSemaphore
 
         for (int i = 0; i < releaseCount; i++)
         {
-            int retval = GetSemaphoreCount(m_semaphore, out int count);
+            int retVal = GetSemaphoreCount(m_semaphore, out int count);
             
-            if (retval == ErrorNo.EINVAL)
+            if (retVal == ErrorNo.EINVAL)
                 throw new InvalidOperationException("The named semaphore is invalid.");
 
-            if (retval != 0)
-                throw new InvalidOperationException($"An unknown error occurred while getting current count for the named semaphore. Error code: {retval}");
+            if (retVal != 0)
+                throw new InvalidOperationException($"An unknown error occurred while getting current count for the named semaphore. Error code: {retVal}");
 
             if (count >= m_maximumCount)
                 throw new SemaphoreFullException("The semaphore count is already at the maximum value.");
 
             previousCount ??= count;
 
-            retval = ReleaseSemaphore(m_semaphore);
+            retVal = ReleaseSemaphore(m_semaphore);
 
-            switch (retval)
+            switch (retVal)
             {
                 case 0:
                     continue;
@@ -262,7 +238,7 @@ internal partial class NamedSemaphoreUnix : INamedSemaphore
                 case ErrorNo.EINVAL:
                     throw new InvalidOperationException("The named semaphore is invalid.");
                 default:
-                    throw new InvalidOperationException($"An unknown error occurred while releasing the named semaphore. Error code: {retval}");
+                    throw new InvalidOperationException($"An unknown error occurred while releasing the named semaphore. Error code: {retVal}");
             }
         }
 
@@ -281,7 +257,16 @@ internal partial class NamedSemaphoreUnix : INamedSemaphore
 
     public bool WaitOne(TimeSpan timeout)
     {
-        return WaitOne(ToTimeoutMilliseconds(timeout));
+        long totalMilliseconds = (long)timeout.TotalMilliseconds;
+
+        int millisecondsTimeout = totalMilliseconds switch
+        {
+            < -1 => throw new ArgumentOutOfRangeException(nameof(timeout), "Argument milliseconds must be either non-negative and less than or equal to Int32.MaxValue or -1"),
+            > int.MaxValue => throw new ArgumentOutOfRangeException(nameof(timeout), "Argument milliseconds must be less than or equal to Int32.MaxValue."),
+            _ => (int)totalMilliseconds
+        };
+
+        return WaitOne(millisecondsTimeout);
     }
 
     public bool WaitOne(int millisecondsTimeout)
@@ -289,16 +274,16 @@ internal partial class NamedSemaphoreUnix : INamedSemaphore
         if (m_semaphore is null)
             return false;
 
-        int retval = WaitSemaphore(m_semaphore, millisecondsTimeout);
+        int retVal = WaitSemaphore(m_semaphore, millisecondsTimeout);
 
-        return retval switch
+        return retVal switch
         {
             0 => true,
             ErrorNo.EINTR => false,
             ErrorNo.EAGAIN => false,
             ErrorNo.ETIMEDOUT => false,
             ErrorNo.EINVAL => throw new InvalidOperationException("The named semaphore is invalid."),
-            _ => throw new InvalidOperationException($"An unknown error occurred while releasing the named semaphore. Error code: {retval}")
+            _ => throw new InvalidOperationException($"An unknown error occurred while releasing the named semaphore. Error code: {retVal}")
         };
     }
 
@@ -312,18 +297,49 @@ internal partial class NamedSemaphoreUnix : INamedSemaphore
         return WaitOne(timeout);
     }
 
-    internal static int ToTimeoutMilliseconds(TimeSpan timeout)
+    public static void Unlink(string name)
     {
-        long timeoutMilliseconds = (long)timeout.TotalMilliseconds;
-            
-        return timeoutMilliseconds switch
+        (bool result, ArgumentException? ex) = ParseSemaphoreName(name, out _, out string? semaphoreName);
+
+        if (!result)
+            throw ex!;
+
+        int retVal = UnlinkSemaphore(semaphoreName!);
+
+        switch (retVal)
         {
-            < -1 => throw new ArgumentOutOfRangeException(nameof(timeout), "Argument must be either non-negative and less than or equal to Int32.MaxValue or -1"),
-            > int.MaxValue => throw new ArgumentOutOfRangeException(nameof(timeout), "Argument must be less than or equal to Int32.MaxValue milliseconds."),
-            _ => (int)timeoutMilliseconds
-        };
+            case 0:
+                return;
+            case ErrorNo.ENAMETOOLONG:
+                throw new PathTooLongException("The 'name' is too long. Length restrictions may depend on the operating system or configuration.");
+            case ErrorNo.ENOENT:
+                throw new FileNotFoundException("There is no semaphore with the given 'name'.");
+            case ErrorNo.EACCES:
+                throw new UnauthorizedAccessException("The 'name' exists, but the user does not have the security access required to unlink it.");
+            default:
+                throw new InvalidOperationException($"An unknown error occurred while unlinking the named semaphore. Error code: {retVal}");
+        }
     }
 
+#if NET
+    [LibraryImport(ImportFileName, StringMarshalling = StringMarshalling.Utf8)]
+    private static partial int CreateSemaphore(string name, int initialCount, [MarshalAs(UnmanagedType.I4)] out bool createdNew, out nint semaphoreHandle);
+
+    [LibraryImport(ImportFileName, StringMarshalling = StringMarshalling.Utf8)]
+    private static partial int OpenExistingSemaphore(string name, out nint semaphoreHandle);
+
+    [LibraryImport(ImportFileName)]
+    private static partial int GetSemaphoreCount(SemaphorePtr semaphore, out int count);
+
+    [LibraryImport(ImportFileName)]
+    private static partial int ReleaseSemaphore(SemaphorePtr semaphore);
+
+    [LibraryImport(ImportFileName)]
+    private static partial int WaitSemaphore(SemaphorePtr semaphore, int timeout);
+
+    [LibraryImport(ImportFileName, StringMarshalling = StringMarshalling.Utf8)]
+    private static partial int UnlinkSemaphore(string name);
+#else
     [DllImport(ImportFileName)]
     private static extern int CreateSemaphore(string name, int initialCount, out bool createdNew, out nint semaphoreHandle);
 
@@ -341,4 +357,5 @@ internal partial class NamedSemaphoreUnix : INamedSemaphore
 
     [DllImport(ImportFileName)]
     private static extern int UnlinkSemaphore(string name);
+#endif
 }

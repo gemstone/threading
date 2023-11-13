@@ -22,6 +22,7 @@
 //******************************************************************************************************
 // ReSharper disable InconsistentNaming
 // ReSharper disable OutParameterValueIsAlwaysDiscarded.Local
+// ReSharper disable UnusedMember.Global
 #pragma warning disable CA1416
 
 using System;
@@ -34,9 +35,23 @@ using Microsoft.Win32.SafeHandles;
 namespace Gemstone.Threading;
 
 /// <summary>
-/// Represents a cross-platform interprocess named semaphore that limits the number
-/// of threads that can access a resource or pool of resources concurrently.
+/// Represents a cross-platform, interprocess named semaphore, which limits the number of threads that can concurrently 
+/// access a resource or a pool of resources.
 /// </summary>
+/// <remarks>
+/// <para>
+/// A <see cref="NamedSemaphore"/> is a synchronization object that can be utilized across multiple processes.
+/// </para>
+/// <para>
+/// On POSIX systems, the <see cref="NamedSemaphore"/> exhibits kernel persistence, meaning instances will remain
+/// active beyond the lifespan of the creating process. Named semaphores must be explicitly removed by invoking 
+/// <see cref="Unlink"/> when they are no longer needed. Kernel persistence necessitates careful design consideration
+/// regarding the responsibility for invoking <see cref="Unlink"/>. Since the common use case for named semaphores is
+/// across multiple applications, it is advisable for the last exiting process to handle the cleanup. In cases where
+/// an application may crash before calling <see cref="Unlink"/>, the semaphore persists in the system, potentially
+/// leading to resource leakage. Implementations should include strategies to address and mitigate this risk.
+/// </para>
+/// </remarks>
 public class NamedSemaphore : WaitHandle
 {
     private readonly INamedSemaphore m_semaphore;
@@ -48,10 +63,10 @@ public class NamedSemaphore : WaitHandle
     /// <param name="initialCount">The initial number of requests for the semaphore that can be granted concurrently.</param>
     /// <param name="maximumCount">The maximum number of requests for the semaphore that can be granted concurrently.</param>
     /// <param name="name">
-    /// The name used to identity the synchronization object resource shared with other processes.
-    /// The name is case-sensitive. The backslash character (\\) is reserved and may only be used to specify a namespace.
-    /// On Unix-based operating systems, the name after excluding the namespace must be a valid file name which contains
-    /// no slashes beyond optional namespace backslash and is limited to 250 characters. 
+    /// The unique name identifying the semaphore. This name is case-sensitive. Use a backslash (\\) to specify a
+    /// namespace, but avoid it elsewhere in the name. On Unix-based systems, the name should conform to valid file
+    /// naming conventions, excluding slashes except for an optional namespace backslash. The name length is limited
+    /// to 250 characters after any optional namespace.
     /// </param>
     public NamedSemaphore(int initialCount, int maximumCount, string name) :
         this(initialCount, maximumCount, name, out _)
@@ -66,10 +81,10 @@ public class NamedSemaphore : WaitHandle
     /// <param name="initialCount">The initial number of requests for the semaphore that can be granted concurrently.</param>
     /// <param name="maximumCount">The maximum number of requests for the semaphore that can be granted concurrently.</param>
     /// <param name="name">
-    /// The name used to identity the synchronization object resource shared with other processes.
-    /// The name is case-sensitive. The backslash character (\\) is reserved and may only be used to specify a namespace.
-    /// On Unix-based operating systems, the name after excluding the namespace must be a valid file name which contains
-    /// no slashes beyond optional namespace backslash and is limited to 250 characters. 
+    /// The unique name identifying the semaphore. This name is case-sensitive. Use a backslash (\\) to specify a
+    /// namespace, but avoid it elsewhere in the name. On Unix-based systems, the name should conform to valid file
+    /// naming conventions, excluding slashes except for an optional namespace backslash. The name length is limited
+    /// to 250 characters after any optional namespace.
     /// </param>
     /// <param name="createdNew">
     /// When method returns, contains <c>true</c> if the specified named system semaphore was created; otherwise,
@@ -97,7 +112,7 @@ public class NamedSemaphore : WaitHandle
     /// </summary>
     public new SafeWaitHandle SafeWaitHandle
     {
-        get => m_semaphore.SafeWaitHandle;
+        get => m_semaphore.SafeWaitHandle ?? new SafeWaitHandle(InvalidHandle, false);
         set => base.SafeWaitHandle = m_semaphore.SafeWaitHandle = value;
     }
 
@@ -208,7 +223,7 @@ public class NamedSemaphore : WaitHandle
     /// Exits the semaphore and returns the previous count.
     /// </summary>
     /// <returns>The count on the semaphore before the method was called.</returns>
-    private int Release()
+    public int Release()
     {
         return m_semaphore.ReleaseCore(1);
     }
@@ -234,15 +249,17 @@ public class NamedSemaphore : WaitHandle
     }
 
     /// <summary>
-    /// Opens the specified named semaphore, if it already exists.
+    /// Opens an existing named semaphore.
     /// </summary>
     /// <param name="name">
-    /// The name used to identity the synchronization object resource shared with other processes.
-    /// The name is case-sensitive. The backslash character (\\) is reserved and may only be used to specify a namespace.
-    /// On Unix-based operating systems, the name after excluding the namespace must be a valid file name which contains
-    /// no slashes beyond optional namespace backslash and is limited to 250 characters. 
+    /// The unique name identifying the semaphore. This name is case-sensitive. Use a backslash (\\) to specify a
+    /// namespace, but avoid it elsewhere in the name. On Unix-based systems, the name should conform to valid file
+    /// naming conventions, excluding slashes except for an optional namespace backslash. The name length is limited
+    /// to 250 characters after any optional namespace.
     /// </param>
-    /// <returns>An object that represents the named system semaphore.</returns>
+    /// <returns>
+    /// An object that represents the opened named semaphore.
+    /// </returns>
     public static NamedSemaphore OpenExisting(string name)
     {
         switch (OpenExistingWorker(name, out INamedSemaphore? result))
@@ -262,16 +279,23 @@ public class NamedSemaphore : WaitHandle
     }
 
     /// <summary>
-    /// 
+    /// Opens the specified named semaphore, if it already exists, and returns a value that indicates whether the
+    /// operation succeeded.
     /// </summary>
     /// <param name="name">
-    /// The name used to identity the synchronization object resource shared with other processes.
-    /// The name is case-sensitive. The backslash character (\\) is reserved and may only be used to specify a namespace.
-    /// On Unix-based operating systems, the name after excluding the namespace must be a valid file name which contains
-    /// no slashes beyond optional namespace backslash and is limited to 250 characters. 
+    /// The unique name identifying the semaphore. This name is case-sensitive. Use a backslash (\\) to specify a
+    /// namespace, but avoid it elsewhere in the name. On Unix-based systems, the name should conform to valid file
+    /// naming conventions, excluding slashes except for an optional namespace backslash. The name length is limited
+    /// to 250 characters after any optional namespace.
     /// </param>
-    /// <param name="semaphore"></param>
-    /// <returns></returns>
+    /// <param name="semaphore">
+    /// When this method returns, contains a <see cref="NamedSemaphore" /> object that represents the named semaphore
+    /// if the call succeeded, or <c>null</c> if the call failed. This parameter is treated as uninitialized.
+    /// </param>
+    /// <returns>
+    /// <c>true</c> if the named semaphore was opened successfully; otherwise, <c>false</c>. In some cases,
+    /// <c>false</c> may be returned for invalid names.
+    /// </returns>
     public static bool TryOpenExisting(string name, [NotNullWhen(true)] out NamedSemaphore? semaphore)
     {
         if (OpenExistingWorker(name, out INamedSemaphore? result) == OpenExistingResult.Success)
@@ -284,5 +308,23 @@ public class NamedSemaphore : WaitHandle
         return false;
     }
 
-    internal new static readonly IntPtr InvalidHandle = WaitHandle.InvalidHandle;
+    /// <summary>
+    /// Removes a named semaphore.
+    /// </summary>
+    /// <param name="name">
+    /// The unique name identifying the semaphore. This name is case-sensitive. Use a backslash (\\) to specify a
+    /// namespace, but avoid it elsewhere in the name. On Unix-based systems, the name should conform to valid file
+    /// naming conventions, excluding slashes except for an optional namespace backslash. The name length is limited
+    /// to 250 characters after any optional namespace.
+    /// </param>
+    /// <remarks>
+    /// On POSIX systems, calling this method removes the named semaphore referred to by <paramref name="name"/>.
+    /// The semaphore name is removed immediately and is destroyed once all other processes that have the semaphore
+    /// open close it. Calling this method on Windows systems does nothing.
+    /// </remarks>
+    public static void Unlink(string name)
+    {
+        if (Common.IsPosixEnvironment)
+            NamedSemaphoreUnix.Unlink(name);
+    }
 }
