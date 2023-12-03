@@ -100,7 +100,7 @@ internal partial class NamedSemaphoreUnix : INamedSemaphore
         if (!result)
             throw ex!;
 
-        int retVal = CreateSemaphore(semaphoreName!,namespaceName == "Global", initialCount, out createdNew, out nint semaphoreHandle);
+        int retVal = CreateSemaphore(semaphoreName!, namespaceName == "Global", initialCount, out createdNew, out nint semaphoreHandle);
 
         switch (retVal)
         {
