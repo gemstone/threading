@@ -68,6 +68,15 @@ public class NamedSemaphore : WaitHandle
     /// naming conventions, excluding slashes except for an optional namespace backslash. The name length is limited
     /// to 250 characters after any optional namespace.
     /// </param>
+    /// <remarks>
+    /// The <paramref name="name"/> may be prefixed with <c>Global\</c> or <c>Local\</c> to specify a namespace.
+    /// When the Global namespace is specified, the synchronization object may be shared with any processes on the system.
+    /// When the Local namespace is specified, which is also the default when no namespace is specified, the synchronization
+    /// object may be shared with processes in the same session. On Windows, a session is a login session, and services
+    /// typically run in a different non-interactive session. On Unix-like operating systems, each shell has its own session.
+    /// Session-local synchronization objects may be appropriate for synchronizing between processes with a parent/child
+    /// relationship where they all run in the same session.
+    /// </remarks>
     public NamedSemaphore(int initialCount, int maximumCount, string name) :
         this(initialCount, maximumCount, name, out _)
     {
@@ -90,6 +99,15 @@ public class NamedSemaphore : WaitHandle
     /// When method returns, contains <c>true</c> if the specified named system semaphore was created; otherwise,
     /// <c>false</c> if the semaphore already existed.
     /// </param>
+    /// <remarks>
+    /// The <paramref name="name"/> may be prefixed with <c>Global\</c> or <c>Local\</c> to specify a namespace.
+    /// When the Global namespace is specified, the synchronization object may be shared with any processes on the system.
+    /// When the Local namespace is specified, which is also the default when no namespace is specified, the synchronization
+    /// object may be shared with processes in the same session. On Windows, a session is a login session, and services
+    /// typically run in a different non-interactive session. On Unix-like operating systems, each shell has its own session.
+    /// Session-local synchronization objects may be appropriate for synchronizing between processes with a parent/child
+    /// relationship where they all run in the same session.
+    /// </remarks>
     public NamedSemaphore(int initialCount, int maximumCount, string name, out bool createdNew)
     {
         if (string.IsNullOrWhiteSpace(name))
@@ -260,6 +278,15 @@ public class NamedSemaphore : WaitHandle
     /// <returns>
     /// An object that represents the opened named semaphore.
     /// </returns>
+    /// <remarks>
+    /// The <paramref name="name"/> may be prefixed with <c>Global\</c> or <c>Local\</c> to specify a namespace.
+    /// When the Global namespace is specified, the synchronization object may be shared with any processes on the system.
+    /// When the Local namespace is specified, which is also the default when no namespace is specified, the synchronization
+    /// object may be shared with processes in the same session. On Windows, a session is a login session, and services
+    /// typically run in a different non-interactive session. On Unix-like operating systems, each shell has its own session.
+    /// Session-local synchronization objects may be appropriate for synchronizing between processes with a parent/child
+    /// relationship where they all run in the same session.
+    /// </remarks>
     public static NamedSemaphore OpenExisting(string name)
     {
         switch (OpenExistingWorker(name, out INamedSemaphore? result))
@@ -296,6 +323,15 @@ public class NamedSemaphore : WaitHandle
     /// <c>true</c> if the named semaphore was opened successfully; otherwise, <c>false</c>. In some cases,
     /// <c>false</c> may be returned for invalid names.
     /// </returns>
+    /// <remarks>
+    /// The <paramref name="name"/> may be prefixed with <c>Global\</c> or <c>Local\</c> to specify a namespace.
+    /// When the Global namespace is specified, the synchronization object may be shared with any processes on the system.
+    /// When the Local namespace is specified, which is also the default when no namespace is specified, the synchronization
+    /// object may be shared with processes in the same session. On Windows, a session is a login session, and services
+    /// typically run in a different non-interactive session. On Unix-like operating systems, each shell has its own session.
+    /// Session-local synchronization objects may be appropriate for synchronizing between processes with a parent/child
+    /// relationship where they all run in the same session.
+    /// </remarks>
     public static bool TryOpenExisting(string name, [NotNullWhen(true)] out NamedSemaphore? semaphore)
     {
         if (OpenExistingWorker(name, out INamedSemaphore? result) == OpenExistingResult.Success)

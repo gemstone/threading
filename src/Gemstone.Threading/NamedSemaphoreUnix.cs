@@ -75,7 +75,6 @@ internal partial class NamedSemaphoreUnix : INamedSemaphore
     }
 
     private SemaphorePtr? m_semaphore;
-    private string? m_namespace;
     private int m_maximumCount;
 
     // We can ignore any user assigned SafeWaitHandle since we are using a custom SafeHandle implementation. Internal to
@@ -96,12 +95,12 @@ internal partial class NamedSemaphoreUnix : INamedSemaphore
 
         m_maximumCount = maximumCount;
 
-        (bool result, ArgumentException? ex) = ParseSemaphoreName(name, out m_namespace, out string? semaphoreName);
+        (bool result, ArgumentException? ex) = ParseSemaphoreName(name, out string? namespaceName, out string? semaphoreName);
 
         if (!result)
             throw ex!;
 
-        int retVal = CreateSemaphore(semaphoreName!, initialCount, out createdNew, out nint semaphoreHandle);
+        int retVal = CreateSemaphore(semaphoreName!,namespaceName == "Global", initialCount, out createdNew, out nint semaphoreHandle);
 
         switch (retVal)
         {
@@ -210,23 +209,19 @@ internal partial class NamedSemaphoreUnix : INamedSemaphore
         if (releaseCount < 1)
             throw new ArgumentOutOfRangeException(nameof(releaseCount), "Non-negative number required.");
 
-        int? previousCount = null;
+        int retVal = GetSemaphoreCount(m_semaphore, out int previousCount);
+
+        if (retVal == ErrorNo.EINVAL)
+            throw new InvalidOperationException("The named semaphore is invalid.");
+
+        if (retVal != 0)
+            throw new InvalidOperationException($"An unknown error occurred while getting current count for the named semaphore. Error code: {retVal}");
+
+        if (previousCount >= m_maximumCount)
+            throw new SemaphoreFullException("The semaphore count is already at the maximum value.");
 
         for (int i = 0; i < releaseCount; i++)
         {
-            int retVal = GetSemaphoreCount(m_semaphore, out int count);
-            
-            if (retVal == ErrorNo.EINVAL)
-                throw new InvalidOperationException("The named semaphore is invalid.");
-
-            if (retVal != 0)
-                throw new InvalidOperationException($"An unknown error occurred while getting current count for the named semaphore. Error code: {retVal}");
-
-            if (count >= m_maximumCount)
-                throw new SemaphoreFullException("The semaphore count is already at the maximum value.");
-
-            previousCount ??= count;
-
             retVal = ReleaseSemaphore(m_semaphore);
 
             switch (retVal)
@@ -242,7 +237,7 @@ internal partial class NamedSemaphoreUnix : INamedSemaphore
             }
         }
 
-        return previousCount ?? 0;
+        return previousCount;
     }
 
     public void Close()
@@ -283,7 +278,7 @@ internal partial class NamedSemaphoreUnix : INamedSemaphore
             ErrorNo.EAGAIN => false,
             ErrorNo.ETIMEDOUT => false,
             ErrorNo.EINVAL => throw new InvalidOperationException("The named semaphore is invalid."),
-            _ => throw new InvalidOperationException($"An unknown error occurred while releasing the named semaphore. Error code: {retVal}")
+            _ => throw new InvalidOperationException($"An unknown error occurred while waiting on the named semaphore. Error code: {retVal}")
         };
     }
 
@@ -323,7 +318,7 @@ internal partial class NamedSemaphoreUnix : INamedSemaphore
 
 #if NET
     [LibraryImport(ImportFileName, StringMarshalling = StringMarshalling.Utf8)]
-    private static partial int CreateSemaphore(string name, int initialCount, [MarshalAs(UnmanagedType.I4)] out bool createdNew, out nint semaphoreHandle);
+    private static partial int CreateSemaphore(string name, [MarshalAs(UnmanagedType.I4)] bool useGlobalScope, int initialCount, [MarshalAs(UnmanagedType.I4)] out bool createdNew, out nint semaphoreHandle);
 
     [LibraryImport(ImportFileName, StringMarshalling = StringMarshalling.Utf8)]
     private static partial int OpenExistingSemaphore(string name, out nint semaphoreHandle);
@@ -341,7 +336,7 @@ internal partial class NamedSemaphoreUnix : INamedSemaphore
     private static partial int UnlinkSemaphore(string name);
 #else
     [DllImport(ImportFileName)]
-    private static extern int CreateSemaphore(string name, int initialCount, out bool createdNew, out nint semaphoreHandle);
+    private static extern int CreateSemaphore(string name, bool useGlobalScope, int initialCount, out bool createdNew, out nint semaphoreHandle);
 
     [DllImport(ImportFileName)]
     private static extern int OpenExistingSemaphore(string name, out nint semaphoreHandle);
