@@ -55,9 +55,5 @@ namespace Gemstone.Threading
         bool WaitOne(TimeSpan timeout, bool exitContext);
 
         bool WaitOne(int millisecondsTimeout, bool exitContext);
-
-        static OpenExistingResult OpenExistingWorker(string name, out INamedSemaphore? semaphore) => throw new NotImplementedException();
-
-        static void Unlink(string name) => throw new NotImplementedException();
     }
 }
