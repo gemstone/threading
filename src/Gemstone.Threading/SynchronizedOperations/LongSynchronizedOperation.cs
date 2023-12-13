@@ -124,25 +124,25 @@ public class LongSynchronizedOperation : SynchronizedOperationBase
 
     private void ExecuteActionAsyncBackground()
     {
-        void taskAction()
+        void TaskAction()
         {
             if (ExecuteAction())
                 ExecuteActionAsync();
         }
 
-        Task.Factory.StartNew(taskAction, TaskCreationOptions.LongRunning);
+        Task.Factory.StartNew(TaskAction, TaskCreationOptions.LongRunning);
     }
 
     private void ExecuteActionAsyncForeground()
     {
-        void threadAction()
+        void ThreadAction()
         {
             while (ExecuteAction())
             {
             }
         }
 
-        new Thread(threadAction).Start();
+        new Thread(ThreadAction).Start();
     }
 
     #endregion
