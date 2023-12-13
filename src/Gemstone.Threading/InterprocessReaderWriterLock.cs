@@ -36,11 +36,12 @@ namespace Gemstone.Threading;
 /// <para>
 /// The <see cref="InterprocessReaderWriterLock"/> uses a <see cref="NamedSemaphore"/> to synchronize access to an inter-process shared resource.
 /// On POSIX systems, the <see cref="NamedSemaphore"/> exhibits kernel persistence, meaning instances will remain active beyond the lifespan of
-/// the creating process. The named semaphore must be explicitly removed by invoking <see cref="Unlink"/> when the reader-writer lock instance
-/// is no longer needed. Kernel persistence necessitates careful design consideration regarding process responsibility for invoking the
-/// <see cref="Unlink"/> method. Since the common use case for named semaphores is across multiple applications, it is advisable for the last
-/// exiting process to handle the cleanup. In cases where an application may crash before calling the <see cref="Unlink"/> method, the semaphore
-/// persists in the system, potentially leading to resource leakage. Implementations should include strategies to address and mitigate this risk.
+/// the creating process. The named semaphore must be explicitly removed by invoking <see cref="ReleaseInterprocessResources"/> when the last
+/// reader-writer lock instance is no longer needed. Kernel persistence necessitates careful design consideration regarding process
+/// responsibility for invoking the <see cref="ReleaseInterprocessResources"/> method. Since the common use case for named semaphores is across
+/// multiple applications, it is advisable for the last exiting process to handle the cleanup. In cases where an application may crash before
+/// calling the <see cref="ReleaseInterprocessResources"/> method, the semaphore persists in the system, potentially leading to resource leakage.
+/// Implementations should include strategies to address and mitigate this risk.
 /// </para>
 /// </remarks>
 public class InterprocessReaderWriterLock : IDisposable
@@ -322,14 +323,14 @@ public class InterprocessReaderWriterLock : IDisposable
     }
 
     /// <summary>
-    /// Removes a named semaphore used by the <see cref="InterprocessReaderWriterLock"/>.
+    /// Releases inter-process resources used by the <see cref="InterprocessReaderWriterLock"/>.
     /// </summary>
     /// <remarks>
     /// On POSIX systems, calling this method removes the named semaphore used by the reader-writer lock.
     /// The semaphore name is removed immediately and is destroyed once all other processes that have the
     /// semaphore open close it. Calling this method on Windows systems does nothing.
     /// </remarks>
-    public void Unlink()
+    public void ReleaseInterprocessResources()
     {
         NamedSemaphore.Unlink(m_semaphoreName);
     }
