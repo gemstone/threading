@@ -216,5 +216,4 @@ public static class InterprocessLock
 
         return namedSemaphore;
     }
-
 }
