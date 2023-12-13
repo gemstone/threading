@@ -58,7 +58,6 @@ public class InterprocessReaderWriterLock : IDisposable
     // Fields
     private readonly Mutex m_semaphoreLock;             // Mutex used to synchronize access to Semaphore
     private readonly NamedSemaphore m_concurrencyLock;  // Semaphore used for reader/writer lock on consumer object
-    private readonly string m_semaphoreName;            // Generated hash name of semaphore
     private bool m_disposed;
 
     #endregion
@@ -91,7 +90,7 @@ public class InterprocessReaderWriterLock : IDisposable
     {
         MaximumConcurrentLocks = maximumConcurrentLocks;
         m_semaphoreLock = InterprocessLock.GetNamedMutex(name, global);
-        m_concurrencyLock = InterprocessLock.GetNamedSemaphore(name, out m_semaphoreName, MaximumConcurrentLocks, global: global);
+        m_concurrencyLock = InterprocessLock.GetNamedSemaphore(name, MaximumConcurrentLocks, global: global);
     }
 
     /// <summary>
@@ -332,7 +331,7 @@ public class InterprocessReaderWriterLock : IDisposable
     /// </remarks>
     public void ReleaseInterprocessResources()
     {
-        NamedSemaphore.Unlink(m_semaphoreName);
+        m_concurrencyLock.Unlink();
     }
 
     #endregion

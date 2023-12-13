@@ -51,6 +51,26 @@ namespace Gemstone.Threading;
 /// </summary>
 public static class InterprocessLock
 {
+    /// <summary>
+    /// Default value for <see cref="Mutex"/> global flag.
+    /// </summary>
+    public const bool DefaultMutexGlobal = true;
+
+    /// <summary>
+    /// Default value for <see cref="NamedSemaphore"/> maximum count.
+    /// </summary>
+    public const int DefaultSemaphoreMaximumCount = 10;
+
+    /// <summary>
+    /// Default value for <see cref="NamedSemaphore"/> initial count.
+    /// </summary>
+    public const int DefaultSemaphoreInitialCount = -1;
+    
+    /// <summary>
+    /// Default value for <see cref="NamedSemaphore"/> global flag.
+    /// </summary>
+    public const bool DefaultSemaphoreGlobal = true;
+
     private const int MutexHash = 0;
     private const int SemaphoreHash = 1;
 
@@ -103,52 +123,19 @@ public static class InterprocessLock
     /// <exception cref="ArgumentNullException">Argument <paramref name="name"/> cannot be empty, null or white space.</exception>
     /// <exception cref="UnauthorizedAccessException">The named mutex exists, but the user does not have the minimum needed security access rights to use it.</exception>
     [MethodImpl(MethodImplOptions.Synchronized)]
-    public static Mutex GetNamedMutex(string name, bool global = true)
-    {
-        return GetNamedMutex(name, out _, global);
-    }
-
-    /// <summary>
-    /// Gets a uniquely named inter-process <see cref="Mutex"/> associated with the specified <paramref name="name"/> that identifies a source object
-    /// needing concurrency locking.
-    /// </summary>
-    /// <param name="name">Identifying name of source object needing concurrency locking (e.g., a path and file name).</param>
-    /// <param name="mutexName">The generated hash name of the mutex.</param>
-    /// <param name="global">Determines if mutex should be marked as global; set value to <c>false</c> for local.</param>
-    /// <returns>A uniquely named inter-process <see cref="Mutex"/> specific to <paramref name="name"/>; <see cref="Mutex"/> is created if it does not exist.</returns>
-    /// <remarks>
-    /// <para>
-    /// This function uses a hash of the <paramref name="name"/> when creating the <see cref="Mutex"/>, not the actual <paramref name="name"/> - this way
-    /// restrictions on the <paramref name="name"/> length do not need to be a user concern. All processes needing an inter-process <see cref="Mutex"/> need
-    /// to use this same function to ensure access to the same <see cref="Mutex"/>.
-    /// </para>
-    /// <para>
-    /// The <paramref name="name"/> can be a string of any length (must not be empty, null or white space) and is not case-sensitive. All hashes of the
-    /// <paramref name="name"/> used to create the global <see cref="Mutex"/> are first converted to lower case.
-    /// </para>
-    /// </remarks>
-    /// <exception cref="ArgumentNullException">Argument <paramref name="name"/> cannot be empty, null or white space.</exception>
-    /// <exception cref="UnauthorizedAccessException">The named mutex exists, but the user does not have the minimum needed security access rights to use it.</exception>
-    [MethodImpl(MethodImplOptions.Synchronized)]
-    public static Mutex GetNamedMutex(string name, out string mutexName, bool global = true)
+    public static Mutex GetNamedMutex(string name, bool global = DefaultMutexGlobal)
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentNullException(nameof(name), "Argument cannot be empty, null or white space.");
 
-        // Create a mutex name that is specific to an object (e.g., a path and file name).
-        // Note that we use a SHA hash to create a short common name for the name parameter
-        // that was passed into the function - this allows the parameter to be very long, e.g.,
-        // a file path, and still meet minimum mutex name requirements.
+        // When requested, prefix mutex name with "Global\" such that mutex
+        // will apply to all active application sessions
+        string mutexName = $"{(global ? "Global" : "Local")}\\{GetHashedName(name, MutexHash)}";
 
-        // Prefix mutex name with "Global\" such that mutex will apply to all active
-        // application sessions in case terminal services is running.
-        SHA256 hash = new Cipher().CreateSHA256();
-        mutexName = $"{(global ? "Global" : "Local")}\\{hash.GetStringHash($"{name.ToLowerInvariant()}{MutexHash}").Replace('\\', '-')}";
+        if (!Mutex.TryOpenExisting(mutexName, out Mutex? mutex))
+            mutex = new Mutex(false, mutexName);
 
-        if (!Mutex.TryOpenExisting(mutexName, out Mutex? namedMutex))
-            namedMutex = new Mutex(false, mutexName);
-
-        return namedMutex;
+        return mutex;
     }
 
     /// <summary>
@@ -177,7 +164,7 @@ public static class InterprocessLock
     /// </remarks>
     /// <exception cref="UnauthorizedAccessException">The named semaphore exists, but the user does not have the minimum needed security access rights to use it.</exception>
     [MethodImpl(MethodImplOptions.Synchronized)]
-    public static NamedSemaphore GetNamedSemaphore(bool perUser, int maximumCount = 10, int initialCount = -1)
+    public static NamedSemaphore GetNamedSemaphore(bool perUser, int maximumCount = DefaultSemaphoreMaximumCount, int initialCount = DefaultSemaphoreInitialCount)
     {
         Assembly entryAssembly = Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly();
         GuidAttribute? attribute = entryAssembly.GetCustomAttributes(typeof(GuidAttribute), true).FirstOrDefault() as GuidAttribute;
@@ -220,44 +207,7 @@ public static class InterprocessLock
     /// <exception cref="ArgumentNullException">Argument <paramref name="name"/> cannot be empty, null or white space.</exception>
     /// <exception cref="UnauthorizedAccessException">The named semaphore exists, but the user does not have the minimum needed security access rights to use it.</exception>
     [MethodImpl(MethodImplOptions.Synchronized)]
-    public static NamedSemaphore GetNamedSemaphore(string name, int maximumCount = 10, int initialCount = -1, bool global = true)
-    {
-        return GetNamedSemaphore(name, out _, maximumCount, initialCount, global);
-    }
-
-    /// <summary>
-    /// Gets a uniquely named inter-process <see cref="NamedSemaphore"/> associated with the specified <paramref name="name"/> that identifies a source object
-    /// needing concurrency locking.
-    /// </summary>
-    /// <param name="name">Identifying name of source object needing concurrency locking (e.g., a path and file name).</param>
-    /// <param name="semaphoreName">The generated hash name of the semaphore.</param>
-    /// <param name="maximumCount">The maximum number of requests for the semaphore that can be granted concurrently.</param>
-    /// <param name="initialCount">The initial number of requests for the semaphore that can be granted concurrently, or -1 to default to <paramref name="maximumCount"/>.</param>
-    /// <param name="global">Determines if semaphore should be marked as global; set value to <c>false</c> for local.</param>
-    /// <returns>A uniquely named inter-process <see cref="NamedSemaphore"/> specific to <paramref name="name"/>; <see cref="NamedSemaphore"/> is created if it does not exist.</returns>
-    /// <remarks>
-    /// <para>
-    /// This function uses a hash of the <paramref name="name"/> when creating the <see cref="NamedSemaphore"/>, not the actual <paramref name="name"/> - this way
-    /// restrictions on the <paramref name="name"/> length do not need to be a user concern. All processes needing an inter-process <see cref="NamedSemaphore"/> need
-    /// to use this same function to ensure access to the same <see cref="NamedSemaphore"/>.
-    /// </para>
-    /// <para>
-    /// The <paramref name="name"/> can be a string of any length (must not be empty, null or white space) and is not case-sensitive. All hashes of the
-    /// <paramref name="name"/> used to create the global <see cref="NamedSemaphore"/> are first converted to lower case.
-    /// </para>
-    /// <para>
-    /// On POSIX systems, the <see cref="NamedSemaphore"/> exhibits kernel persistence, meaning instances will remain active beyond the lifespan of the
-    /// creating process. Named semaphores must be explicitly removed by invoking <see cref="NamedSemaphore.Unlink"/> when they are no longer needed.
-    /// Kernel persistence necessitates careful design consideration regarding the responsibility for invoking <see cref="NamedSemaphore.Unlink"/>.
-    /// Since the common use case for named semaphores is across multiple applications, it is advisable for the last exiting process to handle the
-    /// cleanup. In cases where an application may crash before calling <see cref="NamedSemaphore.Unlink"/>, the semaphore persists in the system,
-    /// potentially leading to resource leakage. Implementations should include strategies to address and mitigate this risk.
-    /// </para>
-    /// </remarks>
-    /// <exception cref="ArgumentNullException">Argument <paramref name="name"/> cannot be empty, null or white space.</exception>
-    /// <exception cref="UnauthorizedAccessException">The named semaphore exists, but the user does not have the minimum needed security access rights to use it.</exception>
-    [MethodImpl(MethodImplOptions.Synchronized)]
-    public static NamedSemaphore GetNamedSemaphore(string name, out string semaphoreName, int maximumCount = 10, int initialCount = -1, bool global = true)
+    public static NamedSemaphore GetNamedSemaphore(string name, int maximumCount = DefaultSemaphoreMaximumCount, int initialCount = DefaultSemaphoreInitialCount, bool global = DefaultSemaphoreGlobal)
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentNullException(nameof(name), "Argument cannot be empty, null or white space.");
@@ -265,19 +215,23 @@ public static class InterprocessLock
         if (initialCount < 0)
             initialCount = maximumCount;
 
-        // Create a semaphore name that is specific to an object (e.g., a path and file name).
+        // When requested, prefix semaphore name with "Global\" such that semaphore
+        // will apply to all active application sessions
+        string semaphoreName = $"{(global ? "Global" : "Local")}\\{GetHashedName(name, SemaphoreHash)}";
+
+        if (!NamedSemaphore.TryOpenExisting(semaphoreName, out NamedSemaphore? semaphore))
+            semaphore = new NamedSemaphore(initialCount, maximumCount, semaphoreName);
+
+        return semaphore;
+    }
+
+    internal static string GetHashedName(string name, int hashIndex)
+    {
+        // Create a name that is specific to an object (e.g., a path and file name).
         // Note that we use a SHA hash to create a short common name for the name parameter
         // that was passed into the function - this allows the parameter to be very long, e.g.,
-        // a file path, and still meet minimum semaphore name requirements.
-
-        // Prefix semaphore name with "Global\" such that semaphore will apply to all active
-        // application sessions in case terminal services is running.
+        // a file path, and still meet minimum mutex/semaphore name requirements.
         SHA256 hash = new Cipher().CreateSHA256();
-        semaphoreName = $"{(global ? "Global" : "Local")}\\{hash.GetStringHash($"{name.ToLowerInvariant()}{SemaphoreHash}").Replace('\\', '-')}";
-
-        if (!NamedSemaphore.TryOpenExisting(semaphoreName, out NamedSemaphore? namedSemaphore))
-            namedSemaphore = new NamedSemaphore(initialCount, maximumCount, semaphoreName);
-
-        return namedSemaphore;
+        return $"{hash.GetStringHash($"{name.ToLowerInvariant()}{hashIndex}").Replace('\\', '-')}";
     }
 }
