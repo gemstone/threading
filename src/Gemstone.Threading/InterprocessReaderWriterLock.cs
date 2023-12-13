@@ -32,6 +32,17 @@ namespace Gemstone.Threading;
 /// Represents an inter-process reader/writer lock using <see cref="NamedSemaphore"/> and <see cref="Mutex"/>
 /// native locking mechanisms.
 /// </summary>
+/// <remarks>
+/// <para>
+/// The <see cref="InterprocessReaderWriterLock"/> uses a <see cref="NamedSemaphore"/> to synchronize access to an inter-process shared resource.
+/// On POSIX systems, the <see cref="NamedSemaphore"/> exhibits kernel persistence, meaning instances will remain active beyond the lifespan of
+/// the creating process. The named semaphore must be explicitly removed by invoking <see cref="Unlink"/> when the reader-writer lock instance
+/// is no longer needed. Kernel persistence necessitates careful design consideration regarding process responsibility for invoking the
+/// <see cref="Unlink"/> method. Since the common use case for named semaphores is across multiple applications, it is advisable for the last
+/// exiting process to handle the cleanup. In cases where an application may crash before calling the <see cref="Unlink"/> method, the semaphore
+/// persists in the system, potentially leading to resource leakage. Implementations should include strategies to address and mitigate this risk.
+/// </para>
+/// </remarks>
 public class InterprocessReaderWriterLock : IDisposable
 {
     #region [ Members ]
@@ -46,6 +57,7 @@ public class InterprocessReaderWriterLock : IDisposable
     // Fields
     private readonly Mutex m_semaphoreLock;             // Mutex used to synchronize access to Semaphore
     private readonly NamedSemaphore m_concurrencyLock;  // Semaphore used for reader/writer lock on consumer object
+    private readonly string m_semaphoreName;            // Generated hash name of semaphore
     private bool m_disposed;
 
     #endregion
@@ -58,7 +70,10 @@ public class InterprocessReaderWriterLock : IDisposable
     /// </summary>
     /// <param name="name">Identifying name of source object needing concurrency locking (e.g., a path and file name).</param>
     /// <param name="global">Determines if semaphore and mutex used by <see cref="InterprocessReaderWriterLock"/> should be marked as global; set value to <c>false</c> for local.</param>
-    public InterprocessReaderWriterLock(string name, bool global = true) : this(name, DefaultMaximumConcurrentLocks, global) { }
+    public InterprocessReaderWriterLock(string name, bool global = true) : 
+        this(name, DefaultMaximumConcurrentLocks, global)
+    {
+    }
 
     /// <summary>
     /// Creates a new instance of the <see cref="InterprocessReaderWriterLock"/> associated with the specified
@@ -75,13 +90,16 @@ public class InterprocessReaderWriterLock : IDisposable
     {
         MaximumConcurrentLocks = maximumConcurrentLocks;
         m_semaphoreLock = InterprocessLock.GetNamedMutex(name, global);
-        m_concurrencyLock = InterprocessLock.GetNamedSemaphore(name, MaximumConcurrentLocks, global: global);
+        m_concurrencyLock = InterprocessLock.GetNamedSemaphore(name, out m_semaphoreName, MaximumConcurrentLocks, global: global);
     }
 
     /// <summary>
     /// Releases the unmanaged resources before the <see cref="InterprocessReaderWriterLock"/> object is reclaimed by <see cref="GC"/>.
     /// </summary>
-    ~InterprocessReaderWriterLock() => Dispose(false);
+    ~InterprocessReaderWriterLock()
+    {
+        Dispose(false);
+    }
 
     #endregion
 
@@ -135,7 +153,10 @@ public class InterprocessReaderWriterLock : IDisposable
     /// Upon successful acquisition of a read lock, use the <c>finally</c> block of a <c>try/finally</c> statement to call <see cref="ExitReadLock"/>.
     /// One <see cref="ExitReadLock"/> should be called for each <see cref="EnterReadLock"/> or <see cref="TryEnterReadLock"/>.
     /// </remarks>
-    public void EnterReadLock() => TryEnterReadLock(Timeout.Infinite);
+    public void EnterReadLock()
+    {
+        TryEnterReadLock(Timeout.Infinite);
+    }
 
     /// <summary>
     /// Tries to enter the lock in write mode.
@@ -144,7 +165,10 @@ public class InterprocessReaderWriterLock : IDisposable
     /// Upon successful acquisition of a write lock, use the <c>finally</c> block of a <c>try/finally</c> statement to call <see cref="ExitWriteLock"/>.
     /// One <see cref="ExitWriteLock"/> should be called for each <see cref="EnterWriteLock"/> or <see cref="TryEnterWriteLock"/>.
     /// </remarks>
-    public void EnterWriteLock() => TryEnterWriteLock(Timeout.Infinite);
+    public void EnterWriteLock()
+    {
+        TryEnterWriteLock(Timeout.Infinite);
+    }
 
     /// <summary>
     /// Exits read mode and returns the prior read lock count.
@@ -153,7 +177,11 @@ public class InterprocessReaderWriterLock : IDisposable
     /// Upon successful acquisition of a read lock, use the <c>finally</c> block of a <c>try/finally</c> statement to call <see cref="ExitReadLock"/>.
     /// One <see cref="ExitReadLock"/> should be called for each <see cref="EnterReadLock"/> or <see cref="TryEnterReadLock"/>.
     /// </remarks>
-    public int ExitReadLock() => m_concurrencyLock.Release(); // Release the semaphore lock and restore the slot
+    public int ExitReadLock()
+    {
+        // Release the semaphore lock and restore the slot
+        return m_concurrencyLock.Release();
+    }
 
     /// <summary>
     /// Exits write mode.
@@ -162,7 +190,11 @@ public class InterprocessReaderWriterLock : IDisposable
     /// Upon successful acquisition of a write lock, use the <c>finally</c> block of a <c>try/finally</c> statement to call <see cref="ExitWriteLock"/>.
     /// One <see cref="ExitWriteLock"/> should be called for each <see cref="EnterWriteLock"/> or <see cref="TryEnterWriteLock"/>.
     /// </remarks>
-    public void ExitWriteLock() => m_semaphoreLock.ReleaseMutex(); // Release semaphore synchronization mutex lock
+    public void ExitWriteLock()
+    {
+        // Release semaphore synchronization mutex lock
+        m_semaphoreLock.ReleaseMutex();
+    }
 
     /// <summary>
     /// Tries to enter the lock in read mode, with an optional time-out.
@@ -287,6 +319,19 @@ public class InterprocessReaderWriterLock : IDisposable
         // their code succeeds or fails, that is, consumer should use the finally clause of a "try/finally"
         // expression to ExitWriteLock.
         return success;
+    }
+
+    /// <summary>
+    /// Removes a named semaphore used by the <see cref="InterprocessReaderWriterLock"/>.
+    /// </summary>
+    /// <remarks>
+    /// On POSIX systems, calling this method removes the named semaphore used by the reader-writer lock.
+    /// The semaphore name is removed immediately and is destroyed once all other processes that have the
+    /// semaphore open close it. Calling this method on Windows systems does nothing.
+    /// </remarks>
+    public void Unlink()
+    {
+        NamedSemaphore.Unlink(m_semaphoreName);
     }
 
     #endregion
