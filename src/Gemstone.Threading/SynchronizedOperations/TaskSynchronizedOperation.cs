@@ -68,15 +68,13 @@ public class TaskSynchronizedOperation : ISynchronizedOperation
     private class SynchronizedOperation : SynchronizedOperationBase
     {
         private Func<CancellationToken, Task> AsyncAction { get; }
+
         private Action<Exception>? ExceptionHandler { get; }
 
         public SynchronizedOperation(Func<CancellationToken, Task> asyncAction, Action<Exception>? exceptionHandler)
             : base(() => { })
         {
-            if (asyncAction is null)
-                throw new ArgumentNullException(nameof(asyncAction));
-
-            AsyncAction = asyncAction;
+            AsyncAction = asyncAction ?? throw new ArgumentNullException(nameof(asyncAction));
             ExceptionHandler = exceptionHandler;
         }
 
@@ -157,7 +155,7 @@ public class TaskSynchronizedOperation : ISynchronizedOperation
     public bool IsRunning => InternalSynchronizedOperation.IsRunning;
 
     /// <summary>
-    /// Gets a value to indiate whether the synchronized operation
+    /// Gets a value to indicate whether the synchronized operation
     /// has an additional operation that is pending execution after
     /// the currently running action has completed.
     /// </summary>
