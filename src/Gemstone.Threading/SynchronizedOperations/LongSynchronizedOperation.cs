@@ -99,7 +99,11 @@ public class LongSynchronizedOperation : SynchronizedOperationBase
     /// shutdown; consider a cancellable action for <see cref="LongSynchronizedOperation"/>
     /// instances that use a foreground thread.
     /// </remarks>
+#if NET
     public bool IsBackground { get; init; }
+#else
+    public bool IsBackground { get; set; }
+#endif
 
     #endregion
 
