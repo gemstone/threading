@@ -155,10 +155,10 @@ public static class InterprocessLock
     /// </para>
     /// <para>
     /// On POSIX systems, the <see cref="NamedSemaphore"/> exhibits kernel persistence, meaning instances will remain active beyond the lifespan of the
-    /// creating process. Named semaphores must be explicitly removed by invoking <see cref="NamedSemaphore.Unlink"/> when they are no longer needed.
-    /// Kernel persistence necessitates careful design consideration regarding the responsibility for invoking <see cref="NamedSemaphore.Unlink"/>.
+    /// creating process. Named semaphores must be explicitly removed by invoking <see cref="NamedSemaphore.Unlink()"/> when they are no longer needed.
+    /// Kernel persistence necessitates careful design consideration regarding the responsibility for invoking <see cref="NamedSemaphore.Unlink()"/>.
     /// Since the common use case for named semaphores is across multiple applications, it is advisable for the last exiting process to handle the
-    /// cleanup. In cases where an application may crash before calling <see cref="NamedSemaphore.Unlink"/>, the semaphore persists in the system,
+    /// cleanup. In cases where an application may crash before calling <see cref="NamedSemaphore.Unlink()"/>, the semaphore persists in the system,
     /// potentially leading to resource leakage. Implementations should include strategies to address and mitigate this risk.
     /// </para>
     /// </remarks>
@@ -197,10 +197,10 @@ public static class InterprocessLock
     /// </para>
     /// <para>
     /// On POSIX systems, the <see cref="NamedSemaphore"/> exhibits kernel persistence, meaning instances will remain active beyond the lifespan of the
-    /// creating process. Named semaphores must be explicitly removed by invoking <see cref="NamedSemaphore.Unlink"/> when they are no longer needed.
-    /// Kernel persistence necessitates careful design consideration regarding the responsibility for invoking <see cref="NamedSemaphore.Unlink"/>.
+    /// creating process. Named semaphores must be explicitly removed by invoking <see cref="NamedSemaphore.Unlink()"/> when they are no longer needed.
+    /// Kernel persistence necessitates careful design consideration regarding the responsibility for invoking <see cref="NamedSemaphore.Unlink()"/>.
     /// Since the common use case for named semaphores is across multiple applications, it is advisable for the last exiting process to handle the
-    /// cleanup. In cases where an application may crash before calling <see cref="NamedSemaphore.Unlink"/>, the semaphore persists in the system,
+    /// cleanup. In cases where an application may crash before calling <see cref="NamedSemaphore.Unlink()"/>, the semaphore persists in the system,
     /// potentially leading to resource leakage. Implementations should include strategies to address and mitigate this risk.
     /// </para>
     /// </remarks>
