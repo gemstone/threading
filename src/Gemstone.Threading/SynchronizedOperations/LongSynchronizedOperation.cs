@@ -31,7 +31,6 @@ namespace Gemstone.Threading.SynchronizedOperations;
 /// Represents a long-running synchronized operation that cannot run while it is already in progress.
 /// </summary>
 /// <remarks>
-/// <para>
 /// The action performed by the <see cref="LongSynchronizedOperation"/> is executed on
 /// its own dedicated thread when running the operation in the foreground asynchronously.
 /// When running on its own thread, the action is executed in a tight loop until all
@@ -40,11 +39,6 @@ namespace Gemstone.Threading.SynchronizedOperations;
 /// It is also recommended to prefer this type of operation if the speed of the operation
 /// is not critical or if completion of the operation is critical, such as when saving data
 /// to a file.
-/// </para>
-/// <para>
-/// If the <see cref="IsBackground"/> property is changed while the synchronized operation
-/// is running, behavior is undefined.
-/// </para>
 /// </remarks>
 public class LongSynchronizedOperation : SynchronizedOperationBase
 {
@@ -105,7 +99,11 @@ public class LongSynchronizedOperation : SynchronizedOperationBase
     /// shutdown; consider a cancellable action for <see cref="LongSynchronizedOperation"/>
     /// instances that use a foreground thread.
     /// </remarks>
+#if NET
+    public bool IsBackground { get; init; }
+#else
     public bool IsBackground { get; set; }
+#endif
 
     #endregion
 
@@ -124,25 +122,25 @@ public class LongSynchronizedOperation : SynchronizedOperationBase
 
     private void ExecuteActionAsyncBackground()
     {
-        void taskAction()
+        void TaskAction()
         {
             if (ExecuteAction())
                 ExecuteActionAsync();
         }
 
-        Task.Factory.StartNew(taskAction, TaskCreationOptions.LongRunning);
+        Task.Factory.StartNew(TaskAction, TaskCreationOptions.LongRunning);
     }
 
     private void ExecuteActionAsyncForeground()
     {
-        void threadAction()
+        void ThreadAction()
         {
             while (ExecuteAction())
             {
             }
         }
 
-        new Thread(threadAction).Start();
+        new Thread(ThreadAction).Start();
     }
 
     #endregion
