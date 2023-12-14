@@ -45,10 +45,10 @@ namespace Gemstone.Threading;
 /// <para>
 /// On POSIX systems, the <see cref="NamedSemaphore"/> exhibits kernel persistence, meaning instances will remain
 /// active beyond the lifespan of the creating process. Named semaphores must be explicitly removed by invoking 
-/// <see cref="Unlink"/> when they are no longer needed. Kernel persistence necessitates careful design consideration
-/// regarding the responsibility for invoking <see cref="Unlink"/>. Since the common use case for named semaphores is
+/// <see cref="Unlink()"/> when they are no longer needed. Kernel persistence necessitates careful design consideration
+/// regarding the responsibility for invoking <see cref="Unlink()"/>. Since the common use case for named semaphores is
 /// across multiple applications, it is advisable for the last exiting process to handle the cleanup. In cases where
-/// an application may crash before calling <see cref="Unlink"/>, the semaphore persists in the system, potentially
+/// an application may crash before calling <see cref="Unlink()"/>, the semaphore persists in the system, potentially
 /// leading to resource leakage. Implementations should include strategies to address and mitigate this risk.
 /// </para>
 /// </remarks>
@@ -68,6 +68,15 @@ public class NamedSemaphore : WaitHandle
     /// naming conventions, excluding slashes except for an optional namespace backslash. The name length is limited
     /// to 250 characters after any optional namespace.
     /// </param>
+    /// <remarks>
+    /// The <paramref name="name"/> may be prefixed with <c>Global\</c> or <c>Local\</c> to specify a namespace.
+    /// When the Global namespace is specified, the synchronization object may be shared with any processes on the system.
+    /// When the Local namespace is specified, which is also the default when no namespace is specified, the synchronization
+    /// object may be shared with processes in the same session. On Windows, a session is a login session, and services
+    /// typically run in a different non-interactive session. On Unix-like operating systems, each shell has its own session.
+    /// Session-local synchronization objects may be appropriate for synchronizing between processes with a parent/child
+    /// relationship where they all run in the same session.
+    /// </remarks>
     public NamedSemaphore(int initialCount, int maximumCount, string name) :
         this(initialCount, maximumCount, name, out _)
     {
@@ -90,6 +99,15 @@ public class NamedSemaphore : WaitHandle
     /// When method returns, contains <c>true</c> if the specified named system semaphore was created; otherwise,
     /// <c>false</c> if the semaphore already existed.
     /// </param>
+    /// <remarks>
+    /// The <paramref name="name"/> may be prefixed with <c>Global\</c> or <c>Local\</c> to specify a namespace.
+    /// When the Global namespace is specified, the synchronization object may be shared with any processes on the system.
+    /// When the Local namespace is specified, which is also the default when no namespace is specified, the synchronization
+    /// object may be shared with processes in the same session. On Windows, a session is a login session, and services
+    /// typically run in a different non-interactive session. On Unix-like operating systems, each shell has its own session.
+    /// Session-local synchronization objects may be appropriate for synchronizing between processes with a parent/child
+    /// relationship where they all run in the same session.
+    /// </remarks>
     public NamedSemaphore(int initialCount, int maximumCount, string name, out bool createdNew)
     {
         if (string.IsNullOrWhiteSpace(name))
@@ -100,11 +118,13 @@ public class NamedSemaphore : WaitHandle
             new NamedSemaphoreWindows();
 
         m_semaphore.CreateSemaphoreCore(initialCount, maximumCount, name, out createdNew);
+        Name = name;
     }
 
-    private NamedSemaphore(INamedSemaphore semaphore)
+    private NamedSemaphore(INamedSemaphore semaphore, string name)
     {
         m_semaphore = semaphore;
+        Name = name;
     }
 
     /// <summary>
@@ -115,6 +135,11 @@ public class NamedSemaphore : WaitHandle
         get => m_semaphore.SafeWaitHandle ?? new SafeWaitHandle(InvalidHandle, false);
         set => base.SafeWaitHandle = m_semaphore.SafeWaitHandle = value;
     }
+
+    /// <summary>
+    /// Gets the name of the <see cref="NamedSemaphore" />.
+    /// </summary>
+    public string Name { get; }
 
     /// <summary>
     /// When overridden in a derived class, releases the unmanaged resources used by the <see cref="NamedSemaphore" />,
@@ -241,6 +266,19 @@ public class NamedSemaphore : WaitHandle
         return m_semaphore.ReleaseCore(releaseCount);
     }
 
+    /// <summary>
+    /// Removes a named semaphore.
+    /// </summary>
+    /// <remarks>
+    /// On POSIX systems, calling this method removes the named semaphore referred to by <see cref="Name"/>.
+    /// The semaphore name is removed immediately and is destroyed once all other processes that have the semaphore
+    /// open close it. Calling this method on Windows systems does nothing.
+    /// </remarks>
+    public void Unlink()
+    {
+        Unlink(Name);
+    }
+
     private static OpenExistingResult OpenExistingWorker(string name, out INamedSemaphore? semaphore)
     {
         return Common.IsPosixEnvironment ? 
@@ -260,6 +298,15 @@ public class NamedSemaphore : WaitHandle
     /// <returns>
     /// An object that represents the opened named semaphore.
     /// </returns>
+    /// <remarks>
+    /// The <paramref name="name"/> may be prefixed with <c>Global\</c> or <c>Local\</c> to specify a namespace.
+    /// When the Global namespace is specified, the synchronization object may be shared with any processes on the system.
+    /// When the Local namespace is specified, which is also the default when no namespace is specified, the synchronization
+    /// object may be shared with processes in the same session. On Windows, a session is a login session, and services
+    /// typically run in a different non-interactive session. On Unix-like operating systems, each shell has its own session.
+    /// Session-local synchronization objects may be appropriate for synchronizing between processes with a parent/child
+    /// relationship where they all run in the same session.
+    /// </remarks>
     public static NamedSemaphore OpenExisting(string name)
     {
         switch (OpenExistingWorker(name, out INamedSemaphore? result))
@@ -274,7 +321,7 @@ public class NamedSemaphore : WaitHandle
                 throw new UnauthorizedAccessException($"Access to the semaphore with name '{name}' is denied.");
             default:
                 Debug.Assert(result is not null, "result should be non-null on success");
-                return new NamedSemaphore(result);
+                return new NamedSemaphore(result, name);
         }
     }
 
@@ -296,11 +343,20 @@ public class NamedSemaphore : WaitHandle
     /// <c>true</c> if the named semaphore was opened successfully; otherwise, <c>false</c>. In some cases,
     /// <c>false</c> may be returned for invalid names.
     /// </returns>
+    /// <remarks>
+    /// The <paramref name="name"/> may be prefixed with <c>Global\</c> or <c>Local\</c> to specify a namespace.
+    /// When the Global namespace is specified, the synchronization object may be shared with any processes on the system.
+    /// When the Local namespace is specified, which is also the default when no namespace is specified, the synchronization
+    /// object may be shared with processes in the same session. On Windows, a session is a login session, and services
+    /// typically run in a different non-interactive session. On Unix-like operating systems, each shell has its own session.
+    /// Session-local synchronization objects may be appropriate for synchronizing between processes with a parent/child
+    /// relationship where they all run in the same session.
+    /// </remarks>
     public static bool TryOpenExisting(string name, [NotNullWhen(true)] out NamedSemaphore? semaphore)
     {
         if (OpenExistingWorker(name, out INamedSemaphore? result) == OpenExistingResult.Success)
         {
-            semaphore = new NamedSemaphore(result!);
+            semaphore = new NamedSemaphore(result!, name);
             return true;
         }
 
