@@ -245,6 +245,26 @@
             Defines helper methods related to inter-process locking.
             </summary>
     </member>
+    <member name="F:Gemstone.Threading.InterprocessLock.DefaultMutexGlobal">
+      <summary>
+            Default value for <see cref="T:System.Threading.Mutex" /> global flag.
+            </summary>
+    </member>
+    <member name="F:Gemstone.Threading.InterprocessLock.DefaultSemaphoreGlobal">
+      <summary>
+            Default value for <see cref="T:Gemstone.Threading.NamedSemaphore" /> global flag.
+            </summary>
+    </member>
+    <member name="F:Gemstone.Threading.InterprocessLock.DefaultSemaphoreInitialCount">
+      <summary>
+            Default value for <see cref="T:Gemstone.Threading.NamedSemaphore" /> initial count.
+            </summary>
+    </member>
+    <member name="F:Gemstone.Threading.InterprocessLock.DefaultSemaphoreMaximumCount">
+      <summary>
+            Default value for <see cref="T:Gemstone.Threading.NamedSemaphore" /> maximum count.
+            </summary>
+    </member>
     <member name="M:Gemstone.Threading.InterprocessLock.GetNamedMutex(System.Boolean)">
       <summary>
             Gets a uniquely named inter-process <see cref="T:System.Threading.Mutex" /> associated with the running application, typically used to detect whether an instance
@@ -286,42 +306,58 @@
     </member>
     <member name="M:Gemstone.Threading.InterprocessLock.GetNamedSemaphore(System.Boolean,System.Int32,System.Int32)">
       <summary>
-            Gets a uniquely named inter-process <see cref="T:System.Threading.Semaphore" /> associated with the running application, typically used to detect whether some number of
+            Gets a uniquely named inter-process <see cref="T:Gemstone.Threading.NamedSemaphore" /> associated with the running application, typically used to detect whether some number of
             instances of the application are already running.
             </summary>
-      <param name="perUser">Indicates whether to generate a different name for the <see cref="T:System.Threading.Semaphore" /> dependent upon the user running the application.</param>
+      <param name="perUser">Indicates whether to generate a different name for the <see cref="T:Gemstone.Threading.NamedSemaphore" /> dependent upon the user running the application.</param>
       <param name="maximumCount">The maximum number of requests for the semaphore that can be granted concurrently.</param>
       <param name="initialCount">The initial number of requests for the semaphore that can be granted concurrently, or -1 to default to <paramref name="maximumCount" />.</param>
-      <returns>A uniquely named inter-process <see cref="T:System.Threading.Semaphore" /> specific to entry assembly; <see cref="T:System.Threading.Semaphore" /> is created if it does not exist.</returns>
+      <returns>A uniquely named inter-process <see cref="T:Gemstone.Threading.NamedSemaphore" /> specific to entry assembly; <see cref="T:Gemstone.Threading.NamedSemaphore" /> is created if it does not exist.</returns>
       <remarks>
         <para>
-            This function uses a hash of the assembly's GUID when creating the <see cref="T:System.Threading.Semaphore" />, if it is available. If it is not available, it uses a hash
+            This function uses a hash of the assembly's GUID when creating the <see cref="T:Gemstone.Threading.NamedSemaphore" />, if it is available. If it is not available, it uses a hash
             of the simple name of the assembly. Although the name is hashed to help guarantee uniqueness, it is still entirely possible that another application
-            may use that name with the same hashing algorithm to generate its <see cref="T:System.Threading.Semaphore" /> name. Therefore, it is best to ensure that the
+            may use that name with the same hashing algorithm to generate its <see cref="T:Gemstone.Threading.NamedSemaphore" /> name. Therefore, it is best to ensure that the
             <see cref="T:System.Runtime.InteropServices.GuidAttribute" /> is defined in the AssemblyInfo of your application.
+            </para>
+        <para>
+            On POSIX systems, the <see cref="T:Gemstone.Threading.NamedSemaphore" /> exhibits kernel persistence, meaning instances will remain active beyond the lifespan of the
+            creating process. Named semaphores must be explicitly removed by invoking <see cref="M:Gemstone.Threading.NamedSemaphore.Unlink" /> when they are no longer needed.
+            Kernel persistence necessitates careful design consideration regarding the responsibility for invoking <see cref="M:Gemstone.Threading.NamedSemaphore.Unlink" />.
+            Since the common use case for named semaphores is across multiple applications, it is advisable for the last exiting process to handle the
+            cleanup. In cases where an application may crash before calling <see cref="M:Gemstone.Threading.NamedSemaphore.Unlink" />, the semaphore persists in the system,
+            potentially leading to resource leakage. Implementations should include strategies to address and mitigate this risk.
             </para>
       </remarks>
       <exception cref="T:System.UnauthorizedAccessException">The named semaphore exists, but the user does not have the minimum needed security access rights to use it.</exception>
     </member>
     <member name="M:Gemstone.Threading.InterprocessLock.GetNamedSemaphore(System.String,System.Int32,System.Int32,System.Boolean)">
       <summary>
-            Gets a uniquely named inter-process <see cref="T:System.Threading.Semaphore" /> associated with the specified <paramref name="name" /> that identifies a source object
+            Gets a uniquely named inter-process <see cref="T:Gemstone.Threading.NamedSemaphore" /> associated with the specified <paramref name="name" /> that identifies a source object
             needing concurrency locking.
             </summary>
       <param name="name">Identifying name of source object needing concurrency locking (e.g., a path and file name).</param>
       <param name="maximumCount">The maximum number of requests for the semaphore that can be granted concurrently.</param>
       <param name="initialCount">The initial number of requests for the semaphore that can be granted concurrently, or -1 to default to <paramref name="maximumCount" />.</param>
       <param name="global">Determines if semaphore should be marked as global; set value to <c>false</c> for local.</param>
-      <returns>A uniquely named inter-process <see cref="T:System.Threading.Semaphore" /> specific to <paramref name="name" />; <see cref="T:System.Threading.Semaphore" /> is created if it does not exist.</returns>
+      <returns>A uniquely named inter-process <see cref="T:Gemstone.Threading.NamedSemaphore" /> specific to <paramref name="name" />; <see cref="T:Gemstone.Threading.NamedSemaphore" /> is created if it does not exist.</returns>
       <remarks>
         <para>
-            This function uses a hash of the <paramref name="name" /> when creating the <see cref="T:System.Threading.Semaphore" />, not the actual <paramref name="name" /> - this way
-            restrictions on the <paramref name="name" /> length do not need to be a user concern. All processes needing an inter-process <see cref="T:System.Threading.Semaphore" /> need
-            to use this same function to ensure access to the same <see cref="T:System.Threading.Semaphore" />.
+            This function uses a hash of the <paramref name="name" /> when creating the <see cref="T:Gemstone.Threading.NamedSemaphore" />, not the actual <paramref name="name" /> - this way
+            restrictions on the <paramref name="name" /> length do not need to be a user concern. All processes needing an inter-process <see cref="T:Gemstone.Threading.NamedSemaphore" /> need
+            to use this same function to ensure access to the same <see cref="T:Gemstone.Threading.NamedSemaphore" />.
             </para>
         <para>
             The <paramref name="name" /> can be a string of any length (must not be empty, null or white space) and is not case-sensitive. All hashes of the
-            <paramref name="name" /> used to create the global <see cref="T:System.Threading.Semaphore" /> are first converted to lower case.
+            <paramref name="name" /> used to create the global <see cref="T:Gemstone.Threading.NamedSemaphore" /> are first converted to lower case.
+            </para>
+        <para>
+            On POSIX systems, the <see cref="T:Gemstone.Threading.NamedSemaphore" /> exhibits kernel persistence, meaning instances will remain active beyond the lifespan of the
+            creating process. Named semaphores must be explicitly removed by invoking <see cref="M:Gemstone.Threading.NamedSemaphore.Unlink" /> when they are no longer needed.
+            Kernel persistence necessitates careful design consideration regarding the responsibility for invoking <see cref="M:Gemstone.Threading.NamedSemaphore.Unlink" />.
+            Since the common use case for named semaphores is across multiple applications, it is advisable for the last exiting process to handle the
+            cleanup. In cases where an application may crash before calling <see cref="M:Gemstone.Threading.NamedSemaphore.Unlink" />, the semaphore persists in the system,
+            potentially leading to resource leakage. Implementations should include strategies to address and mitigate this risk.
             </para>
       </remarks>
       <exception cref="T:System.ArgumentNullException">Argument <paramref name="name" /> cannot be empty, null or white space.</exception>
@@ -329,8 +365,21 @@
     </member>
     <member name="T:Gemstone.Threading.InterprocessReaderWriterLock">
       <summary>
-            Represents an inter-process reader/writer lock using <see cref="T:System.Threading.Semaphore" /> and <see cref="T:System.Threading.Mutex" /> native locking mechanisms.
+            Represents an inter-process reader/writer lock using <see cref="T:Gemstone.Threading.NamedSemaphore" /> and <see cref="T:System.Threading.Mutex" />
+            native locking mechanisms.
             </summary>
+      <remarks>
+        <para>
+            The <see cref="T:Gemstone.Threading.InterprocessReaderWriterLock" /> uses a <see cref="T:Gemstone.Threading.NamedSemaphore" /> to synchronize access to an inter-process shared resource.
+            On POSIX systems, the <see cref="T:Gemstone.Threading.NamedSemaphore" /> exhibits kernel persistence, meaning instances will remain active beyond the lifespan of
+            the creating process. The named semaphore must be explicitly removed by invoking <see cref="M:Gemstone.Threading.InterprocessReaderWriterLock.ReleaseInterprocessResources" /> when the last
+            reader-writer lock instance is no longer needed. Kernel persistence necessitates careful design consideration regarding process
+            responsibility for invoking the <see cref="M:Gemstone.Threading.InterprocessReaderWriterLock.ReleaseInterprocessResources" /> method. Since the common use case for named semaphores is across
+            multiple applications, it is advisable for the last exiting process to handle the cleanup. In cases where an application may crash before
+            calling the <see cref="M:Gemstone.Threading.InterprocessReaderWriterLock.ReleaseInterprocessResources" /> method, the semaphore persists in the system, potentially leading to resource leakage.
+            Implementations should include strategies to address and mitigate this risk.
+            </para>
+      </remarks>
     </member>
     <member name="M:Gemstone.Threading.InterprocessReaderWriterLock.#ctor(System.String,System.Boolean)">
       <summary>
@@ -423,6 +472,16 @@
             Gets the maximum concurrent reader locks allowed.
             </summary>
     </member>
+    <member name="M:Gemstone.Threading.InterprocessReaderWriterLock.ReleaseInterprocessResources">
+      <summary>
+            Releases inter-process resources used by the <see cref="T:Gemstone.Threading.InterprocessReaderWriterLock" />.
+            </summary>
+      <remarks>
+            On POSIX systems, calling this method removes the named semaphore used by the reader-writer lock.
+            The semaphore name is removed immediately and is destroyed once all other processes that have the
+            semaphore open close it. Calling this method on Windows systems does nothing.
+            </remarks>
+    </member>
     <member name="M:Gemstone.Threading.InterprocessReaderWriterLock.TryEnterReadLock(System.Int32)">
       <summary>
             Tries to enter the lock in read mode, with an optional time-out.
@@ -458,6 +517,257 @@
             to the semaphore, then waits again on an available semaphore slot.
             </para>
       </remarks>
+    </member>
+    <member name="T:Gemstone.Threading.NamedSemaphore">
+      <summary>
+            Represents a cross-platform, interprocess named semaphore, which limits the number of threads that can concurrently 
+            access a resource or a pool of resources.
+            </summary>
+      <remarks>
+        <para>
+            A <see cref="T:Gemstone.Threading.NamedSemaphore" /> is a synchronization object that can be utilized across multiple processes.
+            </para>
+        <para>
+            On POSIX systems, the <see cref="T:Gemstone.Threading.NamedSemaphore" /> exhibits kernel persistence, meaning instances will remain
+            active beyond the lifespan of the creating process. Named semaphores must be explicitly removed by invoking 
+            <see cref="M:Gemstone.Threading.NamedSemaphore.Unlink" /> when they are no longer needed. Kernel persistence necessitates careful design consideration
+            regarding the responsibility for invoking <see cref="M:Gemstone.Threading.NamedSemaphore.Unlink" />. Since the common use case for named semaphores is
+            across multiple applications, it is advisable for the last exiting process to handle the cleanup. In cases where
+            an application may crash before calling <see cref="M:Gemstone.Threading.NamedSemaphore.Unlink" />, the semaphore persists in the system, potentially
+            leading to resource leakage. Implementations should include strategies to address and mitigate this risk.
+            </para>
+      </remarks>
+    </member>
+    <member name="M:Gemstone.Threading.NamedSemaphore.#ctor(System.Int32,System.Int32,System.String)">
+      <summary>
+            Initializes a new instance of the <see cref="T:Gemstone.Threading.NamedSemaphore" /> class, specifying the initial number of entries,
+            the maximum number of concurrent entries, and the name of a system semaphore object.
+            </summary>
+      <param name="initialCount">The initial number of requests for the semaphore that can be granted concurrently.</param>
+      <param name="maximumCount">The maximum number of requests for the semaphore that can be granted concurrently.</param>
+      <param name="name">
+            The unique name identifying the semaphore. This name is case-sensitive. Use a backslash (\\) to specify a
+            namespace, but avoid it elsewhere in the name. On Unix-based systems, the name should conform to valid file
+            naming conventions, excluding slashes except for an optional namespace backslash. The name length is limited
+            to 250 characters after any optional namespace.
+            </param>
+      <remarks>
+            The <paramref name="name" /> may be prefixed with <c>Global\</c> or <c>Local\</c> to specify a namespace.
+            When the Global namespace is specified, the synchronization object may be shared with any processes on the system.
+            When the Local namespace is specified, which is also the default when no namespace is specified, the synchronization
+            object may be shared with processes in the same session. On Windows, a session is a login session, and services
+            typically run in a different non-interactive session. On Unix-like operating systems, each shell has its own session.
+            Session-local synchronization objects may be appropriate for synchronizing between processes with a parent/child
+            relationship where they all run in the same session.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Threading.NamedSemaphore.#ctor(System.Int32,System.Int32,System.String,System.Boolean@)">
+      <summary>
+            Initializes a new instance of the <see cref="T:Gemstone.Threading.NamedSemaphore" /> class, specifying the initial number of entries,
+            the maximum number of concurrent entries, the name of a system semaphore object, and specifying a variable that
+            receives a value indicating whether a new system semaphore was created.
+            </summary>
+      <param name="initialCount">The initial number of requests for the semaphore that can be granted concurrently.</param>
+      <param name="maximumCount">The maximum number of requests for the semaphore that can be granted concurrently.</param>
+      <param name="name">
+            The unique name identifying the semaphore. This name is case-sensitive. Use a backslash (\\) to specify a
+            namespace, but avoid it elsewhere in the name. On Unix-based systems, the name should conform to valid file
+            naming conventions, excluding slashes except for an optional namespace backslash. The name length is limited
+            to 250 characters after any optional namespace.
+            </param>
+      <param name="createdNew">
+            When method returns, contains <c>true</c> if the specified named system semaphore was created; otherwise,
+            <c>false</c> if the semaphore already existed.
+            </param>
+      <remarks>
+            The <paramref name="name" /> may be prefixed with <c>Global\</c> or <c>Local\</c> to specify a namespace.
+            When the Global namespace is specified, the synchronization object may be shared with any processes on the system.
+            When the Local namespace is specified, which is also the default when no namespace is specified, the synchronization
+            object may be shared with processes in the same session. On Windows, a session is a login session, and services
+            typically run in a different non-interactive session. On Unix-like operating systems, each shell has its own session.
+            Session-local synchronization objects may be appropriate for synchronizing between processes with a parent/child
+            relationship where they all run in the same session.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Threading.NamedSemaphore.Close">
+      <summary>
+            Releases all resources held by the current <see cref="T:Gemstone.Threading.NamedSemaphore" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.NamedSemaphore.Dispose(System.Boolean)">
+      <summary>
+            When overridden in a derived class, releases the unmanaged resources used by the <see cref="T:Gemstone.Threading.NamedSemaphore" />,
+            and optionally releases the managed resources.
+            </summary>
+      <param name="explicitDisposing">
+        <c>true</c> to release both managed and unmanaged resources; otherwise, <c>false</c> to release only
+            unmanaged resources.
+            </param>
+    </member>
+    <member name="P:Gemstone.Threading.NamedSemaphore.Name">
+      <summary>
+            Gets the name of the <see cref="T:Gemstone.Threading.NamedSemaphore" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.NamedSemaphore.OpenExisting(System.String)">
+      <summary>
+            Opens an existing named semaphore.
+            </summary>
+      <param name="name">
+            The unique name identifying the semaphore. This name is case-sensitive. Use a backslash (\\) to specify a
+            namespace, but avoid it elsewhere in the name. On Unix-based systems, the name should conform to valid file
+            naming conventions, excluding slashes except for an optional namespace backslash. The name length is limited
+            to 250 characters after any optional namespace.
+            </param>
+      <returns>
+            An object that represents the opened named semaphore.
+            </returns>
+      <remarks>
+            The <paramref name="name" /> may be prefixed with <c>Global\</c> or <c>Local\</c> to specify a namespace.
+            When the Global namespace is specified, the synchronization object may be shared with any processes on the system.
+            When the Local namespace is specified, which is also the default when no namespace is specified, the synchronization
+            object may be shared with processes in the same session. On Windows, a session is a login session, and services
+            typically run in a different non-interactive session. On Unix-like operating systems, each shell has its own session.
+            Session-local synchronization objects may be appropriate for synchronizing between processes with a parent/child
+            relationship where they all run in the same session.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Threading.NamedSemaphore.Release">
+      <summary>
+            Exits the semaphore and returns the previous count.
+            </summary>
+      <returns>The count on the semaphore before the method was called.</returns>
+    </member>
+    <member name="M:Gemstone.Threading.NamedSemaphore.Release(System.Int32)">
+      <summary>
+            Exits the semaphore a specified number of times and returns the previous count.
+            </summary>
+      <param name="releaseCount">The number of times to exit the semaphore.</param>
+      <returns>The count on the semaphore before the method was called.</returns>
+    </member>
+    <member name="P:Gemstone.Threading.NamedSemaphore.SafeWaitHandle">
+      <summary>
+            Gets or sets the native operating system handle.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.NamedSemaphore.TryOpenExisting(System.String,Gemstone.Threading.NamedSemaphore@)">
+      <summary>
+            Opens the specified named semaphore, if it already exists, and returns a value that indicates whether the
+            operation succeeded.
+            </summary>
+      <param name="name">
+            The unique name identifying the semaphore. This name is case-sensitive. Use a backslash (\\) to specify a
+            namespace, but avoid it elsewhere in the name. On Unix-based systems, the name should conform to valid file
+            naming conventions, excluding slashes except for an optional namespace backslash. The name length is limited
+            to 250 characters after any optional namespace.
+            </param>
+      <param name="semaphore">
+            When this method returns, contains a <see cref="T:Gemstone.Threading.NamedSemaphore" /> object that represents the named semaphore
+            if the call succeeded, or <c>null</c> if the call failed. This parameter is treated as uninitialized.
+            </param>
+      <returns>
+        <c>true</c> if the named semaphore was opened successfully; otherwise, <c>false</c>. In some cases,
+            <c>false</c> may be returned for invalid names.
+            </returns>
+      <remarks>
+            The <paramref name="name" /> may be prefixed with <c>Global\</c> or <c>Local\</c> to specify a namespace.
+            When the Global namespace is specified, the synchronization object may be shared with any processes on the system.
+            When the Local namespace is specified, which is also the default when no namespace is specified, the synchronization
+            object may be shared with processes in the same session. On Windows, a session is a login session, and services
+            typically run in a different non-interactive session. On Unix-like operating systems, each shell has its own session.
+            Session-local synchronization objects may be appropriate for synchronizing between processes with a parent/child
+            relationship where they all run in the same session.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Threading.NamedSemaphore.Unlink">
+      <summary>
+            Removes a named semaphore.
+            </summary>
+      <remarks>
+            On POSIX systems, calling this method removes the named semaphore referred to by <see cref="P:Gemstone.Threading.NamedSemaphore.Name" />.
+            The semaphore name is removed immediately and is destroyed once all other processes that have the semaphore
+            open close it. Calling this method on Windows systems does nothing.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Threading.NamedSemaphore.Unlink(System.String)">
+      <summary>
+            Removes a named semaphore.
+            </summary>
+      <param name="name">
+            The unique name identifying the semaphore. This name is case-sensitive. Use a backslash (\\) to specify a
+            namespace, but avoid it elsewhere in the name. On Unix-based systems, the name should conform to valid file
+            naming conventions, excluding slashes except for an optional namespace backslash. The name length is limited
+            to 250 characters after any optional namespace.
+            </param>
+      <remarks>
+            On POSIX systems, calling this method removes the named semaphore referred to by <paramref name="name" />.
+            The semaphore name is removed immediately and is destroyed once all other processes that have the semaphore
+            open close it. Calling this method on Windows systems does nothing.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Threading.NamedSemaphore.WaitOne">
+      <summary>
+            Blocks the current thread until the current <see cref="T:Gemstone.Threading.NamedSemaphore" /> receives a signal.
+            </summary>
+      <returns>
+        <c>true</c> if the current instance receives a signal. If the current instance is never signaled,
+            <see cref="T:Gemstone.Threading.NamedSemaphore" /> never returns.
+            </returns>
+    </member>
+    <member name="M:Gemstone.Threading.NamedSemaphore.WaitOne(System.Int32)">
+      <summary>
+            Blocks the current thread until the current instance receives a signal, using a 32-bit signed integer to
+            specify the time interval in milliseconds.
+            </summary>
+      <param name="millisecondsTimeout">
+            The number of milliseconds to wait, or <see cref="F:System.Threading.Timeout.Infinite" /> (-1) to wait indefinitely.
+            </param>
+      <returns>
+        <c>true</c> if the current instance receives a signal; otherwise, <c>false</c>.</returns>
+    </member>
+    <member name="M:Gemstone.Threading.NamedSemaphore.WaitOne(System.Int32,System.Boolean)">
+      <summary>
+            Blocks the current thread until the current <see cref="T:Gemstone.Threading.NamedSemaphore" /> receives a signal, using a
+            32-bit signed integer to specify the time interval and specifying whether to exit the synchronization
+            domain before the wait.
+            </summary>
+      <param name="millisecondsTimeout">
+            The number of milliseconds to wait, or <see cref="F:System.Threading.Timeout.Infinite" /> (-1) to wait indefinitely.
+            </param>
+      <param name="exitContext">
+        <c>true</c> to exit the synchronization domain for the context before the wait (if in a synchronized context),
+            and reacquire it afterward; otherwise, <c>false</c>.
+            </param>
+      <returns>
+        <c>true</c> if the current instance receives a signal; otherwise, <c>false</c>.</returns>
+    </member>
+    <member name="M:Gemstone.Threading.NamedSemaphore.WaitOne(System.TimeSpan)">
+      <summary>
+            Blocks the current thread until the current instance receives a signal, using a <see cref="T:System.TimeSpan" />
+            to specify the time interval.
+            </summary>
+      <param name="timeout">
+            A <see cref="T:System.TimeSpan" /> that represents the number of milliseconds to wait, or a <see cref="T:System.TimeSpan" />
+            that represents -1 milliseconds to wait indefinitely.
+            </param>
+      <returns>
+        <c>true</c> if the current instance receives a signal; otherwise, <c>false</c>.</returns>
+    </member>
+    <member name="M:Gemstone.Threading.NamedSemaphore.WaitOne(System.TimeSpan,System.Boolean)">
+      <summary>
+            Blocks the current thread until the current instance receives a signal, using a <see cref="T:System.TimeSpan" />
+            to specify the time interval and specifying whether to exit the synchronization domain before the wait.
+            </summary>
+      <param name="timeout">
+            A <see cref="T:System.TimeSpan" /> that represents the number of milliseconds to wait, or a <see cref="T:System.TimeSpan" />
+            that represents -1 milliseconds to wait indefinitely.
+            </param>
+      <param name="exitContext">
+        <c>true</c> to exit the synchronization domain for the context before the wait (if in a synchronized context),
+            and reacquire it afterward; otherwise, <c>false</c>.
+            </param>
+      <returns>
+        <c>true</c> if the current instance receives a signal; otherwise, <c>false</c>.</returns>
     </member>
     <member name="T:Gemstone.Threading.RateLimiter">
       <summary>
@@ -1544,7 +1854,6 @@
             Represents a long-running synchronized operation that cannot run while it is already in progress.
             </summary>
       <remarks>
-        <para>
             The action performed by the <see cref="T:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation" /> is executed on
             its own dedicated thread when running the operation in the foreground asynchronously.
             When running on its own thread, the action is executed in a tight loop until all
@@ -1553,12 +1862,7 @@
             It is also recommended to prefer this type of operation if the speed of the operation
             is not critical or if completion of the operation is critical, such as when saving data
             to a file.
-            </para>
-        <para>
-            If the <see cref="P:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation.IsBackground" /> property is changed while the synchronized operation
-            is running, behavior is undefined.
-            </para>
-      </remarks>
+            </remarks>
     </member>
     <member name="M:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation.#ctor(System.Action)">
       <summary>
@@ -1897,7 +2201,7 @@
     </member>
     <member name="P:Gemstone.Threading.SynchronizedOperations.TaskSynchronizedOperation.IsPending">
       <summary>
-            Gets a value to indiate whether the synchronized operation
+            Gets a value to indicate whether the synchronized operation
             has an additional operation that is pending execution after
             the currently running action has completed.
             </summary>
