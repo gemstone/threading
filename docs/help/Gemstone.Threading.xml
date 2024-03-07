@@ -2153,7 +2153,7 @@
             implement a notifier that receives notification requests ad-hoc but sends notifications
             no more than once every 15 seconds.
             </para>
-        <code>
+        <code language="cs">
             public ExampleClass() =&gt;
                 SynchronizedOperation = new TaskSynchronizedOperation(NotifyAsync);
                 
