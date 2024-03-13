@@ -2033,7 +2033,7 @@
              Implementers should call <see cref="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.ExecuteAction" /> on a separate thread and check the return value.
              If it returns true, that means it needs to run again. The following is a sample implementation using
              a regular dedicated thread:
-             <code>
+             <code language="cs">
              protected override void ExecuteActionAsync()
              {
                  Thread actionThread = new Thread(() =&gt;
@@ -2153,7 +2153,7 @@
             implement a notifier that receives notification requests ad-hoc but sends notifications
             no more than once every 15 seconds.
             </para>
-        <code language="cs">
+        <code>
             public ExampleClass() =&gt;
                 SynchronizedOperation = new TaskSynchronizedOperation(NotifyAsync);
                 
