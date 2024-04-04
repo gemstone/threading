@@ -83,7 +83,7 @@ public class Strand : TaskScheduler
     }
 
     /// <summary>
-    /// Attempts to executes a task inline, but only if this method is
+    /// Attempts to execute a task inline, but only if this method is
     /// called on the processing thread to avoid parallel execution of tasks.
     /// </summary>
     /// <param name="task">The <see cref="Task"/> to be executed.</param>

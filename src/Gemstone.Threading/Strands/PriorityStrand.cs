@@ -96,7 +96,7 @@ public class PriorityStrand
     /// <summary>
     /// Creates a new instance of the <see cref="PriorityStrand"/> class with a <see cref="ShortSynchronizedOperation"/>.
     /// </summary>
-    /// <param name="priorityLevels">The number of priority levels to be preallocated by the priority queue.</param>
+    /// <param name="priorityLevels">The number of priority levels to be pre-allocated by the priority queue.</param>
     public PriorityStrand(int priorityLevels) : this(ShortSynchronizedOperation.Factory, priorityLevels)
     {
     }
@@ -113,7 +113,7 @@ public class PriorityStrand
     /// Creates a new instance of the <see cref="PriorityStrand"/> class.
     /// </summary>
     /// <param name="synchronizedOperationFactory">Factory function for creating the synchronized operation to be used for processing tasks.</param>
-    /// <param name="priorityLevels">The number of priority levels to be preallocated by the priority queue.</param>
+    /// <param name="priorityLevels">The number of priority levels to be pre-allocated by the priority queue.</param>
     public PriorityStrand(SynchronizedOperationFactory synchronizedOperationFactory, int priorityLevels)
     {
         SynchronizedOperation = synchronizedOperationFactory(Execute);
