@@ -2534,7 +2534,7 @@
             diligence on the user's part for handling exceptions and signaling when the operation
             is complete:
             
-            <code>
+            <code language="cs">
             LogicalThread thread1 = new LogicalThread();
             LogicalThread thread2 = new LogicalThread();
             
