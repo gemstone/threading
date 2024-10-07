@@ -153,7 +153,7 @@ public class LogicalThreadScheduler
                 return;
             }
 
-            //Enqueue(thread);
+            Enqueue(thread);
             ActivatePhysicalThread();
         }
     }
