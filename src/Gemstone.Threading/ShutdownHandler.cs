@@ -23,6 +23,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Gemstone.Collections.CollectionExtensions;
 
 namespace Gemstone.Threading;
@@ -30,7 +31,7 @@ namespace Gemstone.Threading;
 /// <summary>
 /// The order in which the specified callback should occur when shutting down.
 /// </summary>
-internal enum ShutdownHandlerOrder
+public enum ShutdownHandlerOrder
 {
     /// <summary>
     /// This queue is processed first. Unless there is a compelling reason to execute first, select the Default one. 
@@ -49,12 +50,12 @@ internal enum ShutdownHandlerOrder
 }
 
 /// <summary>
-/// This class will monitor the state to the application and raise events when it detects that the application is about to shutdown.
+/// This class will monitor the state to the application and raise events when it detects that the application is about to shut down.
 /// </summary>
 /// <remarks>
 /// This class is duplicated here from the Gemstone.Diagnostics project as an internal class to avoid a circular dependency.
 /// </remarks>
-internal static class ShutdownHandler
+public static class ShutdownHandler
 {
     /// <summary>
     /// Gets if this process is shutting down.
@@ -74,9 +75,9 @@ internal static class ShutdownHandler
     static ShutdownHandler()
     {
         s_syncRoot = new object();
-        s_onShutdownCallbackFirst = new List<WeakAction>();
-        s_onShutdownCallbackDefault = new List<WeakAction>();
-        s_onShutdownCallbackLast = new List<WeakAction>();
+        s_onShutdownCallbackFirst = [];
+        s_onShutdownCallbackDefault = [];
+        s_onShutdownCallbackLast = [];
 
         if (AppDomain.CurrentDomain.IsDefaultAppDomain())
             AppDomain.CurrentDomain.ProcessExit += InitiateSafeShutdown;
@@ -90,7 +91,7 @@ internal static class ShutdownHandler
     /// </summary>
     public static void Initialize()
     {
-        //This is handled through the static constructor.
+        // This is handled through the static constructor.
     }
 
     /// <summary>
@@ -127,7 +128,7 @@ internal static class ShutdownHandler
 
     private static void InitiateSafeShutdown(object? sender, EventArgs? e)
     {
-        List<WeakAction> shutdownList = new();
+        List<WeakAction> shutdownList = [];
 
         lock (s_syncRoot)
         {
@@ -153,5 +154,18 @@ internal static class ShutdownHandler
         }
 
         HasShutdown = true;
+    }
+
+    /// <summary>
+    /// Requests that certain components initiate a safe shutdown.
+    /// </summary>
+    /// <remarks>
+    /// This method should only be called when the main thread exits. Calling this outside
+    /// of the application exiting could result in unpredictable behavior.
+    /// </remarks>
+    [EditorBrowsable(EditorBrowsableState.Advanced)]
+    public static void InitiateSafeShutdown()
+    {
+        InitiateSafeShutdown(null, null);
     }
 }
