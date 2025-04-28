@@ -2249,7 +2249,7 @@ public class ProcessQueue<T> : IList<T>, IProvideStatus, ISupportLifecycle
                 if (index < 0 || count < 0)
                     throw new ArgumentOutOfRangeException(nameof(index), "Index and/or count is outside the range of valid indexes for the queue");
 
-                List<T> items = new List<T>();
+                List<T> items = [];
 
                 for (int x = index; x < index + count; x++)
                 {

@@ -158,8 +158,8 @@ public class DoubleBufferedQueueManager<T>
     /// </summary>
     public DoubleBufferedQueueManager()
     {
-        m_queues = new List<DoubleBufferedQueue<T>>();
-        m_dequeuedItems = new List<T>();
+        m_queues = [];
+        m_dequeuedItems = [];
         m_queuesLock = new Lock();
     }
 

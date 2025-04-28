@@ -73,8 +73,8 @@ public class DoubleBufferedQueue<T>
     public DoubleBufferedQueue()
     {
         m_lists = new List<T>[2];
-        m_lists[0] = new List<T>();
-        m_lists[1] = new List<T>();
+        m_lists[0] = [];
+        m_lists[1] = [];
         m_swapLock = new SpinLock();
         m_processItemsOperation = new ShortSynchronizedOperation(TryProcessItems, OnProcessException);
     }

@@ -83,7 +83,7 @@ public class ConcurrencyLimiter : TaskScheduler
     public ConcurrencyLimiter(SynchronizedOperationFactory synchronizedOperationFactory, int maximumConcurrencyLevel)
     {
         SynchronizedOperationFactory = synchronizedOperationFactory;
-        TaskProcessors = new ConcurrentBag<ISynchronizedOperation>();
+        TaskProcessors = [];
         Queue = new ConcurrentQueue<Task>();
         SetMaximumConcurrencyLevel(maximumConcurrencyLevel);
     }

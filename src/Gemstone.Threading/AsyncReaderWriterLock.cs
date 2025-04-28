@@ -33,7 +33,7 @@ namespace Gemstone.Threading;
 public class AsyncReaderWriterLock
 {
     private AsyncLock ReaderListLock { get; } = new();
-    private List<Task> ReaderList { get; } = new();
+    private List<Task> ReaderList { get; } = [];
 
     /// <summary>
     /// Attempts to enter the lock with concurrent access where all

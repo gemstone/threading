@@ -321,7 +321,9 @@ public class LogicalThreadScheduler
             // make a note of it in the exception's exception message
             message.AppendLine();
             message.AppendFormat("Logical thread exception handler threw an exception of type {0}: {1}", handlerException.GetType().FullName, handlerException.Message);
-            aggregateException = new AggregateException(message.ToString(), aggregateException.InnerExceptions.Concat(new[] { handlerException }));
+            aggregateException = new AggregateException(message.ToString(), aggregateException.InnerExceptions.Concat([
+                handlerException
+            ]));
             handled = false;
         }
 
@@ -338,7 +340,9 @@ public class LogicalThreadScheduler
             // make a note of it in the exception's exception message
             message.AppendLine();
             message.AppendFormat("Scheduler exception handler threw an exception of type {0}: {1}", handlerException.GetType().FullName, handlerException.Message);
-            aggregateException = new AggregateException(message.ToString(), aggregateException.InnerExceptions.Concat(new[] { handlerException }));
+            aggregateException = new AggregateException(message.ToString(), aggregateException.InnerExceptions.Concat([
+                handlerException
+            ]));
             handled = false;
         }
 

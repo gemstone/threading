@@ -136,8 +136,7 @@ public sealed class SharedTimer : IDisposable, IProvideStatus
             if (m_enabled == value)
                 return;
 
-            if (m_disposed)
-                throw new ObjectDisposedException(GetType().FullName);
+            ObjectDisposedException.ThrowIf(m_disposed, this);
 
             m_enabled = value;
 

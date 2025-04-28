@@ -89,7 +89,7 @@ public sealed class SharedTimerScheduler : IDisposable
             m_syncRunning = new Lock();
             m_syncStats = new Lock();
             m_interval = interval;
-            m_callbacks = new LinkedList<WeakAction<DateTime>>();
+            m_callbacks = [];
             m_timer = new Timer(Callback!, null, interval, interval);
         }
 
@@ -99,8 +99,7 @@ public sealed class SharedTimerScheduler : IDisposable
 
         public WeakAction<DateTime> RegisterCallback(Action<DateTime> callback)
         {
-            if (m_disposed)
-                throw new ObjectDisposedException(GetType().FullName);
+            ObjectDisposedException.ThrowIf(m_disposed, this);
 
             WeakAction<DateTime> weakAction = new(callback);
             m_additionalQueueItems.Enqueue(weakAction);
@@ -110,8 +109,7 @@ public sealed class SharedTimerScheduler : IDisposable
 
         public WeakAction<DateTime> RegisterCallback(WeakAction<DateTime> weakAction)
         {
-            if (m_disposed)
-                throw new ObjectDisposedException(GetType().FullName);
+            ObjectDisposedException.ThrowIf(m_disposed, this);
 
             m_additionalQueueItems.Enqueue(weakAction);
 
@@ -331,13 +329,11 @@ public sealed class SharedTimerScheduler : IDisposable
         if (interval <= 0)
             throw new ArgumentOutOfRangeException(nameof(interval));
 
-        if (m_disposed)
-            throw new ObjectDisposedException(GetType().FullName);
+        ObjectDisposedException.ThrowIf(m_disposed, this);
 
         lock (m_syncRoot)
         {
-            if (m_disposed)
-                throw new ObjectDisposedException(GetType().FullName);
+            ObjectDisposedException.ThrowIf(m_disposed, this);
 
             if (!m_schedulesByInterval.TryGetValue(interval, out SharedTimerInstance? instance))
             {
@@ -358,13 +354,11 @@ public sealed class SharedTimerScheduler : IDisposable
         if (interval <= 0)
             throw new ArgumentOutOfRangeException(nameof(interval));
 
-        if (m_disposed)
-            throw new ObjectDisposedException(GetType().FullName);
+        ObjectDisposedException.ThrowIf(m_disposed, this);
 
         lock (m_syncRoot)
         {
-            if (m_disposed)
-                throw new ObjectDisposedException(GetType().FullName);
+            ObjectDisposedException.ThrowIf(m_disposed, this);
 
             if (!m_schedulesByInterval.TryGetValue(interval, out SharedTimerInstance? instance))
             {
