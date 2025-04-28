@@ -52,8 +52,8 @@ public sealed class SharedTimerScheduler : IDisposable
         private readonly Timer m_timer;
         private readonly int m_interval;
         private readonly SharedTimerScheduler m_parentTimer;
-        private readonly object m_syncRunning;
-        private readonly object m_syncStats;
+        private readonly Lock m_syncRunning;
+        private readonly Lock m_syncStats;
         private bool m_disposed;
 
         // Counter of the number of times an interval has been skipped
@@ -86,8 +86,8 @@ public sealed class SharedTimerScheduler : IDisposable
 
             m_parentTimer = parentTimer ?? throw new ArgumentNullException(nameof(parentTimer));
             m_additionalQueueItems = new ConcurrentQueue<WeakAction<DateTime>>();
-            m_syncRunning = new object();
-            m_syncStats = new object();
+            m_syncRunning = new Lock();
+            m_syncStats = new Lock();
             m_interval = interval;
             m_callbacks = new LinkedList<WeakAction<DateTime>>();
             m_timer = new Timer(Callback!, null, interval, interval);
@@ -128,7 +128,7 @@ public sealed class SharedTimerScheduler : IDisposable
 
             try
             {
-                Monitor.TryEnter(m_syncRunning, 0, ref lockTaken);
+                lockTaken = m_syncRunning.TryEnter();
 
                 if (!lockTaken)
                 {
@@ -196,7 +196,7 @@ public sealed class SharedTimerScheduler : IDisposable
             finally
             {
                 if (lockTaken)
-                    Monitor.Exit(m_syncRunning);
+                    m_syncRunning.Exit();
             }
         }
 
@@ -256,7 +256,7 @@ public sealed class SharedTimerScheduler : IDisposable
 
     // Fields
     private readonly Dictionary<int, SharedTimerInstance> m_schedulesByInterval;
-    private readonly object m_syncRoot;
+    private readonly Lock m_syncRoot;
     private bool m_disposed;
 
     #endregion
@@ -268,7 +268,7 @@ public sealed class SharedTimerScheduler : IDisposable
     /// </summary>
     public SharedTimerScheduler()
     {
-        m_syncRoot = new object();
+        m_syncRoot = new Lock();
         m_schedulesByInterval = new Dictionary<int, SharedTimerInstance>();
     }
 
@@ -308,7 +308,7 @@ public sealed class SharedTimerScheduler : IDisposable
                 return "";
 
             if (m_schedulesByInterval.TryGetValue(interval, out SharedTimerInstance? instance))
-                return instance?.Status ?? "";
+                return instance.Status ?? "";
         }
 
         return "";

@@ -24,6 +24,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading;
 using Gemstone.Collections.CollectionExtensions;
 
 namespace Gemstone.Threading;
@@ -70,11 +71,11 @@ public static class ShutdownHandler
     private static readonly List<WeakAction> s_onShutdownCallbackFirst;
     private static readonly List<WeakAction> s_onShutdownCallbackDefault;
     private static readonly List<WeakAction> s_onShutdownCallbackLast;
-    private static readonly object s_syncRoot;
+    private static readonly Lock s_syncRoot;
 
     static ShutdownHandler()
     {
-        s_syncRoot = new object();
+        s_syncRoot = new Lock();
         s_onShutdownCallbackFirst = [];
         s_onShutdownCallbackDefault = [];
         s_onShutdownCallbackLast = [];

@@ -101,7 +101,7 @@ public class ScheduledTask : IDisposable
     private int m_workerThreadID;
     private readonly ThreadContainerBase m_thread;  // This cannot be null as it would cause duplicate calls to Start to throw a null reference exception
     private ManualResetEvent? m_waitForDispose;
-    private readonly object m_disposeSync;
+    private readonly Lock m_disposeSync;
     private volatile bool m_disposing;
 
     #endregion
@@ -119,7 +119,7 @@ public class ScheduledTask : IDisposable
     {
         m_workerThreadID = -1;
         m_waitForDispose = new ManualResetEvent(false);
-        m_disposeSync = new object();
+        m_disposeSync = new Lock();
 
         switch (threadMode)
         {

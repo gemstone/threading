@@ -119,7 +119,7 @@ public class DoubleBufferedQueueProducer<T> : IDisposable
 }
 
 /// <summary>
-/// Manages queues to reduce contention for a multi-threaded, multiple-producer, single-consumer scenario.
+/// Manages queues to reduce contention for a multithreaded, multiple-producer, single-consumer scenario.
 /// </summary>
 /// <remarks>
 /// For best results, each thread that is producing items to the consumer should call
@@ -147,7 +147,7 @@ public class DoubleBufferedQueueManager<T>
     private readonly List<T> m_dequeuedItems;
     private volatile bool m_itemsLeft;
 
-    private readonly object m_queuesLock;
+    private readonly Lock m_queuesLock;
 
     #endregion
 
@@ -160,7 +160,7 @@ public class DoubleBufferedQueueManager<T>
     {
         m_queues = new List<DoubleBufferedQueue<T>>();
         m_dequeuedItems = new List<T>();
-        m_queuesLock = new object();
+        m_queuesLock = new Lock();
     }
 
     /// <summary>
@@ -292,16 +292,13 @@ public class DoubleBufferedQueueManager<T>
     /// <param name="queue">The queue to be returned.</param>
     internal void ReturnQueue(DoubleBufferedQueue<T> queue)
     {
-        int last;
-        int index;
-
         lock (m_queuesLock)
         {
-            index = m_queues.IndexOf(queue);
+            int index = m_queues.IndexOf(queue);
 
             if (index >= 0)
             {
-                last = m_queues.Count - 1;
+                int last = m_queues.Count - 1;
                 m_queues[index] = m_queues[last];
                 m_queues.RemoveAt(last);
             }
