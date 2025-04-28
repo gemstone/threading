@@ -36,8 +36,6 @@ using Gemstone.EventHandlerExtensions;
 
 [assembly: InternalsVisibleTo("Gemstone.Diagnostics")]
 
-#pragma warning disable VSSpell001 // Spell Check
-
 namespace Gemstone.Threading;
 
 #region [ Enumerations ]
@@ -97,6 +95,11 @@ public class ScheduledTask : IDisposable
     /// </summary>
     public event EventHandler? Disposing;
 
+    /// <summary>
+    /// Occurs when <see cref="Running"/> or <see cref="Disposing"/> event throws an exception.
+    /// </summary>
+    public event EventHandler<EventArgs<Exception>>? UnhandledException;
+
     // Fields
     private int m_workerThreadID;
     private readonly ThreadContainerBase m_thread;  // This cannot be null as it would cause duplicate calls to Start to throw a null reference exception
@@ -121,20 +124,13 @@ public class ScheduledTask : IDisposable
         m_waitForDispose = new ManualResetEvent(false);
         m_disposeSync = new Lock();
 
-        switch (threadMode)
+        m_thread = threadMode switch
         {
-            case ThreadingMode.DedicatedForeground:
-                m_thread = new ThreadContainerDedicated(OnRunningCallback, Dispose, false, priority, disposeOnShutdown);
-                break;
-            case ThreadingMode.DedicatedBackground:
-                m_thread = new ThreadContainerDedicated(OnRunningCallback, Dispose, true, priority, disposeOnShutdown);
-                break;
-            case ThreadingMode.ThreadPool:
-                m_thread = new ThreadContainerThreadpool(OnRunningCallback, Dispose, disposeOnShutdown);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException(nameof(threadMode));
-        }
+            ThreadingMode.DedicatedForeground => new ThreadContainerDedicated(OnRunningCallback, Dispose, false, priority, disposeOnShutdown),
+            ThreadingMode.DedicatedBackground => new ThreadContainerDedicated(OnRunningCallback, Dispose, true, priority, disposeOnShutdown),
+            ThreadingMode.ThreadPool => new ThreadContainerThreadpool(OnRunningCallback, Dispose, disposeOnShutdown),
+            _ => throw new ArgumentOutOfRangeException(nameof(threadMode))
+        };
     }
 
     /// <summary>
@@ -224,7 +220,7 @@ public class ScheduledTask : IDisposable
         Thread.MemoryBarrier();
         m_thread.StartDisposal();
 
-        if (m_workerThreadID != Thread.CurrentThread.ManagedThreadId)
+        if (m_workerThreadID != Environment.CurrentManagedThreadId)
             InternalDisposeAllResources();
     }
 
@@ -240,7 +236,7 @@ public class ScheduledTask : IDisposable
             m_waitForDispose.WaitOne();
             m_waitForDispose.Dispose();
             m_waitForDispose = null;
-            
+
             GC.SuppressFinalize(this);
         }
     }
@@ -268,13 +264,28 @@ public class ScheduledTask : IDisposable
 
     private void TryCallback(ScheduledTaskRunningReason args)
     {
-        m_workerThreadID = Thread.CurrentThread.ManagedThreadId;
+        m_workerThreadID = Environment.CurrentManagedThreadId;
 
-        Running?.SafeInvoke(this, new EventArgs<ScheduledTaskRunningReason>(args));
+        try
+        {
+            Running?.Invoke(this, new EventArgs<ScheduledTaskRunningReason>(args));
+        }
+        catch (Exception ex)
+        {
+            UnhandledException?.SafeInvoke(this, new EventArgs<Exception>(ex));
+        }
 
         if (args == ScheduledTaskRunningReason.Disposing)
         {
-            Disposing?.SafeInvoke(this, EventArgs.Empty);
+            try
+            {
+                Disposing?.Invoke(this, EventArgs.Empty);
+            }
+            catch (Exception ex)
+            {
+                UnhandledException?.SafeInvoke(this, new EventArgs<Exception>(ex));
+            }
+
             m_waitForDispose?.Set();
             InternalDisposeAllResources();
         }
