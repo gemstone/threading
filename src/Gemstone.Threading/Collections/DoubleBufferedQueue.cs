@@ -121,7 +121,8 @@ public class DoubleBufferedQueue<T>
                 m_swapLock.Exit();
         }
 
-        m_processItemsOperation?.RunAsync();
+        if (ProcessItemsFunction is not null)
+            m_processItemsOperation.RunAsync();
     }
 
     /// <summary>
@@ -204,8 +205,8 @@ public class DoubleBufferedQueue<T>
                 m_swapLock.Exit();
         }
 
-        if (lockTaken)
-            m_processItemsOperation?.RunAsync();
+        if (lockTaken && ProcessItemsFunction is not null)
+            m_processItemsOperation.RunAsync();
 
         return lockTaken;
     }
