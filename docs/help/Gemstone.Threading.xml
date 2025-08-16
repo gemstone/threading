@@ -390,6 +390,11 @@
             </para>
       </remarks>
     </member>
+    <member name="E:Gemstone.Threading.ScheduledTask.UnhandledException">
+      <summary>
+            Occurs when <see cref="E:Gemstone.Threading.ScheduledTask.Running" /> or <see cref="E:Gemstone.Threading.ScheduledTask.Disposing" /> event throws an exception.
+            </summary>
+    </member>
     <member name="T:Gemstone.Threading.ScheduledTaskRunningReason">
       <summary>
             Metadata about why this worker was called.
@@ -513,6 +518,74 @@
     <member name="P:Gemstone.Threading.SharedTimerScheduler.IsDisposed">
       <summary>
             Gets flag that determines if this <see cref="T:Gemstone.Threading.SharedTimerScheduler" /> instance has been disposed.
+            </summary>
+    </member>
+    <member name="T:Gemstone.Threading.ShutdownHandler">
+      <summary>
+            This class will monitor the state to the application and raise events when it detects that the application is about to shut down.
+            </summary>
+      <remarks>
+            This class is duplicated here from the Gemstone.Diagnostics project as an internal class to avoid a circular dependency.
+            </remarks>
+    </member>
+    <member name="P:Gemstone.Threading.ShutdownHandler.HasShutdown">
+      <summary>
+            Gets if this process has already shut down.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.ShutdownHandler.Initialize">
+      <summary>
+            Initializes the shutdown handler. This is recommended to put in main loop of the program, but it is not critical.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.ShutdownHandler.InitiateSafeShutdown">
+      <summary>
+            Requests that certain components initiate a safe shutdown.
+            </summary>
+      <remarks>
+            This method should only be called when the main thread exits. Calling this outside
+            of the application exiting could result in unpredictable behavior.
+            </remarks>
+    </member>
+    <member name="P:Gemstone.Threading.ShutdownHandler.IsShuttingDown">
+      <summary>
+            Gets if this process is shutting down.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.ShutdownHandler.TryRegisterCallback(System.Action,Gemstone.Threading.ShutdownHandlerOrder)">
+      <summary>
+            Attempts Registers a callback that will be called
+            when the application is shutdown.
+            </summary>
+      <param name="callback">the callback when the shutdown occurs</param>
+      <param name="shutdownOrder">the order that the callback will occur.</param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.Threading.ShutdownHandler.TryRegisterCallback(System.Action,Gemstone.Threading.ShutdownHandlerOrder)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="T:Gemstone.Threading.ShutdownHandlerOrder">
+      <summary>
+            The order in which the specified callback should occur when shutting down.
+            </summary>
+    </member>
+    <member name="F:Gemstone.Threading.ShutdownHandlerOrder.First">
+      <summary>
+            This queue is processed first. Unless there is a compelling reason to execute first, select the Default one. 
+            </summary>
+    </member>
+    <member name="F:Gemstone.Threading.ShutdownHandlerOrder.Default">
+      <summary>
+            This shutdown order occurs after First, but before Last. 
+            </summary>
+    </member>
+    <member name="F:Gemstone.Threading.ShutdownHandlerOrder.Last">
+      <summary>
+            This queue is processed last. Items such as flushing application logs should go here.
             </summary>
     </member>
     <member name="T:Gemstone.Threading.TaskCompletionSourceFactory">
@@ -805,7 +878,7 @@
     </member>
     <member name="T:Gemstone.Threading.Collections.DoubleBufferedQueueManager`1">
       <summary>
-            Manages queues to reduce contention for a multi-threaded, multiple-producer, single-consumer scenario.
+            Manages queues to reduce contention for a multithreaded, multiple-producer, single-consumer scenario.
             </summary>
       <typeparam name="T">The types of items to be queued.</typeparam>
       <remarks>
