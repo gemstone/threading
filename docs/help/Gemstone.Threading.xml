@@ -240,6 +240,131 @@
             </param>
       <returns>A <see cref="T:System.Boolean" /> value indicating whether the task was executed inline.</returns>
     </member>
+    <member name="T:Gemstone.Threading.KeyedSignal`2">
+      <summary>
+            Represents a wait-by-key async signaling operation that can work with multiple concurrent waiters
+            per key. Multiple callers await a task associated with a key; another single thread then signals
+            completion with a result or failure with an exception for that key.
+            </summary>
+      <typeparam name="TKey">Key type, e.g., a <see cref="T:System.Guid" />.</typeparam>
+      <typeparam name="TResult">Result type delivered to all waiters when signaled.</typeparam>
+      <remarks>
+            Pruning happens periodically to avoid orphaned waiters when all callers timeout from no signal.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Threading.KeyedSignal`2.#ctor(System.Nullable{System.TimeSpan},System.Collections.Generic.IEqualityComparer{`0})">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Threading.KeyedSignal`2" /> class.
+            </summary>
+      <param name="pruneInterval">
+            Internal for pruning orphaned waiters.<br />
+            Use <c>null</c> for default pruning interval of 1 minute.<br />
+            Use <see cref="F:System.Threading.Timeout.InfiniteTimeSpan" /> for no pruning.
+            </param>
+      <param name="keyComparer">Key comparer; use <c>null</c> for default.</param>
+    </member>
+    <member name="M:Gemstone.Threading.KeyedSignal`2.Dispose">
+      <summary>
+            Releases all the resources used by the <see cref="T:Gemstone.Threading.KeyedSignal`2" /> object.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.KeyedSignal`2.DisposeAsync">
+      <summary>
+            Performs application-defined tasks associated with freeing, releasing, or
+            resetting unmanaged resources asynchronously.</summary>
+      <returns>A task that represents the asynchronous dispose operation.</returns>
+    </member>
+    <member name="M:Gemstone.Threading.KeyedSignal`2.Fail(`0,System.Exception)">
+      <summary>
+            Fails all current waiters for <paramref name="key" /> with <paramref name="ex" />.
+            New waiters added after this call for same key will await a subsequent signal/fail.
+            </summary>
+      <param name="key">Key to fail.</param>
+      <param name="ex">Exception to signal to all waiters.</param>
+      <returns>The number of waiters released.</returns>
+      <exception cref="T:System.ObjectDisposedException">Thrown if the instance has been disposed.</exception>
+    </member>
+    <member name="P:Gemstone.Threading.KeyedSignal`2.PendingKeysCount">
+      <summary>
+            Gets the number of pending keys that have waiters.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.KeyedSignal`2.Signal(`0,`1)">
+      <summary>
+            Signals all current waiters for <paramref name="key" /> with <paramref name="result" />.
+            New waiters added after this call for same key will await a subsequent signal/fail.
+            </summary>
+      <param name="key">Key to signal.</param>
+      <param name="result">Result to signal to all waiters.</param>
+      <returns>The number of waiters released.</returns>
+      <exception cref="T:System.ObjectDisposedException">Thrown if the instance has been disposed.</exception>
+    </member>
+    <member name="M:Gemstone.Threading.KeyedSignal`2.TryFail(`0,System.Exception)">
+      <summary>
+            Tries to fail all current waiters for <paramref name="key" /> with <paramref name="ex" />.
+            New waiters added after this call for same key will await a subsequent signal/fail.
+            </summary>
+      <param name="key">Key to fail.</param>
+      <param name="ex">Exception to signal to all waiters.</param>
+      <returns>
+        <c>true</c> if the fail was successful; otherwise,
+            <c>false</c> if there were no waiters for the key.
+            </returns>
+      <exception cref="T:System.ObjectDisposedException">Thrown if the instance has been disposed.</exception>
+    </member>
+    <member name="M:Gemstone.Threading.KeyedSignal`2.TrySignal(`0,`1)">
+      <summary>
+            Tries to signal all current waiters for <paramref name="key" /> with <paramref name="result" />.
+            New waiters added after this call for same key will await a subsequent signal/fail.
+            </summary>
+      <param name="key">Key to signal.</param>
+      <param name="result">Result to signal to all waiters.</param>
+      <returns>
+        <c>true</c> if the signal was successful; otherwise,
+            <c>false</c> if there were no waiters for the key.
+            </returns>
+      <exception cref="T:System.ObjectDisposedException">Thrown if the instance has been disposed.</exception>
+    </member>
+    <member name="M:Gemstone.Threading.KeyedSignal`2.Wait(`0,System.Threading.CancellationToken)">
+      <summary>
+            Waits synchronously for the specified <paramref name="key" /> to be signaled or failed.
+            Multiple concurrent waiters on the same key complete together.
+            </summary>
+      <param name="key">Key to wait on.</param>
+      <param name="cancellationToken">Optional token to cancel or timeout the wait.</param>
+      <returns>
+            A tuple where:
+            <list type="bullet"><item><c>result</c> is the signaled result when successful; otherwise <c>default</c>.
+            </item><item><c>ex</c> is <c>null</c> on success; otherwise the exception that caused the failure,
+            including <see cref="T:System.OperationCanceledException" /> when canceled.
+            </item></list></returns>
+      <remarks>
+        <para>
+            A failure triggered by <see cref="M:Gemstone.Threading.KeyedSignal`2.Fail(`0,System.Exception)" /> returns <c>(default, ex)</c> where <c>ex</c> is the
+            exception provided to <see cref="M:Gemstone.Threading.KeyedSignal`2.Fail(`0,System.Exception)" />.Cancellation is treated like a failure where returned
+            <c>ex</c> is an <see cref="T:System.OperationCanceledException" />.
+            </para>
+        <para>
+            For asynchronous waiting, use <see cref="M:Gemstone.Threading.KeyedSignal`2.WaitAsync(`0,System.Threading.CancellationToken)" />.
+            </para>
+      </remarks>
+      <exception cref="T:System.ObjectDisposedException">Thrown if the instance has been disposed.</exception>
+    </member>
+    <member name="M:Gemstone.Threading.KeyedSignal`2.WaitAsync(`0,System.Threading.CancellationToken)">
+      <summary>
+            Asynchronously waits for <paramref name="key" /> to be signaled (or failed).
+            Multiple concurrent waiters on the same key complete together.
+            </summary>
+      <param name="key">Key to wait on.</param>
+      <param name="cancellationToken">Optional token to cancel or timeout the wait.</param>
+      <returns>A task that completes when signaled, failed, or canceled.</returns>
+      <remarks>
+            We never remove the per-key bucket on cancellation—only individual waiters.
+            Buckets are removed on <see cref="M:Gemstone.Threading.KeyedSignal`2.Signal(`0,`1)" />/<see cref="M:Gemstone.Threading.KeyedSignal`2.Fail(`0,System.Exception)" /> or by periodic pruning.
+            A mapping-stability check ensures we never add to an orphaned bucket.
+            </remarks>
+      <exception cref="T:System.ObjectDisposedException">Thrown if the instance has been disposed.</exception>
+    </member>
     <member name="T:Gemstone.Threading.RateLimiter">
       <summary>
             A rate limiting system based on tokes.

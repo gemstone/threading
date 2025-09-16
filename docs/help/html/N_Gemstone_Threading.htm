@@ -9,6 +9,10 @@
             Represents an asynchronous implementation of a reader/writer lock.
             </td></tr><tr><td><a href="T_Gemstone_Threading_ConcurrencyLimiter.htm">ConcurrencyLimiter</a></td><td>
             Task scheduler that limits the number of tasks that can execute in parallel at any given time.
+            </td></tr><tr><td><a href="T_Gemstone_Threading_KeyedSignal_2.htm">KeyedSignal<span id="LSTDAA3B82F_0" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>TKey, TResult<span id="LSTDAA3B82F_1" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            Represents a wait-by-key async signaling operation that can work with multiple concurrent waiters
+            per key. Multiple callers await a task associated with a key; another single thread then signals
+            completion with a result or failure with an exception for that key.
             </td></tr><tr><td><a href="T_Gemstone_Threading_RateLimiter.htm">RateLimiter</a></td><td>
             A rate limiting system based on tokes.
             </td></tr><tr><td><a href="T_Gemstone_Threading_ReaderWriterSpinLock.htm">ReaderWriterSpinLock</a></td><td>
@@ -25,12 +29,12 @@
             This class will monitor the state to the application and raise events when it detects that the application is about to shut down.
             </td></tr><tr><td><a href="T_Gemstone_Threading_TaskCompletionSourceFactory.htm">TaskCompletionSourceFactory</a></td><td>
             Provides factory functions for creating new
-            <a href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.taskcompletionsource-1" target="_blank" rel="noopener noreferrer">TaskCompletionSource<span id="LSTDAA3B82F_0" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>TResult<span id="LSTDAA3B82F_1" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a> objects.
+            <a href="https://docs.microsoft.com/dotnet/api/system.threading.tasks.taskcompletionsource-1" target="_blank" rel="noopener noreferrer">TaskCompletionSource<span id="LSTDAA3B82F_2" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>TResult<span id="LSTDAA3B82F_3" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a> objects.
             </td></tr><tr><td><a href="T_Gemstone_Threading_WeakAction.htm">WeakAction</a></td><td>
             Provides a weak referenced <a href="https://docs.microsoft.com/dotnet/api/system.action" target="_blank" rel="noopener noreferrer">Action</a> delegate.
-            </td></tr><tr><td><a href="T_Gemstone_Threading_WeakAction_1.htm">WeakAction<span id="LSTDAA3B82F_2" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LSTDAA3B82F_3" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            </td></tr><tr><td><a href="T_Gemstone_Threading_WeakAction_1.htm">WeakAction<span id="LSTDAA3B82F_4" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LSTDAA3B82F_5" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
             Provides a weak referenced <a href="https://docs.microsoft.com/dotnet/api/system.action" target="_blank" rel="noopener noreferrer">Action</a> delegate.
-            </td></tr></table></div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>Enumerations</h2><div id="IDFCASection"><table id="enumerationList" class="table is-hoverable"><tr><td><a href="T_Gemstone_Threading_ScheduledTaskRunningReason.htm">ScheduledTaskRunningReason</a></td><td>
+            </td></tr></table></div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>Enumerations</h2><div id="IDGCASection"><table id="enumerationList" class="table is-hoverable"><tr><td><a href="T_Gemstone_Threading_ScheduledTaskRunningReason.htm">ScheduledTaskRunningReason</a></td><td>
             Metadata about why this worker was called.
             </td></tr><tr><td><a href="T_Gemstone_Threading_ShutdownHandlerOrder.htm">ShutdownHandlerOrder</a></td><td>
             The order in which the specified callback should occur when shutting down.
