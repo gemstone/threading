@@ -2732,21 +2732,23 @@
             diligence on the user's part for handling exceptions and signaling when the operation
             is complete:
             
-            <codeSnippetGroup><code language="cs" codeLanguage="CSharp" style="cs">LogicalThread thread1 = new LogicalThread();
-LogicalThread thread2 = new LogicalThread();
-
-// Create logical thread operation with manually controlled call to RunIfPending
-LogicalThreadOperation operation = new LogicalThreadOperation(thread1, DoOperation, false);
-
-private void DoOperation()
-{
-    ExecuteOnThread1();
-    thread2.Push(() =&gt; operation.ExecuteAction(() =&gt;
-    {
-        ExecuteOnThread2();
-        operation.RunIfPending();
-    }));
-});</code></codeSnippetGroup></remarks>
+            <code>
+            LogicalThread thread1 = new LogicalThread();
+            LogicalThread thread2 = new LogicalThread();
+            
+            // Create logical thread operation with manually controlled call to RunIfPending
+            LogicalThreadOperation operation = new LogicalThreadOperation(thread1, DoOperation, false);
+            
+            private void DoOperation()
+            {
+                ExecuteOnThread1();
+                thread2.Push(() =&gt; operation.ExecuteAction(() =&gt;
+                {
+                    ExecuteOnThread2();
+                    operation.RunIfPending();
+                }));
+            });
+            </code></remarks>
     </member>
     <member name="M:Gemstone.Threading.LogicalThreads.LogicalThreadOperation.#ctor(Gemstone.Threading.LogicalThreads.LogicalThread,System.Action,System.Boolean)">
       <summary>
