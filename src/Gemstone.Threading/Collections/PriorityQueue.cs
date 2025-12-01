@@ -162,7 +162,7 @@ public sealed class PriorityQueue<T> : IProducerConsumerCollection<T>, IReadOnly
     /// <returns>True if an item was dequeued; false if the queue is empty.</returns>
     public bool TryDequeue(out T? result)
     {
-        foreach (ConcurrentQueue<T> queue in Queues.Reverse())
+        foreach (ConcurrentQueue<T> queue in Enumerable.Reverse(Queues))
         {
             if (queue.TryDequeue(out result))
                 return true;
@@ -208,7 +208,7 @@ public sealed class PriorityQueue<T> : IProducerConsumerCollection<T>, IReadOnly
     /// <returns>true if an object was returned successfully; otherwise, false.</returns>
     public bool TryPeek(out T? result)
     {
-        foreach (ConcurrentQueue<T> queue in Queues.Reverse())
+        foreach (ConcurrentQueue<T> queue in Enumerable.Reverse(Queues))
         {
             if (queue.TryPeek(out result))
                 return true;
@@ -242,13 +242,13 @@ public sealed class PriorityQueue<T> : IProducerConsumerCollection<T>, IReadOnly
     /// Returns an enumerator that iterates through the <see cref="PriorityQueue{T}"/>.
     /// </summary>
     /// <returns>An enumerator for the contents of the <see cref="PriorityQueue{T}"/>.</returns>
-    public IEnumerator<T> GetEnumerator() => Queues.Reverse().SelectMany(queue => queue).GetEnumerator();
+    public IEnumerator<T> GetEnumerator() => Enumerable.Reverse(Queues).SelectMany(queue => queue).GetEnumerator();
 
     /// <summary>
     /// Copies the elements stored in the <see cref="PriorityQueue{T}"/> to a new array.
     /// </summary>
     /// <returns>A new array containing a snapshot of elements copied from the <see cref="PriorityQueue{T}"/>.</returns>
-    public T[] ToArray() => Queues.Reverse().SelectMany(queue => queue).ToArray();
+    public T[] ToArray() => Enumerable.Reverse(Queues).SelectMany(queue => queue).ToArray();
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
